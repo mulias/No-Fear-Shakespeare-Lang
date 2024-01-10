@@ -29,6 +29,8 @@
           ];
           shellHook = ''
             export PATH=$PATH:$PWD/node_modules/.bin
+            export NVIM_PRETTIER_LSP=true
+            export NVIM_TYPESCRIPT_LSP=true
           '';
         };
       });
