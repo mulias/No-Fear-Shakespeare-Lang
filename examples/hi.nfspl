@@ -1,0 +1,19 @@
+## title: Greeting A New World
+## declare a: the carrier of characters
+
+Main {
+  stage a;
+
+  a {
+    a = 72;
+    print_char a;
+
+    a = a + 1;
+    print_char a;
+
+    a = 10;
+    print_char a;
+  }
+
+  unstage_all;
+}

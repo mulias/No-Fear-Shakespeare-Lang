@@ -1,0 +1,95 @@
+ws > program < ws < end
+
+program =
+  Nodes <- array_sep(act, ws) $
+  { "type": "program", "nodes": Nodes }
+
+act =
+  LabelId <- label_id & ws &
+  "{" & ws &
+  Nodes <- default(array_sep(act_part, ws), []) & ws &
+  "}" $
+  { "type": "act", "label_id": LabelId, "nodes": Nodes }
+
+act_part = stage_direction | block
+
+stage_direction = (stage | unstage | unstage_all) < ";"
+
+block =
+  VarId <- var_id & ws &
+  "{" & ws &
+  Nodes <- default(array_sep(statement < ws < ";", ws), []) & ws &
+  "}" $
+  { "type": "block", "var_id": VarId, "nodes": Nodes }
+
+statement = assign | print | test | if | goto
+
+assign =
+  VarId <- var_id & ws &
+  "=" & ws &
+  Value <- expression $
+  { "type": "assign", "var_id": VarId, "value": Value }
+
+expression = group | infix | const | var
+
+infix =
+  Left <- group | const | var & ws &
+  Op <- "+" | "-" | "/" | "*" | "%" & ws &
+  Right <- infix | group | const | var $
+  { "type": "infix", "left": Left, "op": Op, "right": Right }
+
+group = "(" > ws > expression < ws < ")"
+
+const = integer | character
+
+integer = Int <- int $ { "type": "integer", "value": Int }
+
+character = Char <- "'" > char < "'" $ { "type": "character", "value": Char }
+
+print = print_char | print_int
+
+print_char =
+  "print_char" & ws &
+  Var <- var $
+  { "type": "print_char", "var": Var }
+
+print_int =
+  "print_int" & ws &
+  VarId <- var_id $
+  { "type": "print_int", "var_id": VarId }
+
+test =
+  Is <- boolean("test", "test_not") & ws &
+  Left <- expression & ws &
+  Op <- "==" | ">" | "<" & ws &
+  Right <- expression & ws $
+  { "type": "test", "is": Is, "left": Left, "op": Op, "right": Right }
+
+if =
+  Is <- boolean("if_true", "if_false") & ws &
+  Then <- statement $
+  { "type": "if", "is": Is, "then": Then }
+
+goto = "goto" & ws & LabelId <- label_id $ { "kind": "goto", "label_id": LabelId }
+
+stage =
+  "stage" & ws &
+  VarIds <- array_sep(var_id, ws > "," < ws) $
+  { "type": "stage", "var_ids": VarIds }
+
+unstage =
+  "unstage" & ws &
+  VarIds <- array_sep(var_id, ws > "," < ws) $
+  { "type": "stage", "var_ids": VarIds }
+
+unstage_all = "unstage_all" $ { "type": "unstage_all" }
+
+label_id = peek(upper) > many(alpha | digit)
+
+var = Id <- var_id $ { "type": "var", "id": Id }
+
+var_id = peek(lower) > many(alpha | digit)
+
+ws = maybe_many(whitespace | comment)
+
+comment = "#" > until(char, nl) < ws
