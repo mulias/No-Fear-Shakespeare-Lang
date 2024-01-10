@@ -1,0 +1,13 @@
+{
+  "name": "no-fear-shakespeare",
+  "version": "1.0.0",
+  "description": "A modern translation of a classic programming language",
+  "main": "index.js",
+  "author": "Elias Mulhall",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^20.10.7",
+    "horatio": "^0.1.1",
+    "typescript": "^5.3.3"
+  }
+}
