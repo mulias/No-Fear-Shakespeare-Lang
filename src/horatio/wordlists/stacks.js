@@ -1,2 +1,2 @@
-export const remember = ['Remember'];
-export const recall   = ['Recall'];
+export const remember = ["Remember"];
+export const recall = ["Recall"];

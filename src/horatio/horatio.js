@@ -1,4 +1,4 @@
-import Compiler from './compiler';
+import Compiler from "./compiler";
 
 /**
  * Horatio
@@ -10,4 +10,4 @@ window.Horatio = class Horatio extends Compiler {
   constructor(io) {
     super(io);
   }
-}
+};

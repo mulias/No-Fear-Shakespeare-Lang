@@ -11,16 +11,15 @@
  */
 class Program {
   constructor(comment, declarations, parts) {
-    this.comment      = comment;
+    this.comment = comment;
     this.declarations = declarations;
-    this.parts        = parts;
+    this.parts = parts;
   }
 
   visit(visitor, arg) {
     return visitor.visitProgram(this, arg);
   }
 }
-
 
 /**
  * @memberof Horatio.AST
@@ -30,14 +29,13 @@ class Program {
 class Declaration {
   constructor(character, comment) {
     this.character = character;
-    this.comment   = comment;
+    this.comment = comment;
   }
 
   visit(visitor, arg) {
     return visitor.visitDeclaration(this, arg);
   }
 }
-
 
 /**
  * @memberof Horatio.AST
@@ -47,8 +45,8 @@ class Declaration {
  */
 class Part {
   constructor(numeral, comment, subparts) {
-    this.numeral  = numeral;
-    this.comment  = comment;
+    this.numeral = numeral;
+    this.comment = comment;
     this.subparts = subparts;
   }
 
@@ -56,7 +54,6 @@ class Part {
     return visitor.visitPart(this, arg);
   }
 }
-
 
 /**
  * @memberof Horatio.AST
@@ -68,14 +65,13 @@ class Subpart {
   constructor(numeral, comment, stage) {
     this.numeral = numeral;
     this.comment = comment;
-    this.stage   = stage;
+    this.stage = stage;
   }
 
   visit(visitor, arg) {
     return visitor.visitSubpart(this, arg);
   }
 }
-
 
 /**
  * @memberof Horatio.AST
@@ -85,16 +81,15 @@ class Subpart {
  */
 class Stage {
   constructor(dialogue, start_presence, end_presence) {
-    this.dialogue       = dialogue;
+    this.dialogue = dialogue;
     this.start_presence = start_presence;
-    this.end_presence   = end_presence;
+    this.end_presence = end_presence;
   }
 
   visit(visitor, arg) {
     return visitor.visitStage(this, arg);
   }
 }
-
 
 /**
  * @memberof Horatio.AST
@@ -112,7 +107,6 @@ class Enter {
   }
 }
 
-
 /**
  * @memberof Horatio.AST
  * @param {Horatio.AST.Character} character
@@ -126,7 +120,6 @@ class Exit {
     return visitor.visitExit(this, arg);
   }
 }
-
 
 /**
  * @memberof Horatio.AST
@@ -144,7 +137,6 @@ class Exeunt {
   }
 }
 
-
 /**
  * @memberof Horatio.AST
  * @param {Array.<Horatio.AST.Line>} lines
@@ -158,7 +150,6 @@ class Dialogue {
     return visitor.visitDialogue(this, arg);
   }
 }
-
 
 /**
  * @memberof Horatio.AST
@@ -176,7 +167,6 @@ class Line {
   }
 }
 
-
 /**
  * @memberof Horatio.AST
  * @param {Horatio.AST.Numeral} numeral
@@ -191,13 +181,12 @@ class Goto {
   }
 }
 
-
 /**
  * @memberof Horatio.AST
  */
 class AssignmentSentence {
   constructor(be, value) {
-    this.be    = be;
+    this.be = be;
     this.value = value;
   }
 
@@ -206,22 +195,20 @@ class AssignmentSentence {
   }
 }
 
-
 /**
  * @memberof Horatio.AST
  */
 class QuestionSentence {
   constructor(be, comparison, value) {
-    this.be         = be;
+    this.be = be;
     this.comparison = comparison;
-    this.value      = value;
+    this.value = value;
   }
 
   visit(visitor, arg) {
     return visitor.visitQuestionSentence(this, arg);
   }
 }
-
 
 /**
  * @memberof Horatio.AST
@@ -236,7 +223,6 @@ class ResponseSentence {
   }
 }
 
-
 /**
  * @memberof Horatio.AST
  */
@@ -249,7 +235,6 @@ class GotoSentence {
     return visitor.visitGotoSentence(this, arg);
   }
 }
-
 
 /**
  * @memberof Horatio.AST
@@ -264,7 +249,6 @@ class IntegerInputSentence {
   }
 }
 
-
 /**
  * @memberof Horatio.AST
  */
@@ -277,7 +261,6 @@ class CharInputSentence {
     return visitor.visitCharInputSentence(this, arg);
   }
 }
-
 
 /**
  * @memberof Horatio.AST
@@ -292,7 +275,6 @@ class IntegerOutputSentence {
   }
 }
 
-
 /**
  * @memberof Horatio.AST
  */
@@ -305,7 +287,6 @@ class CharOutputSentence {
     return visitor.visitCharOutputSentence(this, arg);
   }
 }
-
 
 /**
  * @memberof Horatio.AST
@@ -320,7 +301,6 @@ class RememberSentence {
   }
 }
 
-
 /**
  * @memberof Horatio.AST
  */
@@ -334,13 +314,12 @@ class RecallSentence {
   }
 }
 
-
 /**
  * @memberof Horatio.AST
  */
 class PositiveConstantValue {
   constructor(noun, adjectives) {
-    this.noun       = noun;
+    this.noun = noun;
     this.adjectives = adjectives;
   }
 
@@ -349,13 +328,12 @@ class PositiveConstantValue {
   }
 }
 
-
 /**
  * @memberof Horatio.AST
  */
 class NegativeConstantValue {
   constructor(noun, adjectives) {
-    this.noun       = noun;
+    this.noun = noun;
     this.adjectives = adjectives;
   }
 
@@ -364,14 +342,13 @@ class NegativeConstantValue {
   }
 }
 
-
 /**
  * @memberof Horatio.AST
  */
 class UnaryOperationValue {
   constructor(operator, value) {
     this.operator = operator;
-    this.value    = value;
+    this.value = value;
   }
 
   visit(visitor, arg) {
@@ -379,22 +356,20 @@ class UnaryOperationValue {
   }
 }
 
-
 /**
  * @memberof Horatio.AST
  */
 class ArithmeticOperationValue {
   constructor(operator, value_1, value_2) {
     this.operator = operator;
-    this.value_1  = value_1;
-    this.value_2  = value_2;
+    this.value_1 = value_1;
+    this.value_2 = value_2;
   }
 
   visit(visitor, arg) {
     return visitor.visitArithmeticOperationValue(this, arg);
   }
 }
-
 
 /**
  * @memberof Horatio.AST
@@ -409,7 +384,6 @@ class PronounValue {
   }
 }
 
-
 /**
  * @memberof Horatio.AST
  */
@@ -422,7 +396,6 @@ class GreaterThanComparison {
     return visitor.visitGreaterThanComparison(this, arg);
   }
 }
-
 
 /**
  * @memberof Horatio.AST
@@ -437,7 +410,6 @@ class LesserThanComparison {
   }
 }
 
-
 /**
  * @memberof Horatio.AST
  */
@@ -450,7 +422,6 @@ class EqualToComparison {
     return visitor.visitEqualToComparison(this, arg);
   }
 }
-
 
 /**
  * @memberof Horatio.AST
@@ -465,7 +436,6 @@ class InverseComparison {
   }
 }
 
-
 /**
  * @memberof Horatio.AST
  */
@@ -478,7 +448,6 @@ class Comment {
     return visitor.visitComment(this, arg);
   }
 }
-
 
 /**
  * @memberof Horatio.AST
@@ -506,7 +475,6 @@ class Character {
   }
 }
 
-
 /**
  * @memberof Horatio.AST
  */
@@ -519,7 +487,6 @@ class FirstPersonPronoun {
     return visitor.visitFirstPersonPronoun(this, arg);
   }
 }
-
 
 /**
  * @memberof Horatio.AST
@@ -534,7 +501,6 @@ class SecondPersonPronoun {
   }
 }
 
-
 /**
  * @memberof Horatio.AST
  */
@@ -547,7 +513,6 @@ class PositiveNoun {
     return visitor.visitPositiveNoun(this, arg);
   }
 }
-
 
 /**
  * @memberof Horatio.AST
@@ -562,7 +527,6 @@ class NeutralNoun {
   }
 }
 
-
 /**
  * @memberof Horatio.AST
  */
@@ -575,7 +539,6 @@ class NegativeNoun {
     return visitor.visitNegativeNoun(this, arg);
   }
 }
-
 
 /**
  * @memberof Horatio.AST
@@ -590,7 +553,6 @@ class PositiveAdjective {
   }
 }
 
-
 /**
  * @memberof Horatio.AST
  */
@@ -603,7 +565,6 @@ class NeutralAdjective {
     return visitor.visitNeutralAdjective(this, arg);
   }
 }
-
 
 /**
  * @memberof Horatio.AST
@@ -618,7 +579,6 @@ class NegativeAdjective {
   }
 }
 
-
 /**
  * @memberof Horatio.AST
  */
@@ -631,7 +591,6 @@ class UnaryOperator {
     return visitor.visitUnaryOperator(this, arg);
   }
 }
-
 
 /**
  * @memberof Horatio.AST
@@ -646,7 +605,6 @@ class ArithmeticOperator {
   }
 }
 
-
 /**
  * @memberof Horatio.AST
  */
@@ -659,7 +617,6 @@ class PositiveComparative {
     return visitor.visitPositiveComparative(this, arg);
   }
 }
-
 
 /**
  * @memberof Horatio.AST
@@ -674,7 +631,6 @@ class NegativeComparative {
   }
 }
 
-
 /**
  * @memberof Horatio.AST
  */
@@ -688,7 +644,6 @@ class Be {
   }
 }
 
-
 /**
  * @memberof Horatio.AST
  */
@@ -701,7 +656,6 @@ class BeComparative {
     return visitor.visitBeComparative(this, arg);
   }
 }
-
 
 /** Export */
 export default {
@@ -750,5 +704,5 @@ export default {
   PositiveComparative: PositiveComparative,
   NegativeComparative: NegativeComparative,
   Be: Be,
-  BeComparative: BeComparative
-}
+  BeComparative: BeComparative,
+};

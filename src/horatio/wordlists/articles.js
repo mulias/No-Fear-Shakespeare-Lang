@@ -1,6 +1,2 @@
 /** Articles **/
-export const articles = [
-  'a',
-  'an',
-  'the'
-];
+export const articles = ["a", "an", "the"];

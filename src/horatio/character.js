@@ -4,7 +4,7 @@
 export default class Character {
   constructor(name) {
     this._name = name;
-    this._value  = null;
+    this._value = null;
     this._memory = [];
   }
 
@@ -40,7 +40,7 @@ export default class Character {
    * @returns {boolean}
    */
   noMemory() {
-    return (this.memory.length===0);
+    return this.memory.length === 0;
   }
 
   /**

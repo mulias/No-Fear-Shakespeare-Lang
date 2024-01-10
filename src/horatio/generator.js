@@ -2,7 +2,6 @@
  * Horatio Generation Visitor
  */
 export default class Generator {
-
   /**
    * Program
    */
@@ -10,18 +9,17 @@ export default class Generator {
     let self = this;
 
     // declarations
-    program.declarations.forEach(function(declaration) {
+    program.declarations.forEach(function (declaration) {
       declaration.visit(self, null);
     });
 
     // parts
-    program.parts.forEach(function(part) {
+    program.parts.forEach(function (part) {
       part.visit(self, null);
     });
 
     return null;
   }
-
 
   /**
    * Declaration
@@ -32,7 +30,6 @@ export default class Generator {
     return null;
   }
 
-
   /**
    * Numeral
    */
@@ -40,7 +37,6 @@ export default class Generator {
     let n = this.numeralIndex(numeral.sequence);
     return n;
   }
-
 
   /**
    * Part
@@ -50,13 +46,12 @@ export default class Generator {
 
     let n = part.numeral.visit(this, arg);
     let act = this.program.newAct();
-    part.subparts.forEach(function(subpart) {
-      subpart.visit(self, {act: act});
+    part.subparts.forEach(function (subpart) {
+      subpart.visit(self, { act: act });
     });
 
     return null;
   }
-
 
   /**
    * Subparts
@@ -64,11 +59,10 @@ export default class Generator {
   visitSubpart(subpart, arg) {
     let n = subpart.numeral.visit(this, arg);
     let scene = this.program.newScene(arg.act);
-    subpart.stage.visit(this, {act: arg.act, scene: scene});
+    subpart.stage.visit(this, { act: arg.act, scene: scene });
 
     return null;
   }
-
 
   /**
    * Stage
@@ -81,14 +75,13 @@ export default class Generator {
     return null;
   }
 
-
   /**
    * Enter
    */
   visitEnter(presence, arg) {
-    let Command = function(cname) {
+    let Command = function (cname) {
       let c = cname;
-      return function() {
+      return function () {
         this.enterStage(c);
       };
     };
@@ -106,14 +99,13 @@ export default class Generator {
     return null;
   }
 
-
   /**
    * Exit
    */
   visitExit(presence, arg) {
-    let Command = function(cname) {
+    let Command = function (cname) {
       let c = cname;
-      return function() {
+      return function () {
         this.exitStage(c);
       };
     };
@@ -125,13 +117,12 @@ export default class Generator {
     return null;
   }
 
-
   /**
    * Exeunt
    */
   visitExeunt(presence, arg) {
-    let Command = function() {
-      return function() {
+    let Command = function () {
+      return function () {
         this.exeuntStage();
       };
     };
@@ -141,18 +132,16 @@ export default class Generator {
     return null;
   }
 
-
   /**
    * Dialogue
    */
   visitDialogue(dialogue, arg) {
     let self = this;
-    dialogue.lines.forEach(function(line) {
+    dialogue.lines.forEach(function (line) {
       line.visit(self, arg);
     });
     return null;
   }
-
 
   /**
    * Line
@@ -163,13 +152,12 @@ export default class Generator {
     let c = line.character.sequence;
     arg.character = c;
 
-    line.sentences.forEach(function(sentence) {
+    line.sentences.forEach(function (sentence) {
       sentence.visit(self, arg);
     });
 
     return null;
   }
-
 
   /**
    * Goto
@@ -180,16 +168,15 @@ export default class Generator {
     return null;
   }
 
-
   /**
    * Assignment Sentence
    */
   visitAssignmentSentence(assignment, arg) {
-    let Command = function(target, value) {
+    let Command = function (target, value) {
       let t = target;
       let v = value;
 
-      return function() {
+      return function () {
         let target = t.call(this);
         let val = v.call(this);
         this.characters[target].setValue(val);
@@ -204,33 +191,35 @@ export default class Generator {
     return null;
   }
 
-
   /**
    * Question Sentence
    */
   visitQuestionSentence(question, arg) {
-    let Command = function(be, comparative, value) {
+    let Command = function (be, comparative, value) {
       let b = be;
       let c = comparative;
       let v = value;
 
-      return function() {
+      return function () {
         let character = b.call(this);
         let a = this.characters[b].value();
         let val = v.call(this);
-        let result = c.call(this,a,val);
+        let result = c.call(this, a, val);
       };
     };
 
-    let be          = question.be.visit(this, arg);
+    let be = question.be.visit(this, arg);
     let comparative = question.comparison.visit(this, arg);
-    let value       = question.value.visit(this, arg);
+    let value = question.value.visit(this, arg);
 
-    this.program.addCommand(arg.act, arg.scene, new Command(be, comparative, value));
+    this.program.addCommand(
+      arg.act,
+      arg.scene,
+      new Command(be, comparative, value),
+    );
 
     return null;
   }
-
 
   /**
    * Response Sentence
@@ -241,7 +230,6 @@ export default class Generator {
     return null;
   }
 
-
   /**
    * Goto Sentence
    */
@@ -251,35 +239,28 @@ export default class Generator {
     return null;
   }
 
-
   /**
    * Integer Input Sentence
    */
   visitIntegerInputSentence(integer_input, arg) {
-
     return null;
   }
-
-
 
   /**
    * Char Input Sentence
    */
   visitCharInputSentence(char_input, arg) {
-
     return null;
   }
-
-
 
   /**
    * Integer Output Sentence
    */
   visitIntegerOutputSentence(integer_output, arg) {
-    let Command = function() {
+    let Command = function () {
       let speaker = arg.character;
 
-      return function() {
+      return function () {
         let val = this.interlocutor(speaker).value();
         this.io.print(val);
       };
@@ -290,16 +271,14 @@ export default class Generator {
     return null;
   }
 
-
-
   /**
    * Char Output Sentence
    */
   visitCharOutputSentence(char_output, arg) {
-    let Command = function() {
+    let Command = function () {
       let speaker = arg.character;
 
-      return function() {
+      return function () {
         let val = this.interlocutor(speaker).value();
         this.io.print(String.fromCharCode(val));
       };
@@ -310,17 +289,15 @@ export default class Generator {
     return null;
   }
 
-
-
   /**
    * Remember Sentence
    */
   visitRememberSentence(remember, arg) {
-    let Command = function(pronoun) {
+    let Command = function (pronoun) {
       let speaking = arg.character;
       let p = pronoun;
 
-      return function() {
+      return function () {
         let pn = p();
         let value = this.characters[pn].value();
         this.characters[speaking].remember(value);
@@ -334,16 +311,14 @@ export default class Generator {
     return null;
   }
 
-
-
   /**
    * Recall Sentence
    */
   visitRecallSentence(recall, arg) {
-    let Command = function() {
+    let Command = function () {
       let speaking = arg.character;
 
-      return function() {
+      return function () {
         this.interlocutor(speaking).recall();
       };
     };
@@ -353,16 +328,14 @@ export default class Generator {
     return null;
   }
 
-
-
   /**
    * Positive Constant Value
    */
   visitPositiveConstantValue(pc_val, arg) {
-    let Command = function(num_adjectives) {
+    let Command = function (num_adjectives) {
       let exp = num_adjectives;
 
-      return function() {
+      return function () {
         return Math.pow(2, exp);
       };
     };
@@ -372,17 +345,15 @@ export default class Generator {
     return new Command(adjectives.length);
   }
 
-
-
   /**
    * Negative Constant Value
    */
   visitNegativeConstantValue(nc_val, arg) {
-    let Command = function(num_adjectives) {
+    let Command = function (num_adjectives) {
       let exp = num_adjectives;
 
-      return function() {
-        return (-1*Math.pow(2, exp));
+      return function () {
+        return -1 * Math.pow(2, exp);
       };
     };
 
@@ -391,43 +362,39 @@ export default class Generator {
     return new Command(adjectives.length);
   }
 
-
-
   /**
    * Unary Operation Value
    */
   visitUnaryOperationValue(unary, arg) {
-    let Command = function(operator, value) {
+    let Command = function (operator, value) {
       let o = operator;
       let v = value;
 
-      return function() {
+      return function () {
         let val = v.call(this);
-        return o.call(this,val);
+        return o.call(this, val);
       };
     };
 
     let o = unary.operator.visit(this, arg);
     let v = unary.value.visit(this, arg);
 
-    return new Command(o,v);
+    return new Command(o, v);
   }
-
-
 
   /**
    * Arithmetic Operation Value
    */
   visitArithmeticOperationValue(arithmetic, arg) {
-    let Command = function(operator, value1, value2) {
+    let Command = function (operator, value1, value2) {
       let o = operator;
       let v1 = value1;
       let v2 = value2;
 
-      return function() {
+      return function () {
         let val1 = v1.call(this);
         let val2 = v2.call(this);
-        return o.call(this,val1, val2);
+        return o.call(this, val1, val2);
       };
     };
 
@@ -438,16 +405,14 @@ export default class Generator {
     return new Command(o, v1, v2);
   }
 
-
-
   /**
    * Pronoun Value
    */
   visitPronounValue(pronoun, arg) {
-    let Command = function(p) {
+    let Command = function (p) {
       let pronoun = p;
 
-      return function() {
+      return function () {
         let p = pronoun.call(this);
         return this.characters[p].value();
       };
@@ -457,62 +422,54 @@ export default class Generator {
     return new Command(p);
   }
 
-
-
   /**
    * Greater Than Comparison
    */
   visitGreaterThanComparison(comparison, arg) {
-    let Command = function() {
-      return function(a, b) {
-        return (a > b);
+    let Command = function () {
+      return function (a, b) {
+        return a > b;
       };
     };
 
     return new Command();
   }
-
-
 
   /**
    * Lesser Than Comparison
    */
   visitLesserThanComparison(comparison, arg) {
-    let Command = function() {
-      return function(a, b) {
-        return (a < b);
+    let Command = function () {
+      return function (a, b) {
+        return a < b;
       };
     };
 
     return new Command();
   }
-
-
 
   /**
    * Equal To Comparison
    */
   visitEqualToComparison(comparison, arg) {
-    let Command = function() {
-      return function(a, b) {
-        return (a === b);
+    let Command = function () {
+      return function (a, b) {
+        return a === b;
       };
     };
 
     return new Command();
   }
 
-
-
   /**
    * Inverse Comparison
    */
   visitInverseComparison(comparison, arg) {
-    let Command = function(comparison) {
+    let Command = function (comparison) {
       let c = comparison;
 
-      return function(a, b) {
-        return (!c(a,b));
+      return function (a, b) {
+        return !c(a, b);
       };
     };
 
@@ -521,16 +478,14 @@ export default class Generator {
     return new Command(c);
   }
 
-
-
   /**
    * First Person Pronoun
    */
   visitFirstPersonPronoun(fpp, arg) {
-    let Command = function() {
+    let Command = function () {
       let speaking = arg.character;
 
-      return function() {
+      return function () {
         return speaking;
       };
     };
@@ -538,16 +493,14 @@ export default class Generator {
     return new Command();
   }
 
-
-
   /**
    * Second Person Pronoun
    */
   visitSecondPersonPronoun(spp, arg) {
-    let Command = function() {
+    let Command = function () {
       let speaking = arg.character;
 
-      return function() {
+      return function () {
         return this.interlocutor(speaking).name();
       };
     };
@@ -555,43 +508,41 @@ export default class Generator {
     return new Command();
   }
 
-
-
   /**
    * Unary Operator
    */
   visitUnaryOperator(operator, arg) {
-    let Command = function(operator) {
+    let Command = function (operator) {
       let o = operator;
 
-      switch(o) {
-      case "square of":
-        return function(v) {
-          return Math.pow(v,2);
-        };
-      case "cube of":
-        return function(v) {
-          return Math.pow(v,3);
-        };
-      case "square root of":
-        return function(v) {
-          let sign = (v < 0) ? -1 : 1;
-          return sign*Math.floor(Math.sqrt(Math.abs(v)));
-        };
-      case "factorial of":
-        return function(v) {
-          let sign = (v < 0) ? -1 : 1;
-          let num = Math.abs(v);
-          let fv = 1;
-          for (let i = 2; i<=num; i++) {
-            fv = fv*i;
-          }
-          return sign*fv;
-        };
-      case "twice":
-        return function(v) {
-          return 2*v;
-        };
+      switch (o) {
+        case "square of":
+          return function (v) {
+            return Math.pow(v, 2);
+          };
+        case "cube of":
+          return function (v) {
+            return Math.pow(v, 3);
+          };
+        case "square root of":
+          return function (v) {
+            let sign = v < 0 ? -1 : 1;
+            return sign * Math.floor(Math.sqrt(Math.abs(v)));
+          };
+        case "factorial of":
+          return function (v) {
+            let sign = v < 0 ? -1 : 1;
+            let num = Math.abs(v);
+            let fv = 1;
+            for (let i = 2; i <= num; i++) {
+              fv = fv * i;
+            }
+            return sign * fv;
+          };
+        case "twice":
+          return function (v) {
+            return 2 * v;
+          };
       }
     };
 
@@ -599,37 +550,35 @@ export default class Generator {
 
     return new Command(o);
   }
-
-
 
   /**
    * Arithmetic Operator
    */
   visitArithmeticOperator(operator, arg) {
-    let Command = function(operator) {
+    let Command = function (operator) {
       let o = operator;
 
-      switch(o) {
-      case "sum of":
-        return function(a,b) {
-          return a+b;
-        };
-      case "difference between":
-        return function(a,b) {
-          return a-b;
-        };
-      case "product of":
-        return function(a,b) {
-          return a*b;
-        };
-      case "quotient between":
-        return function(a,b) {
-          return Math.round(a/b);
-        };
-      case "remainder of the quotient between":
-        return function(a,b) {
-          return a%b;
-        };
+      switch (o) {
+        case "sum of":
+          return function (a, b) {
+            return a + b;
+          };
+        case "difference between":
+          return function (a, b) {
+            return a - b;
+          };
+        case "product of":
+          return function (a, b) {
+            return a * b;
+          };
+        case "quotient between":
+          return function (a, b) {
+            return Math.round(a / b);
+          };
+        case "remainder of the quotient between":
+          return function (a, b) {
+            return a % b;
+          };
       }
     };
 
@@ -638,27 +587,25 @@ export default class Generator {
     return new Command(o);
   }
 
-
-
   /**
    * Be
    */
   visitBe(be, arg) {
-    let Command = function(be) {
+    let Command = function (be) {
       let b = be;
       let speaking = arg.character;
 
-      switch(b) {
-      case "Thou art":
-      case "You are":
-      case "You":
-        return function() {
-          return this.interlocutor(speaking).name();
-        };
-      case "I am":
-        return function() {
-          return speaking;
-        };
+      switch (b) {
+        case "Thou art":
+        case "You are":
+        case "You":
+          return function () {
+            return this.interlocutor(speaking).name();
+          };
+        case "I am":
+          return function () {
+            return speaking;
+          };
       }
     };
 
@@ -667,27 +614,25 @@ export default class Generator {
     return new Command(b);
   }
 
-
-
   /**
    * Be Comparative
    */
   visitBeComparative(be, arg) {
-    let Command = function(be) {
+    let Command = function (be) {
       let b = be;
       let speaking = arg.character;
       let t;
 
-      switch(b) {
-      case "Art thou":
-      case "Are you":
-        return function() {
-          return this.interlocutor(speaking).name();
-        };
-      case "Am I":
-        return function() {
-          return this.characters[speaking].name();
-        };
+      switch (b) {
+        case "Art thou":
+        case "Are you":
+          return function () {
+            return this.interlocutor(speaking).name();
+          };
+        case "Am I":
+          return function () {
+            return this.characters[speaking].name();
+          };
       }
     };
 

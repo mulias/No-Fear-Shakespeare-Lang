@@ -1,6 +1,2 @@
 /** First Person */
-export const first_person = [
-  'I',
-  'i',
-  'me'
-];
+export const first_person = ["I", "i", "me"];

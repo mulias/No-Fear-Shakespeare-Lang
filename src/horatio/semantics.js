@@ -1,10 +1,9 @@
-import AST from './ast';
+import AST from "./ast";
 
 /**
  * Horatio Semantics Visitor
  */
 export default class Semantics {
-
   /**
    * Program
    */
@@ -16,7 +15,7 @@ export default class Semantics {
 
     // declarations
     if (program.declarations.length > 0) {
-      program.declarations.forEach(function(declaration) {
+      program.declarations.forEach(function (declaration) {
         declaration.visit(self, null);
       });
     } else {
@@ -25,7 +24,7 @@ export default class Semantics {
 
     // parts
     if (program.parts.length > 0) {
-      program.parts.forEach(function(part) {
+      program.parts.forEach(function (part) {
         part.visit(self, null);
       });
     } else {
@@ -34,8 +33,6 @@ export default class Semantics {
 
     return null;
   }
-
-
 
   /**
    * Comment
@@ -47,8 +44,6 @@ export default class Semantics {
       throw new Error("Semantic Error - Comment malformed.");
     }
   }
-
-
 
   /**
    * Declaration
@@ -65,8 +60,6 @@ export default class Semantics {
     declaration.comment.visit(this, arg);
     return null;
   }
-
-
 
   /**
    * Character
@@ -88,26 +81,24 @@ export default class Semantics {
     }
 
     // Present on stage flag
-    if (arg && arg.hasOwnProperty('on_stage')) {
+    if (arg && arg.hasOwnProperty("on_stage")) {
       switch (arg.on_stage) {
-      case true:
-        if (!this.onStage(character.sequence)) {
-          throw new Error("Semantic Error - Character not on stage.");
-        }
-        break;
+        case true:
+          if (!this.onStage(character.sequence)) {
+            throw new Error("Semantic Error - Character not on stage.");
+          }
+          break;
 
-      case false:
-        if (this.onStage(character.sequence)) {
-          throw new Error("Semantic Error - Character already on stage.");
-        }
-        break;
+        case false:
+          if (this.onStage(character.sequence)) {
+            throw new Error("Semantic Error - Character already on stage.");
+          }
+          break;
       }
     }
 
     return character;
   }
-
-
 
   /**
    * Part
@@ -120,20 +111,17 @@ export default class Semantics {
 
     if (this.parts[n]) {
       throw new Error("Semantic Error - Act already defined.");
-    } else
-    if (part.subparts.length === 0) {
+    } else if (part.subparts.length === 0) {
       throw new Error("Semantic Error - No subparts defined.");
     } else {
       this.parts[n] = [];
-      part.subparts.forEach(function(subpart) {
-        subpart.visit(self, {act: n});
+      part.subparts.forEach(function (subpart) {
+        subpart.visit(self, { act: n });
       });
     }
 
     return null;
   }
-
-
 
   /**
    * Numeral
@@ -147,8 +135,6 @@ export default class Semantics {
     return null;
   }
 
-
-
   /**
    * Subparts
    */
@@ -160,13 +146,11 @@ export default class Semantics {
     } else {
       this.parts[arg.act].push(n);
       subpart.comment.visit(this, arg);
-      subpart.stage.visit(this, {act: arg.act, scene: n});
+      subpart.stage.visit(this, { act: arg.act, scene: n });
     }
 
     return null;
   }
-
-
 
   /**
    * Stage
@@ -178,8 +162,6 @@ export default class Semantics {
     return null;
   }
 
-
-
   /**
    * Enter
    */
@@ -188,14 +170,22 @@ export default class Semantics {
       throw new Error("Semantic Error - No characters entering.");
     }
 
-    let c1 = presence.character_1.visit(this, {declared: true, on_stage: false});
+    let c1 = presence.character_1.visit(this, {
+      declared: true,
+      on_stage: false,
+    });
     this.toggleStage(c1.sequence);
 
     if (presence.character_2) {
-      let c2 = presence.character_2.visit(this, {declared: true, on_stage: false});
+      let c2 = presence.character_2.visit(this, {
+        declared: true,
+        on_stage: false,
+      });
 
       if (c1.sequence === c2.sequence) {
-        throw new Error("Semantic Error - Same character entering twice in same statement.");
+        throw new Error(
+          "Semantic Error - Same character entering twice in same statement.",
+        );
       }
 
       this.toggleStage(c2.sequence);
@@ -203,8 +193,6 @@ export default class Semantics {
 
     return null;
   }
-
-
 
   /**
    * Exit
@@ -214,13 +202,11 @@ export default class Semantics {
       throw new Error("Semantic Error - No character exiting.");
     }
 
-    let c = presence.character.visit(this, {declared: true, on_stage: true});
+    let c = presence.character.visit(this, { declared: true, on_stage: true });
     this.toggleStage(c.sequence);
 
     return null;
   }
-
-
 
   /**
    * Exeunt
@@ -231,12 +217,20 @@ export default class Semantics {
     // x characters are the same
 
     if (presence.character_1 ? !presence.character_2 : presence.character_2) {
-      throw new Error("Semantic Error - Either 2 or no characters can be defined, not one.");
+      throw new Error(
+        "Semantic Error - Either 2 or no characters can be defined, not one.",
+      );
     }
 
     if (presence.character_1 && presence.character_2) {
-      let c1 = presence.character_1.visit(this, {declared: true, on_stage: true});
-      let c2 = presence.character_2.visit(this, {declared: true, on_stage: true});
+      let c1 = presence.character_1.visit(this, {
+        declared: true,
+        on_stage: true,
+      });
+      let c2 = presence.character_2.visit(this, {
+        declared: true,
+        on_stage: true,
+      });
 
       if (c1.sequence === c2.sequence) {
         throw new Error("Semantic Error - Characters are the same.");
@@ -244,7 +238,6 @@ export default class Semantics {
 
       this.toggleStage(c1.sequence);
       this.toggleStage(c2.sequence);
-
     } else {
       this.exeuntStage();
     }
@@ -252,20 +245,16 @@ export default class Semantics {
     return null;
   }
 
-
-
   /**
    * Dialogue
    */
   visitDialogue(dialogue, arg) {
     let self = this;
-    dialogue.lines.forEach(function(line) {
+    dialogue.lines.forEach(function (line) {
       line.visit(self, arg);
     });
     return null;
   }
-
-
 
   /**
    * Line
@@ -273,21 +262,19 @@ export default class Semantics {
   visitLine(line, arg) {
     let self = this;
 
-    let c = line.character.visit(this, {declared: true, on_stage: true});
+    let c = line.character.visit(this, { declared: true, on_stage: true });
 
     if (line.sentences.length === 0) {
       throw new Error("Semantic Error - Line cannot have no sentences.");
     } else {
       arg.character = c.sequence;
-      line.sentences.forEach(function(sentence) {
+      line.sentences.forEach(function (sentence) {
         sentence.visit(self, arg);
       });
     }
 
     return null;
   }
-
-
 
   /**
    * Goto
@@ -296,13 +283,13 @@ export default class Semantics {
     let n = goto.numeral.visit(this, arg);
 
     if (!this.sceneExists(arg.act, arg.scene)) {
-      throw new Error("Semantic Error - Scene specified by Goto does not exist in this act.");
+      throw new Error(
+        "Semantic Error - Scene specified by Goto does not exist in this act.",
+      );
     }
 
     return null;
   }
-
-
 
   /**
    * Assignment Sentence
@@ -315,8 +302,6 @@ export default class Semantics {
     return null;
   }
 
-
-
   /**
    * Question Sentence
    */
@@ -328,8 +313,6 @@ export default class Semantics {
     return null;
   }
 
-
-
   /**
    * Response Sentence
    */
@@ -338,8 +321,6 @@ export default class Semantics {
 
     return null;
   }
-
-
 
   /**
    * Goto Sentence
@@ -350,55 +331,53 @@ export default class Semantics {
     return null;
   }
 
-
-
   /**
    * Integer Input Sentence
    */
   visitIntegerInputSentence(integer_input, arg) {
     if (this.solo(arg.character)) {
-      throw new Error("Semantic Error - Input calls require two characters on stage.");
+      throw new Error(
+        "Semantic Error - Input calls require two characters on stage.",
+      );
     }
     return null;
   }
-
-
 
   /**
    * Char Input Sentence
    */
   visitCharInputSentence(char_input, arg) {
     if (this.solo(arg.character)) {
-      throw new Error("Semantic Error - Input calls require two characters on stage.");
+      throw new Error(
+        "Semantic Error - Input calls require two characters on stage.",
+      );
     }
     return null;
   }
-
-
 
   /**
    * Integer Output Sentence
    */
   visitIntegerOutputSentence(integer_output, arg) {
     if (this.solo(arg.character)) {
-      throw new Error("Semantic Error - Output calls require two characters on stage.");
+      throw new Error(
+        "Semantic Error - Output calls require two characters on stage.",
+      );
     }
     return null;
   }
-
-
 
   /**
    * Char Output Sentence
    */
   visitCharOutputSentence(char_output, arg) {
     if (this.solo(arg.character)) {
-      throw new Error("Semantic Error - Output calls require two characters on stage.");
+      throw new Error(
+        "Semantic Error - Output calls require two characters on stage.",
+      );
     }
     return null;
   }
-
-
 
   /**
    * Remember Sentence
@@ -409,16 +388,12 @@ export default class Semantics {
     return null;
   }
 
-
-
   /**
    * Recall Sentence
    */
   visitRecallSentence(recall, arg) {
     recall.comment.visit(this, arg);
   }
-
-
 
   /**
    * Positive Constant Value
@@ -427,15 +402,25 @@ export default class Semantics {
     let self = this;
 
     let n;
-    if (!(pc_val.noun instanceof AST.PositiveNoun) && !(pc_val.noun instanceof AST.NeutralNoun)) {
-      throw new Error("Semantic Error - Positive Constants must use a positive or neutral noun");
+    if (
+      !(pc_val.noun instanceof AST.PositiveNoun) &&
+      !(pc_val.noun instanceof AST.NeutralNoun)
+    ) {
+      throw new Error(
+        "Semantic Error - Positive Constants must use a positive or neutral noun",
+      );
     } else {
       n = pc_val.noun.visit(self, arg);
     }
     pc_val.noun.visit(this, arg);
-    pc_val.adjectives.forEach(function(adjective) {
-      if (!(adjective instanceof AST.PositiveAdjective) && !(adjective instanceof AST.NeutralAdjective)) {
-        throw new Error("Semantic Error - Positive Constants must use positive of neutral adjectives.");
+    pc_val.adjectives.forEach(function (adjective) {
+      if (
+        !(adjective instanceof AST.PositiveAdjective) &&
+        !(adjective instanceof AST.NeutralAdjective)
+      ) {
+        throw new Error(
+          "Semantic Error - Positive Constants must use positive of neutral adjectives.",
+        );
       } else {
         adjective.visit(self, arg);
       }
@@ -445,8 +430,6 @@ export default class Semantics {
     return 0; // placeholder
   }
 
-
-
   /**
    * Negative Constant Value
    */
@@ -454,15 +437,25 @@ export default class Semantics {
     let self = this;
 
     let n;
-    if (!(nc_val.noun instanceof AST.NegativeNoun) && !(nc_val.noun instanceof AST.NeutralNoun)) {
-      throw new Error("Semantic Error - Negative Constants must use a negative or neutral noun");
+    if (
+      !(nc_val.noun instanceof AST.NegativeNoun) &&
+      !(nc_val.noun instanceof AST.NeutralNoun)
+    ) {
+      throw new Error(
+        "Semantic Error - Negative Constants must use a negative or neutral noun",
+      );
     } else {
       n = nc_val.noun.visit(self, arg);
     }
     nc_val.noun.visit(this, arg);
-    nc_val.adjectives.forEach(function(adjective) {
-      if (!(adjective instanceof AST.NegativeAdjective) && !(adjective instanceof AST.NeutralAdjective)) {
-        throw new Error("Semantic Error - Negative Constants must use negative of neutral adjectives.");
+    nc_val.adjectives.forEach(function (adjective) {
+      if (
+        !(adjective instanceof AST.NegativeAdjective) &&
+        !(adjective instanceof AST.NeutralAdjective)
+      ) {
+        throw new Error(
+          "Semantic Error - Negative Constants must use negative of neutral adjectives.",
+        );
       } else {
         adjective.visit(self, arg);
       }
@@ -471,8 +464,6 @@ export default class Semantics {
     //return (-1 * Math.pow(2, nc_val.adjectives.length));
     return 0; // placeholder
   }
-
-
 
   /**
    * Unary Operation Value
@@ -483,8 +474,6 @@ export default class Semantics {
 
     return 0; // placeholder
   }
-
-
 
   /**
    * Arithmetic Operation Value
@@ -497,8 +486,6 @@ export default class Semantics {
     return 0; //placeholder
   }
 
-
-
   /**
    * Pronoun Value
    */
@@ -507,8 +494,6 @@ export default class Semantics {
 
     return p;
   }
-
-
 
   /**
    * Greater Than Comparison
@@ -519,8 +504,6 @@ export default class Semantics {
     return c;
   }
 
-
-
   /**
    * Lesser Than Comparison
    */
@@ -529,8 +512,6 @@ export default class Semantics {
 
     return null;
   }
-
-
 
   /**
    * Equal To Comparison
@@ -541,8 +522,6 @@ export default class Semantics {
     return null;
   }
 
-
-
   /**
    * Inverse Comparison
    */
@@ -552,154 +531,121 @@ export default class Semantics {
     return c;
   }
 
-
-
   /**
    * First Person Pronoun
    */
   visitFirstPersonPronoun(fpp, arg) {
-
     return null;
   }
-
-
 
   /**
    * Second Person Pronoun
    */
   visitSecondPersonPronoun(spp, arg) {
-
     return null;
   }
-
-
 
   /**
    * Positive Noun
    */
   visitPositiveNoun(noun, arg) {
-
     return null;
   }
-
-
 
   /**
    * Neutral Noun
    */
   visitNeutralNoun(noun, arg) {
-
     return null;
   }
-
-
 
   /**
    * Negative Noun
    */
   visitNegativeNoun(noun, arg) {
-
     return null;
   }
-
-
 
   /**
    * Positive Adjective
    */
   visitPositiveAdjective(adjective, arg) {
-
     return null;
   }
-
-
 
   /**
    * Neutral Adjective
    */
   visitNeutralAdjective(adjective, arg) {
-
     return null;
   }
-
-
 
   /**
    * Negative Adjective
    */
   visitNegativeAdjective(adjective, arg) {
-
     return null;
   }
-
-
 
   /**
    * Unary Operator
    */
   visitUnaryOperator(operator, arg) {
-
     return null;
   }
-
-
 
   /**
    * Arithmetic Operator
    */
   visitArithmeticOperator(operator, arg) {
-
     return null;
   }
-
-
 
   /**
    * Positive Comparative
    */
   visitPositiveComparative(comparative, arg) {
-
     return null;
   }
-
-
 
   /**
    * Negative Comparative
    */
   visitNegativeComparative(comparative, arg) {
-
     return null;
   }
-
-
 
   /**
    * Be
    */
   visitBe(be, arg) {
-    if (be.sequence==="You are" || be.sequence==="Thou art" || be.sequence==="You") {
+    if (
+      be.sequence === "You are" ||
+      be.sequence === "Thou art" ||
+      be.sequence === "You"
+    ) {
       if (this.solo(arg.character)) {
         console.log("solo");
-        throw new Error("Semantic Error - Cannot assign value to interlocutor, only 1 character is on stage.");
+        throw new Error(
+          "Semantic Error - Cannot assign value to interlocutor, only 1 character is on stage.",
+        );
       }
     }
 
     return null;
   }
 
-
-
   /**
    * Be Comparative
    */
   visitBeComparative(be, arg) {
-    if (be.sequence==="Are you" || be.sequence==="Art thou") {
+    if (be.sequence === "Are you" || be.sequence === "Art thou") {
       if (this.solo(arg.character))
-        throw new Error("Semantic Error - Cannot compare value of interlocutor, only 1 character is on stage.");
+        throw new Error(
+          "Semantic Error - Cannot compare value of interlocutor, only 1 character is on stage.",
+        );
     }
 
     return null;
   }
-
 }

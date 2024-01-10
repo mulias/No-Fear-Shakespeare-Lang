@@ -1,4 +1,4 @@
-import Semantics from './semantics';
+import Semantics from "./semantics";
 
 /**
  * Horatio Checker
@@ -41,7 +41,7 @@ export default class Checker extends Semantics {
   solo(character) {
     if (this.declared(character) && this.characters[character]) {
       for (let k in this.characters) {
-        if ((k!==character) && (this.characters[k]===true)) {
+        if (k !== character && this.characters[k] === true) {
           return false;
         }
       }
@@ -75,7 +75,7 @@ export default class Checker extends Semantics {
     if (!this.parts[act]) {
       return false;
     } else {
-      return (this.parts[act].indexOf(scene) !== -1);
+      return this.parts[act].indexOf(scene) !== -1;
     }
   }
 }

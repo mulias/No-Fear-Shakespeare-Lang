@@ -1,4 +1,4 @@
-import Character from './character';
+import Character from "./character";
 
 /**
  * A Horatio Program
@@ -39,12 +39,12 @@ export default class Program {
 
   newAct() {
     this.parts.push([]);
-    return this.parts.length-1;
+    return this.parts.length - 1;
   }
 
   newScene(act) {
     this.parts[act].push([]);
-    return this.parts[act].length-1;
+    return this.parts[act].length - 1;
   }
 
   enterStage(character_name) {
@@ -63,7 +63,9 @@ export default class Program {
 
   interlocutor(character_name) {
     let c = this.characters[character_name];
-    let i = this.stage.filter(function(n) { return n !== c; });
+    let i = this.stage.filter(function (n) {
+      return n !== c;
+    });
     return i[0];
   }
 

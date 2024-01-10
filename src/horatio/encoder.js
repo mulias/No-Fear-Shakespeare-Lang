@@ -1,6 +1,6 @@
-import Generator from './generator';
-import Program   from './program';
-import Wordlists from './wordlists';
+import Generator from "./generator";
+import Program from "./program";
+import Wordlists from "./wordlists";
 
 /**
  * Horatio Encoder
