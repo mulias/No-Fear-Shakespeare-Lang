@@ -3,6 +3,41 @@
  * @namespace
  */
 
+type Presence = Enter | Exit | Exeunt;
+
+type Sentence =
+  | AssignmentSentence
+  | QuestionSentence
+  | ResponseSentence
+  | GotoSentence
+  | IntegerInputSentence
+  | CharInputSentence
+  | IntegerOutputSentence
+  | CharOutputSentence
+  | RememberSentence
+  | RecallSentence;
+
+type Comparison =
+  | GreaterThanComparison
+  | LesserThanComparison
+  | EqualToComparison
+  | InverseComparison;
+
+type Value =
+  | PositiveConstantValue
+  | NegativeConstantValue
+  | UnaryOperationValue
+  | ArithmeticOperationValue
+  | PronounValue;
+
+type Comparative = PositiveComparative | NegativeComparative | BeComparative;
+
+type Pronoun = FirstPersonPronoun | SecondPersonPronoun;
+
+type Noun = PositiveNoun | NeutralNoun | NegativeNoun;
+
+type Adjective = PositiveAdjective | NeutralAdjective | NegativeAdjective;
+
 /**
  * @memberof Horatio.AST
  * @param {Horatio.AST.Comment}             comment
@@ -10,13 +45,17 @@
  * @param {Array.<Horatio.AST.Part>}        parts
  */
 class Program {
-  constructor(comment, declarations, parts) {
+  comment: Comment;
+  declarations: Declaration[];
+  parts: Part[];
+
+  constructor(comment: Comment, declarations: Declaration[], parts: Part[]) {
     this.comment = comment;
     this.declarations = declarations;
     this.parts = parts;
   }
 
-  visit(visitor, arg) {
+  visit(visitor: any, arg: any): any {
     return visitor.visitProgram(this, arg);
   }
 }
@@ -27,12 +66,15 @@ class Program {
  * @param {Horatio.AST.Comment}   comment
  */
 class Declaration {
-  constructor(character, comment) {
+  character: Character;
+  comment: Comment;
+
+  constructor(character: Character, comment: Comment) {
     this.character = character;
     this.comment = comment;
   }
 
-  visit(visitor, arg) {
+  visit(visitor: any, arg: any): any {
     return visitor.visitDeclaration(this, arg);
   }
 }
@@ -44,13 +86,17 @@ class Declaration {
  * @param {Array.<Horatio.AST.Subpart>} subparts
  */
 class Part {
-  constructor(numeral, comment, subparts) {
+  numeral: Numeral;
+  comment: Comment;
+  subparts: Subpart[];
+
+  constructor(numeral: Numeral, comment: Comment, subparts: Subpart[]) {
     this.numeral = numeral;
     this.comment = comment;
     this.subparts = subparts;
   }
 
-  visit(visitor, arg) {
+  visit(visitor: any, arg: any): any {
     return visitor.visitPart(this, arg);
   }
 }
@@ -62,13 +108,17 @@ class Part {
  * @param {Horatio.AST.Stage}   stage
  */
 class Subpart {
-  constructor(numeral, comment, stage) {
+  numeral: Numeral;
+  comment: Comment;
+  stage: Stage;
+
+  constructor(numeral: Numeral, comment: Comment, stage: Stage) {
     this.numeral = numeral;
     this.comment = comment;
     this.stage = stage;
   }
 
-  visit(visitor, arg) {
+  visit(visitor: any, arg: any): any {
     return visitor.visitSubpart(this, arg);
   }
 }
@@ -80,13 +130,21 @@ class Subpart {
  * @param {Horatio.AST.Enter|Horatio.AST.Exit|Horatio.AST.exeunt} end_presence
  */
 class Stage {
-  constructor(dialogue, start_presence, end_presence) {
+  dialogue: Dialogue;
+  start_presence: Presence;
+  end_presence: Presence;
+
+  constructor(
+    dialogue: Dialogue,
+    start_presence: Presence,
+    end_presence: Presence,
+  ) {
     this.dialogue = dialogue;
     this.start_presence = start_presence;
     this.end_presence = end_presence;
   }
 
-  visit(visitor, arg) {
+  visit(visitor: any, arg: any): any {
     return visitor.visitStage(this, arg);
   }
 }
@@ -97,12 +155,15 @@ class Stage {
  * @param {Horatio.AST.Character} character_2
  */
 class Enter {
-  constructor(character_1, character_2) {
+  character_1: Character;
+  character_2: Character | null;
+
+  constructor(character_1: Character, character_2: Character | null) {
     this.character_1 = character_1;
     this.character_2 = character_2;
   }
 
-  visit(visitor, arg) {
+  visit(visitor: any, arg: any): any {
     return visitor.visitEnter(this, arg);
   }
 }
@@ -112,11 +173,13 @@ class Enter {
  * @param {Horatio.AST.Character} character
  */
 class Exit {
-  constructor(character) {
+  character: Character;
+
+  constructor(character: Character) {
     this.character = character;
   }
 
-  visit(visitor, arg) {
+  visit(visitor: any, arg: any): any {
     return visitor.visitExit(this, arg);
   }
 }
@@ -127,12 +190,15 @@ class Exit {
  * @param {Horatio.AST.Character} character_2
  */
 class Exeunt {
-  constructor(character_1, character_2) {
+  character_1: Character;
+  character_2: Character | null;
+
+  constructor(character_1: Character, character_2: Character | null) {
     this.character_1 = character_1;
     this.character_2 = character_2;
   }
 
-  visit(visitor, arg) {
+  visit(visitor: any, arg: any): any {
     return visitor.visitExeunt(this, arg);
   }
 }
@@ -142,11 +208,13 @@ class Exeunt {
  * @param {Array.<Horatio.AST.Line>} lines
  */
 class Dialogue {
-  constructor(lines) {
+  lines: Line[];
+
+  constructor(lines: Line[]) {
     this.lines = lines;
   }
 
-  visit(visitor, arg) {
+  visit(visitor: any, arg: any): any {
     return visitor.visitDialogue(this, arg);
   }
 }
@@ -157,12 +225,15 @@ class Dialogue {
  * @param {Array.<Horatio.AST.Sentences>} sentences
  */
 class Line {
-  constructor(character, sentences) {
+  character: Character;
+  sentences: Sentence[];
+
+  constructor(character: Character, sentences: Sentence[]) {
     this.character = character;
     this.sentences = sentences;
   }
 
-  visit(visitor, arg) {
+  visit(visitor: any, arg: any): any {
     return visitor.visitLine(this, arg);
   }
 }
@@ -172,11 +243,13 @@ class Line {
  * @param {Horatio.AST.Numeral} numeral
  */
 class Goto {
-  constructor(numeral) {
+  numeral: Numeral;
+
+  constructor(numeral: Numeral) {
     this.numeral = numeral;
   }
 
-  visit(visitor, arg) {
+  visit(visitor: any, arg: any): any {
     return visitor.visitGoto(this, arg);
   }
 }
@@ -185,12 +258,15 @@ class Goto {
  * @memberof Horatio.AST
  */
 class AssignmentSentence {
-  constructor(be, value) {
+  be: Be;
+  value: Value;
+
+  constructor(be: Be, value: Value) {
     this.be = be;
     this.value = value;
   }
 
-  visit(visitor, arg) {
+  visit(visitor: any, arg: any): any {
     return visitor.visitAssignmentSentence(this, arg);
   }
 }
@@ -199,13 +275,17 @@ class AssignmentSentence {
  * @memberof Horatio.AST
  */
 class QuestionSentence {
-  constructor(be, comparison, value) {
+  be: Be;
+  comparison: Comparison;
+  value: Value;
+
+  constructor(be: Be, comparison: Comparison, value: Value) {
     this.be = be;
     this.comparison = comparison;
     this.value = value;
   }
 
-  visit(visitor, arg) {
+  visit(visitor: any, arg: any): any {
     return visitor.visitQuestionSentence(this, arg);
   }
 }
@@ -214,11 +294,13 @@ class QuestionSentence {
  * @memberof Horatio.AST
  */
 class ResponseSentence {
-  constructor(goto) {
+  goto: Goto;
+
+  constructor(goto: Goto) {
     this.goto = goto;
   }
 
-  visit(visitor, arg) {
+  visit(visitor: any, arg: any): any {
     return visitor.visitResponseSentence(this, arg);
   }
 }
@@ -227,11 +309,13 @@ class ResponseSentence {
  * @memberof Horatio.AST
  */
 class GotoSentence {
-  constructor(goto) {
+  goto: Goto;
+
+  constructor(goto: Goto) {
     this.goto = goto;
   }
 
-  visit(visitor, arg) {
+  visit(visitor: any, arg: any): any {
     return visitor.visitGotoSentence(this, arg);
   }
 }
@@ -240,11 +324,13 @@ class GotoSentence {
  * @memberof Horatio.AST
  */
 class IntegerInputSentence {
-  constructor(sequence) {
+  sequence: string;
+
+  constructor(sequence: string) {
     this.sequence = sequence;
   }
 
-  visit(visitor, arg) {
+  visit(visitor: any, arg: any): any {
     return visitor.visitIntegerInputSentence(this, arg);
   }
 }
@@ -253,11 +339,13 @@ class IntegerInputSentence {
  * @memberof Horatio.AST
  */
 class CharInputSentence {
-  constructor(sequence) {
+  sequence: string;
+
+  constructor(sequence: string) {
     this.sequence = sequence;
   }
 
-  visit(visitor, arg) {
+  visit(visitor: any, arg: any): any {
     return visitor.visitCharInputSentence(this, arg);
   }
 }
@@ -266,11 +354,13 @@ class CharInputSentence {
  * @memberof Horatio.AST
  */
 class IntegerOutputSentence {
-  constructor(sequence) {
+  sequence: string;
+
+  constructor(sequence: string) {
     this.sequence = sequence;
   }
 
-  visit(visitor, arg) {
+  visit(visitor: any, arg: any): any {
     return visitor.visitIntegerOutputSentence(this, arg);
   }
 }
@@ -279,11 +369,13 @@ class IntegerOutputSentence {
  * @memberof Horatio.AST
  */
 class CharOutputSentence {
-  constructor(sequence) {
+  sequence: string;
+
+  constructor(sequence: string) {
     this.sequence = sequence;
   }
 
-  visit(visitor, arg) {
+  visit(visitor: any, arg: any): any {
     return visitor.visitCharOutputSentence(this, arg);
   }
 }
@@ -292,11 +384,13 @@ class CharOutputSentence {
  * @memberof Horatio.AST
  */
 class RememberSentence {
-  constructor(pronoun) {
+  pronoun: Pronoun;
+
+  constructor(pronoun: Pronoun) {
     this.pronoun = pronoun;
   }
 
-  visit(visitor, arg) {
+  visit(visitor: any, arg: any): any {
     return visitor.visitRememberSentence(this, arg);
   }
 }
@@ -305,11 +399,13 @@ class RememberSentence {
  * @memberof Horatio.AST
  */
 class RecallSentence {
-  constructor(comment) {
+  comment: Comment;
+
+  constructor(comment: Comment) {
     this.comment = comment;
   }
 
-  visit(visitor, arg) {
+  visit(visitor: any, arg: any): any {
     return visitor.visitRecallSentence(this, arg);
   }
 }
@@ -318,12 +414,15 @@ class RecallSentence {
  * @memberof Horatio.AST
  */
 class PositiveConstantValue {
-  constructor(noun, adjectives) {
+  noun: Noun;
+  adjectives: Adjective[];
+
+  constructor(noun: Noun, adjectives: Adjective[]) {
     this.noun = noun;
     this.adjectives = adjectives;
   }
 
-  visit(visitor, arg) {
+  visit(visitor: any, arg: any): any {
     return visitor.visitPositiveConstantValue(this, arg);
   }
 }
@@ -332,12 +431,15 @@ class PositiveConstantValue {
  * @memberof Horatio.AST
  */
 class NegativeConstantValue {
-  constructor(noun, adjectives) {
+  noun: Noun;
+  adjectives: Adjective[];
+
+  constructor(noun: Noun, adjectives: Adjective[]) {
     this.noun = noun;
     this.adjectives = adjectives;
   }
 
-  visit(visitor, arg) {
+  visit(visitor: any, arg: any): any {
     return visitor.visitNegativeConstantValue(this, arg);
   }
 }
@@ -346,12 +448,15 @@ class NegativeConstantValue {
  * @memberof Horatio.AST
  */
 class UnaryOperationValue {
-  constructor(operator, value) {
+  operator: UnaryOperator;
+  value: Value;
+
+  constructor(operator: UnaryOperator, value: Value) {
     this.operator = operator;
     this.value = value;
   }
 
-  visit(visitor, arg) {
+  visit(visitor: any, arg: any): any {
     return visitor.visitUnaryOperationValue(this, arg);
   }
 }
@@ -360,13 +465,17 @@ class UnaryOperationValue {
  * @memberof Horatio.AST
  */
 class ArithmeticOperationValue {
-  constructor(operator, value_1, value_2) {
+  operator: ArithmeticOperator;
+  value_1: Value;
+  value_2: Value;
+
+  constructor(operator: ArithmeticOperator, value_1: Value, value_2: Value) {
     this.operator = operator;
     this.value_1 = value_1;
     this.value_2 = value_2;
   }
 
-  visit(visitor, arg) {
+  visit(visitor: any, arg: any): any {
     return visitor.visitArithmeticOperationValue(this, arg);
   }
 }
@@ -375,11 +484,13 @@ class ArithmeticOperationValue {
  * @memberof Horatio.AST
  */
 class PronounValue {
-  constructor(pronoun) {
+  pronoun: Pronoun;
+
+  constructor(pronoun: Pronoun) {
     this.pronoun = pronoun;
   }
 
-  visit(visitor, arg) {
+  visit(visitor: any, arg: any): any {
     return visitor.visitPronounValue(this, arg);
   }
 }
@@ -388,11 +499,13 @@ class PronounValue {
  * @memberof Horatio.AST
  */
 class GreaterThanComparison {
-  constructor(comparative) {
+  comparative: Comparative;
+
+  constructor(comparative: Comparative) {
     this.comparative = comparative;
   }
 
-  visit(visitor, arg) {
+  visit(visitor: any, arg: any): any {
     return visitor.visitGreaterThanComparison(this, arg);
   }
 }
@@ -401,11 +514,13 @@ class GreaterThanComparison {
  * @memberof Horatio.AST
  */
 class LesserThanComparison {
-  constructor(comparative) {
+  comparative: Comparative;
+
+  constructor(comparative: Comparative) {
     this.comparative = comparative;
   }
 
-  visit(visitor, arg) {
+  visit(visitor: any, arg: any): any {
     return visitor.visitLesserThanComparison(this, arg);
   }
 }
@@ -414,11 +529,13 @@ class LesserThanComparison {
  * @memberof Horatio.AST
  */
 class EqualToComparison {
-  constructor(adjective) {
+  adjective: Adjective;
+
+  constructor(adjective: Adjective) {
     this.adjective = adjective;
   }
 
-  visit(visitor, arg) {
+  visit(visitor: any, arg: any): any {
     return visitor.visitEqualToComparison(this, arg);
   }
 }
@@ -427,11 +544,13 @@ class EqualToComparison {
  * @memberof Horatio.AST
  */
 class InverseComparison {
-  constructor(comparison) {
+  comparison: Comparison;
+
+  constructor(comparison: Comparison) {
     this.comparison = comparison;
   }
 
-  visit(visitor, arg) {
+  visit(visitor: any, arg: any): any {
     return visitor.visitInverseComparison(this, arg);
   }
 }
@@ -440,11 +559,13 @@ class InverseComparison {
  * @memberof Horatio.AST
  */
 class Comment {
-  constructor(sequence) {
+  sequence: string;
+
+  constructor(sequence: string) {
     this.sequence = sequence;
   }
 
-  visit(visitor, arg) {
+  visit(visitor: any, arg: any): any {
     return visitor.visitComment(this, arg);
   }
 }
@@ -453,11 +574,13 @@ class Comment {
  * @memberof Horatio.AST
  */
 class Numeral {
-  constructor(sequence) {
+  sequence: string;
+
+  constructor(sequence: string) {
     this.sequence = sequence;
   }
 
-  visit(visitor, arg) {
+  visit(visitor: any, arg: any): any {
     return visitor.visitNumeral(this, arg);
   }
 }
@@ -466,11 +589,13 @@ class Numeral {
  * @memberof Horatio.AST
  */
 class Character {
-  constructor(sequence) {
+  sequence: string;
+
+  constructor(sequence: string) {
     this.sequence = sequence;
   }
 
-  visit(visitor, arg) {
+  visit(visitor: any, arg: any): any {
     return visitor.visitCharacter(this, arg);
   }
 }
@@ -479,11 +604,13 @@ class Character {
  * @memberof Horatio.AST
  */
 class FirstPersonPronoun {
-  constructor(sequence) {
+  sequence: string;
+
+  constructor(sequence: string) {
     this.sequence = sequence;
   }
 
-  visit(visitor, arg) {
+  visit(visitor: any, arg: any): any {
     return visitor.visitFirstPersonPronoun(this, arg);
   }
 }
@@ -492,11 +619,13 @@ class FirstPersonPronoun {
  * @memberof Horatio.AST
  */
 class SecondPersonPronoun {
-  constructor(sequence) {
+  sequence: string;
+
+  constructor(sequence: string) {
     this.sequence = sequence;
   }
 
-  visit(visitor, arg) {
+  visit(visitor: any, arg: any): any {
     return visitor.visitSecondPersonPronoun(this, arg);
   }
 }
@@ -505,11 +634,13 @@ class SecondPersonPronoun {
  * @memberof Horatio.AST
  */
 class PositiveNoun {
-  constructor(sequence) {
+  sequence: string;
+
+  constructor(sequence: string) {
     this.sequence = sequence;
   }
 
-  visit(visitor, arg) {
+  visit(visitor: any, arg: any): any {
     return visitor.visitPositiveNoun(this, arg);
   }
 }
@@ -518,11 +649,13 @@ class PositiveNoun {
  * @memberof Horatio.AST
  */
 class NeutralNoun {
-  constructor(sequence) {
+  sequence: string;
+
+  constructor(sequence: string) {
     this.sequence = sequence;
   }
 
-  visit(visitor, arg) {
+  visit(visitor: any, arg: any): any {
     return visitor.visitNeutralNoun(this, arg);
   }
 }
@@ -531,11 +664,13 @@ class NeutralNoun {
  * @memberof Horatio.AST
  */
 class NegativeNoun {
-  constructor(sequence) {
+  sequence: string;
+
+  constructor(sequence: string) {
     this.sequence = sequence;
   }
 
-  visit(visitor, arg) {
+  visit(visitor: any, arg: any): any {
     return visitor.visitNegativeNoun(this, arg);
   }
 }
@@ -544,11 +679,13 @@ class NegativeNoun {
  * @memberof Horatio.AST
  */
 class PositiveAdjective {
-  constructor(sequence) {
+  sequence: string;
+
+  constructor(sequence: string) {
     this.sequence = sequence;
   }
 
-  visit(visitor, arg) {
+  visit(visitor: any, arg: any): any {
     return visitor.visitPositiveAdjective(this, arg);
   }
 }
@@ -557,11 +694,13 @@ class PositiveAdjective {
  * @memberof Horatio.AST
  */
 class NeutralAdjective {
-  constructor(sequence) {
+  sequence: string;
+
+  constructor(sequence: string) {
     this.sequence = sequence;
   }
 
-  visit(visitor, arg) {
+  visit(visitor: any, arg: any): any {
     return visitor.visitNeutralAdjective(this, arg);
   }
 }
@@ -570,11 +709,13 @@ class NeutralAdjective {
  * @memberof Horatio.AST
  */
 class NegativeAdjective {
-  constructor(sequence) {
+  sequence: string;
+
+  constructor(sequence: string) {
     this.sequence = sequence;
   }
 
-  visit(visitor, arg) {
+  visit(visitor: any, arg: any): any {
     return visitor.visitNegativeAdjective(this, arg);
   }
 }
@@ -583,11 +724,13 @@ class NegativeAdjective {
  * @memberof Horatio.AST
  */
 class UnaryOperator {
-  constructor(sequence) {
+  sequence: string;
+
+  constructor(sequence: string) {
     this.sequence = sequence;
   }
 
-  visit(visitor, arg) {
+  visit(visitor: any, arg: any): any {
     return visitor.visitUnaryOperator(this, arg);
   }
 }
@@ -596,11 +739,13 @@ class UnaryOperator {
  * @memberof Horatio.AST
  */
 class ArithmeticOperator {
-  constructor(sequence) {
+  sequence: string;
+
+  constructor(sequence: string) {
     this.sequence = sequence;
   }
 
-  visit(visitor, arg) {
+  visit(visitor: any, arg: any): any {
     return visitor.visitArithmeticOperator(this, arg);
   }
 }
@@ -609,11 +754,13 @@ class ArithmeticOperator {
  * @memberof Horatio.AST
  */
 class PositiveComparative {
-  constructor(sequence) {
+  sequence: string;
+
+  constructor(sequence: string) {
     this.sequence = sequence;
   }
 
-  visit(visitor, arg) {
+  visit(visitor: any, arg: any): any {
     return visitor.visitPositiveComparative(this, arg);
   }
 }
@@ -622,11 +769,13 @@ class PositiveComparative {
  * @memberof Horatio.AST
  */
 class NegativeComparative {
-  constructor(sequence) {
+  sequence: string;
+
+  constructor(sequence: string) {
     this.sequence = sequence;
   }
 
-  visit(visitor, arg) {
+  visit(visitor: any, arg: any): any {
     return visitor.visitNegativeComparative(this, arg);
   }
 }
@@ -635,11 +784,13 @@ class NegativeComparative {
  * @memberof Horatio.AST
  */
 class Be {
-  constructor(sequence) {
+  sequence: string;
+
+  constructor(sequence: string) {
     this.sequence = sequence;
   }
 
-  visit(visitor, arg) {
+  visit(visitor: any, arg: any): any {
     return visitor.visitBe(this, arg);
   }
 }
@@ -648,11 +799,13 @@ class Be {
  * @memberof Horatio.AST
  */
 class BeComparative {
-  constructor(sequence) {
+  sequence: string;
+
+  constructor(sequence: string) {
     this.sequence = sequence;
   }
 
-  visit(visitor, arg) {
+  visit(visitor: any, arg: any): any {
     return visitor.visitBeComparative(this, arg);
   }
 }
