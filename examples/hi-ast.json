@@ -7,7 +7,7 @@
       "nodes": [
         {
           "type": "stage",
-          "vars": [ "a" ]
+          "vars": ["a"]
         },
         {
           "type": "block",
