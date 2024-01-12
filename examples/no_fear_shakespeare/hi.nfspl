@@ -1,18 +1,21 @@
-## title: Greeting A New World
-## declare a: the carrier of characters
+## Greeting A New World
+## declare {a}, source of salutations
+## declare {b}, bringer of the new line
 
 Main {
-  stage a;
+  stage a, b;
 
-  a {
-    a = 72;
-    print_char a;
+  b: a {
+    set 72;
+    print_char;
 
-    a = a + 1;
-    print_char a;
+    set out + 1;
+    print_char;
+  }
 
-    a = 10;
-    print_char a;
+  a: b {
+    set 10;
+    print_char;
   }
 
   unstage_all;

@@ -3,38 +3,35 @@
   "nodes": [
     {
       "type": "act",
-      "label_id": "Start",
+      "labelId": "Start",
       "nodes": [
-        { "type": "stage", "var_ids": ["n", "out"] },
+        { "type": "stage", "varIds": ["n", "out"] },
         {
           "type": "block",
-          "var_id": "n",
+          "speakerVarId": "out",
+          "subjectVarId": "n",
           "nodes": [
-            {
-              "type": "assign",
-              "var_id": "n",
-              "value": { "type": "integer", "value": 0 }
-            }
+            { "type": "assign", "value": { "type": "int", "value": 0 } }
           ]
         }
       ]
     },
     {
       "type": "act",
-      "label_id": "Loop",
+      "labelId": "Loop",
       "nodes": [
         {
           "type": "block",
-          "var_id": "n",
+          "speakerVarId": "out",
+          "subjectVarId": "n",
           "nodes": [
             {
               "type": "assign",
-              "var_id": "n",
               "value": {
-                "type": "infix",
+                "type": "arithmetic",
                 "left": { "type": "var", "id": "n" },
                 "op": "+",
-                "right": { "type": "integer", "value": 1 }
+                "right": { "type": "int", "value": 1 }
               }
             },
             {
@@ -42,207 +39,147 @@
               "is": true,
               "left": { "type": "var", "id": "n" },
               "op": ">",
-              "right": { "type": "integer", "value": 100 }
+              "right": { "type": "int", "value": 100 }
             },
             {
               "type": "if",
               "is": true,
-              "then": { "kind": "goto", "label_id": "End" }
+              "then": { "kind": "goto", "labelId": "End" }
             },
             {
               "type": "test",
               "is": true,
               "left": {
-                "type": "infix",
+                "type": "arithmetic",
                 "left": { "type": "var", "id": "n" },
                 "op": "%",
-                "right": { "type": "integer", "value": 15 }
+                "right": { "type": "int", "value": 15 }
               },
               "op": "==",
-              "right": { "type": "integer", "value": 0 }
+              "right": { "type": "int", "value": 0 }
             },
             {
               "type": "if",
               "is": true,
-              "then": { "kind": "goto", "label_id": "Fizzbuzz" }
+              "then": { "kind": "goto", "labelId": "Fizzbuzz" }
             },
             {
               "type": "test",
               "is": true,
               "left": {
-                "type": "infix",
+                "type": "arithmetic",
                 "left": { "type": "var", "id": "n" },
                 "op": "%",
-                "right": { "type": "integer", "value": 3 }
+                "right": { "type": "int", "value": 3 }
               },
               "op": "==",
-              "right": { "type": "integer", "value": 0 }
+              "right": { "type": "int", "value": 0 }
             },
             {
               "type": "if",
               "is": true,
-              "then": { "kind": "goto", "label_id": "Fizz" }
+              "then": { "kind": "goto", "labelId": "Fizz" }
             },
             {
               "type": "test",
               "is": true,
               "left": {
-                "type": "infix",
+                "type": "arithmetic",
                 "left": { "type": "var", "id": "n" },
                 "op": "%",
-                "right": { "type": "integer", "value": 5 }
+                "right": { "type": "int", "value": 5 }
               },
               "op": "==",
-              "right": { "type": "integer", "value": 0 }
+              "right": { "type": "int", "value": 0 }
             },
             {
               "type": "if",
               "is": true,
-              "then": { "kind": "goto", "label_id": "Buzz" }
+              "then": { "kind": "goto", "labelId": "Buzz" }
             },
-            { "type": "print_int", "var_id": "n" },
-            { "kind": "goto", "label_id": "Loop" }
+            { "type": "print_int" },
+            { "kind": "goto", "labelId": "Loop" }
           ]
         }
       ]
     },
     {
       "type": "act",
-      "label_id": "FizzBuzz",
+      "labelId": "FizzBuzz",
       "nodes": [
         {
           "type": "block",
-          "var_id": "out",
+          "speakerVarId": "n",
+          "subjectVarId": "out",
           "nodes": [
-            {
-              "type": "assign",
-              "var_id": "out",
-              "value": { "type": "character", "value": "f" }
-            },
-            { "type": "print_char", "var": { "type": "var", "id": "out" } },
-            {
-              "type": "assign",
-              "var_id": "out",
-              "value": { "type": "character", "value": "i" }
-            },
-            { "type": "print_char", "var": { "type": "var", "id": "out" } },
-            {
-              "type": "assign",
-              "var_id": "out",
-              "value": { "type": "character", "value": "z" }
-            },
-            { "type": "print_char", "var": { "type": "var", "id": "out" } },
-            {
-              "type": "assign",
-              "var_id": "out",
-              "value": { "type": "character", "value": "z" }
-            },
-            { "type": "print_char", "var": { "type": "var", "id": "out" } },
-            {
-              "type": "assign",
-              "var_id": "out",
-              "value": { "type": "character", "value": "b" }
-            },
-            { "type": "print_char", "var": { "type": "var", "id": "out" } },
-            {
-              "type": "assign",
-              "var_id": "out",
-              "value": { "type": "character", "value": "u" }
-            },
-            { "type": "print_char", "var": { "type": "var", "id": "out" } },
-            {
-              "type": "assign",
-              "var_id": "out",
-              "value": { "type": "character", "value": "z" }
-            },
-            { "type": "print_char", "var": { "type": "var", "id": "out" } },
-            {
-              "type": "assign",
-              "var_id": "out",
-              "value": { "type": "character", "value": "z" }
-            },
-            { "type": "print_char", "var": { "type": "var", "id": "out" } },
-            { "kind": "goto", "label_id": "Loop" }
+            { "type": "assign", "value": { "type": "char", "value": "f" } },
+            { "type": "print_char" },
+            { "type": "assign", "value": { "type": "char", "value": "i" } },
+            { "type": "print_char" },
+            { "type": "assign", "value": { "type": "char", "value": "z" } },
+            { "type": "print_char" },
+            { "type": "assign", "value": { "type": "char", "value": "z" } },
+            { "type": "print_char" },
+            { "type": "assign", "value": { "type": "char", "value": "b" } },
+            { "type": "print_char" },
+            { "type": "assign", "value": { "type": "char", "value": "u" } },
+            { "type": "print_char" },
+            { "type": "assign", "value": { "type": "char", "value": "z" } },
+            { "type": "print_char" },
+            { "type": "assign", "value": { "type": "char", "value": "z" } },
+            { "type": "print_char" },
+            { "kind": "goto", "labelId": "Loop" }
           ]
         }
       ]
     },
     {
       "type": "act",
-      "label_id": "Fizz",
+      "labelId": "Fizz",
       "nodes": [
         {
           "type": "block",
-          "var_id": "out",
+          "speakerVarId": "n",
+          "subjectVarId": "out",
           "nodes": [
-            {
-              "type": "assign",
-              "var_id": "out",
-              "value": { "type": "character", "value": "f" }
-            },
-            { "type": "print_char", "var": { "type": "var", "id": "out" } },
-            {
-              "type": "assign",
-              "var_id": "out",
-              "value": { "type": "character", "value": "i" }
-            },
-            { "type": "print_char", "var": { "type": "var", "id": "out" } },
-            {
-              "type": "assign",
-              "var_id": "out",
-              "value": { "type": "character", "value": "z" }
-            },
-            { "type": "print_char", "var": { "type": "var", "id": "out" } },
-            {
-              "type": "assign",
-              "var_id": "out",
-              "value": { "type": "character", "value": "z" }
-            },
-            { "kind": "goto", "label_id": "Loop" }
+            { "type": "assign", "value": { "type": "char", "value": "f" } },
+            { "type": "print_char" },
+            { "type": "assign", "value": { "type": "char", "value": "i" } },
+            { "type": "print_char" },
+            { "type": "assign", "value": { "type": "char", "value": "z" } },
+            { "type": "print_char" },
+            { "type": "assign", "value": { "type": "char", "value": "z" } },
+            { "type": "print_char" },
+            { "kind": "goto", "labelId": "Loop" }
           ]
         }
       ]
     },
     {
       "type": "act",
-      "label_id": "Buzz",
+      "labelId": "Buzz",
       "nodes": [
         {
           "type": "block",
-          "var_id": "out",
+          "speakerVarId": "n",
+          "subjectVarId": "out",
           "nodes": [
-            {
-              "type": "assign",
-              "var_id": "out",
-              "value": { "type": "character", "value": "b" }
-            },
-            { "type": "print_char", "var": { "type": "var", "id": "out" } },
-            {
-              "type": "assign",
-              "var_id": "out",
-              "value": { "type": "character", "value": "u" }
-            },
-            { "type": "print_char", "var": { "type": "var", "id": "out" } },
-            {
-              "type": "assign",
-              "var_id": "out",
-              "value": { "type": "character", "value": "z" }
-            },
-            { "type": "print_char", "var": { "type": "var", "id": "out" } },
-            {
-              "type": "assign",
-              "var_id": "out",
-              "value": { "type": "character", "value": "z" }
-            },
-            { "type": "print_char", "var": { "type": "var", "id": "out" } },
-            { "kind": "goto", "label_id": "Loop" }
+            { "type": "assign", "value": { "type": "char", "value": "b" } },
+            { "type": "print_char" },
+            { "type": "assign", "value": { "type": "char", "value": "u" } },
+            { "type": "print_char" },
+            { "type": "assign", "value": { "type": "char", "value": "z" } },
+            { "type": "print_char" },
+            { "type": "assign", "value": { "type": "char", "value": "z" } },
+            { "type": "print_char" },
+            { "kind": "goto", "labelId": "Loop" }
           ]
         }
       ]
     },
     {
       "type": "act",
-      "label_id": "End",
+      "labelId": "End",
       "nodes": [{ "type": "unstage_all" }]
     }
   ]

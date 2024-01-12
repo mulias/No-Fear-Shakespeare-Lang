@@ -16,19 +16,20 @@ act_part = stage_direction | block
 stage_direction = (stage | unstage | unstage_all) < ";"
 
 block =
-  VarId <- var_id & ws &
+  SpeakerVarId <- var_id & ws &
+  ":" & ws &
+  SubjectVarId <- var_id & ws &
   "{" & ws &
   Nodes <- default(array_sep(statement < ws < ";", ws), []) & ws &
   "}" $
-  { "type": "block", "varId": VarId, "nodes": Nodes }
+  { "type": "block", "speakerVarId": SpeakerVarId, "subjectVarId": SubjectVarId, "nodes": Nodes }
 
 statement = assign | print | read | test | if | goto | push | pop
 
 assign =
-  VarId <- var_id & ws &
-  "=" & ws &
+  "set" & ws &
   Value <- expression $
-  { "type": "assign", "varId": VarId, "value": Value }
+  { "type": "assign", "value": Value }
 
 expression = group | arithmetic | const | var
 
@@ -48,27 +49,15 @@ character = Char <- "'" > char < "'" $ { "type": "char", "value": Char }
 
 print = print_char | print_int
 
-print_char =
-  "print_char" & ws &
-  VarId <- var_id $
-  { "type": "print_char", "varId": VarId }
+print_char = "print_char" $ { "type": "print_char" }
 
-print_int =
-  "print_int" & ws &
-  VarId <- var_id $
-  { "type": "print_int", "varId": VarId }
+print_int = "print_int" $ { "type": "print_int" }
 
 read = read_char | read_int
 
-read_char =
-  "read_char" & ws &
-  VarId <- var_id $
-  { "type": "read_char", "varId": VarId }
+read_char = "read_char" $ { "type": "read_char" }
 
-read_int =
-  "read_int" & ws &
-  VarId <- var_id $
-  { "type": "read_int", "varId": VarId }
+read_int = "read_int" $ { "type": "read_int" }
 
 test =
   Is <- boolean("test", "test_not") & ws &
@@ -84,16 +73,9 @@ if =
 
 goto = "goto" & ws & LabelId <- label_id $ { "kind": "goto", "labelId": LabelId }
 
-push =
-  "push" & ws &
-  VarId <- var_id & ws &
-  Val <- Expression $
-  { "type": "push", "varId": VarId, "val": Val }
+push = "push" & ws & Val <- expression $ { "type": "push", "val": Val }
 
-pop =
-  "pop" & ws &
-  VarId <- var_id $
-  { "type": "pop", "varId": VarId }
+pop = "pop" $ { "type": "pop" }
 
 stage =
   "stage" & ws &

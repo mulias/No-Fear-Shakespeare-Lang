@@ -7,34 +7,33 @@ const hi: Program = {
       type: "act",
       labelId: "Main",
       nodes: [
-        { type: "stage", varIds: ["a"] },
+        { type: "stage", varIds: ["a", "b"] },
         {
           type: "block",
-          varId: "a",
+          speakerVarId: "b",
+          subjectVarId: "a",
           nodes: [
+            { type: "assign", value: { type: "int", value: 72 } },
+            { type: "print_char" },
             {
               type: "assign",
-              varId: "a",
-              value: { type: "integer", value: 72 },
-            },
-            { type: "print_char", varId: "a" },
-            {
-              type: "assign",
-              varId: "a",
               value: {
                 type: "arithmetic",
-                left: { type: "var", id: "a" },
+                left: { type: "var", id: "out" },
                 op: "+",
-                right: { type: "integer", value: 1 },
+                right: { type: "int", value: 1 },
               },
             },
-            { type: "print_char", varId: "a" },
-            {
-              type: "assign",
-              varId: "a",
-              value: { type: "integer", value: 10 },
-            },
-            { type: "print_char", varId: "a" },
+            { type: "print_char" },
+          ],
+        },
+        {
+          type: "block",
+          speakerVarId: "a",
+          subjectVarId: "b",
+          nodes: [
+            { type: "assign", value: { type: "int", value: 10 } },
+            { type: "print_char" },
           ],
         },
         { type: "unstage_all" },

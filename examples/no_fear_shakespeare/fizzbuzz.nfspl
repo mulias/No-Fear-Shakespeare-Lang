@@ -1,18 +1,18 @@
-## title: To Fizz, Perchance To Buzz
-## declare {n}: a counter of loops
-## declare {out}: a poet and orator
+## To Fizz, Perchance To Buzz
+## declare {n}, a counter of loops
+## declare {out}, a poet and orator
 
 Start {
   stage n, out;
 
-  n {
-    n = 0;
+  out: n {
+    set 0;
   }
 }
 
 Loop {
-  n {
-    n = n + 1;
+  out: n {
+    set n + 1;
 
     test n > 100;
 
@@ -30,59 +30,60 @@ Loop {
 
     if_true goto Buzz;
 
-    print_int n;
+    print_int;
 
     goto Loop;
   }
 }
 
 FizzBuzz {
-  out {
-    out = 'f';
-    print_char out;
-    out = 'i';
-    print_char out;
-    out = 'z';
-    print_char out;
-    out = 'z';
-    print_char out;
-    out = 'b';
-    print_char out;
-    out = 'u';
-    print_char out;
-    out = 'z';
-    print_char out;
-    out = 'z';
-    print_char out;
+  n: out {
+    set 'f';
+    print_char;
+    set 'i';
+    print_char;
+    set 'z';
+    print_char;
+    set 'z';
+    print_char;
+    set 'b';
+    print_char;
+    set 'u';
+    print_char;
+    set 'z';
+    print_char;
+    set 'z';
+    print_char;
 
     goto Loop;
   }
 }
 
 Fizz {
-  out {
-    out = 'f';
-    print_char out;
-    out = 'i';
-    print_char out;
-    out = 'z';
-    print_char out;
-    out = 'z';
+  n: out {
+    set 'f';
+    print_char;
+    set 'i';
+    print_char;
+    set 'z';
+    print_char;
+    set 'z';
+    print_char;
 
     goto Loop;
   }
 }
 
 Buzz {
-  out {
-    out = 'b';
-    print_char out;
-    out = 'u';
-    print_char out;
-    out = 'z';
-    print_char out;
-    out = 'z';
-    print_char out;
+  n: out {
+    set 'b';
+    print_char;
+    set 'u';
+    print_char;
+    set 'z';
+    print_char;
+    set 'z';
+    print_char;
 
     goto Loop;
   }
