@@ -22,7 +22,7 @@ block =
   "}" $
   { "type": "block", "varId": VarId, "nodes": Nodes }
 
-statement = assign | print | test | if | goto
+statement = assign | print | read | test | if | goto | push | pop
 
 assign =
   VarId <- var_id & ws &
@@ -58,6 +58,18 @@ print_int =
   VarId <- var_id $
   { "type": "print_int", "varId": VarId }
 
+read = read_char | read_int
+
+read_char =
+  "read_char" & ws &
+  VarId <- var_id $
+  { "type": "read_char", "varId": VarId }
+
+read_int =
+  "read_int" & ws &
+  VarId <- var_id $
+  { "type": "read_int", "varId": VarId }
+
 test =
   Is <- boolean("test", "test_not") & ws &
   Left <- expression & ws &
@@ -71,6 +83,17 @@ if =
   { "type": "if", "is": Is, "then": Then }
 
 goto = "goto" & ws & LabelId <- label_id $ { "kind": "goto", "labelId": LabelId }
+
+push =
+  "push" & ws &
+  VarId <- var_id & ws &
+  Val <- Expression $
+  { "type": "push", "varId": VarId, "val": Val }
+
+pop =
+  "pop" & ws &
+  VarId <- var_id $
+  { "type": "pop", "varId": VarId }
 
 stage =
   "stage" & ws &

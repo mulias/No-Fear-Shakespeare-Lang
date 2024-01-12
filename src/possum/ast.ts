@@ -8,7 +8,7 @@ export type StageDirection = Stage | Unstage | UnstageAll;
 
 export type Block = { type: "block"; varId: VarId; nodes: Statement[] };
 
-export type Statement = Assign | Print | Test | If | Goto;
+export type Statement = Assign | Print | Read | Test | If | Goto | Push | Pop;
 
 export type Assign = { type: "assign"; varId: VarId; value: Expression };
 
@@ -34,6 +34,12 @@ export type Print = PrintChar | PrintInt;
 export type PrintChar = { type: "print_char"; varId: VarId };
 
 export type PrintInt = { type: "print_int"; varId: VarId };
+
+export type Read = ReadChar | ReadInt;
+
+export type ReadChar = { type: "read_char"; varId: VarId };
+
+export type ReadInt = { type: "read_int"; varId: VarId };
 
 export type Test = {
   type: "test";
