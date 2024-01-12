@@ -1,4 +1,4 @@
-import AST from "./ast";
+import * as AST from "./ast";
 
 /**
  * Horatio Semantics Visitor
