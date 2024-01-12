@@ -32,4 +32,16 @@ export default class Compiler {
 
     return program;
   }
+
+  fromAst(ast) {
+    // Semantic Check
+    let checker = new Checker();
+    checker.check(ast);
+
+    // Code Generation
+    let encoder = new Encoder(this.io);
+    let program = encoder.encode(ast);
+
+    return program;
+  }
 }
