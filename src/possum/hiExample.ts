@@ -7,7 +7,7 @@ const hi: Program = {
       type: "act",
       labelId: "Main",
       nodes: [
-        { type: "stage", varIds: ["a", "b"] },
+        { type: "stage", varId1: "a", varId2: "b" },
         {
           type: "block",
           speakerVarId: "b",

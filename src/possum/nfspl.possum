@@ -79,13 +79,15 @@ pop = "pop" $ { "type": "pop" }
 
 stage =
   "stage" & ws &
-  VarIds <- array_sep(var_id, ws > "," < ws) $
-  { "type": "stage", "varIds": VarIds }
+  VarId1 <- var_id &
+  VarId2 <- default(ws > "," > ws > var_id, null) $
+  { "type": "stage", "varId1": VarId1, "varId2": VarId2 }
 
 unstage =
   "unstage" & ws &
-  VarIds <- array_sep(var_id, ws > "," < ws) $
-  { "type": "stage", "varIds": VarIds }
+  VarId1 <- var_id &
+  VarId2 <- default(ws > "," > ws > var_id, null) $
+  { "type": "unstage", "varId1": VarId1, "varId2": VarId2 }
 
 unstage_all = "unstage_all" $ { "type": "unstage_all" }
 

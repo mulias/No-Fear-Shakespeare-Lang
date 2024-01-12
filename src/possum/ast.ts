@@ -64,9 +64,9 @@ export type Push = { kind: "push"; val: Expression };
 
 export type Pop = { kind: "pop" };
 
-export type Stage = { type: "stage"; varIds: VarId[] };
+export type Stage = { type: "stage"; varId1: VarId; varId2: VarId | null };
 
-export type Unstage = { type: "stage"; varIds: VarId[] };
+export type Unstage = { type: "unstage"; varId1: VarId; varId2: VarId | null };
 
 export type UnstageAll = { type: "unstage_all" };
 

@@ -5,7 +5,7 @@
       "type": "act",
       "labelId": "Start",
       "nodes": [
-        { "type": "stage", "varIds": ["n", "out"] },
+        { "type": "stage", "varId1": "n", "varId2": "out" },
         {
           "type": "block",
           "speakerVarId": "out",
