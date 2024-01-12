@@ -30,20 +30,20 @@ export type Value =
   | ArithmeticOperationValue
   | PronounValue;
 
-export type Comparative = PositiveComparative | NegativeComparative | BeComparative;
+export type Comparative =
+  | PositiveComparative
+  | NegativeComparative
+  | BeComparative;
 
 export type Pronoun = FirstPersonPronoun | SecondPersonPronoun;
 
 export type Noun = PositiveNoun | NeutralNoun | NegativeNoun;
 
-export type Adjective = PositiveAdjective | NeutralAdjective | NegativeAdjective;
+export type Adjective =
+  | PositiveAdjective
+  | NeutralAdjective
+  | NegativeAdjective;
 
-/**
- * @memberof Horatio.AST
- * @param {Horatio.AST.Comment}             comment
- * @param {Array.<Horatio.AST.Declaration>} declarations
- * @param {Array.<Horatio.AST.Part>}        parts
- */
 export class Program {
   comment: Comment;
   declarations: Declaration[];
@@ -60,11 +60,6 @@ export class Program {
   }
 }
 
-/**
- * @memberof Horatio.AST
- * @param {Horatio.AST.Character} character
- * @param {Horatio.AST.Comment}   comment
- */
 export class Declaration {
   character: Character;
   comment: Comment;
@@ -79,12 +74,6 @@ export class Declaration {
   }
 }
 
-/**
- * @memberof Horatio.AST
- * @param {Horatio.AST.Numeral}         numeral
- * @param {Horatio.AST.Comment}         comment
- * @param {Array.<Horatio.AST.Subpart>} subparts
- */
 export class Part {
   numeral: Numeral;
   comment: Comment;
@@ -101,12 +90,6 @@ export class Part {
   }
 }
 
-/**
- * @memberof Horatio.AST
- * @param {Horatio.AST.Numeral} numeral
- * @param {Horatio.AST.Comment} comment
- * @param {Horatio.AST.Stage}   stage
- */
 export class Subpart {
   numeral: Numeral;
   comment: Comment;
@@ -123,12 +106,6 @@ export class Subpart {
   }
 }
 
-/**
- * @memberof Horatio.AST
- * @param {Horatio.AST.Dialogue}                                  dialogue
- * @param {Horatio.AST.Enter|Horatio.AST.Exit|Horatio.AST.exeunt} start_presence
- * @param {Horatio.AST.Enter|Horatio.AST.Exit|Horatio.AST.exeunt} end_presence
- */
 export class Stage {
   dialogue: Dialogue;
   start_presence: Presence;
@@ -149,11 +126,6 @@ export class Stage {
   }
 }
 
-/**
- * @memberof Horatio.AST
- * @param {Horatio.AST.Character} character_1
- * @param {Horatio.AST.Character} character_2
- */
 export class Enter {
   character_1: Character;
   character_2: Character | null;
@@ -168,10 +140,6 @@ export class Enter {
   }
 }
 
-/**
- * @memberof Horatio.AST
- * @param {Horatio.AST.Character} character
- */
 export class Exit {
   character: Character;
 
@@ -184,11 +152,6 @@ export class Exit {
   }
 }
 
-/**
- * @memberof Horatio.AST
- * @param {Horatio.AST.Character} character_1
- * @param {Horatio.AST.Character} character_2
- */
 export class Exeunt {
   character_1: Character;
   character_2: Character | null;
@@ -203,10 +166,6 @@ export class Exeunt {
   }
 }
 
-/**
- * @memberof Horatio.AST
- * @param {Array.<Horatio.AST.Line>} lines
- */
 export class Dialogue {
   lines: Line[];
 
@@ -219,11 +178,6 @@ export class Dialogue {
   }
 }
 
-/**
- * @memberof Horatio.AST
- * @param {Horatio.AST.Character}         character
- * @param {Array.<Horatio.AST.Sentences>} sentences
- */
 export class Line {
   character: Character;
   sentences: Sentence[];
@@ -238,10 +192,6 @@ export class Line {
   }
 }
 
-/**
- * @memberof Horatio.AST
- * @param {Horatio.AST.Numeral} numeral
- */
 export class Goto {
   numeral: Numeral;
 
@@ -254,9 +204,6 @@ export class Goto {
   }
 }
 
-/**
- * @memberof Horatio.AST
- */
 export class AssignmentSentence {
   be: Be;
   value: Value;
@@ -271,9 +218,6 @@ export class AssignmentSentence {
   }
 }
 
-/**
- * @memberof Horatio.AST
- */
 export class QuestionSentence {
   be: Be;
   comparison: Comparison;
@@ -290,9 +234,6 @@ export class QuestionSentence {
   }
 }
 
-/**
- * @memberof Horatio.AST
- */
 export class ResponseSentence {
   goto: Goto;
 
@@ -305,9 +246,6 @@ export class ResponseSentence {
   }
 }
 
-/**
- * @memberof Horatio.AST
- */
 export class GotoSentence {
   goto: Goto;
 
@@ -320,9 +258,6 @@ export class GotoSentence {
   }
 }
 
-/**
- * @memberof Horatio.AST
- */
 export class IntegerInputSentence {
   sequence: string;
 
@@ -335,9 +270,6 @@ export class IntegerInputSentence {
   }
 }
 
-/**
- * @memberof Horatio.AST
- */
 export class CharInputSentence {
   sequence: string;
 
@@ -350,9 +282,6 @@ export class CharInputSentence {
   }
 }
 
-/**
- * @memberof Horatio.AST
- */
 export class IntegerOutputSentence {
   sequence: string;
 
@@ -365,9 +294,6 @@ export class IntegerOutputSentence {
   }
 }
 
-/**
- * @memberof Horatio.AST
- */
 export class CharOutputSentence {
   sequence: string;
 
@@ -380,9 +306,6 @@ export class CharOutputSentence {
   }
 }
 
-/**
- * @memberof Horatio.AST
- */
 export class RememberSentence {
   pronoun: Pronoun;
 
@@ -395,9 +318,6 @@ export class RememberSentence {
   }
 }
 
-/**
- * @memberof Horatio.AST
- */
 export class RecallSentence {
   comment: Comment;
 
@@ -410,9 +330,6 @@ export class RecallSentence {
   }
 }
 
-/**
- * @memberof Horatio.AST
- */
 export class PositiveConstantValue {
   noun: Noun;
   adjectives: Adjective[];
@@ -427,9 +344,6 @@ export class PositiveConstantValue {
   }
 }
 
-/**
- * @memberof Horatio.AST
- */
 export class NegativeConstantValue {
   noun: Noun;
   adjectives: Adjective[];
@@ -444,9 +358,6 @@ export class NegativeConstantValue {
   }
 }
 
-/**
- * @memberof Horatio.AST
- */
 export class UnaryOperationValue {
   operator: UnaryOperator;
   value: Value;
@@ -461,9 +372,6 @@ export class UnaryOperationValue {
   }
 }
 
-/**
- * @memberof Horatio.AST
- */
 export class ArithmeticOperationValue {
   operator: ArithmeticOperator;
   value_1: Value;
@@ -480,9 +388,6 @@ export class ArithmeticOperationValue {
   }
 }
 
-/**
- * @memberof Horatio.AST
- */
 export class PronounValue {
   pronoun: Pronoun;
 
@@ -495,9 +400,6 @@ export class PronounValue {
   }
 }
 
-/**
- * @memberof Horatio.AST
- */
 export class GreaterThanComparison {
   comparative: Comparative;
 
@@ -510,9 +412,6 @@ export class GreaterThanComparison {
   }
 }
 
-/**
- * @memberof Horatio.AST
- */
 export class LesserThanComparison {
   comparative: Comparative;
 
@@ -525,9 +424,6 @@ export class LesserThanComparison {
   }
 }
 
-/**
- * @memberof Horatio.AST
- */
 export class EqualToComparison {
   adjective: Adjective;
 
@@ -540,9 +436,6 @@ export class EqualToComparison {
   }
 }
 
-/**
- * @memberof Horatio.AST
- */
 export class InverseComparison {
   comparison: Comparison;
 
@@ -555,9 +448,6 @@ export class InverseComparison {
   }
 }
 
-/**
- * @memberof Horatio.AST
- */
 export class Comment {
   sequence: string;
 
@@ -570,9 +460,6 @@ export class Comment {
   }
 }
 
-/**
- * @memberof Horatio.AST
- */
 export class Numeral {
   sequence: string;
 
@@ -585,9 +472,6 @@ export class Numeral {
   }
 }
 
-/**
- * @memberof Horatio.AST
- */
 export class Character {
   sequence: string;
 
@@ -600,9 +484,6 @@ export class Character {
   }
 }
 
-/**
- * @memberof Horatio.AST
- */
 export class FirstPersonPronoun {
   sequence: string;
 
@@ -615,9 +496,6 @@ export class FirstPersonPronoun {
   }
 }
 
-/**
- * @memberof Horatio.AST
- */
 export class SecondPersonPronoun {
   sequence: string;
 
@@ -630,9 +508,6 @@ export class SecondPersonPronoun {
   }
 }
 
-/**
- * @memberof Horatio.AST
- */
 export class PositiveNoun {
   sequence: string;
 
@@ -645,9 +520,6 @@ export class PositiveNoun {
   }
 }
 
-/**
- * @memberof Horatio.AST
- */
 export class NeutralNoun {
   sequence: string;
 
@@ -660,9 +532,6 @@ export class NeutralNoun {
   }
 }
 
-/**
- * @memberof Horatio.AST
- */
 export class NegativeNoun {
   sequence: string;
 
@@ -675,9 +544,6 @@ export class NegativeNoun {
   }
 }
 
-/**
- * @memberof Horatio.AST
- */
 export class PositiveAdjective {
   sequence: string;
 
@@ -690,9 +556,6 @@ export class PositiveAdjective {
   }
 }
 
-/**
- * @memberof Horatio.AST
- */
 export class NeutralAdjective {
   sequence: string;
 
@@ -705,9 +568,6 @@ export class NeutralAdjective {
   }
 }
 
-/**
- * @memberof Horatio.AST
- */
 export class NegativeAdjective {
   sequence: string;
 
@@ -720,9 +580,6 @@ export class NegativeAdjective {
   }
 }
 
-/**
- * @memberof Horatio.AST
- */
 export class UnaryOperator {
   sequence: string;
 
@@ -735,9 +592,6 @@ export class UnaryOperator {
   }
 }
 
-/**
- * @memberof Horatio.AST
- */
 export class ArithmeticOperator {
   sequence: string;
 
@@ -750,9 +604,6 @@ export class ArithmeticOperator {
   }
 }
 
-/**
- * @memberof Horatio.AST
- */
 export class PositiveComparative {
   sequence: string;
 
@@ -765,9 +616,6 @@ export class PositiveComparative {
   }
 }
 
-/**
- * @memberof Horatio.AST
- */
 export class NegativeComparative {
   sequence: string;
 
@@ -780,9 +628,6 @@ export class NegativeComparative {
   }
 }
 
-/**
- * @memberof Horatio.AST
- */
 export class Be {
   sequence: string;
 
@@ -795,9 +640,6 @@ export class Be {
   }
 }
 
-/**
- * @memberof Horatio.AST
- */
 export class BeComparative {
   sequence: string;
 
