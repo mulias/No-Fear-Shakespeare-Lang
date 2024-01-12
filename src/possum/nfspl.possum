@@ -9,7 +9,7 @@ act =
   "{" & ws &
   Nodes <- default(array_sep(act_part, ws), []) & ws &
   "}" $
-  { "type": "act", "label_id": LabelId, "nodes": Nodes }
+  { "type": "act", "labelId": LabelId, "nodes": Nodes }
 
 act_part = stage_direction | block
 
@@ -20,7 +20,7 @@ block =
   "{" & ws &
   Nodes <- default(array_sep(statement < ws < ";", ws), []) & ws &
   "}" $
-  { "type": "block", "var_id": VarId, "nodes": Nodes }
+  { "type": "block", "varId": VarId, "nodes": Nodes }
 
 statement = assign | print | test | if | goto
 
@@ -28,35 +28,35 @@ assign =
   VarId <- var_id & ws &
   "=" & ws &
   Value <- expression $
-  { "type": "assign", "var_id": VarId, "value": Value }
+  { "type": "assign", "varId": VarId, "value": Value }
 
-expression = group | infix | const | var
+expression = group | arithmetic | const | var
 
-infix =
+arithmetic =
   Left <- group | const | var & ws &
   Op <- "+" | "-" | "/" | "*" | "%" & ws &
-  Right <- infix | group | const | var $
-  { "type": "infix", "left": Left, "op": Op, "right": Right }
+  Right <- arithmetic | group | const | var $
+  { "type": "arithmetic", "left": Left, "op": Op, "right": Right }
 
 group = "(" > ws > expression < ws < ")"
 
 const = integer | character
 
-integer = Int <- int $ { "type": "integer", "value": Int }
+integer = Int <- int $ { "type": "int", "value": Int }
 
-character = Char <- "'" > char < "'" $ { "type": "character", "value": Char }
+character = Char <- "'" > char < "'" $ { "type": "char", "value": Char }
 
 print = print_char | print_int
 
 print_char =
   "print_char" & ws &
-  Var <- var $
-  { "type": "print_char", "var": Var }
+  VarId <- var_id $
+  { "type": "print_char", "varId": VarId }
 
 print_int =
   "print_int" & ws &
   VarId <- var_id $
-  { "type": "print_int", "var_id": VarId }
+  { "type": "print_int", "varId": VarId }
 
 test =
   Is <- boolean("test", "test_not") & ws &
@@ -70,17 +70,17 @@ if =
   Then <- statement $
   { "type": "if", "is": Is, "then": Then }
 
-goto = "goto" & ws & LabelId <- label_id $ { "kind": "goto", "label_id": LabelId }
+goto = "goto" & ws & LabelId <- label_id $ { "kind": "goto", "labelId": LabelId }
 
 stage =
   "stage" & ws &
   VarIds <- array_sep(var_id, ws > "," < ws) $
-  { "type": "stage", "var_ids": VarIds }
+  { "type": "stage", "varIds": VarIds }
 
 unstage =
   "unstage" & ws &
   VarIds <- array_sep(var_id, ws > "," < ws) $
-  { "type": "stage", "var_ids": VarIds }
+  { "type": "stage", "varIds": VarIds }
 
 unstage_all = "unstage_all" $ { "type": "unstage_all" }
 

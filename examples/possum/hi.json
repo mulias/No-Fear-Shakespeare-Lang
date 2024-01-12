@@ -3,63 +3,36 @@
   "nodes": [
     {
       "type": "act",
-      "label": "Main",
+      "labelId": "Main",
       "nodes": [
-        {
-          "type": "stage",
-          "vars": ["a"]
-        },
+        { "type": "stage", "varIds": [ "a" ] },
         {
           "type": "block",
-          "var": "a",
+          "varId": "a",
           "nodes": [
             {
               "type": "assign",
-              "var": "a",
-              "nodes": [
-                {
-                  "type": "const",
-                  "value": 72
-                }
-              ]
+              "varId": "a",
+              "value": { "type": "integer", "value": 72 }
             },
-            {
-              "type": "print_char",
-              "var": "a"
-            },
+            { "type": "print_char", "varId": "a" },
             {
               "type": "assign",
-              "var": "a",
-              "nodes": [
-                {
-                  "type": "var",
-                  "id": "a"
-                },
-                { "type": "infix" },
-                {
-                  "type": "const",
-                  "value": 72
-                }
-              ]
+              "varId": "a",
+              "value": {
+                "type": "arithmetic",
+                "left": { "type": "var", "id": "a" },
+                "op": "+",
+                "right": { "type": "integer", "value": 1 }
+              }
             },
-            {
-              "type": "print_char",
-              "var": "a"
-            },
+            { "type": "print_char", "varId": "a" },
             {
               "type": "assign",
-              "var": "a",
-              "nodes": [
-                {
-                  "type": "const",
-                  "value": 10
-                }
-              ]
+              "varId": "a",
+              "value": { "type": "integer", "value": 10 }
             },
-            {
-              "type": "print_char",
-              "var": "a"
-            }
+            { "type": "print_char", "varId": "a" }
           ]
         },
         { "type": "unstage_all" }

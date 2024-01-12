@@ -1,16 +1,13 @@
 import * as fs from "fs";
 import yorick from "./yorick";
 import Compiler from "./horatio/compiler";
+import possumAst from "./possum/hiExample";
 
 const io = {
   print: (d) => process.stdout.write(`${d}`),
 };
 
 const compiler = new Compiler(io);
-
-const input = fs.readFileSync("examples/possum/hi.json", "utf8");
-
-const possumAst = JSON.parse(input);
 
 const extendedHoratioAst =
   yorick[
