@@ -1,0 +1,189 @@
+{
+  "comment": {
+    "sequence": "A New Beginning"
+  },
+  "declarations": [
+    {
+      "character": {
+        "sequence": "Hamlet"
+      },
+      "comment": {
+        "sequence": "a literary/storage device"
+      }
+    },
+    {
+      "character": {
+        "sequence": "Juliet"
+      },
+      "comment": {
+        "sequence": "an orator"
+      }
+    }
+  ],
+  "parts": [
+    {
+      "numeral": {
+        "sequence": "I"
+      },
+      "comment": {
+        "sequence": "The Only Act"
+      },
+      "subparts": [
+        {
+          "numeral": {
+            "sequence": "I"
+          },
+          "comment": {
+            "sequence": "The Prince's Speech"
+          },
+          "stage": {
+            "dialogue": {
+              "lines": [
+                {
+                  "character": {
+                    "sequence": "Juliet"
+                  },
+                  "sentences": [
+                    {
+                      "be": {
+                        "sequence": "Thou art"
+                      },
+                      "value": {
+                        "operator": {
+                          "sequence": "sum of"
+                        },
+                        "value_1": {
+                          "noun": {
+                            "sequence": "Lord"
+                          },
+                          "adjectives": [
+                            {
+                              "sequence": "amazing"
+                            },
+                            {
+                              "sequence": "healthy"
+                            },
+                            {
+                              "sequence": "honest"
+                            },
+                            {
+                              "sequence": "noble"
+                            },
+                            {
+                              "sequence": "peaceful"
+                            },
+                            {
+                              "sequence": "fine"
+                            }
+                          ]
+                        },
+                        "value_2": {
+                          "noun": {
+                            "sequence": "summer's day"
+                          },
+                          "adjectives": [
+                            {
+                              "sequence": "lovely"
+                            },
+                            {
+                              "sequence": "sweet"
+                            },
+                            {
+                              "sequence": "golden"
+                            }
+                          ]
+                        }
+                      }
+                    },
+                    {
+                      "sequence": "Speak your mind"
+                    }
+                  ]
+                },
+                {
+                  "character": {
+                    "sequence": "Juliet"
+                  },
+                  "sentences": [
+                    {
+                      "be": {
+                        "sequence": "Thou art"
+                      },
+                      "value": {
+                        "operator": {
+                          "sequence": "sum of"
+                        },
+                        "value_1": {
+                          "pronoun": {
+                            "sequence": "thyself"
+                          }
+                        },
+                        "value_2": {
+                          "noun": {
+                            "sequence": "King"
+                          },
+                          "adjectives": []
+                        }
+                      }
+                    },
+                    {
+                      "sequence": "Speak your mind"
+                    },
+                    {
+                      "be": {
+                        "sequence": "Thou art"
+                      },
+                      "value": {
+                        "operator": {
+                          "sequence": "sum of"
+                        },
+                        "value_1": {
+                          "noun": {
+                            "sequence": "hamster"
+                          },
+                          "adjectives": [
+                            {
+                              "sequence": "amazing"
+                            },
+                            {
+                              "sequence": "healthy"
+                            },
+                            {
+                              "sequence": "honest"
+                            }
+                          ]
+                        },
+                        "value_2": {
+                          "noun": {
+                            "sequence": "nose"
+                          },
+                          "adjectives": [
+                            {
+                              "sequence": "golden"
+                            }
+                          ]
+                        }
+                      }
+                    },
+                    {
+                      "sequence": "Speak your mind"
+                    }
+                  ]
+                }
+              ]
+            },
+            "start_presence": {
+              "character_1": {
+                "sequence": "Hamlet"
+              },
+              "character_2": {
+                "sequence": "Juliet"
+              }
+            },
+            "end_presence": {}
+          }
+        }
+      ]
+    }
+  ]
+}

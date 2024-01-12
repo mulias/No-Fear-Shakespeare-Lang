@@ -1,0 +1,249 @@
+{
+  "type": "program",
+  "nodes": [
+    {
+      "type": "act",
+      "label_id": "Start",
+      "nodes": [
+        { "type": "stage", "var_ids": ["n", "out"] },
+        {
+          "type": "block",
+          "var_id": "n",
+          "nodes": [
+            {
+              "type": "assign",
+              "var_id": "n",
+              "value": { "type": "integer", "value": 0 }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "act",
+      "label_id": "Loop",
+      "nodes": [
+        {
+          "type": "block",
+          "var_id": "n",
+          "nodes": [
+            {
+              "type": "assign",
+              "var_id": "n",
+              "value": {
+                "type": "infix",
+                "left": { "type": "var", "id": "n" },
+                "op": "+",
+                "right": { "type": "integer", "value": 1 }
+              }
+            },
+            {
+              "type": "test",
+              "is": true,
+              "left": { "type": "var", "id": "n" },
+              "op": ">",
+              "right": { "type": "integer", "value": 100 }
+            },
+            {
+              "type": "if",
+              "is": true,
+              "then": { "kind": "goto", "label_id": "End" }
+            },
+            {
+              "type": "test",
+              "is": true,
+              "left": {
+                "type": "infix",
+                "left": { "type": "var", "id": "n" },
+                "op": "%",
+                "right": { "type": "integer", "value": 15 }
+              },
+              "op": "==",
+              "right": { "type": "integer", "value": 0 }
+            },
+            {
+              "type": "if",
+              "is": true,
+              "then": { "kind": "goto", "label_id": "Fizzbuzz" }
+            },
+            {
+              "type": "test",
+              "is": true,
+              "left": {
+                "type": "infix",
+                "left": { "type": "var", "id": "n" },
+                "op": "%",
+                "right": { "type": "integer", "value": 3 }
+              },
+              "op": "==",
+              "right": { "type": "integer", "value": 0 }
+            },
+            {
+              "type": "if",
+              "is": true,
+              "then": { "kind": "goto", "label_id": "Fizz" }
+            },
+            {
+              "type": "test",
+              "is": true,
+              "left": {
+                "type": "infix",
+                "left": { "type": "var", "id": "n" },
+                "op": "%",
+                "right": { "type": "integer", "value": 5 }
+              },
+              "op": "==",
+              "right": { "type": "integer", "value": 0 }
+            },
+            {
+              "type": "if",
+              "is": true,
+              "then": { "kind": "goto", "label_id": "Buzz" }
+            },
+            { "type": "print_int", "var_id": "n" },
+            { "kind": "goto", "label_id": "Loop" }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "act",
+      "label_id": "FizzBuzz",
+      "nodes": [
+        {
+          "type": "block",
+          "var_id": "out",
+          "nodes": [
+            {
+              "type": "assign",
+              "var_id": "out",
+              "value": { "type": "character", "value": "f" }
+            },
+            { "type": "print_char", "var": { "type": "var", "id": "out" } },
+            {
+              "type": "assign",
+              "var_id": "out",
+              "value": { "type": "character", "value": "i" }
+            },
+            { "type": "print_char", "var": { "type": "var", "id": "out" } },
+            {
+              "type": "assign",
+              "var_id": "out",
+              "value": { "type": "character", "value": "z" }
+            },
+            { "type": "print_char", "var": { "type": "var", "id": "out" } },
+            {
+              "type": "assign",
+              "var_id": "out",
+              "value": { "type": "character", "value": "z" }
+            },
+            { "type": "print_char", "var": { "type": "var", "id": "out" } },
+            {
+              "type": "assign",
+              "var_id": "out",
+              "value": { "type": "character", "value": "b" }
+            },
+            { "type": "print_char", "var": { "type": "var", "id": "out" } },
+            {
+              "type": "assign",
+              "var_id": "out",
+              "value": { "type": "character", "value": "u" }
+            },
+            { "type": "print_char", "var": { "type": "var", "id": "out" } },
+            {
+              "type": "assign",
+              "var_id": "out",
+              "value": { "type": "character", "value": "z" }
+            },
+            { "type": "print_char", "var": { "type": "var", "id": "out" } },
+            {
+              "type": "assign",
+              "var_id": "out",
+              "value": { "type": "character", "value": "z" }
+            },
+            { "type": "print_char", "var": { "type": "var", "id": "out" } },
+            { "kind": "goto", "label_id": "Loop" }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "act",
+      "label_id": "Fizz",
+      "nodes": [
+        {
+          "type": "block",
+          "var_id": "out",
+          "nodes": [
+            {
+              "type": "assign",
+              "var_id": "out",
+              "value": { "type": "character", "value": "f" }
+            },
+            { "type": "print_char", "var": { "type": "var", "id": "out" } },
+            {
+              "type": "assign",
+              "var_id": "out",
+              "value": { "type": "character", "value": "i" }
+            },
+            { "type": "print_char", "var": { "type": "var", "id": "out" } },
+            {
+              "type": "assign",
+              "var_id": "out",
+              "value": { "type": "character", "value": "z" }
+            },
+            { "type": "print_char", "var": { "type": "var", "id": "out" } },
+            {
+              "type": "assign",
+              "var_id": "out",
+              "value": { "type": "character", "value": "z" }
+            },
+            { "kind": "goto", "label_id": "Loop" }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "act",
+      "label_id": "Buzz",
+      "nodes": [
+        {
+          "type": "block",
+          "var_id": "out",
+          "nodes": [
+            {
+              "type": "assign",
+              "var_id": "out",
+              "value": { "type": "character", "value": "b" }
+            },
+            { "type": "print_char", "var": { "type": "var", "id": "out" } },
+            {
+              "type": "assign",
+              "var_id": "out",
+              "value": { "type": "character", "value": "u" }
+            },
+            { "type": "print_char", "var": { "type": "var", "id": "out" } },
+            {
+              "type": "assign",
+              "var_id": "out",
+              "value": { "type": "character", "value": "z" }
+            },
+            { "type": "print_char", "var": { "type": "var", "id": "out" } },
+            {
+              "type": "assign",
+              "var_id": "out",
+              "value": { "type": "character", "value": "z" }
+            },
+            { "type": "print_char", "var": { "type": "var", "id": "out" } },
+            { "kind": "goto", "label_id": "Loop" }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "act",
+      "label_id": "End",
+      "nodes": [{ "type": "unstage_all" }]
+    }
+  ]
+}
