@@ -559,12 +559,29 @@ export default class Parser {
   }
 
   parseAdjective() {
+    let adjective;
     switch (this.currentToken.kind) {
       case Token.POSITIVE_ADJECTIVE:
-      case Token.NEUTRAL_ADJECTIVE:
-      case Token.NEGATIVE_ADJECTIVE:
+        adjective = new AST.PositiveAdjective(this.currentToken.sequence);
         this.acceptIt();
         break;
+      case Token.NEUTRAL_ADJECTIVE:
+        adjective = new AST.NeutralAdjective(this.currentToken.sequence);
+        this.acceptIt();
+        break;
+      case Token.NEGATIVE_ADJECTIVE:
+        adjective = new AST.NegativeAdjective(this.currentToken.sequence);
+        this.acceptIt();
+        break;
+      default:
+        this.unexpectedTokenError();
     }
+    return adjective;
+  }
+
+  unexpectedTokenError() {
+    return new Error(
+      `Syntax Error - Unexpected token: ${JSON.stringify(this.currentToken)}`,
+    );
   }
 }
