@@ -108,18 +108,10 @@ export class Subpart {
 }
 
 export class Stage {
-  dialogue: Dialogue;
-  start_presence: Presence;
-  end_presence: Presence;
+  directions: Array<Dialogue | Presence>;
 
-  constructor(
-    dialogue: Dialogue,
-    start_presence: Presence,
-    end_presence: Presence,
-  ) {
-    this.dialogue = dialogue;
-    this.start_presence = start_presence;
-    this.end_presence = end_presence;
+  constructor(directions: Array<Dialogue | Presence>) {
+    this.directions = directions;
   }
 
   visit(visitor: any, arg: any): any {

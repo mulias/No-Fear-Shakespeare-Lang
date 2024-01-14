@@ -108,15 +108,19 @@ export default class Parser {
   }
 
   parseStage() {
-    let start_presence, end_presence;
-    if (this.currentToken.kind === Token.LEFT_BRACKET) {
-      start_presence = this.parsePresence();
+    let directions = [];
+    while (
+      this.currentToken.kind === Token.LEFT_BRACKET ||
+      this.currentToken.kind === Token.CHARACTER
+    ) {
+      if (this.currentToken.kind === Token.LEFT_BRACKET) {
+        directions.push(this.parsePresence());
+      }
+      if (this.currentToken.kind === Token.CHARACTER) {
+        directions.push(this.parseDialogue());
+      }
     }
-    let dialogue = this.parseDialogue();
-    if (this.currentToken.kind === Token.LEFT_BRACKET) {
-      end_presence = this.parsePresence();
-    }
-    return new AST.Stage(dialogue, start_presence, end_presence);
+    return new AST.Stage(directions);
   }
 
   parsePresence() {

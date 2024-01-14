@@ -156,9 +156,9 @@ export default class Semantics {
    * Stage
    */
   visitStage(stage, arg) {
-    if (stage.start_presence) stage.start_presence.visit(this, arg);
-    if (stage.dialogue) stage.dialogue.visit(this, arg);
-    if (stage.end_presence) stage.end_presence.visit(this, arg);
+    stage.directions.forEach((direction) => {
+      direction.visit(this, arg);
+    });
     return null;
   }
 
