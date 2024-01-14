@@ -48,7 +48,6 @@ export default class Parser {
   parse() {
     this.currentToken = this.tokenizer.nextToken();
     let program = this.parseProgram();
-    //console.log(program);
     if (this.currentToken !== -1) {
       throw new Error("Syntax Error - unexpected end of program");
     }
