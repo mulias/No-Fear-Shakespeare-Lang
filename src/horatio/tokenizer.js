@@ -170,6 +170,9 @@ export default class Tokenizer {
     wl.is.forEach(function (w) {
       self.dictionary[w] = 47;
     });
+    wl.if_not.forEach(function (w) {
+      self.dictionary[w] = 48;
+    });
 
     wl.unary_operators.forEach(function (w) {
       self.dictionary[w] = 50;

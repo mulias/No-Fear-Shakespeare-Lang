@@ -189,7 +189,7 @@ export default class Parser {
     let sentences = [];
 
     function isResponseSentence(kind) {
-      return kind === Token.IF_SO
+      return kind === Token.IF_SO || kind === Token.IF_NOT
     }
 
     function isSentence(kind) {
@@ -224,10 +224,17 @@ export default class Parser {
   }
 
   parseResponseSentence() {
-    this.accept(Token.IF_SO);
-    this.accept(Token.COMMA);
-    let sentence = this.parseSentence();
-    return new AST.ResponseSentence(sentence);
+    if (this.currentToken.kind === Token.IF_SO) {
+      this.accept(Token.IF_SO);
+      this.accept(Token.COMMA);
+      let sentence = this.parseSentence();
+      return new AST.ResponseSentence(sentence, true);
+    } else {
+      this.accept(Token.IF_NOT);
+      this.accept(Token.COMMA);
+      let sentence = this.parseSentence();
+      return new AST.ResponseSentence(sentence, false);
+    }
   }
 
   parseSentence() {

@@ -234,9 +234,11 @@ export class QuestionSentence {
 
 export class ResponseSentence {
   sentence: Sentence;
+  runIf: boolean;
 
-  constructor(sentence: Sentence) {
+  constructor(sentence: Sentence, runIf: boolean) {
     this.sentence = sentence;
+    this.runIf = runIf;
   }
 
   visit(visitor: any, arg: any): any {

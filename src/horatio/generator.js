@@ -216,6 +216,12 @@ export default class Generator {
         let val1 = value1.call(this);
         let val2 = value2.call(this);
         let result = comparative.call(this, val1, val2);
+
+        if (this.io.debug) {
+          this.io.printDebug(`Question is ${result}`);
+        }
+
+        this.setGlobalBool(result);
       };
     };
 
@@ -236,7 +242,30 @@ export default class Generator {
    * Response Sentence
    */
   visitResponseSentence(response, arg) {
-    response.sentence.visit(this, arg);
+    let Command = function (sentence) {
+      return function () {
+        const truth = this.getGlobalBool();
+        if (truth === response.runIf) {
+          if (this.io.debug) {
+            this.io.printDebug(
+              `Last question was ${truth}, response required ${response.runIf}, running response`,
+            );
+          }
+
+          sentence.call(this);
+        } else {
+          if (this.io.debug) {
+            this.io.printDebug(
+              `Last question was ${truth}, response required ${response.runIf}, skip`,
+            );
+          }
+        }
+      };
+    };
+
+    let sentence = response.sentence.visit(this, arg);
+
+    this.program.addCommand(arg.act, arg.scene, new Command(sentence));
 
     return null;
   }

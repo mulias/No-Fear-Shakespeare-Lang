@@ -9,7 +9,7 @@ import { first_person } from "./wordlists/first_person";
 import { first_person_possessive } from "./wordlists/first_person_possessive";
 import { first_person_reflexive } from "./wordlists/first_person_reflexive";
 import { imperatives, to, proceed } from "./wordlists/imperatives";
-import { as, not, than, if_so, and } from "./wordlists/misc";
+import { as, not, than, if_so, if_not, and } from "./wordlists/misc";
 import { negative_adjectives } from "./wordlists/negative_adjectives";
 import { negative_comparatives } from "./wordlists/negative_comparatives";
 import { negative_nouns } from "./wordlists/negative_nouns";
@@ -79,6 +79,7 @@ export default {
   not: not,
   than: than,
   if_so: if_so,
+  if_not: if_not,
   and: and,
   negative_adjectives: negative_adjectives,
   negative_comparatives: negative_comparatives,

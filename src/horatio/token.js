@@ -82,6 +82,9 @@ export default class Token {
   static get Is() {
     return 47;
   }
+  static get IF_NOT() {
+    return 48;
+  }
 
   static get UNARY_OPERATOR() {
     return 50;

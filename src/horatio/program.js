@@ -9,6 +9,7 @@ export default class Program {
     this.characters = {};
     this.parts = [];
     this.stage = [];
+    this.globalBool = null;
   }
 
   run() {
@@ -72,5 +73,19 @@ export default class Program {
   addCommand(act, scene, command) {
     this.parts[act][scene].push(command);
     let self = this;
+  }
+
+  setGlobalBool(b) {
+    this.globalBool = b;
+  }
+
+  getGlobalBool() {
+    if (this.globalBool === null) {
+      throw new Error(
+        "Runtime Error: tried to execute a conditional with no prior question",
+      );
+    } else {
+      return this.globalBool;
+    }
   }
 }
