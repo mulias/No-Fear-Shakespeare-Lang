@@ -33,6 +33,14 @@ export default class Parser {
     this.currentToken = this.tokenizer.nextToken();
   }
 
+  acceptIf(test) {
+    if (test(this.currentToken)) {
+      this.currentToken = this.tokenizer.nextToken();
+    } else {
+      throw this.unexpectedTokenError();
+    }
+  }
+
   /**
    * Parse the SPL program and return an AST
    * @returns {AST.Program} - The program AST.
@@ -232,51 +240,23 @@ export default class Parser {
       case Token.INPUT_INTEGER:
       case Token.INPUT_CHAR:
         sentence = this.parseInput();
-        if (
-          this.currentToken.kind === Token.EXCLAMATION_POINT ||
-          this.currentToken.kind === Token.PERIOD
-        ) {
-          this.acceptIt();
-        } else {
-          throw this.unexpectedTokenError();
-        }
+        this.acceptIf(Token.isStatementPunctuation);
         break;
 
       case Token.OUTPUT_INTEGER:
       case Token.OUTPUT_CHAR:
         sentence = this.parseOutput();
-        if (
-          this.currentToken.kind === Token.EXCLAMATION_POINT ||
-          this.currentToken.kind === Token.PERIOD
-        ) {
-          this.acceptIt();
-        } else {
-          throw this.unexpectedTokenError();
-        }
+        this.acceptIf(Token.isStatementPunctuation);
         break;
 
       case Token.REMEMBER:
         sentence = this.parseRemember();
-        if (
-          this.currentToken.kind === Token.EXCLAMATION_POINT ||
-          this.currentToken.kind === Token.PERIOD
-        ) {
-          this.acceptIt();
-        } else {
-          throw this.unexpectedTokenError();
-        }
+        this.acceptIf(Token.isStatementPunctuation);
         break;
 
       case Token.RECALL:
         sentence = this.parseRecall();
-        if (
-          this.currentToken.kind === Token.EXCLAMATION_POINT ||
-          this.currentToken.kind === Token.PERIOD
-        ) {
-          this.acceptIt();
-        } else {
-          throw this.unexpectedTokenError();
-        }
+        this.acceptIf(Token.isStatementPunctuation);
         break;
     }
     return sentence;
@@ -552,10 +532,7 @@ export default class Parser {
     this.accept(Token.RECALL);
     this.accept(Token.COMMA);
     let comment = "";
-    while (
-      this.currentToken.kind !== Token.EXCLAMATION_POINT &&
-      this.currentToken.kind !== Token.PERIOD
-    ) {
+    while (!Token.isStatementPunctuation(this.currentToken)) {
       comment += this.currentToken.sequence + " ";
       this.acceptIt();
     }

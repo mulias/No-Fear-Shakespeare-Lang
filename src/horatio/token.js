@@ -169,4 +169,10 @@ export default class Token {
   static get COMMENT() {
     return 110;
   }
+
+  static isStatementPunctuation(token) {
+    return (
+      token.kind === Token.PERIOD || token.kind === Token.EXCLAMATION_POINT
+    );
+  }
 }
