@@ -58,7 +58,7 @@ export default class Parser {
   /* Parsers */
   parseProgram() {
     let comment = this.parseComment();
-    this.accept(Token.PERIOD);
+    this.acceptIf(Token.isStatementPunctuation);
     let declarations = [this.parseDeclaration()];
     while (this.currentToken.kind === Token.CHARACTER) {
       declarations.push(this.parseDeclaration());
@@ -72,7 +72,7 @@ export default class Parser {
 
   parseComment() {
     let comment = "";
-    while (this.currentToken.kind !== Token.PERIOD) {
+    while (!Token.isStatementPunctuation(this.currentToken)) {
       comment += this.currentToken.sequence + " ";
       this.acceptIt();
     }
@@ -84,7 +84,7 @@ export default class Parser {
     this.accept(Token.CHARACTER);
     this.accept(Token.COMMA);
     let comment = this.parseComment();
-    this.accept(Token.PERIOD);
+    this.acceptIf(Token.isStatementPunctuation);
     return new AST.Declaration(character, comment);
   }
 
@@ -94,7 +94,7 @@ export default class Parser {
     this.accept(Token.ROMAN_NUMERAL);
     this.accept(Token.COLON);
     let comment = this.parseComment();
-    this.accept(Token.PERIOD);
+    this.acceptIf(Token.isStatementPunctuation);
     let subparts = [this.parseSubPart()];
     while (this.currentToken.kind === Token.SCENE) {
       subparts.push(this.parseSubPart());
@@ -108,7 +108,7 @@ export default class Parser {
     this.accept(Token.ROMAN_NUMERAL);
     this.accept(Token.COLON);
     let comment = this.parseComment();
-    this.accept(Token.PERIOD);
+    this.acceptIf(Token.isStatementPunctuation);
     let stage = this.parseStage();
     return new AST.Subpart(numeral, comment, stage);
   }
