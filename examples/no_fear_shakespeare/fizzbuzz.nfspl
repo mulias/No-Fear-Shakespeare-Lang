@@ -2,93 +2,82 @@
 ## declare {n}, a counter of loops
 ## declare {out}, a poet and orator
 
-Start {
-  stage n, out;
+Main {
+  Start {
+    stage(n, out);
 
-  out: n {
-    set 0;
+    n.set(0);
   }
-}
 
-Loop {
-  out: n {
-    set n + 1;
+  Loop {
+    n.set(n + 1);
 
-    test n > 100;
+    test_gt(n, 100);
+    if_true(goto(End));
 
-    if_true goto End;
+    test_eq(n % 15, 0);
+    if_true(goto(Fizzbuzz));
 
-    test (n % 15) == 0;
+    test_eq(n % 3, 0);
+    if_true(goto(Fizz));
 
-    if_true goto Fizzbuzz;
+    test_eq(n % 5, 0);
+    if_true(goto(Buzz));
 
-    test (n % 3) == 0;
-
-    if_true goto Fizz;
-
-    test (n % 5) == 0;
-
-    if_true goto Buzz;
-
-    print_int;
+    out.set(n);
+    out.print_int;
 
     goto Loop;
   }
-}
 
-FizzBuzz {
-  n: out {
-    set 'f';
-    print_char;
-    set 'i';
-    print_char;
-    set 'z';
-    print_char;
-    set 'z';
-    print_char;
-    set 'b';
-    print_char;
-    set 'u';
-    print_char;
-    set 'z';
-    print_char;
-    set 'z';
-    print_char;
+  FizzBuzz {
+    out.set('f');
+    out.print_char;
+    out.set('i');
+    out.print_char;
+    out.set('z');
+    out.print_char;
+    out.set('z');
+    out.print_char;
+    out.set('b');
+    out.print_char;
+    out.set('u');
+    out.print_char;
+    out.set('z');
+    out.print_char;
+    out.set('z');
+    out.print_char;
 
-    goto Loop;
+    goto(Loop);
   }
-}
 
-Fizz {
-  n: out {
-    set 'f';
-    print_char;
-    set 'i';
-    print_char;
-    set 'z';
-    print_char;
-    set 'z';
-    print_char;
+  Fizz {
+    out.set('f');
+    out.print_char;
+    out.set('i');
+    out.print_char;
+    out.set('z');
+    out.print_char;
+    out.set('z');
+    out.print_char;
 
-    goto Loop;
+    goto(Loop);
   }
-}
 
-Buzz {
-  n: out {
-    set 'b';
-    print_char;
-    set 'u';
-    print_char;
-    set 'z';
-    print_char;
-    set 'z';
-    print_char;
+  Buzz {
+    out.set('b');
+    out.print_char;
+    out.set('u');
+    out.print_char;
+    out.set('z');
+    out.print_char;
+    out.set('z');
+    out.print_char;
 
-    goto Loop;
+    goto(Loop);
   }
-}
 
-End {
-  unstage_all;
+  End {
+    unstage_all;
+  }
 }

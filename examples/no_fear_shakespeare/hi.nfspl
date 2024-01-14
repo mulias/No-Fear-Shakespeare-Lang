@@ -3,20 +3,18 @@
 ## declare {b}, bringer of the new line
 
 Main {
-  stage a, b;
+  PrintHi {
+    stage(a, b);
 
-  b: a {
-    set 72;
-    print_char;
+    a.set(72);
+    a.print_char;
 
-    set out + 1;
-    print_char;
+    a.set(a + 1);
+    a.print_char;
+
+    b.set(10);
+    b.print_char;
+
+    unstage_all;
   }
-
-  a: b {
-    set 10;
-    print_char;
-  }
-
-  unstage_all;
 }
