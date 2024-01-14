@@ -88,13 +88,29 @@ export default class Program {
   }
 
   enterStage(character_name) {
-    let c = this.characters[character_name];
-    this.stage.push(c);
+    const c = this.getChatacter(character_name);
+
+    if (this.isOnStage(c)) {
+      throw new Error(`Runtime Error: ${character_name} is already on stage`);
+    } else if (this.isStageFull()) {
+      throw new Error(
+        `Runtime Error: ${character_name} may not enter, the stage is already occupied`,
+      );
+    } else {
+      this.stage.push(c);
+    }
   }
 
   exitStage(character_name) {
-    let c = this.characters[character_name];
-    this.stage.splice(this.stage.indexOf(c), 1);
+    const c = this.getChatacter(character_name);
+
+    if (this.isOnStage(c)) {
+      this.stage.splice(this.stage.indexOf(c), 1);
+    } else {
+      throw new Error(
+        `Runtime Error: ${character_name} is not on stage and consequently cannot exit`,
+      );
+    }
   }
 
   exeuntStage() {
@@ -102,7 +118,7 @@ export default class Program {
   }
 
   interlocutor(character_name) {
-    let c = this.characters[character_name];
+    let c = this.getChatacter(character_name);
     let i = this.stage.filter(function (n) {
       return n !== c;
     });
@@ -112,6 +128,25 @@ export default class Program {
   addCommand(act, scene, command) {
     this.parts[act][scene].push(command);
     let self = this;
+  }
+
+  isStageFull() {
+    return this.stage.len >= 2;
+  }
+
+  isOnStage(character) {
+    return this.stage.find(
+      (activeChar) => activeChar.name() == character.name(),
+    );
+  }
+
+  getChatacter(character_name) {
+    const c = this.characters[character_name];
+    if (c) {
+      return c;
+    } else {
+      throw new Error(`Runtime Error: ${character_name} does not exist`);
+    }
   }
 
   setGlobalBool(b) {
