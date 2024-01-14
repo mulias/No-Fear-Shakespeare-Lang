@@ -128,7 +128,10 @@ export default class Parser {
         c1 = new AST.Character(this.currentToken.sequence);
         c2 = null;
         this.accept(Token.CHARACTER);
-        if (this.currentToken.kind === Token.AMPERSAND) {
+        if (
+          this.currentToken.kind === Token.AMPERSAND ||
+          this.currentToken.kind === Token.AND
+        ) {
           this.acceptIt();
           c2 = new AST.Character(this.currentToken.sequence);
           this.accept(Token.CHARACTER);
