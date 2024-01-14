@@ -548,7 +548,7 @@ export default class Parser {
       comment += this.currentToken.sequence + " ";
       this.acceptIt();
     }
-    return new AST.RecallSentence(comment.trim());
+    return new AST.RecallSentence(new AST.Comment(comment.trim()));
   }
 
   parseAdjective() {

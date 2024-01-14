@@ -33,14 +33,14 @@ export default class Character {
    * @returns {number}
    */
   memorySize() {
-    return this.memory.length;
+    return this._memory.length;
   }
 
   /**
    * @returns {boolean}
    */
   noMemory() {
-    return this.memory.length === 0;
+    return this._memory.length === 0;
   }
 
   /**

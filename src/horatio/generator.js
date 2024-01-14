@@ -394,9 +394,14 @@ export default class Generator {
       let p = pronoun;
 
       return function () {
-        let pn = p();
-        let value = this.characters[pn].value();
-        this.characters[speaking].remember(value);
+        let pn = p.call(this);
+        let character = this.characters[pn];
+        let value = character.value();
+        character.remember(value);
+
+        if (this.io.debug) {
+          this.io.printDebug(`Remember ${value}, [${character._memory}]`);
+        }
       };
     };
 
