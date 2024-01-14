@@ -303,7 +303,12 @@ export default class Parser {
 
   parseValue() {
     let value, pronoun;
-    if (this.currentToken.kind === Token.ARTICLE) {
+    if (
+      this.currentToken.kind === Token.ARTICLE ||
+      this.currentToken.kind === Token.FIRST_PERSON_POSSESSIVE ||
+      this.currentToken.kind === Token.SECOND_PERSON_POSSESSIVE ||
+      this.currentToken.kind === Token.THIRD_PERSON_POSSESSIVE
+    ) {
       this.acceptIt();
     }
     switch (this.currentToken.kind) {
