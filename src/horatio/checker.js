@@ -68,6 +68,10 @@ export default class Checker extends Semantics {
     }
   }
 
+  actExists(act) {
+    return !!this.parts[act];
+  }
+
   /**
    * Scene exists
    */

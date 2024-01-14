@@ -487,10 +487,19 @@ export default class Parser {
     this.accept(Token.IMPERATIVE);
     this.accept(Token.RETURN);
     this.accept(Token.TO);
-    this.accept(Token.SCENE);
-    let numeral = new AST.Numeral(this.currentToken.sequence);
-    this.accept(Token.ROMAN_NUMERAL);
-    return new AST.Goto(numeral);
+    if (this.currentToken.kind === Token.SCENE) {
+      this.acceptIt();
+      let numeral = new AST.Numeral(this.currentToken.sequence);
+      this.accept(Token.ROMAN_NUMERAL);
+      return new AST.GotoSentence("scene", numeral);
+    } else if (this.currentToken.kind === Token.ACT) {
+      this.acceptIt();
+      let numeral = new AST.Numeral(this.currentToken.sequence);
+      this.accept(Token.ROMAN_NUMERAL);
+      return new AST.GotoSentence("act", numeral);
+    } else {
+      throw this.unexpectedTokenError();
+    }
   }
 
   parseInput() {

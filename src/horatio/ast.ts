@@ -186,18 +186,6 @@ export class Line {
   }
 }
 
-export class Goto {
-  numeral: Numeral;
-
-  constructor(numeral: Numeral) {
-    this.numeral = numeral;
-  }
-
-  visit(visitor: any, arg: any): any {
-    return visitor.visitGoto(this, arg);
-  }
-}
-
 export class AssignmentSentence {
   be: Be;
   value: Value;
@@ -247,10 +235,12 @@ export class ResponseSentence {
 }
 
 export class GotoSentence {
-  goto: Goto;
+  part: "act" | "scene";
+  numeral: Numeral;
 
-  constructor(goto: Goto) {
-    this.goto = goto;
+  constructor(part: "act" | "scene", numeral: Numeral) {
+    this.part = part;
+    this.numeral = numeral;
   }
 
   visit(visitor: any, arg: any): any {

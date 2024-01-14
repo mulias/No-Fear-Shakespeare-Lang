@@ -171,24 +171,6 @@ export default class Generator {
   }
 
   /**
-   * Goto
-   */
-  visitGoto(goto, arg) {
-    let Command = function (sceneIndex) {
-      return function () {
-        if (this.io.debug) {
-          this.io.printDebug(`Goto Scene ${sceneIndex + 1}`);
-        }
-        this.gotoScene(sceneIndex);
-      };
-    };
-
-    let sceneIndex = goto.numeral.visit(this, arg);
-
-    return new Command(sceneIndex);
-  }
-
-  /**
    * Assignment Sentence
    */
   visitAssignmentSentence(assignment, arg) {
@@ -283,7 +265,25 @@ export default class Generator {
    * Goto Sentence
    */
   visitGotoSentence(goto, arg) {
-    return goto.goto.visit(this, arg);
+    let Command = function (part, sceneIndex) {
+      return function () {
+        if (part === "act") {
+          if (this.io.debug) {
+            this.io.printDebug(`Goto Act ${sceneIndex + 1}`);
+          }
+          this.gotoAct(sceneIndex);
+        } else {
+          if (this.io.debug) {
+            this.io.printDebug(`Goto Scene ${sceneIndex + 1}`);
+          }
+          this.gotoScene(sceneIndex);
+        }
+      };
+    };
+
+    let sceneIndex = goto.numeral.visit(this, arg);
+
+    return new Command(goto.part, sceneIndex);
   }
 
   /**

@@ -58,6 +58,12 @@ export default class Program {
     this.lineIndex = this.lineIndex + 1;
   }
 
+  gotoAct(n) {
+    this.actIndex = n;
+    this.sceneIndex = 0;
+    this.lineIndex = -1;
+  }
+
   gotoScene(n) {
     this.sceneIndex = n;
     this.lineIndex = -1;

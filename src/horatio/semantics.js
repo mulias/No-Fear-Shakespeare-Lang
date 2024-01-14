@@ -260,21 +260,6 @@ export default class Semantics {
   }
 
   /**
-   * Goto
-   */
-  visitGoto(goto, arg) {
-    let n = goto.numeral.visit(this, arg);
-
-    if (!this.sceneExists(arg.act, arg.scene)) {
-      throw new Error(
-        "Semantic Error - Scene specified by Goto does not exist in this act.",
-      );
-    }
-
-    return null;
-  }
-
-  /**
    * Assignment Sentence
    */
   visitAssignmentSentence(assignment, arg) {
@@ -309,7 +294,17 @@ export default class Semantics {
    * Goto Sentence
    */
   visitGotoSentence(goto, arg) {
-    goto.goto.visit(this, arg);
+    let partIndex = goto.numeral.visit(this, arg);
+
+    if (goto.part === "act" && !this.actExists(partIndex)) {
+      throw new Error("Semantic Error - Act specified by Goto does not exist.");
+    }
+
+    if (goto.part === "scene" && !this.sceneExists(arg.act, partIndex)) {
+      throw new Error(
+        "Semantic Error - Scene specified by Goto does not exist in this act.",
+      );
+    }
 
     return null;
   }
