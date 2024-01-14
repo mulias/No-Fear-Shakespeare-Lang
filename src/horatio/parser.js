@@ -217,8 +217,7 @@ export default class Parser {
     switch (this.currentToken.kind) {
       case Token.BE:
         sentence = this.parseAssignment();
-        //this.accept(Token.PERIOD);
-        this.acceptIt();
+        this.acceptIf(Token.isStatementPunctuation);
         break;
 
       case Token.BE_COMPARATIVE:
@@ -234,7 +233,7 @@ export default class Parser {
 
       case Token.IMPERATIVE:
         sentence = this.parseGoto();
-        this.accept(Token.PERIOD);
+        this.acceptIf(Token.isStatementPunctuation);
         break;
 
       case Token.INPUT_INTEGER:
