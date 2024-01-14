@@ -22,9 +22,7 @@ export default class Parser {
     if (this.currentToken.kind === expectedKind) {
       this.currentToken = this.tokenizer.nextToken();
     } else {
-      throw new Error(
-        "Syntax Error - Unexpected Token: " + JSON.stringify(this.currentToken),
-      );
+      throw this.unexpectedTokenError();
     }
   }
 
