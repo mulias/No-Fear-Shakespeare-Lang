@@ -215,6 +215,7 @@ export default class Parser {
         break;
 
       case Token.BE_COMPARATIVE:
+      case Token.Is:
         sentence = this.parseQuestion();
         this.accept(Token.QUESTION_MARK);
         break;
@@ -313,6 +314,14 @@ export default class Parser {
         value = new AST.PronounValue(pronoun);
         this.acceptIt();
         break;
+
+      case Token.CHARACTER:
+        value = new AST.CharacterValue(
+          new AST.Character(this.currentToken.sequence),
+        );
+        this.acceptIt();
+        break;
+
       default:
         throw new Error(
           "Syntax Error - Unknown Token: " + this.currentToken.sequence,
@@ -419,18 +428,21 @@ export default class Parser {
   }
 
   parseQuestion() {
-    let be = this.parseBeComparative();
+    let value1 = this.parseQuestionFirstValue();
     let comparison = this.parseComparative();
-    let value = this.parseValue();
-    return new AST.QuestionSentence(be, comparison, value);
+    let value2 = this.parseValue();
+    return new AST.QuestionSentence(value1, comparison, value2);
   }
 
-  parseBeComparative() {
-    let be_comparative;
+  parseQuestionFirstValue() {
     if (this.currentToken.kind === Token.BE_COMPARATIVE) {
-      be_comparative = new AST.BeComparative(this.currentToken.sequence);
+      const be_comparative = new AST.BeComparative(this.currentToken.sequence);
+      this.acceptIt();
+      return be_comparative;
+    } else {
+      this.accept(Token.Is);
+      return this.parseValue();
     }
-    return be_comparative;
   }
 
   parseComparative() {

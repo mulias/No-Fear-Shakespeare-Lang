@@ -10,5 +10,3 @@ export const be = [
   //'be',
   //'is'
 ];
-
-export const be_comparatives = ["Art thou", "Are you", "Am I"];

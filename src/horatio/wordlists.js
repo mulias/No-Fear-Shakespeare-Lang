@@ -1,7 +1,8 @@
 import { act, scene } from "./wordlists/act_and_scene";
 import { arithmetic_operators } from "./wordlists/arithmetic_operators";
 import { articles } from "./wordlists/articles";
-import { be, be_comparatives } from "./wordlists/be";
+import { be } from "./wordlists/be";
+import { is, be_comparatives } from "./wordlists/comparative_question";
 import { characters } from "./wordlists/characters";
 import { enter, exit, exeunt } from "./wordlists/enter_exit_exeunt";
 import { first_person } from "./wordlists/first_person";
@@ -58,6 +59,7 @@ export default {
   arithmetic_operators: arithmetic_operators,
   articles: articles,
   be: be,
+  is: is,
   be_comparatives: be_comparatives,
   characters: characters,
   enter: enter,

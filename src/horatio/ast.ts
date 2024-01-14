@@ -29,7 +29,8 @@ export type Value =
   | ZeroValue
   | UnaryOperationValue
   | ArithmeticOperationValue
-  | PronounValue;
+  | PronounValue
+  | CharacterValue;
 
 export type Comparative =
   | PositiveComparative
@@ -212,14 +213,18 @@ export class AssignmentSentence {
 }
 
 export class QuestionSentence {
-  be: Be;
+  value1: BeComparative | Value;
   comparison: Comparison;
-  value: Value;
+  value2: Value;
 
-  constructor(be: Be, comparison: Comparison, value: Value) {
-    this.be = be;
+  constructor(
+    value1: BeComparative | Value,
+    comparison: Comparison,
+    value2: Value,
+  ) {
+    this.value1 = value1;
     this.comparison = comparison;
-    this.value = value;
+    this.value2 = value2;
   }
 
   visit(visitor: any, arg: any): any {
@@ -402,6 +407,18 @@ export class PronounValue {
 
   visit(visitor: any, arg: any): any {
     return visitor.visitPronounValue(this, arg);
+  }
+}
+
+export class CharacterValue {
+  character: Character;
+
+  constructor(character: Character) {
+    this.character = character;
+  }
+
+  visit(visitor: any, arg: any): any {
+    return visitor.visitCharacterValue(this, arg);
   }
 }
 

@@ -306,9 +306,9 @@ export default class Semantics {
    * Question Sentence
    */
   visitQuestionSentence(question, arg) {
-    question.be.visit(this, arg);
+    question.value1.visit(this, arg);
     question.comparison.visit(this, arg);
-    question.value.visit(this, arg);
+    question.value2.visit(this, arg);
 
     return null;
   }
@@ -501,6 +501,10 @@ export default class Semantics {
     let p = pronoun.pronoun.visit(this, arg);
 
     return p;
+  }
+
+  visitCharacterValue(characterValue, arg) {
+    return null;
   }
 
   /**

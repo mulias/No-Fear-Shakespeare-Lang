@@ -79,6 +79,9 @@ export default class Token {
   static get BE_COMPARATIVE() {
     return 46;
   }
+  static get Is() {
+    return 47;
+  }
 
   static get UNARY_OPERATOR() {
     return 50;

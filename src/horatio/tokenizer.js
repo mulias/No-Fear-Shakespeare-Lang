@@ -167,6 +167,9 @@ export default class Tokenizer {
     wl.be_comparatives.forEach(function (w) {
       self.dictionary[w] = 46;
     });
+    wl.is.forEach(function (w) {
+      self.dictionary[w] = 47;
+    });
 
     wl.unary_operators.forEach(function (w) {
       self.dictionary[w] = 50;

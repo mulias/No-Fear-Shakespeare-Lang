@@ -195,27 +195,22 @@ export default class Generator {
    * Question Sentence
    */
   visitQuestionSentence(question, arg) {
-    let Command = function (be, comparative, value) {
-      let b = be;
-      let c = comparative;
-      let v = value;
-
+    let Command = function (value1, comparative, value2) {
       return function () {
-        let character = b.call(this);
-        let a = this.characters[b].value();
-        let val = v.call(this);
-        let result = c.call(this, a, val);
+        let val1 = value1.call(this);
+        let val2 = value2.call(this);
+        let result = comparative.call(this, val1, val2);
       };
     };
 
-    let be = question.be.visit(this, arg);
+    let value1 = question.value1.visit(this, arg);
     let comparative = question.comparison.visit(this, arg);
-    let value = question.value.visit(this, arg);
+    let value2 = question.value2.visit(this, arg);
 
     this.program.addCommand(
       arg.act,
       arg.scene,
-      new Command(be, comparative, value),
+      new Command(value1, comparative, value2),
     );
 
     return null;
@@ -629,19 +624,17 @@ export default class Generator {
    */
   visitBeComparative(be, arg) {
     let Command = function (be) {
-      let b = be;
       let speaking = arg.character;
-      let t;
 
-      switch (b) {
+      switch (be) {
         case "Art thou":
         case "Are you":
           return function () {
-            return this.interlocutor(speaking).name();
+            return this.interlocutor(speaking).value();
           };
         case "Am I":
           return function () {
-            return this.characters[speaking].name();
+            return this.characters[speaking].value();
           };
       }
     };
@@ -649,5 +642,15 @@ export default class Generator {
     let b = be.sequence;
 
     return new Command(b);
+  }
+
+  visitCharacterValue(characterValue, arg) {
+    let Command = function (character) {
+      return function () {
+        this.characters[character.sequence].value();
+      };
+    };
+
+    return new Command(characterValue.character);
   }
 }
