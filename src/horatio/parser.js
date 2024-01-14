@@ -293,11 +293,17 @@ export default class Parser {
         value = this.parseConstant();
         break;
 
+      case Token.NOTHING:
+        value = new AST.ZeroValue(this.currentToken.sequence);
+        this.acceptIt();
+        break;
+
       case Token.FIRST_PERSON_PRONOUN:
         pronoun = new AST.FirstPersonPronoun(this.currentToken.sequence);
         value = new AST.PronounValue(pronoun);
         this.acceptIt();
         break;
+
       case Token.SECOND_PERSON_PRONOUN:
         pronoun = new AST.SecondPersonPronoun(this.currentToken.sequence);
         value = new AST.PronounValue(pronoun);

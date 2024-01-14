@@ -26,6 +26,7 @@ export type Comparison =
 export type Value =
   | PositiveConstantValue
   | NegativeConstantValue
+  | ZeroValue
   | UnaryOperationValue
   | ArithmeticOperationValue
   | PronounValue;
@@ -355,6 +356,18 @@ export class NegativeConstantValue {
 
   visit(visitor: any, arg: any): any {
     return visitor.visitNegativeConstantValue(this, arg);
+  }
+}
+
+export class ZeroValue {
+  sequence: string;
+
+  constructor(sequence: string) {
+    this.sequence = sequence;
+  }
+
+  visit(visitor: any, arg: any): any {
+    return visitor.visitZeroValue(this, arg);
   }
 }
 

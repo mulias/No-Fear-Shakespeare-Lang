@@ -362,6 +362,16 @@ export default class Generator {
     return new Command(adjectives.length);
   }
 
+  visitZeroValue(zero, arg) {
+    let Command = function () {
+      return function () {
+        return 0;
+      };
+    };
+
+    return new Command();
+  }
+
   /**
    * Unary Operation Value
    */

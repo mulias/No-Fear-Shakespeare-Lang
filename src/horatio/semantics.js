@@ -465,6 +465,14 @@ export default class Semantics {
     return 0; // placeholder
   }
 
+  visitZeroValue(zero, arg) {
+    if (zero.sequence) {
+      return null;
+    } else {
+      throw new Error("Semantic Error - Zero value malformed.");
+    }
+  }
+
   /**
    * Unary Operation Value
    */
