@@ -216,6 +216,15 @@ export default class Tokenizer {
       self.dictionary[w] = 79;
     });
 
+    wl.first_person_possessive.forEach(function (w) {
+      self.dictionary[w] = 80;
+    });
+    wl.second_person_possessive.forEach(function (w) {
+      self.dictionary[w] = 81;
+    });
+    wl.third_person_possessive.forEach(function (w) {
+      self.dictionary[w] = 82;
+    });
 
     wl.colon.forEach(function (w) {
       self.dictionary[w] = 90;

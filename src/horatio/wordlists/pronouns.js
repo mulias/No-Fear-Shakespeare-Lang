@@ -8,7 +8,6 @@ export const second_person_pronouns = [
   "you",
   "yourself",
   "thyself",
-  "thy",
   "thee",
   "thou",
 ];

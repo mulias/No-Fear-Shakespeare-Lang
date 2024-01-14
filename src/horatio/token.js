@@ -128,6 +128,15 @@ export default class Token {
     return 79;
   }
 
+  static get FIRST_PERSON_POSSESSIVE() {
+    return 80;
+  }
+  static get SECOND_PERSON_POSSESSIVE() {
+    return 81;
+  }
+  static get THIRD_PERSON_POSSESSIVE() {
+    return 82;
+  }
 
   static get COLON() {
     return 90;
