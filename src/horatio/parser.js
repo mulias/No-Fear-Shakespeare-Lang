@@ -381,35 +381,13 @@ export default class Parser {
   }
 
   parseConstant() {
-    if (this.currentToken.kind === Token.ARTICLE) {
-      this.acceptIt();
-    }
-    switch (this.currentToken.kind) {
-      case Token.NEUTRAL_ADJECTIVE:
-      case Token.NEUTRAL_NOUN:
-        throw new Error(
-          "Syntax Error - Constant Value cannot start with neutral adjective or noun.",
-        );
-
-      case Token.POSITIVE_ADJECTIVE:
-      case Token.POSITIVE_NOUN:
-        return this.parsePositiveConstant();
-
-      case Token.NEGATIVE_ADJECTIVE:
-      case Token.NEGATIVE_NOUN:
-        return this.parseNegativeConstant();
-
-      default:
-        throw new Error(
-          "Syntax Error - Unknown Token: " + this.currentToken.sequence,
-        );
-    }
-  }
-
-  parsePositiveConstant() {
     let adjectives = [];
     let adjective;
-    while (this.currentToken.kind !== Token.POSITIVE_NOUN) {
+    while (
+      this.currentToken.kind !== Token.POSITIVE_NOUN &&
+      this.currentToken.kind !== Token.NEUTRAL_NOUN &&
+      this.currentToken.kind !== Token.NEGATIVE_NOUN
+    ) {
       switch (this.currentToken.kind) {
         case Token.POSITIVE_ADJECTIVE:
           adjective = new AST.PositiveAdjective(this.currentToken.sequence);
@@ -422,40 +400,31 @@ export default class Parser {
           this.acceptIt();
           break;
         case Token.NEGATIVE_ADJECTIVE:
-          throw new Error(
-            "Syntax Error - Cannot mix positive and negative words in constant assignment.",
-          );
-      }
-    }
-    let noun = new AST.PositiveNoun(this.currentToken.sequence);
-    this.accept(Token.POSITIVE_NOUN);
-    return new AST.PositiveConstantValue(noun, adjectives);
-  }
-
-  parseNegativeConstant() {
-    let adjectives = [];
-    let adjective;
-    while (this.currentToken.kind !== Token.NEGATIVE_NOUN) {
-      switch (this.currentToken.kind) {
-        case Token.NEGATIVE_ADJECTIVE:
-          adjective = new AST.NegativeAdjective(this.currentToken.sequence);
-          adjectives.push(adjective);
-          this.acceptIt();
-          break;
-        case Token.NEUTRAL_ADJECTIVE:
           adjective = new AST.NeutralAdjective(this.currentToken.sequence);
           adjectives.push(adjective);
           this.acceptIt();
           break;
-        case Token.POSITIVE_ADJECTIVE:
-          throw new Error(
-            "Syntax Error - Cannot mix positive and negative words in constant assignment.",
-          );
+        default:
+          throw this.unexpectedTokenError();
       }
     }
-    let noun = new AST.NegativeNoun(this.currentToken.sequence);
-    this.accept(Token.NEGATIVE_NOUN);
-    return new AST.NegativeConstantValue(noun, adjectives);
+    let noun;
+    switch (this.currentToken.kind) {
+      case Token.POSITIVE_NOUN:
+        noun = new AST.PositiveNoun(this.currentToken.sequence);
+        this.acceptIt();
+        return new AST.PositiveConstantValue(noun, adjectives);
+      case Token.NEUTRAL_NOUN:
+        noun = new AST.NeutralNoun(this.currentToken.sequence);
+        this.acceptIt();
+        return new AST.PositiveConstantValue(noun, adjectives);
+      case Token.NEGATIVE_NOUN:
+        noun = new AST.NegativeNoun(this.currentToken.sequence);
+        this.acceptIt();
+        return new AST.NegativeConstantValue(noun, adjectives);
+      default:
+        throw this.unexpectedTokenError();
+    }
   }
 
   parseQuestion() {
