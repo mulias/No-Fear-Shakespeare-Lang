@@ -82,6 +82,9 @@ export default class Generator {
     let Command = function (cname) {
       let c = cname;
       return function () {
+        if (this.io.debug) {
+          this.io.printDebug(`Enter ${c}`);
+        }
         this.enterStage(c);
       };
     };
@@ -106,6 +109,9 @@ export default class Generator {
     let Command = function (cname) {
       let c = cname;
       return function () {
+        if (this.io.debug) {
+          this.io.printDebug(`Exit ${c}`);
+        }
         this.exitStage(c);
       };
     };
@@ -123,6 +129,11 @@ export default class Generator {
   visitExeunt(presence, arg) {
     let Command = function () {
       return function () {
+        if (this.io.debug) {
+          this.io.printDebug(
+            `Exeunt ${this.stage.map((c) => c.name()).join(", ")}`,
+          );
+        }
         this.exeuntStage();
       };
     };
@@ -179,6 +190,11 @@ export default class Generator {
       return function () {
         let target = t.call(this);
         let val = v.call(this);
+
+        if (this.io.debug) {
+          this.io.printDebug(`${target} = ${val}`);
+        }
+
         this.characters[target].setValue(val);
       };
     };
@@ -293,7 +309,12 @@ export default class Generator {
 
       return function () {
         let val = this.interlocutor(speaker).value();
-        this.io.print(val);
+
+        if (this.io.debug) {
+          this.io.printDebug(`PrintInt ${speaker} ${val}`);
+        } else {
+          this.io.print(val);
+        }
       };
     };
 
@@ -310,8 +331,16 @@ export default class Generator {
       let speaker = arg.character;
 
       return function () {
-        let val = this.interlocutor(speaker).value();
-        this.io.print(String.fromCharCode(val));
+        let subject = this.interlocutor(speaker);
+        let val = subject.value();
+
+        if (this.io.debug) {
+          this.io.printDebug(
+            `PrintChar ${subject.name()} ${val}: ${String.fromCharCode(val)}`,
+          );
+        } else {
+          this.io.print(String.fromCharCode(val));
+        }
       };
     };
 
@@ -469,6 +498,9 @@ export default class Generator {
   visitGreaterThanComparison(comparison, arg) {
     let Command = function () {
       return function (a, b) {
+        if (this.io.debug) {
+          this.io.printDebug(`Compare ${a} > ${b}`);
+        }
         return a > b;
       };
     };
@@ -482,6 +514,9 @@ export default class Generator {
   visitLesserThanComparison(comparison, arg) {
     let Command = function () {
       return function (a, b) {
+        if (this.io.debug) {
+          this.io.printDebug(`Compare ${a} < ${b}`);
+        }
         return a < b;
       };
     };
@@ -495,6 +530,9 @@ export default class Generator {
   visitEqualToComparison(comparison, arg) {
     let Command = function () {
       return function (a, b) {
+        if (this.io.debug) {
+          this.io.printDebug(`Compare ${a} == ${b}`);
+        }
         return a === b;
       };
     };
