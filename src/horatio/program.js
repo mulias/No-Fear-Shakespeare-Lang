@@ -10,18 +10,57 @@ export default class Program {
     this.parts = [];
     this.stage = [];
     this.globalBool = null;
+    this.actIndex = 0;
+    this.sceneIndex = 0;
+    this.lineIndex = 0;
   }
 
   run() {
     let self = this;
-    for (let a = 0; a < self.parts.length; a++) {
-      for (let s = 0; s < self.parts[a].length; s++) {
-        for (let f = 0; f < self.parts[a][s].length; f++) {
-          self.parts[a][s][f].call(self);
+    for (; self.actIndex < self.acts().length; self.nextAct()) {
+      for (; self.sceneIndex < self.scenes().length; self.nextScene()) {
+        for (; self.lineIndex < self.lines().length; self.nextLine()) {
+          self.line().call(self);
         }
       }
     }
     return 0;
+  }
+
+  acts() {
+    return this.parts;
+  }
+
+  scenes() {
+    return this.parts[this.actIndex];
+  }
+
+  lines() {
+    return this.parts[this.actIndex][this.sceneIndex];
+  }
+
+  line() {
+    return this.parts[this.actIndex][this.sceneIndex][this.lineIndex];
+  }
+
+  nextAct() {
+    this.actIndex = this.actIndex + 1;
+    this.sceneIndex = 0;
+    this.lineIndex = 0;
+  }
+
+  nextScene() {
+    this.sceneIndex = this.sceneIndex + 1;
+    this.lineIndex = 0;
+  }
+
+  nextLine() {
+    this.lineIndex = this.lineIndex + 1;
+  }
+
+  gotoScene(n) {
+    this.sceneIndex = n;
+    this.lineIndex = -1;
   }
 
   runSub(act, start_scene, end_scene) {

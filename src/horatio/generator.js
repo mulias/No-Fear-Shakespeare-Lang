@@ -174,9 +174,18 @@ export default class Generator {
    * Goto
    */
   visitGoto(goto, arg) {
-    let n = goto.numeral.visit(this, arg);
+    let Command = function (sceneIndex) {
+      return function () {
+        if (this.io.debug) {
+          this.io.printDebug(`Goto Scene ${sceneIndex + 1}`);
+        }
+        this.gotoScene(sceneIndex);
+      };
+    };
 
-    return null;
+    let sceneIndex = goto.numeral.visit(this, arg);
+
+    return new Command(sceneIndex);
   }
 
   /**
@@ -274,9 +283,7 @@ export default class Generator {
    * Goto Sentence
    */
   visitGotoSentence(goto, arg) {
-    goto.goto.visit(this, arg);
-
-    return null;
+    return goto.goto.visit(this, arg);
   }
 
   /**
