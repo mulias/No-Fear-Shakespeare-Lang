@@ -471,13 +471,6 @@ export default class Parser {
         this.acceptIt();
         comparative = this.parseComparative();
         comparison = new AST.InverseComparison(comparative);
-        //switch (this.currentToken.kind) {
-        //  case Token.POSITIVE_COMPARATIVE:
-        //  case Token.NEGATIVE_COMPARATIVE:
-        //    this.acceptIt();
-        //    this.accept(Token.THAN);
-        //    break;
-        //}
         break;
     }
     return comparison;
