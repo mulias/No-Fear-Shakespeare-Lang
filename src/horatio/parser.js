@@ -185,6 +185,7 @@ export default class Parser {
         case Token.BE:
         case Token.BE_COMPARATIVE:
         case Token.IF_SO:
+        case Token.Is:
         case Token.IMPERATIVE:
         case Token.INPUT_INTEGER:
         case Token.INPUT_CHAR:
