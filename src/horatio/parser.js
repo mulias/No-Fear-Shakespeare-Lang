@@ -231,23 +231,51 @@ export default class Parser {
       case Token.INPUT_INTEGER:
       case Token.INPUT_CHAR:
         sentence = this.parseInput();
-        this.accept(Token.EXCLAMATION_POINT);
+        if (
+          this.currentToken.kind === Token.EXCLAMATION_POINT ||
+          this.currentToken.kind === Token.PERIOD
+        ) {
+          this.acceptIt();
+        } else {
+          throw this.unexpectedTokenError();
+        }
         break;
 
       case Token.OUTPUT_INTEGER:
       case Token.OUTPUT_CHAR:
         sentence = this.parseOutput();
-        this.accept(Token.EXCLAMATION_POINT);
+        if (
+          this.currentToken.kind === Token.EXCLAMATION_POINT ||
+          this.currentToken.kind === Token.PERIOD
+        ) {
+          this.acceptIt();
+        } else {
+          throw this.unexpectedTokenError();
+        }
         break;
 
       case Token.REMEMBER:
         sentence = this.parseRemember();
-        this.accept(Token.EXCLAMATION_POINT);
+        if (
+          this.currentToken.kind === Token.EXCLAMATION_POINT ||
+          this.currentToken.kind === Token.PERIOD
+        ) {
+          this.acceptIt();
+        } else {
+          throw this.unexpectedTokenError();
+        }
         break;
 
       case Token.RECALL:
         sentence = this.parseRecall();
-        this.accept(Token.EXCLAMATION_POINT);
+        if (
+          this.currentToken.kind === Token.EXCLAMATION_POINT ||
+          this.currentToken.kind === Token.PERIOD
+        ) {
+          this.acceptIt();
+        } else {
+          throw this.unexpectedTokenError();
+        }
         break;
     }
     return sentence;
