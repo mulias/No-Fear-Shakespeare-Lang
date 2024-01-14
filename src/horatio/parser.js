@@ -582,7 +582,10 @@ export default class Parser {
     this.accept(Token.RECALL);
     this.accept(Token.COMMA);
     let comment = "";
-    while (this.currentToken.kind !== Token.EXCLAMATION_POINT) {
+    while (
+      this.currentToken.kind !== Token.EXCLAMATION_POINT &&
+      this.currentToken.kind !== Token.PERIOD
+    ) {
       comment += this.currentToken.sequence + " ";
       this.acceptIt();
     }
