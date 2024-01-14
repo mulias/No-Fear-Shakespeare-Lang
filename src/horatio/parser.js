@@ -541,7 +541,7 @@ export default class Parser {
 
   parseRecall() {
     this.accept(Token.RECALL);
-    this.accept(Token.COMMA);
+    this.acceptIf((t) => t.kind === Token.COMMA || t.kind === Token.SECOND_PERSON_POSSESSIVE);
     let comment = "";
     while (!Token.isStatementPunctuation(this.currentToken)) {
       comment += this.currentToken.sequence + " ";
