@@ -220,7 +220,7 @@ export default class Generator {
    * Response Sentence
    */
   visitResponseSentence(response, arg) {
-    response.goto.visit(this, arg);
+    response.sentence.visit(this, arg);
 
     return null;
   }

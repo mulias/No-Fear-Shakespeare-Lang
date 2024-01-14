@@ -233,10 +233,10 @@ export class QuestionSentence {
 }
 
 export class ResponseSentence {
-  goto: Goto;
+  sentence: Sentence;
 
-  constructor(goto: Goto) {
-    this.goto = goto;
+  constructor(sentence: Sentence) {
+    this.sentence = sentence;
   }
 
   visit(visitor: any, arg: any): any {

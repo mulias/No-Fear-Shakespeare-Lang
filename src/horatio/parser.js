@@ -186,13 +186,16 @@ export default class Parser {
     let character = new AST.Character(this.currentToken.sequence);
     this.accept(Token.CHARACTER);
     this.accept(Token.COLON);
-    let sentences = [this.parseSentence()];
+    let sentences = [];
 
-    function isSentence(token) {
-      switch (token) {
+    function isResponseSentence(kind) {
+      return kind === Token.IF_SO
+    }
+
+    function isSentence(kind) {
+      switch (kind) {
         case Token.BE:
         case Token.BE_COMPARATIVE:
-        case Token.IF_SO:
         case Token.Is:
         case Token.IMPERATIVE:
         case Token.INPUT_INTEGER:
@@ -206,10 +209,25 @@ export default class Parser {
           return false;
       }
     }
-    while (isSentence(this.currentToken.kind)) {
-      sentences.push(this.parseSentence());
+
+    while (
+      isResponseSentence(this.currentToken.kind) ||
+      isSentence(this.currentToken.kind)
+    ) {
+      if (isResponseSentence(this.currentToken.kind)) {
+        sentences.push(this.parseResponseSentence());
+      } else {
+        sentences.push(this.parseSentence());
+      }
     }
     return new AST.Line(character, sentences);
+  }
+
+  parseResponseSentence() {
+    this.accept(Token.IF_SO);
+    this.accept(Token.COMMA);
+    let sentence = this.parseSentence();
+    return new AST.ResponseSentence(sentence);
   }
 
   parseSentence() {
@@ -224,11 +242,6 @@ export default class Parser {
       case Token.Is:
         sentence = this.parseQuestion();
         this.accept(Token.QUESTION_MARK);
-        break;
-
-      case Token.IF_SO:
-        sentence = this.parseResponse();
-        this.accept(Token.PERIOD);
         break;
 
       case Token.IMPERATIVE:
@@ -462,13 +475,6 @@ export default class Parser {
         break;
     }
     return comparison;
-  }
-
-  parseResponse() {
-    this.accept(Token.IF_SO);
-    this.accept(Token.COMMA);
-    let goto = this.parseGoto();
-    return new AST.ResponseSentence(goto);
   }
 
   parseGoto() {

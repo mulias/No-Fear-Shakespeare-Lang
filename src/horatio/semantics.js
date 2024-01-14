@@ -300,7 +300,7 @@ export default class Semantics {
    * Response Sentence
    */
   visitResponseSentence(response, arg) {
-    response.goto.visit(this, arg);
+    response.sentence.visit(this, arg);
 
     return null;
   }
