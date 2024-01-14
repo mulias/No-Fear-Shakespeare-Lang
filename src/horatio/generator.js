@@ -238,6 +238,24 @@ export default class Generator {
    * Integer Input Sentence
    */
   visitIntegerInputSentence(integer_input, arg) {
+    let Command = function () {
+      let speaker = arg.character;
+
+      return function () {
+        let subject = this.interlocutor(speaker);
+
+        this.io.read((input) =>
+          subject.setValue(input === "" ? -1 : parseInt(input)),
+        );
+
+        if (this.io.debug) {
+          this.io.printDebug(`${subject.name()} = ${subject.value()}`);
+        }
+      };
+    };
+
+    this.program.addCommand(arg.act, arg.scene, new Command());
+
     return null;
   }
 
@@ -245,6 +263,24 @@ export default class Generator {
    * Char Input Sentence
    */
   visitCharInputSentence(char_input, arg) {
+    let Command = function () {
+      let speaker = arg.character;
+
+      return function () {
+        let subject = this.interlocutor(speaker);
+
+        this.io.read((input) =>
+          subject.setValue(input === "" ? -1 : input.charCodeAt(0)),
+        );
+
+        if (this.io.debug) {
+          this.io.printDebug(`${subject.name()} = ${subject.value()}`);
+        }
+      };
+    };
+
+    this.program.addCommand(arg.act, arg.scene, new Command());
+
     return null;
   }
 
