@@ -80,23 +80,6 @@ export default class Semantics {
       throw new Error("Semantic Error - Character Undeclared");
     }
 
-    // Present on stage flag
-    if (arg && arg.hasOwnProperty("on_stage")) {
-      switch (arg.on_stage) {
-        case true:
-          if (!this.onStage(character.sequence)) {
-            throw new Error("Semantic Error - Character not on stage.");
-          }
-          break;
-
-        case false:
-          if (this.onStage(character.sequence)) {
-            throw new Error("Semantic Error - Character already on stage.");
-          }
-          break;
-      }
-    }
-
     return character;
   }
 
@@ -335,11 +318,6 @@ export default class Semantics {
    * Integer Input Sentence
    */
   visitIntegerInputSentence(integer_input, arg) {
-    if (this.solo(arg.character)) {
-      throw new Error(
-        "Semantic Error - Input calls require two characters on stage.",
-      );
-    }
     return null;
   }
 
@@ -347,11 +325,6 @@ export default class Semantics {
    * Char Input Sentence
    */
   visitCharInputSentence(char_input, arg) {
-    if (this.solo(arg.character)) {
-      throw new Error(
-        "Semantic Error - Input calls require two characters on stage.",
-      );
-    }
     return null;
   }
 
@@ -359,11 +332,6 @@ export default class Semantics {
    * Integer Output Sentence
    */
   visitIntegerOutputSentence(integer_output, arg) {
-    if (this.solo(arg.character)) {
-      throw new Error(
-        "Semantic Error - Output calls require two characters on stage.",
-      );
-    }
     return null;
   }
 
@@ -371,11 +339,6 @@ export default class Semantics {
    * Char Output Sentence
    */
   visitCharOutputSentence(char_output, arg) {
-    if (this.solo(arg.character)) {
-      throw new Error(
-        "Semantic Error - Output calls require two characters on stage.",
-      );
-    }
     return null;
   }
 
@@ -414,16 +377,7 @@ export default class Semantics {
     }
     pc_val.noun.visit(this, arg);
     pc_val.adjectives.forEach(function (adjective) {
-      if (
-        !(adjective instanceof AST.PositiveAdjective) &&
-        !(adjective instanceof AST.NeutralAdjective)
-      ) {
-        throw new Error(
-          "Semantic Error - Positive Constants must use positive of neutral adjectives.",
-        );
-      } else {
-        adjective.visit(self, arg);
-      }
+      adjective.visit(self, arg);
     });
 
     //return Math.pow(2, pc_val.adjectives.length);
@@ -631,19 +585,6 @@ export default class Semantics {
    * Be
    */
   visitBe(be, arg) {
-    if (
-      be.sequence === "You are" ||
-      be.sequence === "Thou art" ||
-      be.sequence === "You"
-    ) {
-      if (this.solo(arg.character)) {
-        console.log("solo");
-        throw new Error(
-          "Semantic Error - Cannot assign value to interlocutor, only 1 character is on stage.",
-        );
-      }
-    }
-
     return null;
   }
 
@@ -651,13 +592,6 @@ export default class Semantics {
    * Be Comparative
    */
   visitBeComparative(be, arg) {
-    if (be.sequence === "Are you" || be.sequence === "Art thou") {
-      if (this.solo(arg.character))
-        throw new Error(
-          "Semantic Error - Cannot compare value of interlocutor, only 1 character is on stage.",
-        );
-    }
-
     return null;
   }
 }
