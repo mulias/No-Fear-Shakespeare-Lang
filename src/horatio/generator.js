@@ -757,7 +757,7 @@ export default class Generator {
   visitCharacterValue(characterValue, arg) {
     let Command = function (character) {
       return function () {
-        this.characters[character.sequence].value();
+        return this.characters[character.sequence].value();
       };
     };
 
