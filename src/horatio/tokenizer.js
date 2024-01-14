@@ -209,6 +209,10 @@ export default class Tokenizer {
     wl.roman_numerals.forEach(function (w) {
       self.dictionary[w] = 78;
     });
+    wl.nothing.forEach(function (w) {
+      self.dictionary[w] = 79;
+    });
+
 
     wl.colon.forEach(function (w) {
       self.dictionary[w] = 90;

@@ -121,6 +121,10 @@ export default class Token {
   static get ROMAN_NUMERAL() {
     return 78;
   }
+  static get NOTHING() {
+    return 79;
+  }
+
 
   static get COLON() {
     return 90;
