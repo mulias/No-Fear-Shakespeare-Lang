@@ -6,75 +6,87 @@ Main {
   Start {
     stage(n, out);
 
-    n.set(0);
+    out.{
+      n.set(0);
+    }
   }
 
   Loop {
-    n.set(n + 1);
+    out.{
+      n.set(n + 1);
 
-    test_gt(n, 100);
-    if_true(goto(End));
+      test_gt(n, 100);
+      if_true(goto(End));
 
-    test_eq(n % 15, 0);
-    if_true(goto(Fizzbuzz));
+      test_eq(n % 15, 0);
+      if_true(goto(Fizzbuzz));
 
-    test_eq(n % 3, 0);
-    if_true(goto(Fizz));
+      test_eq(n % 3, 0);
+      if_true(goto(Fizz));
 
-    test_eq(n % 5, 0);
-    if_true(goto(Buzz));
+      test_eq(n % 5, 0);
+      if_true(goto(Buzz));
+    }
 
-    out.set(n);
-    out.print_int;
+    n.{
+      out.set(n);
+      out.print_int;
 
-    goto Loop;
+      goto(Loop);
+    }
   }
 
   FizzBuzz {
-    out.set('f');
-    out.print_char;
-    out.set('i');
-    out.print_char;
-    out.set('z');
-    out.print_char;
-    out.set('z');
-    out.print_char;
-    out.set('b');
-    out.print_char;
-    out.set('u');
-    out.print_char;
-    out.set('z');
-    out.print_char;
-    out.set('z');
-    out.print_char;
+    n.{
+      out.set('f');
+      out.print_char;
+      out.set('i');
+      out.print_char;
+      out.set('z');
+      out.print_char;
+      out.set('z');
+      out.print_char;
+      out.set('b');
+      out.print_char;
+      out.set('u');
+      out.print_char;
+      out.set('z');
+      out.print_char;
+      out.set('z');
+      out.print_char;
 
-    goto(Loop);
+      goto(Loop);
+    }
   }
 
   Fizz {
-    out.set('f');
-    out.print_char;
-    out.set('i');
-    out.print_char;
-    out.set('z');
-    out.print_char;
-    out.set('z');
-    out.print_char;
+    n.{
+      out.set('f');
+      out.print_char;
+      out.set('i');
+      out.print_char;
+      out.set('z');
+      out.print_char;
+      out.set('z');
+      out.print_char;
 
-    goto(Loop);
+      goto(Loop);
+    }
   }
 
   Buzz {
-    out.set('b');
-    out.print_char;
-    out.set('u');
-    out.print_char;
-    out.set('z');
-    out.print_char;
-    out.set('z');
-    out.print_char;
+    n.{
+      out.set('b');
+      out.print_char;
+      out.set('u');
+      out.print_char;
+      out.set('z');
+      out.print_char;
+      out.set('z');
+      out.print_char;
 
-    goto(Loop);
+      goto(Loop);
+    }
   }
 
   End {

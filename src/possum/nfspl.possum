@@ -1,35 +1,34 @@
 ws > program < ws < end
 
 program =
-  Nodes <- array_sep(act, ws) $
-  { "type": "program", "nodes": Nodes }
+  Acts <- array_sep(act, ws) $
+  { "type": "program", "acts": Acts }
 
 act =
-  LabelId <- label_id & ws &
+  ActId <- label_id & ws &
   "{" & ws &
-  Nodes <- default(array_sep(act_part, ws), []) & ws &
+  Scenes <- default(array_sep(scene, ws), []) & ws &
   "}" $
-  { "type": "act", "labelId": LabelId, "nodes": Nodes }
+  { "type": "act", "actId": ActId, "scenes": Scenes }
 
-act_part = stage_direction | block
-
-stage_direction = (stage | unstage | unstage_all) < ";"
-
-block =
-  SpeakerVarId <- var_id & ws &
-  ":" & ws &
-  SubjectVarId <- var_id & ws &
+scene =
+  SceneId <- label_id & ws &
   "{" & ws &
-  Nodes <- default(array_sep(statement < ws < ";", ws), []) & ws &
+  Directions <- default(array_sep(direction, ws), []) & ws &
   "}" $
-  { "type": "block", "speakerVarId": SpeakerVarId, "subjectVarId": SubjectVarId, "nodes": Nodes }
+  { "type": "scene", "sceneId": SceneId, "directions": Directions }
 
-statement = assign | print | read | test | if | goto | push | pop
+direction = dialogue | presence
 
-assign =
-  "set" & ws &
-  Value <- expression $
-  { "type": "assign", "value": Value }
+dialogue =
+  SpeakerVarId <- var_id & "." & "{" & ws &
+  Lines <- default(array_sep(statement < ws < ";", ws), []) & ws &
+  "}" $
+  { "type": "dialogue", "speakerVarId": SpeakerVarId, "lines": Lines }
+
+presence = (stage | unstage | unstage_all) < ";"
+
+statement = set | print | read | test | if | goto | push | pop
 
 expression = group | arithmetic | const | var
 
@@ -47,49 +46,87 @@ integer = Int <- int $ { "type": "int", "value": Int }
 
 character = Char <- "'" > char < "'" $ { "type": "char", "value": Char }
 
+set =
+  VarId <- var_id & ".set" & "(" & ws &
+  Value <- expression & ws &
+  ")" $
+  { "type": ".set", "varId": VarId, "value": Value }
+
 print = print_char | print_int
 
-print_char = "print_char" $ { "type": "print_char" }
+print_char =
+  VarId <- var_id & ".print_char" & optional_parens $
+  { "type": ".print_char", "varId": VarId }
 
-print_int = "print_int" $ { "type": "print_int" }
+print_int =
+  VarId <- var_id & ".print_int" & optional_parens $
+  { "type": ".print_int", "varId": VarId }
 
 read = read_char | read_int
 
-read_char = "read_char" $ { "type": "read_char" }
+read_char =
+  VarId <- var_id & ".read_char" & optional_parens $
+  { "type": ".read_char", "varId": VarId }
 
-read_int = "read_int" $ { "type": "read_int" }
+read_int =
+  VarId <- var_id & ".read_int" & optional_parens $
+  { "type": ".read_int", "varId": VarId }
 
 test =
-  Is <- boolean("test", "test_not") & ws &
+  test_type("test_eq") |
+  test_type("test_gt") |
+  test_type("test_lt") |
+  test_type("test_not_eq") |
+  test_type("test_not_gt") |
+  test_type("test_not_lt")
+
+test_type(type) =
+  Type <- type & "(" & ws &
   Left <- expression & ws &
-  Op <- "==" | ">" | "<" & ws &
-  Right <- expression & ws $
-  { "type": "test", "is": Is, "left": Left, "op": Op, "right": Right }
+  "," & ws &
+  Right <- expression & ws &
+  ")" $
+  { "type": Type, "left": Left, "right": Right }
 
 if =
-  Is <- boolean("if_true", "if_false") & ws &
-  Then <- statement $
+  Is <- boolean("if_true", "if_false") & "(" & ws &
+  Then <- statement & ws &
+  ")" $
   { "type": "if", "is": Is, "then": Then }
 
-goto = "goto" & ws & LabelId <- label_id $ { "kind": "goto", "labelId": LabelId }
+goto =
+  "goto" & "(" & ws &
+  LabelId <- label_id & ws &
+  ")" $
+  { "type": "goto", "labelId": LabelId }
 
-push = "push" & ws & Val <- expression $ { "type": "push", "val": Val }
+push =
+  VarId <- var_id & ".push" & optional_parens $
+  { "type": ".push", "varId": VarId }
 
-pop = "pop" $ { "type": "pop" }
+pop =
+  VarId <- var_id & ".pop" & optional_parens $
+  { "type": ".pop", "varId": VarId }
 
 stage =
-  "stage" & ws &
+  "stage" & "(" & ws &
   VarId1 <- var_id &
-  VarId2 <- default(ws > "," > ws > var_id, null) $
+  VarId2 <- default(ws > "," > ws > var_id, null) & ws &
+  ")" $
   { "type": "stage", "varId1": VarId1, "varId2": VarId2 }
 
 unstage =
-  "unstage" & ws &
+  "unstage" & "(" & ws &
   VarId1 <- var_id &
-  VarId2 <- default(ws > "," > ws > var_id, null) $
+  VarId2 <- default(ws > "," > ws > var_id, null) & ws &
+  ")" $
   { "type": "unstage", "varId1": VarId1, "varId2": VarId2 }
 
-unstage_all = "unstage_all" $ { "type": "unstage_all" }
+unstage_all = "unstage_all" & optional_parens $ { "type": "unstage_all" }
+
+optional_parens = maybe(
+  "(" > ws > ")"
+)
 
 label_id = peek(upper) > many(alpha | digit)
 

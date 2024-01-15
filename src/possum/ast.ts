@@ -1,21 +1,24 @@
-export type Program = { type: "program"; nodes: Act[] };
+export type Program = { type: "program"; acts: Act[] };
 
-export type Act = { type: "act"; labelId: LabelId; nodes: ActPart[] };
+export type Act = { type: "act"; actId: LabelId; scenes: Scene[] };
 
-export type ActPart = StageDirection | Block;
-
-export type StageDirection = Stage | Unstage | UnstageAll;
-
-export type Block = {
-  type: "block";
-  speakerVarId: VarId;
-  subjectVarId: VarId;
-  nodes: Statement[];
+export type Scene = {
+  type: "scene";
+  sceneId: LabelId;
+  directions: Direction[];
 };
 
-export type Statement = Assign | Print | Read | Test | If | Goto | Push | Pop;
+export type Direction = Dialogue | Presence;
 
-export type Assign = { type: "assign"; value: Expression };
+export type Dialogue = {
+  type: "dialogue";
+  speakerVarId: VarId;
+  lines: Statement[];
+};
+
+export type Presence = Stage | Unstage | UnstageAll;
+
+export type Statement = Set | Print | Read | Test | If | Goto | Push | Pop;
 
 export type Expression = Arithmetic | Const | Var;
 
@@ -32,37 +35,41 @@ export type Const = Int | Char;
 
 export type Int = { type: "int"; value: number };
 
-export type Char = { type: "char"; value: number };
+export type Char = { type: "char"; value: string };
+
+export type Set = { type: ".set"; varId: VarId; value: Expression };
 
 export type Print = PrintChar | PrintInt;
 
-export type PrintChar = { type: "print_char" };
+export type PrintChar = { type: ".print_char"; varId: VarId };
 
-export type PrintInt = { type: "print_int" };
+export type PrintInt = { type: ".print_int"; varId: VarId };
 
 export type Read = ReadChar | ReadInt;
 
-export type ReadChar = { type: "read_char" };
+export type ReadChar = { type: ".read_char"; varId: VarId };
 
-export type ReadInt = { type: "read_int" };
+export type ReadInt = { type: ".read_int"; varId: VarId };
 
 export type Test = {
-  type: "test";
-  is: boolean;
+  type:
+    | "test_eq"
+    | "test_gt"
+    | "test_lt"
+    | "test_not_eq"
+    | "test_not_gt"
+    | "test_not_lt";
   left: Expression;
-  op: TestOp;
   right: Expression;
 };
 
-export type TestOp = "==" | ">" | "<";
-
 export type If = { type: "if"; is: boolean; then: Statement };
 
-export type Goto = { kind: "goto"; labelId: LabelId };
+export type Goto = { type: "goto"; labelId: LabelId };
 
-export type Push = { kind: "push"; val: Expression };
+export type Push = { type: ".push"; varId: VarId };
 
-export type Pop = { kind: "pop" };
+export type Pop = { type: ".pop"; varId: VarId };
 
 export type Stage = { type: "stage"; varId1: VarId; varId2: VarId | null };
 

@@ -6,14 +6,20 @@ Main {
   PrintHi {
     stage(a, b);
 
-    a.set(72);
-    a.print_char;
+    b.{
+      a.set(72);
+      a.print_char;
+    }
 
-    a.set(a + 1);
-    a.print_char;
+    b.{
+      a.set(a + 1);
+      a.print_char;
+    }
 
-    b.set(10);
-    b.print_char;
+    a.{
+      b.set(10);
+      b.print_char;
+    }
 
     unstage_all;
   }
