@@ -4,10 +4,13 @@ Being a modern translation of the classic programming language.
 
 ## Todo or not todo
 
-- nfspl file
-- parser generator
-- generate nfspl ast
-- transform into IR without valid character names and numbers
-- walk the tree to assign character names and number values
-- at this point the ast is valid for horatio
-- compile and run using horatio
+- Implement PEG or recursive decent parser
+- Pretty print Horatio AST
+- Use seeded randomness to a specific NFSP program AST will always produce the
+  same output.
+- Check at runtime that all used vars are present on stage
+- Check at compile time that all used vars are present on stage, iff the
+  characters were staged within the scene.
+- Add unary operator support to NFSP
+- Use comments to optionally specify play title, character descriptions, and
+  act/scene titles.
