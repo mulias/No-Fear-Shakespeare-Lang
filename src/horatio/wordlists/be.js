@@ -1,12 +1,5 @@
-/** Be */
-export const be = [
-  "Thou art",
-  "You are",
-  "I am",
-  "You",
-  //'am',
-  //'are',
-  //'art',
-  //'be',
-  //'is'
-];
+export const be_first_person = ["I am"];
+
+export const be_second_person = ["Thou art", "You are", "You"];
+
+export const be = be_first_person.concat(be_second_person);

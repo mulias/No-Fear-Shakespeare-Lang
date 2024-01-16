@@ -124,9 +124,9 @@ export class Enter {
   character_1: Character;
   character_2: Character | null;
 
-  constructor(character_1: Character, character_2: Character | null) {
+  constructor(character_1: Character, character_2?: Character) {
     this.character_1 = character_1;
-    this.character_2 = character_2;
+    this.character_2 = character_2 || null;
   }
 
   visit(visitor: any, arg: any): any {
@@ -147,12 +147,12 @@ export class Exit {
 }
 
 export class Exeunt {
-  character_1: Character;
+  character_1: Character | null;
   character_2: Character | null;
 
-  constructor(character_1: Character, character_2: Character | null) {
-    this.character_1 = character_1;
-    this.character_2 = character_2;
+  constructor(character_1?: Character, character_2?: Character) {
+    this.character_1 = character_1 || null;
+    this.character_2 = character_2 || null;
   }
 
   visit(visitor: any, arg: any): any {
@@ -189,10 +189,12 @@ export class Line {
 export class AssignmentSentence {
   be: Be;
   value: Value;
+  subject?: Character;
 
-  constructor(be: Be, value: Value) {
+  constructor(be: Be, value: Value, subject?: Character) {
     this.be = be;
     this.value = value;
+    this.subject = subject;
   }
 
   visit(visitor: any, arg: any): any {
@@ -250,9 +252,11 @@ export class GotoSentence {
 
 export class IntegerInputSentence {
   sequence: string;
+  subject?: Character;
 
-  constructor(sequence: string) {
+  constructor(sequence: string, subject?: Character) {
     this.sequence = sequence;
+    this.subject = subject;
   }
 
   visit(visitor: any, arg: any): any {
@@ -262,9 +266,11 @@ export class IntegerInputSentence {
 
 export class CharInputSentence {
   sequence: string;
+  subject?: Character;
 
-  constructor(sequence: string) {
+  constructor(sequence: string, subject?: Character) {
     this.sequence = sequence;
+    this.subject = subject;
   }
 
   visit(visitor: any, arg: any): any {
@@ -274,9 +280,11 @@ export class CharInputSentence {
 
 export class IntegerOutputSentence {
   sequence: string;
+  subject?: Character;
 
-  constructor(sequence: string) {
+  constructor(sequence: string, subject?: Character) {
     this.sequence = sequence;
+    this.subject = subject;
   }
 
   visit(visitor: any, arg: any): any {
@@ -286,9 +294,11 @@ export class IntegerOutputSentence {
 
 export class CharOutputSentence {
   sequence: string;
+  subject?: Character;
 
-  constructor(sequence: string) {
+  constructor(sequence: string, subject?: Character) {
     this.sequence = sequence;
+    this.subject = subject;
   }
 
   visit(visitor: any, arg: any): any {
@@ -298,9 +308,11 @@ export class CharOutputSentence {
 
 export class RememberSentence {
   pronoun: Pronoun;
+  subject?: Character;
 
-  constructor(pronoun: Pronoun) {
+  constructor(pronoun: Pronoun, subject?: Character) {
     this.pronoun = pronoun;
+    this.subject = subject;
   }
 
   visit(visitor: any, arg: any): any {
@@ -310,9 +322,11 @@ export class RememberSentence {
 
 export class RecallSentence {
   comment: Comment;
+  subject?: Character;
 
-  constructor(comment: Comment) {
+  constructor(comment: Comment, subject?: Character) {
     this.comment = comment;
+    this.subject = subject;
   }
 
   visit(visitor: any, arg: any): any {
@@ -415,7 +429,7 @@ export class CharacterValue {
 }
 
 export class GreaterThanComparison {
-  comparative: Comparative;
+  comparative: PositiveComparative;
 
   constructor(comparative: Comparative) {
     this.comparative = comparative;
@@ -427,7 +441,7 @@ export class GreaterThanComparison {
 }
 
 export class LesserThanComparison {
-  comparative: Comparative;
+  comparative: NegativeComparative;
 
   constructor(comparative: Comparative) {
     this.comparative = comparative;

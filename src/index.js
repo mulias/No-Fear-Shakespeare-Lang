@@ -1,8 +1,8 @@
 import * as fs from "fs";
 import prompt from "prompt-sync";
-import yorick from "./yorick";
-import Compiler from "./horatio/compiler";
-import possumAst from "./possum/hiExample";
+import { Yorick } from "./yorick";
+import Horatio from "./horatio/compiler";
+import possumAst from "./possum/reverseExample";
 
 const reader = prompt({ sigint: true });
 
@@ -16,18 +16,12 @@ const io = {
   printDebug: (v) => console.log(v),
 };
 
-const compiler = new Compiler(io);
-
-const extendedHoratioAst =
-  yorick[
-    "There are more things in Heaven and Earth, Horatio, than are dreamt of in your philosophy."
-  ](possumAst);
-
-const horatioAst =
-  yorick["Something is rotten in the state of Denmark."](extendedHoratioAst);
-
-console.log(horatioAst);
-
-const program = compiler.fromAst(horatioAst);
-
-program.run();
+try {
+  const yorick = new Yorick(possumAst);
+  const horatio = new Horatio(io);
+  const horatioAst = yorick.transpile();
+  const program = horatio.fromAst(horatioAst);
+  program.run();
+} catch (e) {
+  io.print(e.message);
+}

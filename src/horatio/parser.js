@@ -188,7 +188,7 @@ export default class Parser {
     let sentences = [];
 
     function isResponseSentence(kind) {
-      return kind === Token.IF_SO || kind === Token.IF_NOT
+      return kind === Token.IF_SO || kind === Token.IF_NOT;
     }
 
     function isSentence(kind) {
@@ -543,7 +543,10 @@ export default class Parser {
 
   parseRecall() {
     this.accept(Token.RECALL);
-    this.acceptIf((t) => t.kind === Token.COMMA || t.kind === Token.SECOND_PERSON_POSSESSIVE);
+    this.acceptIf(
+      (t) =>
+        t.kind === Token.COMMA || t.kind === Token.SECOND_PERSON_POSSESSIVE,
+    );
     let comment = "";
     while (!Token.isStatementPunctuation(this.currentToken)) {
       comment += this.currentToken.sequence + " ";
