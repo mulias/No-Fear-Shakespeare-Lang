@@ -251,7 +251,7 @@
         {
           "type": "scene",
           "sceneId": "End",
-          "directions": [ { "type": "unstage_all" } ]
+          "directions": [{ "type": "unstage_all" }]
         }
       ]
     }
