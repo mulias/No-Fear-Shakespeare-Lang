@@ -110,6 +110,12 @@ const fizzbuzz: Program = {
                   value: { type: "var", id: "n" },
                 },
                 { type: ".print_int", varId: "out" },
+                {
+                  type: ".set",
+                  varId: "out",
+                  value: { type: "int", value: 10 },
+                },
+                { type: ".print_char", varId: "out" },
                 { type: "goto", labelId: "Loop" },
               ],
             },
@@ -117,7 +123,7 @@ const fizzbuzz: Program = {
         },
         {
           type: "scene",
-          sceneId: "FizzBuzz",
+          sceneId: "Fizzbuzz",
           directions: [
             {
               type: "dialogue",
@@ -169,6 +175,12 @@ const fizzbuzz: Program = {
                   type: ".set",
                   varId: "out",
                   value: { type: "char", value: "z" },
+                },
+                { type: ".print_char", varId: "out" },
+                {
+                  type: ".set",
+                  varId: "out",
+                  value: { type: "int", value: 10 },
                 },
                 { type: ".print_char", varId: "out" },
                 { type: "goto", labelId: "Loop" },
@@ -208,6 +220,12 @@ const fizzbuzz: Program = {
                   value: { type: "char", value: "z" },
                 },
                 { type: ".print_char", varId: "out" },
+                {
+                  type: ".set",
+                  varId: "out",
+                  value: { type: "int", value: 10 },
+                },
+                { type: ".print_char", varId: "out" },
                 { type: "goto", labelId: "Loop" },
               ],
             },
@@ -243,6 +261,12 @@ const fizzbuzz: Program = {
                   type: ".set",
                   varId: "out",
                   value: { type: "char", value: "z" },
+                },
+                { type: ".print_char", varId: "out" },
+                {
+                  type: ".set",
+                  varId: "out",
+                  value: { type: "int", value: 10 },
                 },
                 { type: ".print_char", varId: "out" },
                 { type: "goto", labelId: "Loop" },

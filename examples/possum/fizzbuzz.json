@@ -49,7 +49,7 @@
                 {
                   "type": "if",
                   "is": true,
-                  "then": { "kind": "goto", "labelId": "End" }
+                  "then": { "type": "goto", "labelId": "End" }
                 },
                 {
                   "type": "test_eq",
@@ -64,7 +64,7 @@
                 {
                   "type": "if",
                   "is": true,
-                  "then": { "kind": "goto", "labelId": "Fizzbuzz" }
+                  "then": { "type": "goto", "labelId": "Fizzbuzz" }
                 },
                 {
                   "type": "test_eq",
@@ -79,7 +79,7 @@
                 {
                   "type": "if",
                   "is": true,
-                  "then": { "kind": "goto", "labelId": "Fizz" }
+                  "then": { "type": "goto", "labelId": "Fizz" }
                 },
                 {
                   "type": "test_eq",
@@ -94,7 +94,7 @@
                 {
                   "type": "if",
                   "is": true,
-                  "then": { "kind": "goto", "labelId": "Buzz" }
+                  "then": { "type": "goto", "labelId": "Buzz" }
                 }
               ]
             },
@@ -108,14 +108,20 @@
                   "value": { "type": "var", "id": "n" }
                 },
                 { "type": ".print_int", "varId": "out" },
-                { "kind": "goto", "labelId": "Loop" }
+                {
+                  "type": ".set",
+                  "varId": "out",
+                  "value": { "type": "int", "value": 10 }
+                },
+                { "type": ".print_char", "varId": "out" },
+                { "type": "goto", "labelId": "Loop" }
               ]
             }
           ]
         },
         {
           "type": "scene",
-          "sceneId": "FizzBuzz",
+          "sceneId": "Fizzbuzz",
           "directions": [
             {
               "type": "dialogue",
@@ -169,7 +175,13 @@
                   "value": { "type": "char", "value": "z" }
                 },
                 { "type": ".print_char", "varId": "out" },
-                { "kind": "goto", "labelId": "Loop" }
+                {
+                  "type": ".set",
+                  "varId": "out",
+                  "value": { "type": "int", "value": 10 }
+                },
+                { "type": ".print_char", "varId": "out" },
+                { "type": "goto", "labelId": "Loop" }
               ]
             }
           ]
@@ -206,7 +218,13 @@
                   "value": { "type": "char", "value": "z" }
                 },
                 { "type": ".print_char", "varId": "out" },
-                { "kind": "goto", "labelId": "Loop" }
+                {
+                  "type": ".set",
+                  "varId": "out",
+                  "value": { "type": "int", "value": 10 }
+                },
+                { "type": ".print_char", "varId": "out" },
+                { "type": "goto", "labelId": "Loop" }
               ]
             }
           ]
@@ -243,7 +261,13 @@
                   "value": { "type": "char", "value": "z" }
                 },
                 { "type": ".print_char", "varId": "out" },
-                { "kind": "goto", "labelId": "Loop" }
+                {
+                  "type": ".set",
+                  "varId": "out",
+                  "value": { "type": "int", "value": 10 }
+                },
+                { "type": ".print_char", "varId": "out" },
+                { "type": "goto", "labelId": "Loop" }
               ]
             }
           ]
@@ -251,7 +275,7 @@
         {
           "type": "scene",
           "sceneId": "End",
-          "directions": [{ "type": "unstage_all" }]
+          "directions": [ { "type": "unstage_all" } ]
         }
       ]
     }

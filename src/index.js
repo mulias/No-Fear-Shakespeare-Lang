@@ -2,7 +2,7 @@ import * as fs from "fs";
 import prompt from "prompt-sync";
 import { Yorick } from "./yorick";
 import Horatio from "./horatio/compiler";
-import possumAst from "./possum/reverseExample";
+import possumAst from "./possum/fizzbuzzExample";
 
 const reader = prompt({ sigint: true });
 
@@ -12,7 +12,7 @@ const io = {
     const input = reader("> ");
     callback(input);
   },
-  debug: true,
+  debug: false,
   printDebug: (v) => console.log(v),
 };
 

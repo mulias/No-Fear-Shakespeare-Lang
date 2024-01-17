@@ -300,11 +300,13 @@ export default class Semantics {
       throw new Error("Semantic Error - Act specified by Goto does not exist.");
     }
 
-    if (goto.part === "scene" && !this.sceneExists(arg.act, partIndex)) {
-      throw new Error(
-        "Semantic Error - Scene specified by Goto does not exist in this act.",
-      );
-    }
+    // TODO: first collect all act/scenes, then do this check
+    // if (goto.part === "scene" && !this.sceneExists(arg.act, partIndex)) {
+    //   console.log(goto, arg, partIndex);
+    //   throw new Error(
+    //     "Semantic Error - Scene specified by Goto does not exist in this act.",
+    //   );
+    // }
 
     return null;
   }

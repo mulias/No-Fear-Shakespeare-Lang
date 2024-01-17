@@ -32,11 +32,14 @@ Main {
       out.set(n);
       out.print_int;
 
+      out.set(10);
+      out.print_char;
+
       goto(Loop);
     }
   }
 
-  FizzBuzz {
+  Fizzbuzz {
     n.{
       out.set('f');
       out.print_char;
@@ -53,6 +56,9 @@ Main {
       out.set('z');
       out.print_char;
       out.set('z');
+      out.print_char;
+
+      out.set(10);
       out.print_char;
 
       goto(Loop);
@@ -70,6 +76,9 @@ Main {
       out.set('z');
       out.print_char;
 
+      out.set(10);
+      out.print_char;
+
       goto(Loop);
     }
   }
@@ -83,6 +92,9 @@ Main {
       out.set('z');
       out.print_char;
       out.set('z');
+      out.print_char;
+
+      out.set(10);
       out.print_char;
 
       goto(Loop);

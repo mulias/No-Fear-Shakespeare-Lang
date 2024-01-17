@@ -164,7 +164,8 @@ export default class Generator {
     arg.character = c;
 
     line.sentences.forEach(function (sentence) {
-      sentence.visit(self, arg);
+      const command = sentence.visit(self, arg);
+      self.program.addCommand(arg.act, arg.scene, command);
     });
 
     return null;
@@ -193,9 +194,7 @@ export default class Generator {
     let target = assignment.be.visit(this, arg);
     let value = assignment.value.visit(this, arg);
 
-    this.program.addCommand(arg.act, arg.scene, new Command(target, value));
-
-    return null;
+    return new Command(target, value);
   }
 
   /**
@@ -220,13 +219,7 @@ export default class Generator {
     let comparative = question.comparison.visit(this, arg);
     let value2 = question.value2.visit(this, arg);
 
-    this.program.addCommand(
-      arg.act,
-      arg.scene,
-      new Command(value1, comparative, value2),
-    );
-
-    return null;
+    return new Command(value1, comparative, value2);
   }
 
   /**
@@ -256,9 +249,7 @@ export default class Generator {
 
     let sentence = response.sentence.visit(this, arg);
 
-    this.program.addCommand(arg.act, arg.scene, new Command(sentence));
-
-    return null;
+    return new Command(sentence);
   }
 
   /**
@@ -306,9 +297,7 @@ export default class Generator {
       };
     };
 
-    this.program.addCommand(arg.act, arg.scene, new Command());
-
-    return null;
+    return new Command();
   }
 
   /**
@@ -331,9 +320,7 @@ export default class Generator {
       };
     };
 
-    this.program.addCommand(arg.act, arg.scene, new Command());
-
-    return null;
+    return new Command();
   }
 
   /**
@@ -354,9 +341,7 @@ export default class Generator {
       };
     };
 
-    this.program.addCommand(arg.act, arg.scene, new Command());
-
-    return null;
+    return new Command();
   }
 
   /**
@@ -380,9 +365,7 @@ export default class Generator {
       };
     };
 
-    this.program.addCommand(arg.act, arg.scene, new Command());
-
-    return null;
+    return new Command();
   }
 
   /**
@@ -407,9 +390,7 @@ export default class Generator {
 
     let p = remember.pronoun.visit(this, arg);
 
-    this.program.addCommand(arg.act, arg.scene, new Command(p));
-
-    return null;
+    return new Command(p);
   }
 
   /**
@@ -424,9 +405,7 @@ export default class Generator {
       };
     };
 
-    this.program.addCommand(arg.act, arg.scene, new Command());
-
-    return null;
+    return new Command();
   }
 
   /**
