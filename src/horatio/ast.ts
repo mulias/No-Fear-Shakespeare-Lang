@@ -57,7 +57,7 @@ export class Program {
     this.parts = parts;
   }
 
-  visit(visitor: any, arg: any): any {
+  visit(visitor: any, arg?: any): any {
     return visitor.visitProgram(this, arg);
   }
 }
@@ -71,7 +71,7 @@ export class Declaration {
     this.comment = comment;
   }
 
-  visit(visitor: any, arg: any): any {
+  visit(visitor: any, arg?: any): any {
     return visitor.visitDeclaration(this, arg);
   }
 }
@@ -87,7 +87,7 @@ export class Part {
     this.subparts = subparts;
   }
 
-  visit(visitor: any, arg: any): any {
+  visit(visitor: any, arg?: any): any {
     return visitor.visitPart(this, arg);
   }
 }
@@ -103,7 +103,7 @@ export class Subpart {
     this.stage = stage;
   }
 
-  visit(visitor: any, arg: any): any {
+  visit(visitor: any, arg?: any): any {
     return visitor.visitSubpart(this, arg);
   }
 }
@@ -115,7 +115,7 @@ export class Stage {
     this.directions = directions;
   }
 
-  visit(visitor: any, arg: any): any {
+  visit(visitor: any, arg?: any): any {
     return visitor.visitStage(this, arg);
   }
 }
@@ -129,7 +129,7 @@ export class Enter {
     this.character_2 = character_2 || null;
   }
 
-  visit(visitor: any, arg: any): any {
+  visit(visitor: any, arg?: any): any {
     return visitor.visitEnter(this, arg);
   }
 }
@@ -141,7 +141,7 @@ export class Exit {
     this.character = character;
   }
 
-  visit(visitor: any, arg: any): any {
+  visit(visitor: any, arg?: any): any {
     return visitor.visitExit(this, arg);
   }
 }
@@ -155,7 +155,7 @@ export class Exeunt {
     this.character_2 = character_2 || null;
   }
 
-  visit(visitor: any, arg: any): any {
+  visit(visitor: any, arg?: any): any {
     return visitor.visitExeunt(this, arg);
   }
 }
@@ -167,7 +167,7 @@ export class Dialogue {
     this.lines = lines;
   }
 
-  visit(visitor: any, arg: any): any {
+  visit(visitor: any, arg?: any): any {
     return visitor.visitDialogue(this, arg);
   }
 }
@@ -181,7 +181,7 @@ export class Line {
     this.sentences = sentences;
   }
 
-  visit(visitor: any, arg: any): any {
+  visit(visitor: any, arg?: any): any {
     return visitor.visitLine(this, arg);
   }
 }
@@ -197,7 +197,7 @@ export class AssignmentSentence {
     this.subject = subject;
   }
 
-  visit(visitor: any, arg: any): any {
+  visit(visitor: any, arg?: any): any {
     return visitor.visitAssignmentSentence(this, arg);
   }
 }
@@ -217,7 +217,7 @@ export class QuestionSentence {
     this.value2 = value2;
   }
 
-  visit(visitor: any, arg: any): any {
+  visit(visitor: any, arg?: any): any {
     return visitor.visitQuestionSentence(this, arg);
   }
 }
@@ -231,7 +231,7 @@ export class ResponseSentence {
     this.runIf = runIf;
   }
 
-  visit(visitor: any, arg: any): any {
+  visit(visitor: any, arg?: any): any {
     return visitor.visitResponseSentence(this, arg);
   }
 }
@@ -245,7 +245,7 @@ export class GotoSentence {
     this.numeral = numeral;
   }
 
-  visit(visitor: any, arg: any): any {
+  visit(visitor: any, arg?: any): any {
     return visitor.visitGotoSentence(this, arg);
   }
 }
@@ -259,7 +259,7 @@ export class IntegerInputSentence {
     this.subject = subject;
   }
 
-  visit(visitor: any, arg: any): any {
+  visit(visitor: any, arg?: any): any {
     return visitor.visitIntegerInputSentence(this, arg);
   }
 }
@@ -273,7 +273,7 @@ export class CharInputSentence {
     this.subject = subject;
   }
 
-  visit(visitor: any, arg: any): any {
+  visit(visitor: any, arg?: any): any {
     return visitor.visitCharInputSentence(this, arg);
   }
 }
@@ -287,7 +287,7 @@ export class IntegerOutputSentence {
     this.subject = subject;
   }
 
-  visit(visitor: any, arg: any): any {
+  visit(visitor: any, arg?: any): any {
     return visitor.visitIntegerOutputSentence(this, arg);
   }
 }
@@ -301,7 +301,7 @@ export class CharOutputSentence {
     this.subject = subject;
   }
 
-  visit(visitor: any, arg: any): any {
+  visit(visitor: any, arg?: any): any {
     return visitor.visitCharOutputSentence(this, arg);
   }
 }
@@ -315,7 +315,7 @@ export class RememberSentence {
     this.subject = subject;
   }
 
-  visit(visitor: any, arg: any): any {
+  visit(visitor: any, arg?: any): any {
     return visitor.visitRememberSentence(this, arg);
   }
 }
@@ -329,7 +329,7 @@ export class RecallSentence {
     this.subject = subject;
   }
 
-  visit(visitor: any, arg: any): any {
+  visit(visitor: any, arg?: any): any {
     return visitor.visitRecallSentence(this, arg);
   }
 }
@@ -343,7 +343,7 @@ export class PositiveConstantValue {
     this.adjectives = adjectives;
   }
 
-  visit(visitor: any, arg: any): any {
+  visit(visitor: any, arg?: any): any {
     return visitor.visitPositiveConstantValue(this, arg);
   }
 }
@@ -357,7 +357,7 @@ export class NegativeConstantValue {
     this.adjectives = adjectives;
   }
 
-  visit(visitor: any, arg: any): any {
+  visit(visitor: any, arg?: any): any {
     return visitor.visitNegativeConstantValue(this, arg);
   }
 }
@@ -369,7 +369,7 @@ export class ZeroValue {
     this.sequence = sequence;
   }
 
-  visit(visitor: any, arg: any): any {
+  visit(visitor: any, arg?: any): any {
     return visitor.visitZeroValue(this, arg);
   }
 }
@@ -383,7 +383,7 @@ export class UnaryOperationValue {
     this.value = value;
   }
 
-  visit(visitor: any, arg: any): any {
+  visit(visitor: any, arg?: any): any {
     return visitor.visitUnaryOperationValue(this, arg);
   }
 }
@@ -399,7 +399,7 @@ export class ArithmeticOperationValue {
     this.value_2 = value_2;
   }
 
-  visit(visitor: any, arg: any): any {
+  visit(visitor: any, arg?: any): any {
     return visitor.visitArithmeticOperationValue(this, arg);
   }
 }
@@ -411,7 +411,7 @@ export class PronounValue {
     this.pronoun = pronoun;
   }
 
-  visit(visitor: any, arg: any): any {
+  visit(visitor: any, arg?: any): any {
     return visitor.visitPronounValue(this, arg);
   }
 }
@@ -423,7 +423,7 @@ export class CharacterValue {
     this.character = character;
   }
 
-  visit(visitor: any, arg: any): any {
+  visit(visitor: any, arg?: any): any {
     return visitor.visitCharacterValue(this, arg);
   }
 }
@@ -435,7 +435,7 @@ export class GreaterThanComparison {
     this.comparative = comparative;
   }
 
-  visit(visitor: any, arg: any): any {
+  visit(visitor: any, arg?: any): any {
     return visitor.visitGreaterThanComparison(this, arg);
   }
 }
@@ -447,7 +447,7 @@ export class LesserThanComparison {
     this.comparative = comparative;
   }
 
-  visit(visitor: any, arg: any): any {
+  visit(visitor: any, arg?: any): any {
     return visitor.visitLesserThanComparison(this, arg);
   }
 }
@@ -459,7 +459,7 @@ export class EqualToComparison {
     this.adjective = adjective;
   }
 
-  visit(visitor: any, arg: any): any {
+  visit(visitor: any, arg?: any): any {
     return visitor.visitEqualToComparison(this, arg);
   }
 }
@@ -471,7 +471,7 @@ export class InverseComparison {
     this.comparison = comparison;
   }
 
-  visit(visitor: any, arg: any): any {
+  visit(visitor: any, arg?: any): any {
     return visitor.visitInverseComparison(this, arg);
   }
 }
@@ -483,7 +483,7 @@ export class Comment {
     this.sequence = sequence;
   }
 
-  visit(visitor: any, arg: any): any {
+  visit(visitor: any, arg?: any): any {
     return visitor.visitComment(this, arg);
   }
 }
@@ -495,7 +495,7 @@ export class Numeral {
     this.sequence = sequence;
   }
 
-  visit(visitor: any, arg: any): any {
+  visit(visitor: any, arg?: any): any {
     return visitor.visitNumeral(this, arg);
   }
 }
@@ -507,7 +507,7 @@ export class Character {
     this.sequence = sequence;
   }
 
-  visit(visitor: any, arg: any): any {
+  visit(visitor: any, arg?: any): any {
     return visitor.visitCharacter(this, arg);
   }
 }
@@ -519,7 +519,7 @@ export class FirstPersonPronoun {
     this.sequence = sequence;
   }
 
-  visit(visitor: any, arg: any): any {
+  visit(visitor: any, arg?: any): any {
     return visitor.visitFirstPersonPronoun(this, arg);
   }
 }
@@ -531,7 +531,7 @@ export class SecondPersonPronoun {
     this.sequence = sequence;
   }
 
-  visit(visitor: any, arg: any): any {
+  visit(visitor: any, arg?: any): any {
     return visitor.visitSecondPersonPronoun(this, arg);
   }
 }
@@ -543,7 +543,7 @@ export class PositiveNoun {
     this.sequence = sequence;
   }
 
-  visit(visitor: any, arg: any): any {
+  visit(visitor: any, arg?: any): any {
     return visitor.visitPositiveNoun(this, arg);
   }
 }
@@ -555,7 +555,7 @@ export class NeutralNoun {
     this.sequence = sequence;
   }
 
-  visit(visitor: any, arg: any): any {
+  visit(visitor: any, arg?: any): any {
     return visitor.visitNeutralNoun(this, arg);
   }
 }
@@ -567,7 +567,7 @@ export class NegativeNoun {
     this.sequence = sequence;
   }
 
-  visit(visitor: any, arg: any): any {
+  visit(visitor: any, arg?: any): any {
     return visitor.visitNegativeNoun(this, arg);
   }
 }
@@ -579,7 +579,7 @@ export class PositiveAdjective {
     this.sequence = sequence;
   }
 
-  visit(visitor: any, arg: any): any {
+  visit(visitor: any, arg?: any): any {
     return visitor.visitPositiveAdjective(this, arg);
   }
 }
@@ -591,7 +591,7 @@ export class NeutralAdjective {
     this.sequence = sequence;
   }
 
-  visit(visitor: any, arg: any): any {
+  visit(visitor: any, arg?: any): any {
     return visitor.visitNeutralAdjective(this, arg);
   }
 }
@@ -603,7 +603,7 @@ export class NegativeAdjective {
     this.sequence = sequence;
   }
 
-  visit(visitor: any, arg: any): any {
+  visit(visitor: any, arg?: any): any {
     return visitor.visitNegativeAdjective(this, arg);
   }
 }
@@ -615,7 +615,7 @@ export class UnaryOperator {
     this.sequence = sequence;
   }
 
-  visit(visitor: any, arg: any): any {
+  visit(visitor: any, arg?: any): any {
     return visitor.visitUnaryOperator(this, arg);
   }
 }
@@ -627,7 +627,7 @@ export class ArithmeticOperator {
     this.sequence = sequence;
   }
 
-  visit(visitor: any, arg: any): any {
+  visit(visitor: any, arg?: any): any {
     return visitor.visitArithmeticOperator(this, arg);
   }
 }
@@ -639,7 +639,7 @@ export class PositiveComparative {
     this.sequence = sequence;
   }
 
-  visit(visitor: any, arg: any): any {
+  visit(visitor: any, arg?: any): any {
     return visitor.visitPositiveComparative(this, arg);
   }
 }
@@ -651,7 +651,7 @@ export class NegativeComparative {
     this.sequence = sequence;
   }
 
-  visit(visitor: any, arg: any): any {
+  visit(visitor: any, arg?: any): any {
     return visitor.visitNegativeComparative(this, arg);
   }
 }
@@ -663,7 +663,7 @@ export class Be {
     this.sequence = sequence;
   }
 
-  visit(visitor: any, arg: any): any {
+  visit(visitor: any, arg?: any): any {
     return visitor.visitBe(this, arg);
   }
 }
@@ -675,7 +675,7 @@ export class BeComparative {
     this.sequence = sequence;
   }
 
-  visit(visitor: any, arg: any): any {
+  visit(visitor: any, arg?: any): any {
     return visitor.visitBeComparative(this, arg);
   }
 }

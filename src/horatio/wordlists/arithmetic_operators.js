@@ -6,4 +6,4 @@ export const arithmetic_operators_map = {
   modulo: "remainder of the quotient between",
 };
 
-export const arithmetic_operators = arithmetic_operators_map.values;
+export const arithmetic_operators = Object.values(arithmetic_operators_map);
