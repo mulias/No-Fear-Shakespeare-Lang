@@ -6,28 +6,40 @@
 Main {
   ## In the beginning, there was nothing
   Init {
-    stage(stack, count);
-    stack.{ count.set(0); }
+    stage(stack, count)
+    stack.{ count.set(0) }
   }
 
   ## Pushing to the very end
   GetInput {
-    count.{ stack.read_char; stack.push; }
-    stack.{ count.set(count + 1); }
-    count.{ test_eq(stack, -1); if_false(goto(GetInput)); }
-    count.{ stack.pop; }
-    stack.{ count.set(count - 1); }
+    count.{
+      stack.read_char
+      stack.push
+    }
+    stack.{ count.set(count + 1) }
+    count.{
+      test_eq(stack, -1)
+      if_false(goto(GetInput))
+    }
+    count.{ stack.pop }
+    stack.{ count.set(count - 1) }
   }
 
   ## Popping back up!
   PrintReversed {
-    count.{ stack.pop; stack.print_char; }
-    stack.{ count.set(count - 1); }
-    count.{ test_gt(count, 0); if_true(goto(PrintReversed)); }
+    count.{
+      stack.pop
+      stack.print_char
+    }
+    stack.{ count.set(count - 1) }
+    count.{
+      test_gt(count, 0)
+      if_true(goto(PrintReversed))
+    }
   }
 
   ## The end
   End {
-    unstage_all;
+    unstage_all
   }
 }

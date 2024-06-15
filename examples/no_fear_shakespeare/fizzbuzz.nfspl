@@ -4,104 +4,108 @@
 
 Main {
   Start {
-    stage(n, out);
+    stage(n, out)
 
     out.{
-      n.set(0);
+      n.set(0)
     }
   }
 
   Loop {
+    out.{ n.set(n + 1) }
+
     out.{
-      n.set(n + 1);
+      test_gt(n, 100)
+      if_true(goto(End))
+    }
 
-      test_gt(n, 100);
-      if_true(goto(End));
+    out.{
+      test_eq(n % 15, 0)
+      if_true(goto(Fizzbuzz))
+    }
 
-      test_eq(n % 15, 0);
-      if_true(goto(Fizzbuzz));
+    out.{
+      test_eq(n % 3, 0)
+      if_true(goto(Fizz))
+    }
 
-      test_eq(n % 3, 0);
-      if_true(goto(Fizz));
-
-      test_eq(n % 5, 0);
-      if_true(goto(Buzz));
+    out.{
+      test_eq(n % 5, 0)
+      if_true(goto(Buzz))
     }
 
     n.{
-      out.set(n);
-      out.print_int;
-
-      out.set(10);
-      out.print_char;
-
-      goto(Loop);
+      out.set(n)
+      out.print_int
+      out.set(10)
+      out.print_char
+      goto(Loop)
     }
   }
 
   Fizzbuzz {
     n.{
-      out.set('f');
-      out.print_char;
-      out.set('i');
-      out.print_char;
-      out.set('z');
-      out.print_char;
-      out.set('z');
-      out.print_char;
-      out.set('b');
-      out.print_char;
-      out.set('u');
-      out.print_char;
-      out.set('z');
-      out.print_char;
-      out.set('z');
-      out.print_char;
+      out.set('f')
+      out.print_char
+      out.set('i')
+      out.print_char
+      out.set('z')
+      out.print_char
+      out.set('z')
+      out.print_char
+      out.set('b')
+      out.print_char
+      out.set('u')
+      out.print_char
+      out.set('z')
+      out.print_char
+      out.set('z')
+      out.print_char
 
-      out.set(10);
-      out.print_char;
+      out.set(10)
+      out.print_char
 
-      goto(Loop);
+      goto(Loop)
     }
   }
 
   Fizz {
     n.{
-      out.set('f');
-      out.print_char;
-      out.set('i');
-      out.print_char;
-      out.set('z');
-      out.print_char;
-      out.set('z');
-      out.print_char;
+      out.set('f')
+      out.print_char
+      out.set('i')
+      out.print_char
+      out.set('z')
+      out.print_char
+      out.set('z')
+      out.print_char
 
-      out.set(10);
-      out.print_char;
+      out.set(10)
+      out.print_char
 
-      goto(Loop);
+      goto(Loop)
     }
   }
 
   Buzz {
     n.{
-      out.set('b');
-      out.print_char;
-      out.set('u');
-      out.print_char;
-      out.set('z');
-      out.print_char;
-      out.set('z');
-      out.print_char;
+      out.set('b')
+      out.print_char
+      out.set('u')
+      out.print_char
+      out.set('z')
+      out.print_char
+      out.set('z')
+      out.print_char
 
-      out.set(10);
-      out.print_char;
+      out.set(10)
+      out.print_char
 
-      goto(Loop);
+      goto(Loop)
     }
   }
 
   End {
-    unstage_all;
+    unstage_all
   }
 }

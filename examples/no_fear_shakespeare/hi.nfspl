@@ -1,26 +1,22 @@
-## Greeting A New World
-## declare {a}, source of salutations
-## declare {b}, bringer of the new line
-
 Main {
   PrintHi {
-    stage(a, b);
+    stage(a, b)
 
     b.{
-      a.set(72);
-      a.print_char;
+      a.set(72)
+      a.print_char
     }
 
     b.{
-      a.set(a + 1);
-      a.print_char;
+      a.set(a + 1)
+      a.print_char
     }
 
-    a.{
-      b.set(10);
-      b.print_char;
+    b.{
+      a.set(10)
+      a.print_char
     }
 
-    unstage_all;
+    unstage_all
   }
 }
