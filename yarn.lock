@@ -26,6 +26,11 @@ prompt-sync@^4.2.0:
   dependencies:
     strip-ansi "^5.0.0"
 
+rand-seed@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/rand-seed/-/rand-seed-1.0.2.tgz#ab34afa9d76d3cdedf757eb0318bec36a90276d2"
+  integrity sha512-Nu4jxelXx2hKyZJQvkRcUyc1n1ZDQk/VUYmY3hxYfXYGrMfCFqsJ9O6r5jtpt8KjqbllCB8qnIB86Oqy4s5gdw==
+
 strip-ansi@^5.0.0:
   version "5.2.0"
   resolved "https://registry.yarnpkg.com/strip-ansi/-/strip-ansi-5.2.0.tgz#8c9a536feb6afc962bdfa5b104a5091c1ad9c0ae"

@@ -5,8 +5,6 @@ Being a modern adaptation of the classic programming language.
 ## Todo or not todo
 
 - Pretty print Horatio AST (in progress)
-- Use seeded randomness to a specific NFSP program AST will always produce the
-  same output.
 - Check at runtime that all used vars are present on stage
 - Check at compile time that all used vars are present on stage, iff the
   characters were staged within the scene.

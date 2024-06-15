@@ -1,4 +1,5 @@
 import wordlists from "../horatio/wordlists";
+import Random from "rand-seed";
 
 type Category =
   | "characters"
@@ -27,14 +28,16 @@ type Wordlists = Record<Category, string[]>;
 
 export class Generator {
   wordlists: Wordlists;
+  rand: Random;
 
-  constructor() {
+  constructor(seed: string) {
     this.wordlists = wordlists;
+    this.rand = new Random(seed);
   }
 
   random(category: Category): string {
     const entries = this.wordlists[category];
-    const index = randomIndex(entries);
+    const index = this.randomIndex(entries);
     return entries[index] as string;
   }
 
@@ -44,7 +47,7 @@ export class Generator {
       "negative_adjectives",
       "neutral_adjectives",
     ];
-    const category = categories[randomIndex(categories)] as Category;
+    const category = categories[this.randomIndex(categories)] as Category;
     return this.random(category);
   }
 
@@ -54,7 +57,7 @@ export class Generator {
       "negative_nouns",
       "neutral_nouns",
     ];
-    const category = categories[randomIndex(categories)] as Category;
+    const category = categories[this.randomIndex(categories)] as Category;
     return this.random(category);
   }
 
@@ -64,7 +67,7 @@ export class Generator {
 
   reserveRandom(category: Category): string {
     const entries = this.wordlists[category];
-    const index = randomIndex(entries);
+    const index = this.randomIndex(entries);
     const entry = entries[index] as string;
 
     this.wordlists[category].splice(index, 1);
@@ -86,8 +89,8 @@ export class Generator {
   ): string {
     return (this.wordlists as any).arithmetic_operators_map[key];
   }
-}
 
-function randomIndex(elems: unknown[]): number {
-  return Math.floor(Math.random() * elems.length);
+  randomIndex(elems: unknown[]): number {
+    return Math.floor(this.rand.next() * elems.length);
+  }
 }

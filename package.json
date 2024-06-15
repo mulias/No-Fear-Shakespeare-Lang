@@ -11,6 +11,7 @@
     "typescript": "^5.3.3"
   },
   "dependencies": {
-    "prompt-sync": "^4.2.0"
+    "prompt-sync": "^4.2.0",
+    "rand-seed": "^1.0.2"
   }
 }

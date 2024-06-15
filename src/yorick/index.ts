@@ -14,7 +14,7 @@ export class Yorick {
 
   constructor(ast: PossumAst.Program) {
     const analyzer = new Analyzer(ast);
-    const gen = new Generator();
+    const gen = new Generator(JSON.stringify(ast));
     const vars = Array.from(analyzer.vars);
 
     this.ast = ast;
