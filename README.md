@@ -1,11 +1,10 @@
 # No Fear Shakespear
 
-Being a modern translation of the classic programming language.
+Being a modern adaptation of the classic programming language.
 
 ## Todo or not todo
 
-- Implement PEG or recursive decent parser
-- Pretty print Horatio AST
+- Pretty print Horatio AST (in progress)
 - Use seeded randomness to a specific NFSP program AST will always produce the
   same output.
 - Check at runtime that all used vars are present on stage
@@ -14,3 +13,4 @@ Being a modern translation of the classic programming language.
 - Add unary operator support to NFSP
 - Use comments to optionally specify play title, character descriptions, and
   act/scene titles.
+- When generating numbers use opinion-size-age-shape-color-origin-material-purpose order for adjectives
