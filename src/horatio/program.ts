@@ -134,6 +134,15 @@ export default class Program {
     let i = this.stage.filter(function (n) {
       return n !== c;
     });
+    
+    if (i.length === 0) {
+      throw new Error(`Runtime Error: ${character_name} is trying to speak, but there is nobody else on stage`);
+    }
+    
+    if (i.length > 1) {
+      throw new Error(`Runtime Error: ${character_name} is trying to speak, but there are too many characters on stage - it's ambiguous who is being addressed`);
+    }
+    
     return i[0]!!!;
   }
 
