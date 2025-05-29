@@ -101,7 +101,6 @@ export class Analyzer {
       case ".pop":
       case ".print_char":
       case ".print_int":
-      case ".push":
       case ".read_char":
       case ".read_int":
         this.assertValidVarUse(statement.varId, loc);
@@ -110,6 +109,10 @@ export class Analyzer {
           statement.varId,
           loc,
         );
+        break;
+      case ".push":
+        // Push allows self-reference (e.g., "Remember me")
+        this.assertValidVarUse(statement.varId, loc);
         break;
       case ".set":
         this.assertValidVarUse(statement.varId, loc);
