@@ -1,0 +1,218 @@
+{
+  "type": "program",
+  "value": [
+    {
+      "type": "block",
+      "value": [
+        {
+          "type": "block",
+          "value": [
+            {
+              "type": "function_call",
+              "value": [
+                {"type": "var", "value": "stack"},
+                {"type": "var", "value": "count"}
+              ],
+              "postfixed": {"type": "var", "value": "stage"}
+            },
+            {
+              "type": "method_block",
+              "value": [
+                {
+                  "type": "method_access",
+                  "left": {"type": "var", "value": "count"},
+                  "right": {
+                    "type": "function_call",
+                    "value": [
+                      {"type": "int", "value": 0}
+                    ],
+                    "postfixed": {"type": "var", "value": "set"}
+                  }
+                }
+              ],
+              "postfixed": {"type": "var", "value": "stack"}
+            }
+          ],
+          "postfixed": {"type": "var", "value": "Init"}
+        },
+        {
+          "type": "block",
+          "value": [
+            {
+              "type": "method_block",
+              "value": [
+                {
+                  "type": "method_access",
+                  "left": {"type": "var", "value": "stack"},
+                  "right": {"type": "var", "value": "read_char"}
+                },
+                {
+                  "type": "method_access",
+                  "left": {"type": "var", "value": "stack"},
+                  "right": {"type": "var", "value": "push"}
+                }
+              ],
+              "postfixed": {"type": "var", "value": "count"}
+            },
+            {
+              "type": "method_block",
+              "value": [
+                {
+                  "type": "method_access",
+                  "left": {"type": "var", "value": "count"},
+                  "right": {
+                    "type": "function_call",
+                    "value": [
+                      {
+                        "type": "add",
+                        "left": {"type": "var", "value": "count"},
+                        "right": {"type": "int", "value": 1}
+                      }
+                    ],
+                    "postfixed": {"type": "var", "value": "set"}
+                  }
+                },
+                {
+                  "type": "function_call",
+                  "value": [
+                    {"type": "var", "value": "stack"},
+                    {
+                      "type": "negate",
+                      "prefixed": {"type": "int", "value": 1}
+                    }
+                  ],
+                  "postfixed": {"type": "var", "value": "test_eq"}
+                }
+              ],
+              "postfixed": {"type": "var", "value": "stack"}
+            },
+            {
+              "type": "method_block",
+              "value": [
+                {
+                  "type": "function_call",
+                  "value": [
+                    {
+                      "type": "function_call",
+                      "value": [
+                        {"type": "var", "value": "GetInput"}
+                      ],
+                      "postfixed": {"type": "var", "value": "goto"}
+                    }
+                  ],
+                  "postfixed": {"type": "var", "value": "if_false"}
+                },
+                {
+                  "type": "method_access",
+                  "left": {"type": "var", "value": "stack"},
+                  "right": {"type": "var", "value": "pop"}
+                }
+              ],
+              "postfixed": {"type": "var", "value": "count"}
+            },
+            {
+              "type": "method_block",
+              "value": [
+                {
+                  "type": "method_access",
+                  "left": {"type": "var", "value": "count"},
+                  "right": {
+                    "type": "function_call",
+                    "value": [
+                      {
+                        "type": "subtract",
+                        "left": {"type": "var", "value": "count"},
+                        "right": {"type": "int", "value": 1}
+                      }
+                    ],
+                    "postfixed": {"type": "var", "value": "set"}
+                  }
+                }
+              ],
+              "postfixed": {"type": "var", "value": "stack"}
+            }
+          ],
+          "postfixed": {"type": "var", "value": "GetInput"}
+        },
+        {
+          "type": "block",
+          "value": [
+            {
+              "type": "method_block",
+              "value": [
+                {
+                  "type": "method_access",
+                  "left": {"type": "var", "value": "stack"},
+                  "right": {"type": "var", "value": "pop"}
+                },
+                {
+                  "type": "method_access",
+                  "left": {"type": "var", "value": "stack"},
+                  "right": {"type": "var", "value": "print_char"}
+                }
+              ],
+              "postfixed": {"type": "var", "value": "count"}
+            },
+            {
+              "type": "method_block",
+              "value": [
+                {
+                  "type": "method_access",
+                  "left": {"type": "var", "value": "count"},
+                  "right": {
+                    "type": "function_call",
+                    "value": [
+                      {
+                        "type": "subtract",
+                        "left": {"type": "var", "value": "count"},
+                        "right": {"type": "int", "value": 1}
+                      }
+                    ],
+                    "postfixed": {"type": "var", "value": "set"}
+                  }
+                },
+                {
+                  "type": "function_call",
+                  "value": [
+                    {"type": "var", "value": "count"},
+                    {"type": "int", "value": 0}
+                  ],
+                  "postfixed": {"type": "var", "value": "test_gt"}
+                }
+              ],
+              "postfixed": {"type": "var", "value": "stack"}
+            },
+            {
+              "type": "method_block",
+              "value": [
+                {
+                  "type": "function_call",
+                  "value": [
+                    {
+                      "type": "function_call",
+                      "value": [
+                        {"type": "var", "value": "PrintReversed"}
+                      ],
+                      "postfixed": {"type": "var", "value": "goto"}
+                    }
+                  ],
+                  "postfixed": {"type": "var", "value": "if_true"}
+                }
+              ],
+              "postfixed": {"type": "var", "value": "count"}
+            }
+          ],
+          "postfixed": {"type": "var", "value": "PrintReversed"}
+        },
+        {
+          "type": "block",
+          "value": [
+            {"type": "var", "value": "unstage_all"}
+          ],
+          "postfixed": {"type": "var", "value": "End"}
+        }
+      ],
+      "postfixed": {"type": "var", "value": "Main"}
+    }
+  ]
+}

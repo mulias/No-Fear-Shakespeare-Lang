@@ -17,10 +17,7 @@ const io = {
   printDebug: (v) => console.log(v),
 };
 
-const source = fs.readFileSync(
-  "examples/no_fear_shakespeare/reverse.nfspl",
-  "utf8",
-);
+const source = fs.readFileSync("examples/no_fear_shakespeare/hi.nfspl", "utf8");
 
 async function run() {
   try {

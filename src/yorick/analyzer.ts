@@ -1,9 +1,9 @@
-import * as PossumAst from "../possum/ast";
+import * as OpheliaAst from "../ophelia/ast";
 import * as Ast from "../horatio/ast";
 
-type Vars = Set<PossumAst.VarId>;
+type Vars = Set<OpheliaAst.VarId>;
 
-type LabeledParts = Record<PossumAst.LabelId, Act | Scene>;
+type LabeledParts = Record<OpheliaAst.LabelId, Act | Scene>;
 
 type Act = { type: "act"; actIndex: number };
 
@@ -12,21 +12,21 @@ type Scene = { type: "scene"; actIndex: number; sceneIndex: number };
 type Location = { actIndex: number; sceneIndex: number };
 
 export class Analyzer {
-  ast: PossumAst.Program;
+  ast: OpheliaAst.Program;
   vars: Vars;
   parts: LabeledParts;
 
-  constructor(ast: PossumAst.Program) {
+  constructor(ast: OpheliaAst.Program) {
     this.ast = ast;
     this.vars = allVars(ast);
     this.parts = labeledParts(ast);
   }
 
-  hasVar(varId: PossumAst.VarId) {
+  hasVar(varId: OpheliaAst.VarId) {
     return this.vars.has(varId);
   }
 
-  partWithLabel(label: PossumAst.LabelId): Act | Scene {
+  partWithLabel(label: OpheliaAst.LabelId): Act | Scene {
     const part = this.parts[label];
     if (part) {
       return part;
@@ -84,7 +84,7 @@ export class Analyzer {
   }
 
   checkDialogue(
-    { speakerVarId, lines }: PossumAst.Dialogue,
+    { speakerVarId, lines }: OpheliaAst.Dialogue,
     loc: Location,
   ): void {
     this.assertValidVarUse(speakerVarId, loc);
@@ -93,8 +93,8 @@ export class Analyzer {
   }
 
   checkStatement(
-    statement: PossumAst.Statement,
-    speakerVarId: PossumAst.VarId,
+    statement: OpheliaAst.Statement,
+    speakerVarId: OpheliaAst.VarId,
     loc: Location,
   ): void {
     switch (statement.type) {
@@ -135,7 +135,7 @@ export class Analyzer {
     }
   }
 
-  checkExpression(expression: PossumAst.Expression, loc: Location): void {
+  checkExpression(expression: OpheliaAst.Expression, loc: Location): void {
     switch (expression.type) {
       case "arithmetic":
         this.checkExpression(expression.left, loc);
@@ -153,12 +153,12 @@ export class Analyzer {
     }
   }
 
-  checkUnstage({ varId1, varId2 }: PossumAst.Unstage, loc: Location): void {
+  checkUnstage({ varId1, varId2 }: OpheliaAst.Unstage, loc: Location): void {
     this.assertValidUnstage(varId1, loc);
     if (varId2) this.assertValidUnstage(varId2, loc);
   }
 
-  assertValidVarUse(varId: PossumAst.VarId, loc: Location): void {
+  assertValidVarUse(varId: OpheliaAst.VarId, loc: Location): void {
     if (!this.hasVar(varId)) {
       throw new Error(
         this.errorMessage(loc, `${varId} is used but never staged.`),
@@ -167,8 +167,8 @@ export class Analyzer {
   }
 
   assertDistinctSpeakerAndSubject(
-    speakerVarId: PossumAst.VarId,
-    subjectVarId: PossumAst.VarId,
+    speakerVarId: OpheliaAst.VarId,
+    subjectVarId: OpheliaAst.VarId,
     loc: Location,
   ): void {
     if (speakerVarId === subjectVarId) {
@@ -181,7 +181,7 @@ export class Analyzer {
     }
   }
 
-  assertValidUnstage(varId: PossumAst.VarId, loc: Location): void {
+  assertValidUnstage(varId: OpheliaAst.VarId, loc: Location): void {
     if (!this.hasVar(varId)) {
       throw new Error(
         this.errorMessage(loc, `${varId} is unstaged but never staged.`),
@@ -189,7 +189,7 @@ export class Analyzer {
     }
   }
 
-  assertValidGoto(labelId: PossumAst.LabelId, loc: Location): void {
+  assertValidGoto(labelId: OpheliaAst.LabelId, loc: Location): void {
     const gotoPart = this.partWithLabel(labelId);
     const sceneLabel = this.sceneLabel(loc.actIndex, loc.sceneIndex);
 
@@ -220,7 +220,7 @@ export class Analyzer {
   }
 }
 
-function allVars(ast: PossumAst.Program): Vars {
+function allVars(ast: OpheliaAst.Program): Vars {
   let vars: Vars = new Set();
 
   ast.acts.forEach((act) => {
@@ -239,7 +239,7 @@ function allVars(ast: PossumAst.Program): Vars {
   return vars;
 }
 
-function labeledParts(ast: PossumAst.Program): LabeledParts {
+function labeledParts(ast: OpheliaAst.Program): LabeledParts {
   let parts: LabeledParts = {};
 
   ast.acts.forEach((act, actIndex) => {

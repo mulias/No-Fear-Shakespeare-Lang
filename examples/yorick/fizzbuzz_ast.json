@@ -1,0 +1,602 @@
+{
+  "type": "program",
+  "value": [
+    {
+      "type": "block",
+      "value": [
+        {
+          "type": "block",
+          "value": [
+            {
+              "type": "function_call",
+              "value": [
+                {"type": "var", "value": "n"},
+                {"type": "var", "value": "out"}
+              ],
+              "postfixed": {"type": "var", "value": "stage"}
+            },
+            {
+              "type": "method_block",
+              "value": [
+                {
+                  "type": "method_access",
+                  "left": {"type": "var", "value": "n"},
+                  "right": {
+                    "type": "function_call",
+                    "value": [
+                      {"type": "int", "value": 0}
+                    ],
+                    "postfixed": {"type": "var", "value": "set"}
+                  }
+                }
+              ],
+              "postfixed": {"type": "var", "value": "out"}
+            }
+          ],
+          "postfixed": {"type": "var", "value": "Start"}
+        },
+        {
+          "type": "block",
+          "value": [
+            {
+              "type": "method_block",
+              "value": [
+                {
+                  "type": "method_access",
+                  "left": {"type": "var", "value": "n"},
+                  "right": {
+                    "type": "function_call",
+                    "value": [
+                      {
+                        "type": "add",
+                        "left": {"type": "var", "value": "n"},
+                        "right": {"type": "int", "value": 1}
+                      }
+                    ],
+                    "postfixed": {"type": "var", "value": "set"}
+                  }
+                }
+              ],
+              "postfixed": {"type": "var", "value": "out"}
+            },
+            {
+              "type": "method_block",
+              "value": [
+                {
+                  "type": "function_call",
+                  "value": [
+                    {"type": "var", "value": "n"},
+                    {"type": "int", "value": 100}
+                  ],
+                  "postfixed": {"type": "var", "value": "test_gt"}
+                },
+                {
+                  "type": "function_call",
+                  "value": [
+                    {
+                      "type": "function_call",
+                      "value": [
+                        {"type": "var", "value": "End"}
+                      ],
+                      "postfixed": {"type": "var", "value": "goto"}
+                    }
+                  ],
+                  "postfixed": {"type": "var", "value": "if_true"}
+                }
+              ],
+              "postfixed": {"type": "var", "value": "out"}
+            },
+            {
+              "type": "method_block",
+              "value": [
+                {
+                  "type": "function_call",
+                  "value": [
+                    {
+                      "type": "modulo",
+                      "left": {"type": "var", "value": "n"},
+                      "right": {"type": "int", "value": 15}
+                    },
+                    {"type": "int", "value": 0}
+                  ],
+                  "postfixed": {"type": "var", "value": "test_eq"}
+                },
+                {
+                  "type": "function_call",
+                  "value": [
+                    {
+                      "type": "function_call",
+                      "value": [
+                        {"type": "var", "value": "Fizzbuzz"}
+                      ],
+                      "postfixed": {"type": "var", "value": "goto"}
+                    }
+                  ],
+                  "postfixed": {"type": "var", "value": "if_true"}
+                }
+              ],
+              "postfixed": {"type": "var", "value": "out"}
+            },
+            {
+              "type": "method_block",
+              "value": [
+                {
+                  "type": "function_call",
+                  "value": [
+                    {
+                      "type": "modulo",
+                      "left": {"type": "var", "value": "n"},
+                      "right": {"type": "int", "value": 3}
+                    },
+                    {"type": "int", "value": 0}
+                  ],
+                  "postfixed": {"type": "var", "value": "test_eq"}
+                },
+                {
+                  "type": "function_call",
+                  "value": [
+                    {
+                      "type": "function_call",
+                      "value": [
+                        {"type": "var", "value": "Fizz"}
+                      ],
+                      "postfixed": {"type": "var", "value": "goto"}
+                    }
+                  ],
+                  "postfixed": {"type": "var", "value": "if_true"}
+                }
+              ],
+              "postfixed": {"type": "var", "value": "out"}
+            },
+            {
+              "type": "method_block",
+              "value": [
+                {
+                  "type": "function_call",
+                  "value": [
+                    {
+                      "type": "modulo",
+                      "left": {"type": "var", "value": "n"},
+                      "right": {"type": "int", "value": 5}
+                    },
+                    {"type": "int", "value": 0}
+                  ],
+                  "postfixed": {"type": "var", "value": "test_eq"}
+                },
+                {
+                  "type": "function_call",
+                  "value": [
+                    {
+                      "type": "function_call",
+                      "value": [
+                        {"type": "var", "value": "Buzz"}
+                      ],
+                      "postfixed": {"type": "var", "value": "goto"}
+                    }
+                  ],
+                  "postfixed": {"type": "var", "value": "if_true"}
+                }
+              ],
+              "postfixed": {"type": "var", "value": "out"}
+            },
+            {
+              "type": "method_block",
+              "value": [
+                {
+                  "type": "method_access",
+                  "left": {"type": "var", "value": "out"},
+                  "right": {
+                    "type": "function_call",
+                    "value": [
+                      {"type": "var", "value": "n"}
+                    ],
+                    "postfixed": {"type": "var", "value": "set"}
+                  }
+                },
+                {
+                  "type": "method_access",
+                  "left": {"type": "var", "value": "out"},
+                  "right": {"type": "var", "value": "print_int"}
+                },
+                {
+                  "type": "method_access",
+                  "left": {"type": "var", "value": "out"},
+                  "right": {
+                    "type": "function_call",
+                    "value": [
+                      {"type": "int", "value": 10}
+                    ],
+                    "postfixed": {"type": "var", "value": "set"}
+                  }
+                },
+                {
+                  "type": "method_access",
+                  "left": {"type": "var", "value": "out"},
+                  "right": {"type": "var", "value": "print_char"}
+                },
+                {
+                  "type": "function_call",
+                  "value": [
+                    {"type": "var", "value": "Loop"}
+                  ],
+                  "postfixed": {"type": "var", "value": "goto"}
+                }
+              ],
+              "postfixed": {"type": "var", "value": "n"}
+            }
+          ],
+          "postfixed": {"type": "var", "value": "Loop"}
+        },
+        {
+          "type": "block",
+          "value": [
+            {
+              "type": "method_block",
+              "value": [
+                {
+                  "type": "method_access",
+                  "left": {"type": "var", "value": "out"},
+                  "right": {
+                    "type": "function_call",
+                    "value": [
+                      {"type": "char", "value": "f"}
+                    ],
+                    "postfixed": {"type": "var", "value": "set"}
+                  }
+                },
+                {
+                  "type": "method_access",
+                  "left": {"type": "var", "value": "out"},
+                  "right": {"type": "var", "value": "print_char"}
+                },
+                {
+                  "type": "method_access",
+                  "left": {"type": "var", "value": "out"},
+                  "right": {
+                    "type": "function_call",
+                    "value": [
+                      {"type": "char", "value": "i"}
+                    ],
+                    "postfixed": {"type": "var", "value": "set"}
+                  }
+                },
+                {
+                  "type": "method_access",
+                  "left": {"type": "var", "value": "out"},
+                  "right": {"type": "var", "value": "print_char"}
+                },
+                {
+                  "type": "method_access",
+                  "left": {"type": "var", "value": "out"},
+                  "right": {
+                    "type": "function_call",
+                    "value": [
+                      {"type": "char", "value": "z"}
+                    ],
+                    "postfixed": {"type": "var", "value": "set"}
+                  }
+                },
+                {
+                  "type": "method_access",
+                  "left": {"type": "var", "value": "out"},
+                  "right": {"type": "var", "value": "print_char"}
+                },
+                {
+                  "type": "method_access",
+                  "left": {"type": "var", "value": "out"},
+                  "right": {
+                    "type": "function_call",
+                    "value": [
+                      {"type": "char", "value": "z"}
+                    ],
+                    "postfixed": {"type": "var", "value": "set"}
+                  }
+                },
+                {
+                  "type": "method_access",
+                  "left": {"type": "var", "value": "out"},
+                  "right": {"type": "var", "value": "print_char"}
+                },
+                {
+                  "type": "method_access",
+                  "left": {"type": "var", "value": "out"},
+                  "right": {
+                    "type": "function_call",
+                    "value": [
+                      {"type": "char", "value": "b"}
+                    ],
+                    "postfixed": {"type": "var", "value": "set"}
+                  }
+                },
+                {
+                  "type": "method_access",
+                  "left": {"type": "var", "value": "out"},
+                  "right": {"type": "var", "value": "print_char"}
+                },
+                {
+                  "type": "method_access",
+                  "left": {"type": "var", "value": "out"},
+                  "right": {
+                    "type": "function_call",
+                    "value": [
+                      {"type": "char", "value": "u"}
+                    ],
+                    "postfixed": {"type": "var", "value": "set"}
+                  }
+                },
+                {
+                  "type": "method_access",
+                  "left": {"type": "var", "value": "out"},
+                  "right": {"type": "var", "value": "print_char"}
+                },
+                {
+                  "type": "method_access",
+                  "left": {"type": "var", "value": "out"},
+                  "right": {
+                    "type": "function_call",
+                    "value": [
+                      {"type": "char", "value": "z"}
+                    ],
+                    "postfixed": {"type": "var", "value": "set"}
+                  }
+                },
+                {
+                  "type": "method_access",
+                  "left": {"type": "var", "value": "out"},
+                  "right": {"type": "var", "value": "print_char"}
+                },
+                {
+                  "type": "method_access",
+                  "left": {"type": "var", "value": "out"},
+                  "right": {
+                    "type": "function_call",
+                    "value": [
+                      {"type": "char", "value": "z"}
+                    ],
+                    "postfixed": {"type": "var", "value": "set"}
+                  }
+                },
+                {
+                  "type": "method_access",
+                  "left": {"type": "var", "value": "out"},
+                  "right": {"type": "var", "value": "print_char"}
+                },
+                {
+                  "type": "method_access",
+                  "left": {"type": "var", "value": "out"},
+                  "right": {
+                    "type": "function_call",
+                    "value": [
+                      {"type": "int", "value": 10}
+                    ],
+                    "postfixed": {"type": "var", "value": "set"}
+                  }
+                },
+                {
+                  "type": "method_access",
+                  "left": {"type": "var", "value": "out"},
+                  "right": {"type": "var", "value": "print_char"}
+                },
+                {
+                  "type": "function_call",
+                  "value": [
+                    {"type": "var", "value": "Loop"}
+                  ],
+                  "postfixed": {"type": "var", "value": "goto"}
+                }
+              ],
+              "postfixed": {"type": "var", "value": "n"}
+            }
+          ],
+          "postfixed": {"type": "var", "value": "Fizzbuzz"}
+        },
+        {
+          "type": "block",
+          "value": [
+            {
+              "type": "method_block",
+              "value": [
+                {
+                  "type": "method_access",
+                  "left": {"type": "var", "value": "out"},
+                  "right": {
+                    "type": "function_call",
+                    "value": [
+                      {"type": "char", "value": "f"}
+                    ],
+                    "postfixed": {"type": "var", "value": "set"}
+                  }
+                },
+                {
+                  "type": "method_access",
+                  "left": {"type": "var", "value": "out"},
+                  "right": {"type": "var", "value": "print_char"}
+                },
+                {
+                  "type": "method_access",
+                  "left": {"type": "var", "value": "out"},
+                  "right": {
+                    "type": "function_call",
+                    "value": [
+                      {"type": "char", "value": "i"}
+                    ],
+                    "postfixed": {"type": "var", "value": "set"}
+                  }
+                },
+                {
+                  "type": "method_access",
+                  "left": {"type": "var", "value": "out"},
+                  "right": {"type": "var", "value": "print_char"}
+                },
+                {
+                  "type": "method_access",
+                  "left": {"type": "var", "value": "out"},
+                  "right": {
+                    "type": "function_call",
+                    "value": [
+                      {"type": "char", "value": "z"}
+                    ],
+                    "postfixed": {"type": "var", "value": "set"}
+                  }
+                },
+                {
+                  "type": "method_access",
+                  "left": {"type": "var", "value": "out"},
+                  "right": {"type": "var", "value": "print_char"}
+                },
+                {
+                  "type": "method_access",
+                  "left": {"type": "var", "value": "out"},
+                  "right": {
+                    "type": "function_call",
+                    "value": [
+                      {"type": "char", "value": "z"}
+                    ],
+                    "postfixed": {"type": "var", "value": "set"}
+                  }
+                },
+                {
+                  "type": "method_access",
+                  "left": {"type": "var", "value": "out"},
+                  "right": {"type": "var", "value": "print_char"}
+                },
+                {
+                  "type": "method_access",
+                  "left": {"type": "var", "value": "out"},
+                  "right": {
+                    "type": "function_call",
+                    "value": [
+                      {"type": "int", "value": 10}
+                    ],
+                    "postfixed": {"type": "var", "value": "set"}
+                  }
+                },
+                {
+                  "type": "method_access",
+                  "left": {"type": "var", "value": "out"},
+                  "right": {"type": "var", "value": "print_char"}
+                },
+                {
+                  "type": "function_call",
+                  "value": [
+                    {"type": "var", "value": "Loop"}
+                  ],
+                  "postfixed": {"type": "var", "value": "goto"}
+                }
+              ],
+              "postfixed": {"type": "var", "value": "n"}
+            }
+          ],
+          "postfixed": {"type": "var", "value": "Fizz"}
+        },
+        {
+          "type": "block",
+          "value": [
+            {
+              "type": "method_block",
+              "value": [
+                {
+                  "type": "method_access",
+                  "left": {"type": "var", "value": "out"},
+                  "right": {
+                    "type": "function_call",
+                    "value": [
+                      {"type": "char", "value": "b"}
+                    ],
+                    "postfixed": {"type": "var", "value": "set"}
+                  }
+                },
+                {
+                  "type": "method_access",
+                  "left": {"type": "var", "value": "out"},
+                  "right": {"type": "var", "value": "print_char"}
+                },
+                {
+                  "type": "method_access",
+                  "left": {"type": "var", "value": "out"},
+                  "right": {
+                    "type": "function_call",
+                    "value": [
+                      {"type": "char", "value": "u"}
+                    ],
+                    "postfixed": {"type": "var", "value": "set"}
+                  }
+                },
+                {
+                  "type": "method_access",
+                  "left": {"type": "var", "value": "out"},
+                  "right": {"type": "var", "value": "print_char"}
+                },
+                {
+                  "type": "method_access",
+                  "left": {"type": "var", "value": "out"},
+                  "right": {
+                    "type": "function_call",
+                    "value": [
+                      {"type": "char", "value": "z"}
+                    ],
+                    "postfixed": {"type": "var", "value": "set"}
+                  }
+                },
+                {
+                  "type": "method_access",
+                  "left": {"type": "var", "value": "out"},
+                  "right": {"type": "var", "value": "print_char"}
+                },
+                {
+                  "type": "method_access",
+                  "left": {"type": "var", "value": "out"},
+                  "right": {
+                    "type": "function_call",
+                    "value": [
+                      {"type": "char", "value": "z"}
+                    ],
+                    "postfixed": {"type": "var", "value": "set"}
+                  }
+                },
+                {
+                  "type": "method_access",
+                  "left": {"type": "var", "value": "out"},
+                  "right": {"type": "var", "value": "print_char"}
+                },
+                {
+                  "type": "method_access",
+                  "left": {"type": "var", "value": "out"},
+                  "right": {
+                    "type": "function_call",
+                    "value": [
+                      {"type": "int", "value": 10}
+                    ],
+                    "postfixed": {"type": "var", "value": "set"}
+                  }
+                },
+                {
+                  "type": "method_access",
+                  "left": {"type": "var", "value": "out"},
+                  "right": {"type": "var", "value": "print_char"}
+                },
+                {
+                  "type": "function_call",
+                  "value": [
+                    {"type": "var", "value": "Loop"}
+                  ],
+                  "postfixed": {"type": "var", "value": "goto"}
+                }
+              ],
+              "postfixed": {"type": "var", "value": "n"}
+            }
+          ],
+          "postfixed": {"type": "var", "value": "Buzz"}
+        },
+        {
+          "type": "block",
+          "value": [
+            {"type": "var", "value": "unstage_all"}
+          ],
+          "postfixed": {"type": "var", "value": "End"}
+        }
+      ],
+      "postfixed": {"type": "var", "value": "Main"}
+    }
+  ]
+}

@@ -1,0 +1,96 @@
+{
+  "type": "program",
+  "value": [
+    {
+      "type": "block",
+      "value": [
+        {
+          "type": "block",
+          "value": [
+            {
+              "type": "function_call",
+              "value": [
+                {"type": "var", "value": "a"},
+                {"type": "var", "value": "b"}
+              ],
+              "postfixed": {"type": "var", "value": "stage"}
+            },
+            {
+              "type": "method_block",
+              "value": [
+                {
+                  "type": "method_access",
+                  "left": {"type": "var", "value": "a"},
+                  "right": {
+                    "type": "function_call",
+                    "value": [
+                      {"type": "int", "value": 72}
+                    ],
+                    "postfixed": {"type": "var", "value": "set"}
+                  }
+                },
+                {
+                  "type": "method_access",
+                  "left": {"type": "var", "value": "a"},
+                  "right": {"type": "var", "value": "print_char"}
+                }
+              ],
+              "postfixed": {"type": "var", "value": "b"}
+            },
+            {
+              "type": "method_block",
+              "value": [
+                {
+                  "type": "method_access",
+                  "left": {"type": "var", "value": "a"},
+                  "right": {
+                    "type": "function_call",
+                    "value": [
+                      {
+                        "type": "add",
+                        "left": {"type": "var", "value": "a"},
+                        "right": {"type": "int", "value": 1}
+                      }
+                    ],
+                    "postfixed": {"type": "var", "value": "set"}
+                  }
+                },
+                {
+                  "type": "method_access",
+                  "left": {"type": "var", "value": "a"},
+                  "right": {"type": "var", "value": "print_char"}
+                }
+              ],
+              "postfixed": {"type": "var", "value": "b"}
+            },
+            {
+              "type": "method_block",
+              "value": [
+                {
+                  "type": "method_access",
+                  "left": {"type": "var", "value": "a"},
+                  "right": {
+                    "type": "function_call",
+                    "value": [
+                      {"type": "int", "value": 10}
+                    ],
+                    "postfixed": {"type": "var", "value": "set"}
+                  }
+                },
+                {
+                  "type": "method_access",
+                  "left": {"type": "var", "value": "a"},
+                  "right": {"type": "var", "value": "print_char"}
+                }
+              ],
+              "postfixed": {"type": "var", "value": "b"}
+            },
+            {"type": "var", "value": "unstage_all"}
+          ],
+          "postfixed": {"type": "var", "value": "PrintHi"}
+        }
+      ],
+      "postfixed": {"type": "var", "value": "Main"}
+    }
+  ]
+}

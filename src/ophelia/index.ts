@@ -1,46 +1,76 @@
-import * as OpheliaAst from "../ophelia/ast";
-import * as Ast from "../horatio/ast";
-import { Analyzer } from "./analyzer";
-import { Generator } from "./generator";
+import * as PossumAst from "../possum/ast";
+import * as Ast from "./ast";
 
-type Characters = Record<string, string>;
+type Problem = {
+  node: PossumAst.Expr | PossumAst.Malformed;
+  message: string;
+};
 
-export class Yorick {
-  ast: OpheliaAst.Program;
-  analyzer: Analyzer;
-  gen: Generator;
-  vars: string[];
-  characters: Characters;
+export class Ophelia {
+  possumAst: PossumAst.Program;
+  problems: Problem[];
 
-  constructor(ast: OpheliaAst.Program) {
-    const analyzer = new Analyzer(ast);
-    const gen = new Generator(JSON.stringify(ast));
-    const vars = Array.from(analyzer.vars);
-
-    this.ast = ast;
-    this.analyzer = analyzer;
-    this.gen = gen;
-    this.vars = vars;
-    this.characters = assignCharacters(vars, gen);
+  constructor(possumAst: PossumAst.Program) {
+    this.possumAst = possumAst;
+    this.problems = [];
   }
 
-  transpile() {
-    this.analyzer.check();
-
-    return this.buildProgram(this.ast);
+  get hasProblems() {
+    return this.problems.length > 0;
   }
 
-  buildProgram(program: OpheliaAst.Program): Ast.Program {
-    const character = this.characterName(this.vars[0]);
-    const adjective = this.gen.randomAdjective();
-    const noun = this.gen.randomNoun();
-    const title = `${character} and the ${adjective} ${noun}`;
+  run(): Ast.Program {
+    const ast = this.buildProgram(this.possumAst);
 
-    return new Ast.Program(
-      this.buildComment(title),
-      this.buildDeclarations(this.vars),
-      this.buildParts(program.acts),
-    );
+    if (this.hasProblems) {
+      throw new Error(this.formatProblems());
+    } else {
+      return ast;
+    }
+  }
+
+  buildProgram(program: PossumAst.Program): Ast.Program {
+    return {
+      type: "program",
+      acts: this.buildActs(program.value),
+    };
+  }
+
+  buildActs(exprs: (PossumAst.Expr | PossumAst.Malformed)[]): Ast.Act[] {
+    let acts: Ast.Act[] = [];
+
+    for (const expr of exprs) {
+      const act = this.buildAct(expr);
+
+      if (act) acts.push(act);
+    }
+
+    return acts;
+  }
+
+  buildAct(expr: PossumAst.Expr | PossumAst.Malformed): Ast.Act | undefined {
+    if (expr.type === "malformed") {
+      this.addProblem(expr);
+      return undefined;
+    } else if (expr.type === "block") {
+      if (expr.postfixed.type === "var") {
+        return {
+          type: "act",
+          actId: expr.postfixed.value,
+          scenes: this.buildScenes(expr.value),
+        };
+      } else {
+        this.addProblem(expr);
+        return undefined;
+      }
+    } else {
+      this.addProblem(expr);
+      return undefined;
+    }
+  }
+
+  addProblem(node: PossumAst.Expr | PossumAst.Malformed, message: string) {
+    this.problems.push({ node, message });
   }
 
   buildComment(text: string): Ast.Comment {
@@ -57,7 +87,7 @@ export class Yorick {
     );
   }
 
-  buildParts(acts: OpheliaAst.Act[]): Ast.Part[] {
+  buildParts(acts: PossumAst.Act[]): Ast.Part[] {
     return acts.map(
       (act) =>
         new Ast.Part(
@@ -68,16 +98,16 @@ export class Yorick {
     );
   }
 
-  buildCharacter(varId: OpheliaAst.VarId): Ast.Character {
+  buildCharacter(varId: PossumAst.VarId): Ast.Character {
     return new Ast.Character(this.characterName(varId));
   }
 
-  buildNumeral(label: OpheliaAst.LabelId): Ast.Numeral {
+  buildNumeral(label: PossumAst.LabelId): Ast.Numeral {
     const i = this.partIndex(label);
     return new Ast.Numeral(this.gen.romanNumeral(i + 1));
   }
 
-  buildSubparts(scenes: OpheliaAst.Scene[]): Ast.Subpart[] {
+  buildSubparts(scenes: PossumAst.Scene[]): Ast.Subpart[] {
     return scenes.map(
       (scene) =>
         new Ast.Subpart(
@@ -88,11 +118,11 @@ export class Yorick {
     );
   }
 
-  buildStage(directions: OpheliaAst.Direction[]): Ast.Stage {
+  buildStage(directions: PossumAst.Direction[]): Ast.Stage {
     return new Ast.Stage(directions.map((d) => this.buildDirection(d)));
   }
 
-  buildDirection(direction: OpheliaAst.Direction): Ast.Dialogue | Ast.Presence {
+  buildDirection(direction: PossumAst.Direction): Ast.Dialogue | Ast.Presence {
     switch (direction.type) {
       case "dialogue":
         return this.buildDialogue(direction);
@@ -108,7 +138,7 @@ export class Yorick {
     }
   }
 
-  buildDialogue(dialogue: OpheliaAst.Dialogue): Ast.Dialogue {
+  buildDialogue(dialogue: PossumAst.Dialogue): Ast.Dialogue {
     return new Ast.Dialogue([
       new Ast.Line(
         this.buildCharacter(dialogue.speakerVarId),
@@ -120,8 +150,8 @@ export class Yorick {
   }
 
   buildSentence(
-    statement: OpheliaAst.Statement,
-    speakerVarId: OpheliaAst.VarId,
+    statement: PossumAst.Statement,
+    speakerVarId: PossumAst.VarId,
   ): Ast.Sentence {
     switch (statement.type) {
       case ".pop":
@@ -155,7 +185,7 @@ export class Yorick {
     }
   }
 
-  buildRecallSentence(pop: OpheliaAst.Pop): Ast.RecallSentence {
+  buildRecallSentence(pop: PossumAst.Pop): Ast.RecallSentence {
     const adjective1 = this.gen.randomAdjective();
     const adjective2 = this.gen.randomAdjective();
     const noun = this.gen.randomNoun();
@@ -166,7 +196,7 @@ export class Yorick {
   }
 
   buildCharOutputSentence(
-    printChar: OpheliaAst.PrintChar,
+    printChar: PossumAst.PrintChar,
   ): Ast.CharOutputSentence {
     return new Ast.CharOutputSentence(
       this.gen.random("output_char"),
@@ -175,7 +205,7 @@ export class Yorick {
   }
 
   buildIntegerOutputSentence(
-    printInt: OpheliaAst.PrintInt,
+    printInt: PossumAst.PrintInt,
   ): Ast.IntegerOutputSentence {
     return new Ast.IntegerOutputSentence(
       this.gen.random("output_integer"),
@@ -184,8 +214,8 @@ export class Yorick {
   }
 
   buildRememberSentence(
-    push: OpheliaAst.Push,
-    speakerVarId: OpheliaAst.VarId,
+    push: PossumAst.Push,
+    speakerVarId: PossumAst.VarId,
   ): Ast.RememberSentence {
     const pronoun =
       push.varId === speakerVarId
@@ -196,8 +226,8 @@ export class Yorick {
   }
 
   buildAssignmentSentence(
-    set: OpheliaAst.Set,
-    speakerVarId: OpheliaAst.VarId,
+    set: PossumAst.Set,
+    speakerVarId: PossumAst.VarId,
   ): Ast.AssignmentSentence {
     return new Ast.AssignmentSentence(
       this.buildBe(
@@ -208,14 +238,14 @@ export class Yorick {
     );
   }
 
-  buildGotoSentence(goto: OpheliaAst.Goto): Ast.GotoSentence {
+  buildGotoSentence(goto: PossumAst.Goto): Ast.GotoSentence {
     const part = this.analyzer.partWithLabel(goto.labelId);
     return new Ast.GotoSentence(part.type, this.buildNumeral(goto.labelId));
   }
 
   buildResponseSentence(
-    ifStatement: OpheliaAst.If,
-    speakerVarId: OpheliaAst.VarId,
+    ifStatement: PossumAst.If,
+    speakerVarId: PossumAst.VarId,
   ): Ast.ResponseSentence {
     return new Ast.ResponseSentence(
       this.buildSentence(ifStatement.then, speakerVarId),
@@ -224,8 +254,8 @@ export class Yorick {
   }
 
   buildQuestionSentence(
-    test: OpheliaAst.Test,
-    speakerVarId: OpheliaAst.VarId,
+    test: PossumAst.Test,
+    speakerVarId: PossumAst.VarId,
   ): Ast.QuestionSentence {
     const value1 =
       test.left.type === "var"
@@ -236,7 +266,7 @@ export class Yorick {
     return new Ast.QuestionSentence(value1, comparison, value2);
   }
 
-  buildValue(expression: OpheliaAst.Expression): Ast.Value {
+  buildValue(expression: PossumAst.Expression): Ast.Value {
     switch (expression.type) {
       case "arithmetic":
         return this.buildArithmeticOperationValue(expression);
@@ -252,7 +282,7 @@ export class Yorick {
     }
   }
 
-  buildEnter(stage: OpheliaAst.Stage): Ast.Enter {
+  buildEnter(stage: PossumAst.Stage): Ast.Enter {
     const char1 = this.buildCharacter(stage.varId1);
     if (stage.varId2) {
       const char2 = this.buildCharacter(stage.varId2);
@@ -262,7 +292,7 @@ export class Yorick {
     }
   }
 
-  buildCharInputSentence(readChar: OpheliaAst.ReadChar): Ast.CharInputSentence {
+  buildCharInputSentence(readChar: PossumAst.ReadChar): Ast.CharInputSentence {
     return new Ast.CharInputSentence(
       this.gen.random("input_char"),
       this.buildCharacter(readChar.varId),
@@ -270,7 +300,7 @@ export class Yorick {
   }
 
   buildIntegerInputSentence(
-    readInt: OpheliaAst.ReadInt,
+    readInt: PossumAst.ReadInt,
   ): Ast.IntegerInputSentence {
     return new Ast.IntegerInputSentence(
       this.gen.random("input_integer"),
@@ -278,7 +308,7 @@ export class Yorick {
     );
   }
 
-  buildExit(unstage: OpheliaAst.Unstage): Ast.Exit | Ast.Exeunt {
+  buildExit(unstage: PossumAst.Unstage): Ast.Exit | Ast.Exeunt {
     const char1 = this.buildCharacter(unstage.varId1);
     const char2 = unstage.varId2 ? this.buildCharacter(unstage.varId2) : null;
     if (char2) {
@@ -293,8 +323,8 @@ export class Yorick {
   }
 
   buildBeComparative(
-    subjectVarId: OpheliaAst.VarId,
-    speakerVarId: OpheliaAst.VarId,
+    subjectVarId: PossumAst.VarId,
+    speakerVarId: PossumAst.VarId,
   ): Ast.BeComparative {
     if (subjectVarId === speakerVarId) {
       return new Ast.BeComparative(
@@ -307,7 +337,7 @@ export class Yorick {
     }
   }
 
-  buildComparison(test: OpheliaAst.Test): Ast.Comparison {
+  buildComparison(test: PossumAst.Test): Ast.Comparison {
     switch (test.type) {
       case "test_eq":
         return new Ast.EqualToComparison(this.buildPositiveAdjective());
@@ -376,7 +406,7 @@ export class Yorick {
   }
 
   buildArithmeticOperationValue(
-    arithmetic: OpheliaAst.Arithmetic,
+    arithmetic: PossumAst.Arithmetic,
   ): Ast.ArithmeticOperationValue {
     return new Ast.ArithmeticOperationValue(
       this.buildArithmeticOperator(arithmetic.op),
@@ -385,7 +415,7 @@ export class Yorick {
     );
   }
 
-  buildArithmeticOperator(op: OpheliaAst.ArithmeticOp): Ast.ArithmeticOperator {
+  buildArithmeticOperator(op: PossumAst.ArithmeticOp): Ast.ArithmeticOperator {
     switch (op) {
       case "+":
         return new Ast.ArithmeticOperator(this.gen.arithmeticOperator("add"));
@@ -410,7 +440,7 @@ export class Yorick {
     }
   }
 
-  buildIntConstantValue(int: OpheliaAst.Int): Ast.Value {
+  buildIntConstantValue(int: PossumAst.Int): Ast.Value {
     const n = int.value;
 
     if (n >= 0) {
@@ -420,7 +450,7 @@ export class Yorick {
     }
   }
 
-  buildCharConstantValue(char: OpheliaAst.Char): Ast.Value {
+  buildCharConstantValue(char: PossumAst.Char): Ast.Value {
     const n = char.value.codePointAt(0);
 
     if (n != null) {
@@ -491,11 +521,11 @@ export class Yorick {
     return new Ast.ZeroValue(this.gen.random("nothing"));
   }
 
-  builCharacterValue(v: OpheliaAst.Var) {
+  builCharacterValue(v: PossumAst.Var) {
     return new Ast.CharacterValue(this.buildCharacter(v.id));
   }
 
-  characterName(varId: OpheliaAst.VarId): string {
+  characterName(varId: PossumAst.VarId): string {
     const name = this.characters[varId];
 
     if (name) {
@@ -505,7 +535,7 @@ export class Yorick {
     }
   }
 
-  partIndex(label: OpheliaAst.LabelId): number {
+  partIndex(label: PossumAst.LabelId): number {
     const part = this.analyzer.partWithLabel(label);
 
     if (part.type === "act") {
@@ -514,12 +544,13 @@ export class Yorick {
       return part.sceneIndex;
     }
   }
+
+  formatProblems() {
+    return "";
+  }
 }
 
-function assignCharacters(
-  vars: OpheliaAst.VarId[],
-  gen: Generator,
-): Characters {
+function assignCharacters(vars: PossumAst.VarId[], gen: Generator): Characters {
   let characters: Characters = {};
 
   vars.forEach((varId) => {

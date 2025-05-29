@@ -1,118 +1,73 @@
-ws > program < ws < end
+w > program < w < end
 
-program = array_sep(act, ws) -> Acts $ { "type": "program", "acts": Acts }
+program = ast.node($"program", maybe_array_sep(expr_or_malformed(nl), w))
 
-act =
-  label_id -> ActId & ws & "{" & ws &
-  maybe_array_sep(scene, ws) -> Scenes & ws & "}" $
-  { "type": "act", "actId": ActId, "scenes": Scenes }
+expr = ast.with_operator_precedence(
+  surround(operand, w),
+  surround(prefix, w),
+  surround(infix, w),
+  surround(postfix, w),
+)
 
-scene =
-  label_id -> SceneId & ws & "{" & ws &
-  maybe_array_sep(direction, ws) -> Directions & ws & "}" $
-  { "type": "scene", "sceneId": SceneId, "directions": Directions }
+expr_or_malformed(sync_point) = expr | malformed(sync_point)
 
-direction = dialogue | presence
+malformed(sync_point) = ast.node($"malformed", chars_until(sync_point))
 
-dialogue =
-  var_id -> SpeakerVarId & "." & "{" & ws &
-  maybe_array_sep(statement, ws) -> Lines & ws & "}" $
-  { "type": "dialogue", "speakerVarId": SpeakerVarId, "lines": Lines }
+operand = group | number | character | var
 
-presence = stage | unstage | unstage_all
+prefix =
+  ("-" $ Ast.Precedence({"type": "negate"}, 3))
 
-statement = set | print | read | test | if | goto | push | pop
+infix =
+  (unless(".", ".{") $
+         Ast.InfixPrecedence({"type": "method_access"}, 4, 4.5)) |
+  (`%` $ Ast.InfixPrecedence({"type": "modulo"},        2, 2.5)) |
+  ("*" $ Ast.InfixPrecedence({"type": "multiply"},      2, 2.5)) |
+  ("/" $ Ast.InfixPrecedence({"type": "divide"},        2, 2.5)) |
+  ("+" $ Ast.InfixPrecedence({"type": "add"},           1, 1.5)) |
+  ("-" $ Ast.InfixPrecedence({"type": "subtract"},      1, 1.5))
 
-expression = group | arithmetic | const | var
+postfix =
+  (function_call -> Node $ Ast.Precedence(Node, 7)) |
+  (method_block  -> Node $ Ast.Precedence(Node, 6)) |
+  (block         -> Node $ Ast.Precedence(Node, 5))
 
-arithmetic =
-  group | const | var -> Left & ws &
-  "+" | "-" | "/" | "*" | "%" -> Op & ws &
-  arithmetic | group | const | var -> Right $
-  { "type": "arithmetic", "left": Left, "op": Op, "right": Right }
+function_call = ast.node(
+  $"function_call",
+  "(" > w >
+  maybe_array_sep(expr_or_malformed("," | ")" | nl), ",")
+  < w < ")"
+)
 
-group = "(" > ws > expression < ws < ")"
+method_block = ast.node(
+  $"method_block",
+  ".{" > w >
+  maybe_array_sep(expr_or_malformed("}" | nl), w)
+  < w < "}"
+)
 
-const = integer | character
+block = ast.node(
+  $"block",
+  "{" > w >
+  maybe_array_sep(expr_or_malformed("}" | nl), w)
+  < w < "}"
+)
 
-integer = int -> Int $ { "type": "int", "value": Int }
+group =
+  "(" > w >
+  expr_or_malformed(")" | nl)
+  < w < ")"
 
-character = "'" > char < "'" -> Char $ { "type": "char", "value": Char }
+number = invalid_number | integer
 
-set =
-  var_id -> VarId & ".set" & "(" & ws &
-  expression -> Value & ws & ")" $
-  { "type": ".set", "varId": VarId, "value": Value }
+integer = ast.node($"int", int)
 
-test =
-  test_type("test_eq") |
-  test_type("test_gt") |
-  test_type("test_lt") |
-  test_type("test_not_eq") |
-  test_type("test_not_gt") |
-  test_type("test_not_lt")
+invalid_number = ast.node($"invalid_number", float)
 
-test_type(type) =
-  type -> Type & "(" & ws &
-  expression -> Left & ws &
-  "," & ws &
-  expression -> Right & ws &
-  ")" $
-  { "type": Type, "left": Left, "right": Right }
+character = ast.node($"char", "'" > char < "'")
 
-if =
-  boolean("if_true", "if_false") -> Is & "(" & ws &
-  statement -> Then & ws & ")" $
-  { "type": "if", "is": Is, "then": Then }
+var = ast.node($"var", alpha + maybe(word))
 
-goto =
-  "goto" & "(" & ws &
-  label_id -> LabelId & ws &
-  ")" $
-  { "type": "goto", "labelId": LabelId }
+w = maybe_many(whitespace | comment)
 
-print = print_char | print_int
-
-read = read_char | read_int
-
-print_char = method0(".print_char")
-
-print_int = method0(".print_int")
-
-read_char = method0(".read_char")
-
-read_int = method0(".read_int")
-
-push = method0(".push")
-
-pop = method0(".pop")
-
-method0(type) =
-  var_id -> VarId & type -> Type & optional_parens $
-  { "type": Type, "varId": VarId }
-
-stage =
-  "stage" & "(" & ws &
-  var_id -> VarId1 &
-  maybe(ws > "," > ws > var_id) -> VarId2 & ws & ")" $
-  { "type": "stage", "varId1": VarId1, "varId2": VarId2 }
-
-unstage =
-  "unstage" & "(" & ws &
-  var_id -> VarId1 &
-  maybe(ws > "," > ws > var_id) -> VarId2 & ws & ")" $
-  { "type": "unstage", "varId1": VarId1, "varId2": VarId2 }
-
-unstage_all = "unstage_all" & optional_parens $ { "type": "unstage_all" }
-
-optional_parens = maybe("(" > ws < ")")
-
-label_id = peek(upper) > many(alpha | digit)
-
-var = var_id -> Id $ { "type": "var", "id": Id }
-
-var_id = peek(lower) > many(alpha | digit)
-
-ws = maybe_many(whitespace | comment)
-
-comment = "#" > many_until(char, nl) < ws
+comment = "#" > chars_until(nl) < ws

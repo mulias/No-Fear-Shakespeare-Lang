@@ -22,15 +22,17 @@ const wasmCode = fs.readFileSync("src/possum/possum.wasm");
 const parser = fs.readFileSync("src/possum/nfspl.possum", { encoding: "utf8" });
 
 export class Possum {
+  source: string;
   encoder: TextEncoder;
   decoder: TextDecoder;
 
-  constructor() {
+  constructor(source: string) {
+    this.source = source;
     this.encoder = new TextEncoder();
     this.decoder = new TextDecoder();
   }
 
-  async parse(input: string): Promise<Ast.Program> {
+  async run(): Promise<Ast.Program> {
     var wasm: WasmLib;
     var out = "";
     var err = "";
@@ -63,7 +65,7 @@ export class Possum {
         wasm = wasmModule.instance.exports as any;
 
         var parserSlice = this.allocateString(wasm, parser);
-        var inputSlice = this.allocateString(wasm, input);
+        var inputSlice = this.allocateString(wasm, this.source);
 
         var vm = wasm.createVM();
         wasm.interpret(

@@ -16,12 +16,14 @@ Main {
       stack.read_char
       stack.push
     }
-    stack.{ count.set(count + 1) }
-    count.{
+    stack.{
+      count.set(count + 1)
       test_eq(stack, -1)
-      if_false(goto(GetInput))
     }
-    count.{ stack.pop }
+    count.{
+      if_false(goto(GetInput))
+      stack.pop
+    }
     stack.{ count.set(count - 1) }
   }
 
@@ -31,11 +33,11 @@ Main {
       stack.pop
       stack.print_char
     }
-    stack.{ count.set(count - 1) }
-    count.{
+    stack.{
+      count.set(count - 1)
       test_gt(count, 0)
-      if_true(goto(PrintReversed))
     }
+    count.{ if_true(goto(PrintReversed)) }
   }
 
   ## The end
