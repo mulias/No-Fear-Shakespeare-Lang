@@ -107,7 +107,7 @@ export default class Semantics {
 
     // Declared flag
     if (arg && arg.declared === true && !this.declared(character.sequence)) {
-      throw new Error("Semantic Error - Character Undeclared");
+      throw new Error(`Semantic Error - ${character.sequence} is not declared`);
     }
 
     return character;
