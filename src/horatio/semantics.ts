@@ -4,10 +4,40 @@ import * as AST from "./ast";
  * Horatio Semantics Visitor
  */
 export default class Semantics {
+  characters?: { [key: string]: any };
+  parts?: { [key: string]: any };
+
+  declared(character: string): boolean {
+    // This is overridden in subclasses
+    return false;
+  }
+
+  sceneExists(act: string, scene: string): boolean {
+    return this.parts && this.parts[act] && this.parts[act].includes(scene);
+  }
+
+  toggleStage(character: string): void {
+    if (this.characters && this.characters[character] !== undefined) {
+      this.characters[character] = !this.characters[character];
+    }
+  }
+
+  exeuntStage(): void {
+    if (this.characters) {
+      for (let character in this.characters) {
+        this.characters[character] = false;
+      }
+    }
+  }
+
+  actExists(act: string): boolean {
+    return this.parts !== undefined && this.parts[act] !== undefined;
+  }
+
   /**
    * Program
    */
-  visitProgram(program, arg) {
+  visitProgram(program: AST.Program): null {
     let self = this;
 
     // comment
@@ -37,7 +67,7 @@ export default class Semantics {
   /**
    * Comment
    */
-  visitComment(comment, arg) {
+  visitComment(comment: AST.Comment, arg: any): null {
     if (comment.sequence) {
       return null;
     } else {
@@ -48,13 +78,13 @@ export default class Semantics {
   /**
    * Declaration
    */
-  visitDeclaration(declaration, arg) {
+  visitDeclaration(declaration: AST.Declaration, arg: any): null {
     let c = declaration.character.visit(this, arg);
 
-    if (this.characters[c.sequence]) {
+    if (this.characters!!![c.sequence]) {
       throw new Error("Semantic Error - Character already defined.");
     } else {
-      this.characters[c.sequence] = false;
+      this.characters!!![c.sequence] = false;
     }
 
     declaration.comment.visit(this, arg);
@@ -64,7 +94,7 @@ export default class Semantics {
   /**
    * Character
    */
-  visitCharacter(character, arg) {
+  visitCharacter(character: AST.Character, arg: any): AST.Character {
     let self = this;
 
     if (!character.sequence) {
@@ -86,18 +116,18 @@ export default class Semantics {
   /**
    * Part
    */
-  visitPart(part, arg) {
+  visitPart(part: AST.Part, arg: any): null {
     let self = this;
 
     let n = part.numeral.visit(this, arg);
     part.comment.visit(this, arg);
 
-    if (this.parts[n]) {
+    if (this.parts!!![n]) {
       throw new Error("Semantic Error - Act already defined.");
     } else if (part.subparts.length === 0) {
       throw new Error("Semantic Error - No subparts defined.");
     } else {
-      this.parts[n] = [];
+      this.parts!!![n] = [];
       part.subparts.forEach(function (subpart) {
         subpart.visit(self, { act: n });
       });
@@ -109,7 +139,7 @@ export default class Semantics {
   /**
    * Numeral
    */
-  visitNumeral(numeral, arg) {
+  visitNumeral(numeral: AST.Numeral, arg: any) {
     if (numeral.sequence) {
       return numeral.sequence;
     } else {
@@ -121,13 +151,13 @@ export default class Semantics {
   /**
    * Subparts
    */
-  visitSubpart(subpart, arg) {
+  visitSubpart(subpart: AST.Subpart, arg: any) {
     let n = subpart.numeral.visit(this, arg);
 
     if (this.sceneExists(arg.act, n)) {
       throw new Error("Semantic Error - Scene already defined.");
     } else {
-      this.parts[arg.act].push(n);
+      this.parts!!![arg.act].push(n);
       subpart.comment.visit(this, arg);
       subpart.stage.visit(this, { act: arg.act, scene: n });
     }
@@ -138,7 +168,7 @@ export default class Semantics {
   /**
    * Stage
    */
-  visitStage(stage, arg) {
+  visitStage(stage: AST.Stage, arg: any) {
     stage.directions.forEach((direction) => {
       direction.visit(this, arg);
     });
@@ -148,7 +178,7 @@ export default class Semantics {
   /**
    * Enter
    */
-  visitEnter(presence, arg) {
+  visitEnter(presence: AST.Enter, arg: any) {
     if (!presence.character_1 && !presence.character_2) {
       throw new Error("Semantic Error - No characters entering.");
     }
@@ -180,7 +210,7 @@ export default class Semantics {
   /**
    * Exit
    */
-  visitExit(presence, arg) {
+  visitExit(presence: AST.Exit, arg: any) {
     if (!presence.character) {
       throw new Error("Semantic Error - No character exiting.");
     }
@@ -194,7 +224,7 @@ export default class Semantics {
   /**
    * Exeunt
    */
-  visitExeunt(presence, arg) {
+  visitExeunt(presence: AST.Exeunt, arg: any) {
     // - No characters on stage
     // x Only 1 character exeunting
     // x characters are the same
@@ -231,7 +261,7 @@ export default class Semantics {
   /**
    * Dialogue
    */
-  visitDialogue(dialogue, arg) {
+  visitDialogue(dialogue: AST.Dialogue, arg: any) {
     let self = this;
     dialogue.lines.forEach(function (line) {
       line.visit(self, arg);
@@ -242,7 +272,7 @@ export default class Semantics {
   /**
    * Line
    */
-  visitLine(line, arg) {
+  visitLine(line: AST.Line, arg: any) {
     let self = this;
 
     let c = line.character.visit(this, { declared: true, on_stage: true });
@@ -262,7 +292,7 @@ export default class Semantics {
   /**
    * Assignment Sentence
    */
-  visitAssignmentSentence(assignment, arg) {
+  visitAssignmentSentence(assignment: AST.AssignmentSentence, arg: any) {
     assignment.be.visit(this, arg);
 
     assignment.value.visit(this, arg);
@@ -273,7 +303,7 @@ export default class Semantics {
   /**
    * Question Sentence
    */
-  visitQuestionSentence(question, arg) {
+  visitQuestionSentence(question: AST.QuestionSentence, arg: any) {
     question.value1.visit(this, arg);
     question.comparison.visit(this, arg);
     question.value2.visit(this, arg);
@@ -284,7 +314,7 @@ export default class Semantics {
   /**
    * Response Sentence
    */
-  visitResponseSentence(response, arg) {
+  visitResponseSentence(response: AST.ResponseSentence, arg: any) {
     response.sentence.visit(this, arg);
 
     return null;
@@ -293,7 +323,7 @@ export default class Semantics {
   /**
    * Goto Sentence
    */
-  visitGotoSentence(goto, arg) {
+  visitGotoSentence(goto: AST.GotoSentence, arg: any) {
     let partIndex = goto.numeral.visit(this, arg);
 
     if (goto.part === "act" && !this.actExists(partIndex)) {
@@ -314,36 +344,36 @@ export default class Semantics {
   /**
    * Integer Input Sentence
    */
-  visitIntegerInputSentence(integer_input, arg) {
+  visitIntegerInputSentence(integer_input: AST.IntegerInputSentence, arg: any) {
     return null;
   }
 
   /**
    * Char Input Sentence
    */
-  visitCharInputSentence(char_input, arg) {
+  visitCharInputSentence(char_input: AST.CharInputSentence, arg: any) {
     return null;
   }
 
   /**
    * Integer Output Sentence
    */
-  visitIntegerOutputSentence(integer_output, arg) {
+  visitIntegerOutputSentence(integer_output: AST.IntegerOutputSentence, arg: any) {
     return null;
   }
 
   /**
    * Char Output Sentence
    */
-  visitCharOutputSentence(char_output, arg) {
+  visitCharOutputSentence(char_output: AST.CharOutputSentence, arg: any) {
     return null;
   }
 
   /**
    * Remember Sentence
    */
-  visitRememberSentence(remember, arg) {
-    let p = remember.pronoun.visit(this, arg);
+  visitRememberSentence(remember: AST.RememberSentence, arg: { character: string }) {
+    let p = remember.pronoun.visit(this);
 
     return null;
   }
@@ -351,14 +381,14 @@ export default class Semantics {
   /**
    * Recall Sentence
    */
-  visitRecallSentence(recall, arg) {
+  visitRecallSentence(recall: AST.RecallSentence, arg: { character: string }) {
     recall.comment.visit(this, arg);
   }
 
   /**
    * Positive Constant Value
    */
-  visitPositiveConstantValue(pc_val, arg) {
+  visitPositiveConstantValue(pc_val: AST.PositiveConstantValue, arg: { character: string }) {
     let self = this;
 
     let n;
@@ -372,9 +402,9 @@ export default class Semantics {
     } else {
       n = pc_val.noun.visit(self, arg);
     }
-    pc_val.noun.visit(this, arg);
-    pc_val.adjectives.forEach(function (adjective) {
-      adjective.visit(self, arg);
+    pc_val.noun.visit(this);
+    pc_val.adjectives.forEach(function (adjective: AST.Adjective) {
+      adjective.visit(self);
     });
 
     //return Math.pow(2, pc_val.adjectives.length);
@@ -384,7 +414,7 @@ export default class Semantics {
   /**
    * Negative Constant Value
    */
-  visitNegativeConstantValue(nc_val, arg) {
+  visitNegativeConstantValue(nc_val: AST.NegativeConstantValue, arg: { character: string }) {
     let self = this;
 
     let n;
@@ -398,8 +428,8 @@ export default class Semantics {
     } else {
       n = nc_val.noun.visit(self, arg);
     }
-    nc_val.noun.visit(this, arg);
-    nc_val.adjectives.forEach(function (adjective) {
+    nc_val.noun.visit(this);
+    nc_val.adjectives.forEach(function (adjective: AST.Adjective) {
       if (
         !(adjective instanceof AST.NegativeAdjective) &&
         !(adjective instanceof AST.NeutralAdjective)
@@ -408,7 +438,7 @@ export default class Semantics {
           "Semantic Error - Negative Constants must use negative of neutral adjectives.",
         );
       } else {
-        adjective.visit(self, arg);
+        adjective.visit(self);
       }
     });
 
@@ -416,7 +446,7 @@ export default class Semantics {
     return 0; // placeholder
   }
 
-  visitZeroValue(zero, arg) {
+  visitZeroValue(zero: AST.ZeroValue, arg: { character: string }) {
     if (zero.sequence) {
       return null;
     } else {
@@ -427,8 +457,8 @@ export default class Semantics {
   /**
    * Unary Operation Value
    */
-  visitUnaryOperationValue(unary, arg) {
-    let o = unary.operator.visit(this, arg);
+  visitUnaryOperationValue(unary: AST.UnaryOperationValue, arg: { character: string }) {
+    let o = unary.operator.visit(this);
     let v = unary.value.visit(this, arg);
 
     return 0; // placeholder
@@ -437,8 +467,8 @@ export default class Semantics {
   /**
    * Arithmetic Operation Value
    */
-  visitArithmeticOperationValue(arithmetic, arg) {
-    let o = arithmetic.operator.visit(this, arg);
+  visitArithmeticOperationValue(arithmetic: AST.ArithmeticOperationValue, arg: { character: string }) {
+    let o = arithmetic.operator.visit(this);
     let v1 = arithmetic.value_1.visit(this, arg);
     let v2 = arithmetic.value_2.visit(this, arg);
 
@@ -448,21 +478,21 @@ export default class Semantics {
   /**
    * Pronoun Value
    */
-  visitPronounValue(pronoun, arg) {
-    let p = pronoun.pronoun.visit(this, arg);
+  visitPronounValue(pronoun: AST.PronounValue, arg: { character: string }) {
+    let p = pronoun.pronoun.visit(this);
 
     return p;
   }
 
-  visitCharacterValue(characterValue, arg) {
+  visitCharacterValue(characterValue: AST.CharacterValue, arg: { character: string }) {
     return null;
   }
 
   /**
    * Greater Than Comparison
    */
-  visitGreaterThanComparison(comparison, arg) {
-    let c = comparison.comparative.visit(this, arg);
+  visitGreaterThanComparison(comparison: AST.GreaterThanComparison, arg: { character: string }) {
+    let c = comparison.comparative.visit(this);
 
     return c;
   }
@@ -470,8 +500,8 @@ export default class Semantics {
   /**
    * Lesser Than Comparison
    */
-  visitLesserThanComparison(comparison, arg) {
-    let c = comparison.comparative.visit(this, arg);
+  visitLesserThanComparison(comparison: AST.LesserThanComparison, arg: { character: string }) {
+    let c = comparison.comparative.visit(this);
 
     return null;
   }
@@ -479,8 +509,8 @@ export default class Semantics {
   /**
    * Equal To Comparison
    */
-  visitEqualToComparison(comparison, arg) {
-    comparison.adjective.visit(this, arg);
+  visitEqualToComparison(comparison: AST.EqualToComparison, arg: { character: string }) {
+    comparison.adjective.visit(this);
 
     return null;
   }
@@ -488,7 +518,7 @@ export default class Semantics {
   /**
    * Inverse Comparison
    */
-  visitInverseComparison(comparison, arg) {
+  visitInverseComparison(comparison: AST.InverseComparison, arg: { character: string }) {
     let c = comparison.comparison.visit(this, arg);
 
     return c;
@@ -497,98 +527,98 @@ export default class Semantics {
   /**
    * First Person Pronoun
    */
-  visitFirstPersonPronoun(fpp, arg) {
+  visitFirstPersonPronoun(fpp: AST.FirstPersonPronoun) {
     return null;
   }
 
   /**
    * Second Person Pronoun
    */
-  visitSecondPersonPronoun(spp, arg) {
+  visitSecondPersonPronoun(spp: AST.SecondPersonPronoun) {
     return null;
   }
 
   /**
    * Positive Noun
    */
-  visitPositiveNoun(noun, arg) {
+  visitPositiveNoun(noun: AST.PositiveNoun) {
     return null;
   }
 
   /**
    * Neutral Noun
    */
-  visitNeutralNoun(noun, arg) {
+  visitNeutralNoun(noun: AST.NeutralNoun) {
     return null;
   }
 
   /**
    * Negative Noun
    */
-  visitNegativeNoun(noun, arg) {
+  visitNegativeNoun(noun: AST.NegativeNoun) {
     return null;
   }
 
   /**
    * Positive Adjective
    */
-  visitPositiveAdjective(adjective, arg) {
+  visitPositiveAdjective(adjective: AST.PositiveAdjective) {
     return null;
   }
 
   /**
    * Neutral Adjective
    */
-  visitNeutralAdjective(adjective, arg) {
+  visitNeutralAdjective(adjective: AST.NeutralAdjective) {
     return null;
   }
 
   /**
    * Negative Adjective
    */
-  visitNegativeAdjective(adjective, arg) {
+  visitNegativeAdjective(adjective: AST.NegativeAdjective) {
     return null;
   }
 
   /**
    * Unary Operator
    */
-  visitUnaryOperator(operator, arg) {
+  visitUnaryOperator(operator: AST.UnaryOperator) {
     return null;
   }
 
   /**
    * Arithmetic Operator
    */
-  visitArithmeticOperator(operator, arg) {
+  visitArithmeticOperator(operator: AST.ArithmeticOperator) {
     return null;
   }
 
   /**
    * Positive Comparative
    */
-  visitPositiveComparative(comparative, arg) {
+  visitPositiveComparative(comparative: AST.PositiveComparative) {
     return null;
   }
 
   /**
    * Negative Comparative
    */
-  visitNegativeComparative(comparative, arg) {
+  visitNegativeComparative(comparative: AST.NegativeComparative) {
     return null;
   }
 
   /**
    * Be
    */
-  visitBe(be, arg) {
+  visitBe(be: AST.Be) {
     return null;
   }
 
   /**
    * Be Comparative
    */
-  visitBeComparative(be, arg) {
+  visitBeComparative(be: AST.BeComparative) {
     return null;
   }
 }

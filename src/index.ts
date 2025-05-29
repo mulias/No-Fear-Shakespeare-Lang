@@ -4,10 +4,11 @@ import { Possum } from "./possum";
 import { Ophelia } from "./ophelia";
 import { Yorick } from "./yorick";
 import Horatio from "./horatio/compiler";
+import { IO } from "./horatio/types";
 
 const reader = prompt({ sigint: true });
 
-const io = {
+const io: IO = {
   print: (v) => process.stdout.write(`${v}`),
   read: (callback) => {
     const input = reader("> ");
@@ -15,6 +16,7 @@ const io = {
   },
   debug: false,
   printDebug: (v) => console.log(v),
+  clear: () => console.clear(),
 };
 
 const source = fs.readFileSync(
@@ -33,10 +35,10 @@ async function run() {
     const yorick = new Yorick(opheliaAst);
     const yorickAst = yorick.run();
 
-    const horatio = new Horatio(yorickAst, io);
+    const horatio = Horatio.fromAst(yorickAst, io);
     horatio.run();
   } catch (e) {
-    io.print(e.message);
+    io.print(`${e}`);
   }
 }
 

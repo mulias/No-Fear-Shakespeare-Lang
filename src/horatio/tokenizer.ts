@@ -7,7 +7,10 @@ import Token from "./token";
  * @param {string} input - An input SPL program
  */
 export default class Tokenizer {
-  constructor(input) {
+  tokens: Token[];
+  dictionary: { [key: string]: number };
+
+  constructor(input: string) {
     this.tokens = [];
     this.dictionary = {};
     this.buildDictionary();
@@ -18,9 +21,9 @@ export default class Tokenizer {
    * Get the next token
    * @returns {Token|number} - The next token from the input program, or -1 if no remaining tokens.
    */
-  nextToken() {
+  nextToken(): Token | number {
     if (this.tokens.length > 0) {
-      return this.tokens.shift();
+      return this.tokens.shift()!!!;
     } else {
       return -1;
     }
@@ -30,12 +33,12 @@ export default class Tokenizer {
    * Scan and tokenize an input SPL program
    * @param {string} input - The input SPL program
    */
-  tokenize(input) {
+  tokenize(input: string): void {
     // strip all newlines/extra whitespace
     input = input.trim().replace(/[\s\n]+/g, " ");
 
     // replace terminals
-    input = input.replace(/[:,.!?\[\]]/g, function (match) {
+    input = input.replace(/[:,.!?\[\]]/g, function (match: string): string {
       switch (match) {
         case ":":
           return " COLON"; //break;
@@ -51,6 +54,8 @@ export default class Tokenizer {
           return "LEFT_BRACKET "; //break;
         case "]":
           return " RIGHT_BRACKET"; //break;
+        default:
+          return match;
       }
     });
 
@@ -59,15 +64,15 @@ export default class Tokenizer {
 
     // tokenize
     while (input_array.length > 0) {
-      let current = input_array.shift();
-      if (this.dictionary[current]) {
-        let check_next = current + " " + input_array[0];
+      let current = input_array.shift()!!!;
+      if (current && this.dictionary[current]) {
+        let check_next = current + " " + (input_array[0] || "");
         if (this.dictionary[check_next]) {
           current = check_next;
-          this.tokens.push(new Token(this.dictionary[current], current));
+          this.tokens.push(new Token(this.dictionary[current]!!!, current));
           input_array.splice(0, 1);
         } else {
-          this.tokens.push(new Token(this.dictionary[current], current));
+          this.tokens.push(new Token(this.dictionary[current]!!!, current));
         }
       } else {
         // check if further appends will find match
@@ -77,7 +82,7 @@ export default class Tokenizer {
           current = current + " " + input_array[br];
 
           if (this.dictionary[current]) {
-            this.tokens.push(new Token(this.dictionary[current], current));
+            this.tokens.push(new Token(this.dictionary[current]!!!, current));
             input_array.splice(0, br + 1);
           }
           br += 1;

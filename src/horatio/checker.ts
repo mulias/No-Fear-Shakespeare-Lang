@@ -1,9 +1,13 @@
 import Semantics from "./semantics";
+import * as Ast from "./ast";
 
 /**
  * Horatio Checker
  */
 export default class Checker extends Semantics {
+  characters: { [key: string]: any };
+  parts: { [key: string]: any };
+
   constructor() {
     super();
     this.characters = {};
@@ -13,21 +17,21 @@ export default class Checker extends Semantics {
   /**
    * Check
    */
-  check(program) {
+  check(program: Ast.Program): void {
     program.visit(this, null);
   }
 
   /**
    * Character exists
    */
-  declared(character) {
+  declared(character: string): boolean {
     return this.characters.hasOwnProperty(character);
   }
 
   /**
    * Character on stage
    */
-  onStage(character) {
+  onStage(character: string): boolean {
     if (this.declared(character)) {
       return this.characters[character];
     } else {
@@ -38,7 +42,7 @@ export default class Checker extends Semantics {
   /**
    * Solo on stage?
    */
-  solo(character) {
+  solo(character: string): boolean {
     if (this.declared(character) && this.characters[character]) {
       for (let k in this.characters) {
         if (k !== character && this.characters[k] === true) {
@@ -53,7 +57,7 @@ export default class Checker extends Semantics {
   /**
    * Toggle Stage presence
    */
-  toggleStage(character) {
+  toggleStage(character: string): void {
     if (this.declared(character)) {
       this.characters[character] = !this.characters[character];
     }
@@ -62,20 +66,20 @@ export default class Checker extends Semantics {
   /**
    * Exeunt all
    */
-  exeuntStage() {
+  exeuntStage(): void {
     for (let c in this.characters) {
       this.characters[c] = false;
     }
   }
 
-  actExists(act) {
+  actExists(act: string): boolean {
     return !!this.parts[act];
   }
 
   /**
    * Scene exists
    */
-  sceneExists(act, scene) {
+  sceneExists(act: string, scene: string): boolean {
     if (!this.parts[act]) {
       return false;
     } else {

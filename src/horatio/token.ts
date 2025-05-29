@@ -5,7 +5,10 @@
  * @param {string} sequence - The matched phrase
  */
 export default class Token {
-  constructor(kind, sequence) {
+  kind: number;
+  sequence: string;
+
+  constructor(kind: number, sequence: string) {
     this.kind = kind;
     this.sequence = sequence;
   }
@@ -173,7 +176,7 @@ export default class Token {
     return 110;
   }
 
-  static isStatementPunctuation(token) {
+  static isStatementPunctuation(token: Token): boolean {
     return (
       token.kind === Token.PERIOD || token.kind === Token.EXCLAMATION_POINT
     );
