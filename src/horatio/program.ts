@@ -108,10 +108,6 @@ export default class Program {
 
     if (this.isOnStage(c)) {
       throw new Error(`Runtime Error: ${character_name} is already on stage`);
-    } else if (this.isStageFull()) {
-      throw new Error(
-        `Runtime Error: ${character_name} may not enter, the stage is already occupied`,
-      );
     } else {
       this.stage.push(c);
     }
@@ -146,9 +142,6 @@ export default class Program {
     let self = this;
   }
 
-  isStageFull(): boolean {
-    return this.stage.length >= 2;
-  }
 
   isOnStage(character: Character): Character | undefined {
     return this.stage.find(
