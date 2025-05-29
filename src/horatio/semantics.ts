@@ -54,6 +54,8 @@ export default class Semantics {
 
     // parts
     if (program.parts.length > 0) {
+      this.collectActsAndScenes(program.parts);
+
       program.parts.forEach(function (part) {
         part.visit(self, null);
       });
@@ -62,6 +64,25 @@ export default class Semantics {
     }
 
     return null;
+  }
+
+  collectActsAndScenes(parts: AST.Part[]): void {
+    let self = this;
+    parts.forEach(function (part) {
+      let actNumber = part.numeral.sequence;
+      if (self.parts!!![actNumber]) {
+        throw new Error("Semantic Error - Act already defined.");
+      }
+      self.parts!!![actNumber] = [];
+
+      part.subparts.forEach(function (subpart) {
+        let sceneNumber = subpart.numeral.sequence;
+        if (self.sceneExists(actNumber, sceneNumber)) {
+          throw new Error("Semantic Error - Scene already defined.");
+        }
+        self.parts!!![actNumber].push(sceneNumber);
+      });
+    });
   }
 
   /**
@@ -122,12 +143,9 @@ export default class Semantics {
     let n = part.numeral.visit(this, arg);
     part.comment.visit(this, arg);
 
-    if (this.parts!!![n]) {
-      throw new Error("Semantic Error - Act already defined.");
-    } else if (part.subparts.length === 0) {
+    if (part.subparts.length === 0) {
       throw new Error("Semantic Error - No subparts defined.");
     } else {
-      this.parts!!![n] = [];
       part.subparts.forEach(function (subpart) {
         subpart.visit(self, { act: n });
       });
@@ -154,13 +172,8 @@ export default class Semantics {
   visitSubpart(subpart: AST.Subpart, arg: any) {
     let n = subpart.numeral.visit(this, arg);
 
-    if (this.sceneExists(arg.act, n)) {
-      throw new Error("Semantic Error - Scene already defined.");
-    } else {
-      this.parts!!![arg.act].push(n);
-      subpart.comment.visit(this, arg);
-      subpart.stage.visit(this, { act: arg.act, scene: n });
-    }
+    subpart.comment.visit(this, arg);
+    subpart.stage.visit(this, { act: arg.act, scene: n });
 
     return null;
   }
@@ -330,13 +343,11 @@ export default class Semantics {
       throw new Error("Semantic Error - Act specified by Goto does not exist.");
     }
 
-    // TODO: first collect all act/scenes, then do this check
-    // if (goto.part === "scene" && !this.sceneExists(arg.act, partIndex)) {
-    //   console.log(goto, arg, partIndex);
-    //   throw new Error(
-    //     "Semantic Error - Scene specified by Goto does not exist in this act.",
-    //   );
-    // }
+    if (goto.part === "scene" && !this.sceneExists(arg.act, partIndex)) {
+      throw new Error(
+        `Semantic Error - Scene ${partIndex} does not exist in Act ${arg.act}.`,
+      );
+    }
 
     return null;
   }
