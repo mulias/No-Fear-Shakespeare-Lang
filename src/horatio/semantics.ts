@@ -369,7 +369,10 @@ export default class Semantics {
   /**
    * Integer Output Sentence
    */
-  visitIntegerOutputSentence(integer_output: AST.IntegerOutputSentence, arg: any) {
+  visitIntegerOutputSentence(
+    integer_output: AST.IntegerOutputSentence,
+    arg: any,
+  ) {
     return null;
   }
 
@@ -383,7 +386,10 @@ export default class Semantics {
   /**
    * Remember Sentence
    */
-  visitRememberSentence(remember: AST.RememberSentence, arg: { character: string }) {
+  visitRememberSentence(
+    remember: AST.RememberSentence,
+    arg: { character: string },
+  ) {
     let p = remember.pronoun.visit(this);
 
     return null;
@@ -399,7 +405,10 @@ export default class Semantics {
   /**
    * Positive Constant Value
    */
-  visitPositiveConstantValue(pc_val: AST.PositiveConstantValue, arg: { character: string }) {
+  visitPositiveConstantValue(
+    pc_val: AST.PositiveConstantValue,
+    arg: { character: string },
+  ) {
     let self = this;
 
     let n;
@@ -425,7 +434,10 @@ export default class Semantics {
   /**
    * Negative Constant Value
    */
-  visitNegativeConstantValue(nc_val: AST.NegativeConstantValue, arg: { character: string }) {
+  visitNegativeConstantValue(
+    nc_val: AST.NegativeConstantValue,
+    arg: { character: string },
+  ) {
     let self = this;
 
     let n;
@@ -468,7 +480,10 @@ export default class Semantics {
   /**
    * Unary Operation Value
    */
-  visitUnaryOperationValue(unary: AST.UnaryOperationValue, arg: { character: string }) {
+  visitUnaryOperationValue(
+    unary: AST.UnaryOperationValue,
+    arg: { character: string },
+  ) {
     let o = unary.operator.visit(this);
     let v = unary.value.visit(this, arg);
 
@@ -478,7 +493,10 @@ export default class Semantics {
   /**
    * Arithmetic Operation Value
    */
-  visitArithmeticOperationValue(arithmetic: AST.ArithmeticOperationValue, arg: { character: string }) {
+  visitArithmeticOperationValue(
+    arithmetic: AST.ArithmeticOperationValue,
+    arg: { character: string },
+  ) {
     let o = arithmetic.operator.visit(this);
     let v1 = arithmetic.value_1.visit(this, arg);
     let v2 = arithmetic.value_2.visit(this, arg);
@@ -495,14 +513,20 @@ export default class Semantics {
     return p;
   }
 
-  visitCharacterValue(characterValue: AST.CharacterValue, arg: { character: string }) {
+  visitCharacterValue(
+    characterValue: AST.CharacterValue,
+    arg: { character: string },
+  ) {
     return null;
   }
 
   /**
    * Greater Than Comparison
    */
-  visitGreaterThanComparison(comparison: AST.GreaterThanComparison, arg: { character: string }) {
+  visitGreaterThanComparison(
+    comparison: AST.GreaterThanComparison,
+    arg: { character: string },
+  ) {
     let c = comparison.comparative.visit(this);
 
     return c;
@@ -511,7 +535,10 @@ export default class Semantics {
   /**
    * Lesser Than Comparison
    */
-  visitLesserThanComparison(comparison: AST.LesserThanComparison, arg: { character: string }) {
+  visitLesserThanComparison(
+    comparison: AST.LesserThanComparison,
+    arg: { character: string },
+  ) {
     let c = comparison.comparative.visit(this);
 
     return null;
@@ -520,7 +547,10 @@ export default class Semantics {
   /**
    * Equal To Comparison
    */
-  visitEqualToComparison(comparison: AST.EqualToComparison, arg: { character: string }) {
+  visitEqualToComparison(
+    comparison: AST.EqualToComparison,
+    arg: { character: string },
+  ) {
     comparison.adjective.visit(this);
 
     return null;
@@ -529,7 +559,10 @@ export default class Semantics {
   /**
    * Inverse Comparison
    */
-  visitInverseComparison(comparison: AST.InverseComparison, arg: { character: string }) {
+  visitInverseComparison(
+    comparison: AST.InverseComparison,
+    arg: { character: string },
+  ) {
     let c = comparison.comparison.visit(this, arg);
 
     return c;
