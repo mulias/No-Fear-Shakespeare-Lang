@@ -31,10 +31,19 @@ export class Yorick {
   }
 
   buildProgram(program: OpheliaAst.Program): Ast.Program {
-    const character = this.characterName(this.vars[0] as OpheliaAst.VarId);
-    const adjective = this.gen.randomAdjective();
-    const noun = this.gen.randomNoun();
-    const title = `${character} and the ${adjective} ${noun}`;
+    let title: string;
+    if (this.vars.length > 0) {
+      const character = this.characterName(this.vars[0] as OpheliaAst.VarId);
+      const adjective = this.gen.randomAdjective();
+      const noun = this.gen.randomNoun();
+      title = `${character} and the ${adjective} ${noun}`;
+    } else {
+      // No characters, just use adjectives and a noun
+      const adjective1 = this.gen.randomAdjective();
+      const adjective2 = this.gen.randomAdjective();
+      const noun = this.gen.randomNoun();
+      title = `The ${adjective1} ${adjective2} ${noun}`;
+    }
 
     return new Ast.Program(
       this.buildComment(title),
