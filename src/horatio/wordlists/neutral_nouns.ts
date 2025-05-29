@@ -6,6 +6,7 @@ export const neutral_nouns = [
   "cousin",
   "cow",
   "daughter",
+  "dog",
   "door",
   "face",
   "father",
