@@ -24,14 +24,14 @@ export class Yorick {
     this.characters = assignCharacters(vars, gen);
   }
 
-  transpile() {
+  run() {
     this.analyzer.check();
 
     return this.buildProgram(this.ast);
   }
 
   buildProgram(program: OpheliaAst.Program): Ast.Program {
-    const character = this.characterName(this.vars[0]);
+    const character = this.characterName(this.vars[0] as OpheliaAst.VarId);
     const adjective = this.gen.randomAdjective();
     const noun = this.gen.randomNoun();
     const title = `${character} and the ${adjective} ${noun}`;

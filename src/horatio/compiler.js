@@ -7,7 +7,8 @@ import Encoder from "./encoder";
  * @memberof Horatio
  */
 export default class Compiler {
-  constructor(io) {
+  constructor(ast, io) {
+    this.ast = ast;
     this.io = io;
   }
 
@@ -43,5 +44,18 @@ export default class Compiler {
     let program = encoder.encode(ast);
 
     return program;
+  }
+
+  run() {
+    // Semantic Check
+    let checker = new Checker();
+    checker.check(this.ast);
+
+    // Code Generation
+    let encoder = new Encoder(this.io);
+    let program = encoder.encode(this.ast);
+
+    // Execute the program
+    program.run();
   }
 }

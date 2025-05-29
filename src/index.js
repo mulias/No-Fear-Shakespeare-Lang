@@ -18,7 +18,7 @@ const io = {
 };
 
 const source = fs.readFileSync(
-  "examples/no_fear_shakespeare/fizzbuzz.nfspl",
+  process.argv[2] || "examples/no_fear_shakespeare/fizzbuzz.nfspl",
   "utf8",
 );
 

@@ -1,0 +1,26 @@
+Main {
+  Start {
+    stage(a, b)
+
+    # This should fail - unknown function
+    unknown_function()
+
+    # This should fail - invalid method
+    a.invalid_method()
+
+    # This should fail - wrong number of args
+    test_eq(a)
+
+    # This should fail - unknown if variant
+    if_maybe(goto(End))
+
+    b.{
+      # This should fail - not a valid statement
+      wrong_syntax
+    }
+  }
+
+  End {
+    unstage_all
+  }
+}
