@@ -872,22 +872,24 @@ export default class Generator {
    */
   visitBe(be: Ast.Be, arg: { act: number; scene: number; character?: string }) {
     const createCommand = (be: string): Function => {
-      let b = be;
       let speaking = arg.character;
 
-      switch (b) {
-        case "Thou art":
-        case "You are":
-        case "You":
+      // Normalize to lowercase for comparison
+      const normalized = be.toLowerCase();
+
+      switch (normalized) {
+        case "thou art":
+        case "you are":
+        case "you":
           return function (this: Program) {
             return this.interlocutor(speaking!!!).name();
           };
-        case "I am":
+        case "i am":
           return function () {
             return speaking;
           };
         default:
-          throw new Error(`Unknown be form: ${b}`);
+          throw new Error(`Unknown be form: ${be}`);
       }
     };
 
