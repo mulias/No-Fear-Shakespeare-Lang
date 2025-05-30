@@ -402,10 +402,10 @@ export default class Generator {
 
         if (this.io.debug) {
           this.io.printDebug(
-            `PrintChar ${subject.name()} ${val}: ${String.fromCharCode(val)}`,
+            `PrintChar ${subject.name()} ${val}: ${String.fromCodePoint(val)}`,
           );
         } else {
-          this.io.print(String.fromCharCode(val));
+          this.io.print(String.fromCodePoint(val));
         }
       };
     };
