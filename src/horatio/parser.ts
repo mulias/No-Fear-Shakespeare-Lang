@@ -120,7 +120,15 @@ export default class Parser {
       throw this.unexpectedTokenError();
     }
     let character = new AST.Character(this.currentToken.sequence);
-    this.accept(Token.CHARACTER);
+
+    if (this.currentToken.kind === Token.CHARACTER) {
+      this.acceptIt();
+    } else {
+      throw new Error(
+        `${this.currentToken.sequence} is not a known Shakespeare character`,
+      );
+    }
+
     this.accept(Token.COMMA);
     let comment = this.parseComment();
     this.acceptIf(Token.isStatementPunctuation);
