@@ -399,13 +399,13 @@ export default class Generator {
       const speaker = arg.character;
 
       return function (this: Program) {
-        let val = this.interlocutor(speaker!!!).value();
+        const listener = this.interlocutor(speaker!!!);
+        let val = listener.value();
 
         if (this.io.debug) {
-          this.io.printDebug(`PrintInt ${speaker} ${val}`);
-        } else {
-          this.io.print(String(val));
+          this.io.printDebug(`PrintInt ${listener.name()} ${val}`);
         }
+        this.io.print(String(val));
       };
     };
 
@@ -424,15 +424,14 @@ export default class Generator {
 
       return function (this: Program) {
         let subject = this.interlocutor(speaker!!!);
-        let val = subject.value()!!!;
+        let val = subject.value();
 
         if (this.io.debug) {
           this.io.printDebug(
             `PrintChar ${subject.name()} ${val}: ${String.fromCodePoint(val)}`,
           );
-        } else {
-          this.io.print(String.fromCodePoint(val));
         }
+        this.io.print(String.fromCodePoint(val));
       };
     };
 
@@ -452,13 +451,16 @@ export default class Generator {
 
       return function (this: Program) {
         const pn = p.call(this);
-        const character = this.characters[pn]!!!;
-        let value = character.value()!!!;
-        character.remember(value);
+        const sourceCharacter = this.characters[pn]!!!;
+        const targetCharacter = this.interlocutor(speaking!!!);
+        let value = sourceCharacter.value();
+        targetCharacter.remember(value);
 
         if (this.io.debug) {
           this.io.printDebug(
-            `Remember ${value}, [${(character as any)._memory}]`,
+            `${targetCharacter.name()} remembers ${sourceCharacter.name()}'s value: ${value}, ${targetCharacter.name()}'s stack: [${
+              (targetCharacter as any)._memory
+            }]`,
           );
         }
       };
@@ -480,7 +482,25 @@ export default class Generator {
       const speaking = arg.character;
 
       return function (this: Program) {
-        this.interlocutor(speaking!!!).recall();
+        const character = this.interlocutor(speaking!!!);
+
+        if (this.io.debug) {
+          this.io.printDebug(
+            `Recall from ${character.name()}, stack before: [${
+              (character as any)._memory
+            }]`,
+          );
+        }
+
+        character.recall();
+
+        if (this.io.debug) {
+          this.io.printDebug(
+            `${character.name()} = ${character.value()} after recall, stack now: [${
+              (character as any)._memory
+            }]`,
+          );
+        }
       };
     };
 
