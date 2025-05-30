@@ -66,30 +66,40 @@ export default class Tokenizer {
     while (input_array.length > 0) {
       let current = input_array.shift()!!!;
       let currentLower = current.toLowerCase();
-      
+
       if (current && this.dictionary[currentLower]) {
         let check_next = current + " " + (input_array[0] || "");
         let check_next_lower = check_next.toLowerCase();
-        
+
         if (this.dictionary[check_next_lower]) {
           current = check_next;
-          this.tokens.push(new Token(this.dictionary[check_next_lower]!!!, current));
+          this.tokens.push(
+            new Token(this.dictionary[check_next_lower]!!!, current),
+          );
           input_array.splice(0, 1);
         } else {
-          this.tokens.push(new Token(this.dictionary[currentLower]!!!, current));
+          this.tokens.push(
+            new Token(this.dictionary[currentLower]!!!, current),
+          );
         }
       } else {
         // check if further appends will find match
         let br = 0;
         let orig = current;
         let currentLower = current.toLowerCase();
-        
-        while (!this.dictionary[currentLower] && br < 6 && br < input_array.length) {
+
+        while (
+          !this.dictionary[currentLower] &&
+          br < 6 &&
+          br < input_array.length
+        ) {
           current = current + " " + input_array[br];
           currentLower = current.toLowerCase();
 
           if (this.dictionary[currentLower]) {
-            this.tokens.push(new Token(this.dictionary[currentLower]!!!, current));
+            this.tokens.push(
+              new Token(this.dictionary[currentLower]!!!, current),
+            );
             input_array.splice(0, br + 1);
             break;
           }

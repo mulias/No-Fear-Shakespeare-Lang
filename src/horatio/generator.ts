@@ -1,13 +1,12 @@
 import * as Ast from "./ast";
 import Program from "./program";
 
-
 /**
  * Horatio Generation Visitor
  */
 export default class Generator {
   program!: Program;
-  
+
   numeralIndex(numeral: string): number {
     throw new Error("numeralIndex must be implemented by subclass");
   }
@@ -155,7 +154,10 @@ export default class Generator {
   /**
    * Dialogue
    */
-  visitDialogue(dialogue: Ast.Dialogue, arg: { act: number; scene: number; character?: string }): null {
+  visitDialogue(
+    dialogue: Ast.Dialogue,
+    arg: { act: number; scene: number; character?: string },
+  ): null {
     let self = this;
     dialogue.lines.forEach(function (line) {
       line.visit(self, arg);
@@ -166,7 +168,10 @@ export default class Generator {
   /**
    * Line
    */
-  visitLine(line: Ast.Line, arg: { act: number; scene: number; character?: string }): null {
+  visitLine(
+    line: Ast.Line,
+    arg: { act: number; scene: number; character?: string },
+  ): null {
     let self = this;
 
     let c = line.character.sequence;
@@ -183,7 +188,10 @@ export default class Generator {
   /**
    * Assignment Sentence
    */
-  visitAssignmentSentence(assignment: Ast.AssignmentSentence, arg: { act: number; scene: number; character?: string }) {
+  visitAssignmentSentence(
+    assignment: Ast.AssignmentSentence,
+    arg: { act: number; scene: number; character?: string },
+  ) {
     const createCommand = (target: Function, value: Function): Function => {
       const t = target;
       const v = value;
@@ -209,8 +217,15 @@ export default class Generator {
   /**
    * Question Sentence
    */
-  visitQuestionSentence(question: Ast.QuestionSentence, arg: { act: number; scene: number; character?: string }) {
-    const createCommand = (value1: Function, comparative: Function, value2: Function): Function => {
+  visitQuestionSentence(
+    question: Ast.QuestionSentence,
+    arg: { act: number; scene: number; character?: string },
+  ) {
+    const createCommand = (
+      value1: Function,
+      comparative: Function,
+      value2: Function,
+    ): Function => {
       return function (this: Program) {
         const val1 = value1.call(this);
         const val2 = value2.call(this);
@@ -234,7 +249,10 @@ export default class Generator {
   /**
    * Response Sentence
    */
-  visitResponseSentence(response: Ast.ResponseSentence, arg: { act: number; scene: number; character?: string }) {
+  visitResponseSentence(
+    response: Ast.ResponseSentence,
+    arg: { act: number; scene: number; character?: string },
+  ) {
     const createCommand = (sentence: Function): Function => {
       return function (this: Program) {
         const truth = this.getGlobalBool();
@@ -264,8 +282,14 @@ export default class Generator {
   /**
    * Goto Sentence
    */
-  visitGotoSentence(goto: Ast.GotoSentence, arg: { act: number; scene: number; character?: string }) {
-    const createCommand = (part: "act" | "scene", sceneIndex: number): Function => {
+  visitGotoSentence(
+    goto: Ast.GotoSentence,
+    arg: { act: number; scene: number; character?: string },
+  ) {
+    const createCommand = (
+      part: "act" | "scene",
+      sceneIndex: number,
+    ): Function => {
       return function (this: Program) {
         if (part === "act") {
           if (this.io.debug) {
@@ -289,7 +313,10 @@ export default class Generator {
   /**
    * Integer Input Sentence
    */
-  visitIntegerInputSentence(integer_input: Ast.IntegerInputSentence, arg: { act: number; scene: number; character?: string }) {
+  visitIntegerInputSentence(
+    integer_input: Ast.IntegerInputSentence,
+    arg: { act: number; scene: number; character?: string },
+  ) {
     const createCommand = (): Function => {
       const speaker = arg.character;
 
@@ -312,7 +339,10 @@ export default class Generator {
   /**
    * Char Input Sentence
    */
-  visitCharInputSentence(char_input: Ast.CharInputSentence, arg: { act: number; scene: number; character?: string }) {
+  visitCharInputSentence(
+    char_input: Ast.CharInputSentence,
+    arg: { act: number; scene: number; character?: string },
+  ) {
     const createCommand = (): Function => {
       const speaker = arg.character;
 
@@ -335,7 +365,10 @@ export default class Generator {
   /**
    * Integer Output Sentence
    */
-  visitIntegerOutputSentence(integer_output: Ast.IntegerOutputSentence, arg: { act: number; scene: number; character?: string }) {
+  visitIntegerOutputSentence(
+    integer_output: Ast.IntegerOutputSentence,
+    arg: { act: number; scene: number; character?: string },
+  ) {
     const createCommand = (): Function => {
       const speaker = arg.character;
 
@@ -356,7 +389,10 @@ export default class Generator {
   /**
    * Char Output Sentence
    */
-  visitCharOutputSentence(char_output: Ast.CharOutputSentence, arg: { act: number; scene: number; character?: string }) {
+  visitCharOutputSentence(
+    char_output: Ast.CharOutputSentence,
+    arg: { act: number; scene: number; character?: string },
+  ) {
     const createCommand = (): Function => {
       const speaker = arg.character;
 
@@ -380,7 +416,10 @@ export default class Generator {
   /**
    * Remember Sentence
    */
-  visitRememberSentence(remember: Ast.RememberSentence, arg: { act: number; scene: number; character?: string }) {
+  visitRememberSentence(
+    remember: Ast.RememberSentence,
+    arg: { act: number; scene: number; character?: string },
+  ) {
     const createCommand = (pronoun: Function): Function => {
       const speaking = arg.character;
       const p = pronoun;
@@ -392,7 +431,9 @@ export default class Generator {
         character.remember(value);
 
         if (this.io.debug) {
-          this.io.printDebug(`Remember ${value}, [${(character as any)._memory}]`);
+          this.io.printDebug(
+            `Remember ${value}, [${(character as any)._memory}]`,
+          );
         }
       };
     };
@@ -405,7 +446,10 @@ export default class Generator {
   /**
    * Recall Sentence
    */
-  visitRecallSentence(recall: Ast.RecallSentence, arg: { act: number; scene: number; character?: string }) {
+  visitRecallSentence(
+    recall: Ast.RecallSentence,
+    arg: { act: number; scene: number; character?: string },
+  ) {
     const createCommand = (): Function => {
       const speaking = arg.character;
 
@@ -420,7 +464,10 @@ export default class Generator {
   /**
    * Positive Constant Value
    */
-  visitPositiveConstantValue(pc_val: Ast.PositiveConstantValue, arg: { act: number; scene: number; character?: string }) {
+  visitPositiveConstantValue(
+    pc_val: Ast.PositiveConstantValue,
+    arg: { act: number; scene: number; character?: string },
+  ) {
     const createCommand = (num_adjectives: number): Function => {
       let exp = num_adjectives;
 
@@ -437,7 +484,10 @@ export default class Generator {
   /**
    * Negative Constant Value
    */
-  visitNegativeConstantValue(nc_val: Ast.NegativeConstantValue, arg: { act: number; scene: number; character?: string }) {
+  visitNegativeConstantValue(
+    nc_val: Ast.NegativeConstantValue,
+    arg: { act: number; scene: number; character?: string },
+  ) {
     const createCommand = (num_adjectives: number): Function => {
       let exp = num_adjectives;
 
@@ -451,7 +501,10 @@ export default class Generator {
     return createCommand(adjectives.length);
   }
 
-  visitZeroValue(zero: Ast.ZeroValue, arg: { act: number; scene: number; character?: string }) {
+  visitZeroValue(
+    zero: Ast.ZeroValue,
+    arg: { act: number; scene: number; character?: string },
+  ) {
     const createCommand = (): Function => {
       return function () {
         return 0;
@@ -464,7 +517,10 @@ export default class Generator {
   /**
    * Unary Operation Value
    */
-  visitUnaryOperationValue(unary: Ast.UnaryOperationValue, arg: { act: number; scene: number; character?: string }) {
+  visitUnaryOperationValue(
+    unary: Ast.UnaryOperationValue,
+    arg: { act: number; scene: number; character?: string },
+  ) {
     const createCommand = (operator: Function, value: Function): Function => {
       let o = operator;
       let v = value;
@@ -484,8 +540,15 @@ export default class Generator {
   /**
    * Arithmetic Operation Value
    */
-  visitArithmeticOperationValue(arithmetic: Ast.ArithmeticOperationValue, arg: { act: number; scene: number; character?: string }) {
-    const createCommand = (operator: Function, value1: Function, value2: Function): Function => {
+  visitArithmeticOperationValue(
+    arithmetic: Ast.ArithmeticOperationValue,
+    arg: { act: number; scene: number; character?: string },
+  ) {
+    const createCommand = (
+      operator: Function,
+      value1: Function,
+      value2: Function,
+    ): Function => {
       let o = operator;
       let v1 = value1;
       let v2 = value2;
@@ -507,7 +570,10 @@ export default class Generator {
   /**
    * Pronoun Value
    */
-  visitPronounValue(pronoun: Ast.PronounValue, arg: { act: number; scene: number; character?: string }) {
+  visitPronounValue(
+    pronoun: Ast.PronounValue,
+    arg: { act: number; scene: number; character?: string },
+  ) {
     const createCommand = (p: Function): Function => {
       let pronoun = p;
 
@@ -524,7 +590,10 @@ export default class Generator {
   /**
    * Greater Than Comparison
    */
-  visitGreaterThanComparison(comparison: Ast.GreaterThanComparison, arg: { act: number; scene: number; character?: string }) {
+  visitGreaterThanComparison(
+    comparison: Ast.GreaterThanComparison,
+    arg: { act: number; scene: number; character?: string },
+  ) {
     const createCommand = (): Function => {
       return function (this: Program, a: number, b: number) {
         if (this.io.debug) {
@@ -540,7 +609,10 @@ export default class Generator {
   /**
    * Lesser Than Comparison
    */
-  visitLesserThanComparison(comparison: Ast.LesserThanComparison, arg: { act: number; scene: number; character?: string }) {
+  visitLesserThanComparison(
+    comparison: Ast.LesserThanComparison,
+    arg: { act: number; scene: number; character?: string },
+  ) {
     const createCommand = (): Function => {
       return function (this: Program, a: number, b: number) {
         if (this.io.debug) {
@@ -556,7 +628,10 @@ export default class Generator {
   /**
    * Equal To Comparison
    */
-  visitEqualToComparison(comparison: Ast.EqualToComparison, arg: { act: number; scene: number; character?: string }) {
+  visitEqualToComparison(
+    comparison: Ast.EqualToComparison,
+    arg: { act: number; scene: number; character?: string },
+  ) {
     const createCommand = (): Function => {
       return function (this: Program, a: number, b: number) {
         if (this.io.debug) {
@@ -572,7 +647,10 @@ export default class Generator {
   /**
    * Inverse Comparison
    */
-  visitInverseComparison(comparison: Ast.InverseComparison, arg: { act: number; scene: number; character?: string }) {
+  visitInverseComparison(
+    comparison: Ast.InverseComparison,
+    arg: { act: number; scene: number; character?: string },
+  ) {
     const createCommand = (comparison: Function): Function => {
       let c = comparison;
 
@@ -589,7 +667,10 @@ export default class Generator {
   /**
    * First Person Pronoun
    */
-  visitFirstPersonPronoun(fpp: Ast.FirstPersonPronoun, arg: { act: number; scene: number; character?: string }) {
+  visitFirstPersonPronoun(
+    fpp: Ast.FirstPersonPronoun,
+    arg: { act: number; scene: number; character?: string },
+  ) {
     const createCommand = (): Function => {
       let speaking = arg.character;
 
@@ -604,7 +685,10 @@ export default class Generator {
   /**
    * Second Person Pronoun
    */
-  visitSecondPersonPronoun(spp: Ast.SecondPersonPronoun, arg: { act: number; scene: number; character?: string }) {
+  visitSecondPersonPronoun(
+    spp: Ast.SecondPersonPronoun,
+    arg: { act: number; scene: number; character?: string },
+  ) {
     const createCommand = (): Function => {
       let speaking = arg.character;
 
@@ -619,7 +703,10 @@ export default class Generator {
   /**
    * Unary Operator
    */
-  visitUnaryOperator(operator: Ast.UnaryOperator, arg: { act: number; scene: number; character?: string }) {
+  visitUnaryOperator(
+    operator: Ast.UnaryOperator,
+    arg: { act: number; scene: number; character?: string },
+  ) {
     const createCommand = (operator: string): Function => {
       let o = operator;
 
@@ -664,7 +751,10 @@ export default class Generator {
   /**
    * Arithmetic Operator
    */
-  visitArithmeticOperator(operator: Ast.ArithmeticOperator, arg: { act: number; scene: number; character?: string }) {
+  visitArithmeticOperator(
+    operator: Ast.ArithmeticOperator,
+    arg: { act: number; scene: number; character?: string },
+  ) {
     const createCommand = (operator: string): Function => {
       let o = operator;
 
@@ -731,7 +821,10 @@ export default class Generator {
   /**
    * Be Comparative
    */
-  visitBeComparative(be: Ast.BeComparative, arg: { act: number; scene: number; character?: string }) {
+  visitBeComparative(
+    be: Ast.BeComparative,
+    arg: { act: number; scene: number; character?: string },
+  ) {
     const createCommand = (be: string): Function => {
       let speaking = arg.character;
 
@@ -755,7 +848,10 @@ export default class Generator {
     return createCommand(b);
   }
 
-  visitCharacterValue(characterValue: Ast.CharacterValue, arg: { act: number; scene: number; character?: string }) {
+  visitCharacterValue(
+    characterValue: Ast.CharacterValue,
+    arg: { act: number; scene: number; character?: string },
+  ) {
     const createCommand = (character: Ast.Character): Function => {
       return function (this: Program) {
         return this.characters[character.sequence]!!!.value();

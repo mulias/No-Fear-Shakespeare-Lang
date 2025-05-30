@@ -177,7 +177,9 @@ describe("Horatio Compiler", () => {
       const ast = parser.parse();
 
       const directions = ast.parts[0]?.subparts[0]?.stage.directions || [];
-      const dialogue = directions.find(d => d instanceof Ast.Dialogue) as Ast.Dialogue;
+      const dialogue = directions.find(
+        (d) => d instanceof Ast.Dialogue,
+      ) as Ast.Dialogue;
       expect(dialogue).toBeInstanceOf(Ast.Dialogue);
       expect(dialogue.lines).toHaveLength(1);
       expect(dialogue.lines[0]?.character.sequence).toBe("Romeo");
@@ -210,7 +212,9 @@ describe("Horatio Compiler", () => {
       const ast = parser.parse();
 
       const directions = ast.parts[0]?.subparts[0]?.stage.directions || [];
-      const dialogue = directions.find(d => d instanceof Ast.Dialogue) as Ast.Dialogue;
+      const dialogue = directions.find(
+        (d) => d instanceof Ast.Dialogue,
+      ) as Ast.Dialogue;
       expect(dialogue).toBeDefined();
       const sentences = dialogue.lines[0]?.sentences || [];
 
@@ -246,7 +250,9 @@ describe("Horatio Compiler", () => {
       const ast = parser.parse();
 
       const directions = ast.parts[0]?.subparts[0]?.stage.directions || [];
-      const dialogue = directions.find(d => d instanceof Ast.Dialogue) as Ast.Dialogue;
+      const dialogue = directions.find(
+        (d) => d instanceof Ast.Dialogue,
+      ) as Ast.Dialogue;
       expect(dialogue).toBeDefined();
       const sentences = dialogue.lines[0]?.sentences || [];
 
@@ -281,7 +287,9 @@ describe("Horatio Compiler", () => {
       const ast = parser.parse();
 
       const directions = ast.parts[0]?.subparts[0]?.stage.directions || [];
-      const dialogue = directions.find(d => d instanceof Ast.Dialogue) as Ast.Dialogue;
+      const dialogue = directions.find(
+        (d) => d instanceof Ast.Dialogue,
+      ) as Ast.Dialogue;
       expect(dialogue).toBeDefined();
       const sentences = dialogue.lines[0]?.sentences || [];
 
@@ -316,7 +324,9 @@ describe("Horatio Compiler", () => {
       const ast = parser.parse();
 
       const directions = ast.parts[0]?.subparts[0]?.stage.directions || [];
-      const dialogue = directions.find(d => d instanceof Ast.Dialogue) as Ast.Dialogue;
+      const dialogue = directions.find(
+        (d) => d instanceof Ast.Dialogue,
+      ) as Ast.Dialogue;
       expect(dialogue).toBeDefined();
       const sentences = dialogue.lines[0]?.sentences || [];
 
@@ -356,7 +366,9 @@ describe("Horatio Compiler", () => {
       const ast = parser.parse();
 
       const directions = ast.parts[0]?.subparts[0]?.stage.directions || [];
-      const dialogue = directions.find(d => d instanceof Ast.Dialogue) as Ast.Dialogue;
+      const dialogue = directions.find(
+        (d) => d instanceof Ast.Dialogue,
+      ) as Ast.Dialogue;
       expect(dialogue).toBeDefined();
       const sentences = dialogue.lines[0]?.sentences || [];
 
@@ -396,7 +408,9 @@ describe("Horatio Compiler", () => {
       const ast = parser.parse();
 
       const directions = ast.parts[0]?.subparts[0]?.stage.directions || [];
-      const dialogue = directions.find(d => d instanceof Ast.Dialogue) as Ast.Dialogue;
+      const dialogue = directions.find(
+        (d) => d instanceof Ast.Dialogue,
+      ) as Ast.Dialogue;
       expect(dialogue).toBeDefined();
       const sentences = dialogue.lines[0]?.sentences || [];
 
@@ -524,9 +538,11 @@ describe("Horatio Compiler", () => {
 
       const checker = new Checker();
       expect(() => checker.check(ast)).not.toThrow(); // Should pass compile-time checks
-      
+
       const horatio = Horatio.fromAst(ast, io);
-      expect(() => horatio.run()).toThrow(/Romeo is trying to speak, but there is nobody else on stage/i); // Runtime error
+      expect(() => horatio.run()).toThrow(
+        /Romeo is trying to speak, but there is nobody else on stage/i,
+      ); // Runtime error
     });
 
     it("should detect ambiguous addressing with too many characters on stage", () => {
@@ -551,7 +567,9 @@ describe("Horatio Compiler", () => {
       `;
 
       const compiler = Horatio.fromSource(spl, io);
-      expect(() => compiler.run()).toThrow(/Romeo is trying to speak, but there are too many characters on stage - it's ambiguous who is being addressed/i);
+      expect(() => compiler.run()).toThrow(
+        /Romeo is trying to speak, but there are too many characters on stage - it's ambiguous who is being addressed/i,
+      );
     });
 
     it("should detect invalid goto targets", () => {
@@ -635,9 +653,18 @@ describe("Horatio Compiler", () => {
       const ast = new Ast.Program(
         new Ast.Comment("Test"),
         [
-          new Ast.Declaration(new Ast.Character("Romeo"), new Ast.Comment("a young man")),
-          new Ast.Declaration(new Ast.Character("Juliet"), new Ast.Comment("a young lady")),
-          new Ast.Declaration(new Ast.Character("Hamlet"), new Ast.Comment("a prince")),
+          new Ast.Declaration(
+            new Ast.Character("Romeo"),
+            new Ast.Comment("a young man"),
+          ),
+          new Ast.Declaration(
+            new Ast.Character("Juliet"),
+            new Ast.Comment("a young lady"),
+          ),
+          new Ast.Declaration(
+            new Ast.Character("Hamlet"),
+            new Ast.Comment("a prince"),
+          ),
         ],
         [
           new Ast.Part(new Ast.Numeral("I"), new Ast.Comment("Act 1"), [
@@ -682,8 +709,14 @@ describe("Horatio Compiler", () => {
       const ast = new Ast.Program(
         new Ast.Comment("Test"),
         [
-          new Ast.Declaration(new Ast.Character("Romeo"), new Ast.Comment("a young man")),
-          new Ast.Declaration(new Ast.Character("Juliet"), new Ast.Comment("a young woman")),
+          new Ast.Declaration(
+            new Ast.Character("Romeo"),
+            new Ast.Comment("a young man"),
+          ),
+          new Ast.Declaration(
+            new Ast.Character("Juliet"),
+            new Ast.Comment("a young woman"),
+          ),
         ],
         [
           new Ast.Part(new Ast.Numeral("I"), new Ast.Comment("Act 1"), [
@@ -728,8 +761,14 @@ describe("Horatio Compiler", () => {
       const ast = new Ast.Program(
         new Ast.Comment("Test"),
         [
-          new Ast.Declaration(new Ast.Character("Romeo"), new Ast.Comment("a character")),
-          new Ast.Declaration(new Ast.Character("Juliet"), new Ast.Comment("another character")),
+          new Ast.Declaration(
+            new Ast.Character("Romeo"),
+            new Ast.Comment("a character"),
+          ),
+          new Ast.Declaration(
+            new Ast.Character("Juliet"),
+            new Ast.Comment("another character"),
+          ),
         ],
         [
           new Ast.Part(new Ast.Numeral("I"), new Ast.Comment("Act 1"), [
@@ -784,8 +823,14 @@ describe("Horatio Compiler", () => {
       const ast = new Ast.Program(
         new Ast.Comment("Test"),
         [
-          new Ast.Declaration(new Ast.Character("Romeo"), new Ast.Comment("a person")),
-          new Ast.Declaration(new Ast.Character("Juliet"), new Ast.Comment("a person")),
+          new Ast.Declaration(
+            new Ast.Character("Romeo"),
+            new Ast.Comment("a person"),
+          ),
+          new Ast.Declaration(
+            new Ast.Character("Juliet"),
+            new Ast.Comment("a person"),
+          ),
         ],
         [
           new Ast.Part(new Ast.Numeral("I"), new Ast.Comment("Act 1"), [
@@ -840,8 +885,14 @@ describe("Horatio Compiler", () => {
       const ast = new Ast.Program(
         new Ast.Comment("Test"),
         [
-          new Ast.Declaration(new Ast.Character("Romeo"), new Ast.Comment("the speaker")),
-          new Ast.Declaration(new Ast.Character("Juliet"), new Ast.Comment("the listener")),
+          new Ast.Declaration(
+            new Ast.Character("Romeo"),
+            new Ast.Comment("the speaker"),
+          ),
+          new Ast.Declaration(
+            new Ast.Character("Juliet"),
+            new Ast.Comment("the listener"),
+          ),
         ],
         [
           new Ast.Part(new Ast.Numeral("I"), new Ast.Comment("Act 1"), [
@@ -905,8 +956,14 @@ describe("Horatio Compiler", () => {
       const ast = new Ast.Program(
         new Ast.Comment("Test"),
         [
-          new Ast.Declaration(new Ast.Character("Romeo"), new Ast.Comment("the protagonist")),
-          new Ast.Declaration(new Ast.Character("Juliet"), new Ast.Comment("the love interest")),
+          new Ast.Declaration(
+            new Ast.Character("Romeo"),
+            new Ast.Comment("the protagonist"),
+          ),
+          new Ast.Declaration(
+            new Ast.Character("Juliet"),
+            new Ast.Comment("the love interest"),
+          ),
         ],
         [
           new Ast.Part(new Ast.Numeral("I"), new Ast.Comment("Act 1"), [
@@ -914,7 +971,10 @@ describe("Horatio Compiler", () => {
               new Ast.Numeral("I"),
               new Ast.Comment("Scene 1"),
               new Ast.Stage([
-                new Ast.Enter(new Ast.Character("Romeo"), new Ast.Character("Juliet")),
+                new Ast.Enter(
+                  new Ast.Character("Romeo"),
+                  new Ast.Character("Juliet"),
+                ),
                 new Ast.Dialogue([
                   new Ast.Line(new Ast.Character("Romeo"), [
                     new Ast.AssignmentSentence(
@@ -993,8 +1053,14 @@ describe("Horatio Compiler", () => {
       const ast = new Ast.Program(
         new Ast.Comment("Test"),
         [
-          new Ast.Declaration(new Ast.Character("Romeo"), new Ast.Comment("a lover")),
-          new Ast.Declaration(new Ast.Character("Juliet"), new Ast.Comment("a lady")),
+          new Ast.Declaration(
+            new Ast.Character("Romeo"),
+            new Ast.Comment("a lover"),
+          ),
+          new Ast.Declaration(
+            new Ast.Character("Juliet"),
+            new Ast.Comment("a lady"),
+          ),
         ],
         [
           new Ast.Part(new Ast.Numeral("I"), new Ast.Comment("Act 1"), [
@@ -1020,7 +1086,7 @@ describe("Horatio Compiler", () => {
                             new Ast.PositiveAdjective("wonderful"),
                             new Ast.PositiveAdjective("amazing"),
                             new Ast.PositiveAdjective("sweet"),
-                            new Ast.PositiveAdjective("fair")
+                            new Ast.PositiveAdjective("fair"),
                           ], // Value: 64
                         ),
                         new Ast.PositiveConstantValue(
@@ -1028,9 +1094,9 @@ describe("Horatio Compiler", () => {
                           [
                             new Ast.PositiveAdjective("beautiful"),
                             new Ast.PositiveAdjective("lovely"),
-                            new Ast.PositiveAdjective("wonderful")
+                            new Ast.PositiveAdjective("wonderful"),
                           ], // Value: 8
-                        )
+                        ),
                       ), // 64 + 8 = 72 (ASCII 'H')
                       new Ast.Character("Juliet"),
                     ),
@@ -1120,12 +1186,12 @@ describe("Horatio Compiler", () => {
       `;
 
       const compiler = Horatio.fromSource(spl, io);
-      
+
       // Add a timeout to prevent infinite loops in tests
       const timeout = setTimeout(() => {
         throw new Error("Test timed out - likely infinite loop");
       }, 1000);
-      
+
       try {
         compiler.run();
         clearTimeout(timeout);

@@ -17,7 +17,7 @@ export default class Parser {
   }
 
   isToken(token: Token | number | null): token is Token {
-    return typeof token === 'object' && token !== null;
+    return typeof token === "object" && token !== null;
   }
 
   getCurrentTokenKind(): number {
@@ -33,7 +33,10 @@ export default class Parser {
    * @throws {SyntaxError}              - Throws syntax error if current token kind does not match expected token kind.
    */
   accept(expectedKind: number): void {
-    if (this.isToken(this.currentToken) && this.currentToken.kind === expectedKind) {
+    if (
+      this.isToken(this.currentToken) &&
+      this.currentToken.kind === expectedKind
+    ) {
       this.currentToken = this.tokenizer.nextToken();
     } else {
       throw this.unexpectedTokenError();
@@ -73,24 +76,37 @@ export default class Parser {
     let comment = this.parseComment();
     this.acceptIf(Token.isStatementPunctuation);
     let declarations = [this.parseDeclaration()];
-    while (this.isToken(this.currentToken) && this.currentToken.kind === Token.CHARACTER) {
+    while (
+      this.isToken(this.currentToken) &&
+      this.currentToken.kind === Token.CHARACTER
+    ) {
       declarations.push(this.parseDeclaration());
     }
-    
+
     let parts: AST.Part[] = [];
-    if (this.isToken(this.currentToken) && this.currentToken.kind === Token.ACT) {
+    if (
+      this.isToken(this.currentToken) &&
+      this.currentToken.kind === Token.ACT
+    ) {
       parts = [this.parsePart()];
-      while (this.isToken(this.currentToken) && this.currentToken.kind === Token.ACT) {
+      while (
+        this.isToken(this.currentToken) &&
+        this.currentToken.kind === Token.ACT
+      ) {
         parts.push(this.parsePart());
       }
     }
-    
+
     return new AST.Program(comment, declarations, parts);
   }
 
   parseComment() {
     let comment = "";
-    while (this.currentToken !== null && this.currentToken !== -1 && !Token.isStatementPunctuation(this.currentToken as Token)) {
+    while (
+      this.currentToken !== null &&
+      this.currentToken !== -1 &&
+      !Token.isStatementPunctuation(this.currentToken as Token)
+    ) {
       if (this.isToken(this.currentToken)) {
         comment += this.currentToken.sequence + " ";
       }
@@ -122,7 +138,10 @@ export default class Parser {
     let comment = this.parseComment();
     this.acceptIf(Token.isStatementPunctuation);
     let subparts = [this.parseSubPart()];
-    while (this.isToken(this.currentToken) && this.currentToken.kind === Token.SCENE) {
+    while (
+      this.isToken(this.currentToken) &&
+      this.currentToken.kind === Token.SCENE
+    ) {
       subparts.push(this.parseSubPart());
     }
     return new AST.Part(numeral, comment, subparts);
@@ -145,18 +164,23 @@ export default class Parser {
   parseStage() {
     let directions: (AST.Presence | AST.Dialogue)[] = [];
     while (
-      this.isToken(this.currentToken) && (
-        this.currentToken.kind === Token.LEFT_BRACKET ||
-        this.currentToken.kind === Token.CHARACTER
-      )
+      this.isToken(this.currentToken) &&
+      (this.currentToken.kind === Token.LEFT_BRACKET ||
+        this.currentToken.kind === Token.CHARACTER)
     ) {
-      if (this.isToken(this.currentToken) && this.currentToken.kind === Token.LEFT_BRACKET) {
+      if (
+        this.isToken(this.currentToken) &&
+        this.currentToken.kind === Token.LEFT_BRACKET
+      ) {
         let presence = this.parsePresence();
         if (presence) {
           directions.push(presence);
         }
       }
-      if (this.isToken(this.currentToken) && this.currentToken.kind === Token.CHARACTER) {
+      if (
+        this.isToken(this.currentToken) &&
+        this.currentToken.kind === Token.CHARACTER
+      ) {
         directions.push(this.parseDialogue());
       }
     }
@@ -179,10 +203,9 @@ export default class Parser {
         c2 = null;
         this.accept(Token.CHARACTER);
         if (
-          this.isToken(this.currentToken) && (
-            this.currentToken.kind === Token.AMPERSAND ||
-            this.currentToken.kind === Token.AND
-          )
+          this.isToken(this.currentToken) &&
+          (this.currentToken.kind === Token.AMPERSAND ||
+            this.currentToken.kind === Token.AND)
         ) {
           this.acceptIt();
           if (!this.isToken(this.currentToken)) {
@@ -206,7 +229,10 @@ export default class Parser {
 
       case Token.EXEUNT:
         this.acceptIt();
-        if (this.isToken(this.currentToken) && this.currentToken.kind === Token.CHARACTER) {
+        if (
+          this.isToken(this.currentToken) &&
+          this.currentToken.kind === Token.CHARACTER
+        ) {
           c1 = new AST.Character(this.currentToken.sequence);
           this.acceptIt();
           this.accept(Token.AMPERSAND);
@@ -227,7 +253,10 @@ export default class Parser {
 
   parseDialogue() {
     let lines = [this.parseLine()];
-    while (this.isToken(this.currentToken) && this.currentToken.kind === Token.CHARACTER) {
+    while (
+      this.isToken(this.currentToken) &&
+      this.currentToken.kind === Token.CHARACTER
+    ) {
       lines.push(this.parseLine());
     }
     return new AST.Dialogue(lines);
@@ -265,12 +294,14 @@ export default class Parser {
     }
 
     while (
-      this.isToken(this.currentToken) && (
-        isResponseSentence(this.currentToken.kind) ||
-        isSentence(this.currentToken.kind)
-      )
+      this.isToken(this.currentToken) &&
+      (isResponseSentence(this.currentToken.kind) ||
+        isSentence(this.currentToken.kind))
     ) {
-      if (this.isToken(this.currentToken) && isResponseSentence(this.currentToken.kind)) {
+      if (
+        this.isToken(this.currentToken) &&
+        isResponseSentence(this.currentToken.kind)
+      ) {
         sentences.push(this.parseResponseSentence());
       } else {
         let sent = this.parseSentence();
@@ -281,7 +312,10 @@ export default class Parser {
   }
 
   parseResponseSentence() {
-    if (this.isToken(this.currentToken) && this.currentToken.kind === Token.IF_SO) {
+    if (
+      this.isToken(this.currentToken) &&
+      this.currentToken.kind === Token.IF_SO
+    ) {
       this.accept(Token.IF_SO);
       this.accept(Token.COMMA);
       let sentence = this.parseSentence();
@@ -339,7 +373,7 @@ export default class Parser {
         sentence = this.parseRecall();
         this.acceptIf(Token.isStatementPunctuation);
         break;
-        
+
       default:
         throw this.unexpectedTokenError();
     }
@@ -348,7 +382,10 @@ export default class Parser {
 
   parseBe(): AST.Be | undefined {
     let be;
-    if (this.isToken(this.currentToken) && this.currentToken.kind === Token.BE) {
+    if (
+      this.isToken(this.currentToken) &&
+      this.currentToken.kind === Token.BE
+    ) {
       be = new AST.Be(this.currentToken.sequence);
       this.acceptIt();
     }
@@ -358,7 +395,10 @@ export default class Parser {
   parseAssignment() {
     let be = this.parseBe();
     if (!be) throw this.unexpectedTokenError();
-    if (this.isToken(this.currentToken) && this.currentToken.kind === Token.AS) {
+    if (
+      this.isToken(this.currentToken) &&
+      this.currentToken.kind === Token.AS
+    ) {
       this.acceptIt();
       this.parseAdjective();
       this.accept(Token.AS);
@@ -370,12 +410,11 @@ export default class Parser {
   parseValue(): AST.Value {
     let value, pronoun;
     if (
-      this.isToken(this.currentToken) && (
-        this.currentToken.kind === Token.ARTICLE ||
+      this.isToken(this.currentToken) &&
+      (this.currentToken.kind === Token.ARTICLE ||
         this.currentToken.kind === Token.FIRST_PERSON_POSSESSIVE ||
         this.currentToken.kind === Token.SECOND_PERSON_POSSESSIVE ||
-        this.currentToken.kind === Token.THIRD_PERSON_POSSESSIVE
-      )
+        this.currentToken.kind === Token.THIRD_PERSON_POSSESSIVE)
     ) {
       this.acceptIt();
     }
@@ -443,7 +482,10 @@ export default class Parser {
   }
 
   parseArithmeticOperation(): AST.ArithmeticOperationValue {
-    if (this.isToken(this.currentToken) && this.currentToken.kind === Token.ARTICLE) {
+    if (
+      this.isToken(this.currentToken) &&
+      this.currentToken.kind === Token.ARTICLE
+    ) {
       this.acceptIt();
     }
     if (!this.isToken(this.currentToken)) {
@@ -461,11 +503,10 @@ export default class Parser {
     let adjectives = [];
     let adjective;
     while (
-      this.isToken(this.currentToken) && (
-        this.currentToken.kind !== Token.POSITIVE_NOUN &&
-        this.currentToken.kind !== Token.NEUTRAL_NOUN &&
-        this.currentToken.kind !== Token.NEGATIVE_NOUN
-      )
+      this.isToken(this.currentToken) &&
+      this.currentToken.kind !== Token.POSITIVE_NOUN &&
+      this.currentToken.kind !== Token.NEUTRAL_NOUN &&
+      this.currentToken.kind !== Token.NEGATIVE_NOUN
     ) {
       if (!this.isToken(this.currentToken)) {
         throw this.unexpectedTokenError();
@@ -520,7 +561,10 @@ export default class Parser {
   }
 
   parseQuestionFirstValue() {
-    if (this.isToken(this.currentToken) && this.currentToken.kind === Token.BE_COMPARATIVE) {
+    if (
+      this.isToken(this.currentToken) &&
+      this.currentToken.kind === Token.BE_COMPARATIVE
+    ) {
       const be_comparative = new AST.BeComparative(this.currentToken.sequence);
       this.acceptIt();
       return be_comparative;
@@ -572,7 +616,10 @@ export default class Parser {
     this.accept(Token.IMPERATIVE);
     this.accept(Token.RETURN);
     this.accept(Token.TO);
-    if (this.isToken(this.currentToken) && this.currentToken.kind === Token.SCENE) {
+    if (
+      this.isToken(this.currentToken) &&
+      this.currentToken.kind === Token.SCENE
+    ) {
       this.acceptIt();
       if (!this.isToken(this.currentToken)) {
         throw this.unexpectedTokenError();
@@ -580,7 +627,10 @@ export default class Parser {
       let numeral = new AST.Numeral(this.currentToken.sequence);
       this.accept(Token.ROMAN_NUMERAL);
       return new AST.GotoSentence("scene", numeral);
-    } else if (this.isToken(this.currentToken) && this.currentToken.kind === Token.ACT) {
+    } else if (
+      this.isToken(this.currentToken) &&
+      this.currentToken.kind === Token.ACT
+    ) {
       this.acceptIt();
       if (!this.isToken(this.currentToken)) {
         throw this.unexpectedTokenError();
@@ -657,7 +707,11 @@ export default class Parser {
         t.kind === Token.COMMA || t.kind === Token.SECOND_PERSON_POSSESSIVE,
     );
     let comment = "";
-    while (this.currentToken !== null && this.currentToken !== -1 && !Token.isStatementPunctuation(this.currentToken as Token)) {
+    while (
+      this.currentToken !== null &&
+      this.currentToken !== -1 &&
+      !Token.isStatementPunctuation(this.currentToken as Token)
+    ) {
       if (this.isToken(this.currentToken)) {
         comment += this.currentToken.sequence + " ";
       }

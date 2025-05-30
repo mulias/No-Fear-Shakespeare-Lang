@@ -1,21 +1,25 @@
-import { Yorick } from '../index';
-import * as OpheliaAst from '../../ophelia/ast';
-import * as Ast from '../../horatio/ast';
+import { Yorick } from "../index";
+import * as OpheliaAst from "../../ophelia/ast";
+import * as Ast from "../../horatio/ast";
 
-describe('Yorick Transpiler', () => {
-  describe('basic program structure', () => {
-    it('should generate a program with title and declarations', () => {
+describe("Yorick Transpiler", () => {
+  describe("basic program structure", () => {
+    it("should generate a program with title and declarations", () => {
       const opheliaAst: OpheliaAst.Program = {
-        type: 'program',
-        acts: [{
-          type: 'act',
-          actId: 'Main',
-          scenes: [{
-            type: 'scene',
-            sceneId: 'Start',
-            directions: []
-          }]
-        }]
+        type: "program",
+        acts: [
+          {
+            type: "act",
+            actId: "Main",
+            scenes: [
+              {
+                type: "scene",
+                sceneId: "Start",
+                directions: [],
+              },
+            ],
+          },
+        ],
       };
 
       const yorick = new Yorick(opheliaAst);
@@ -28,91 +32,106 @@ describe('Yorick Transpiler', () => {
       expect(ast.parts).toHaveLength(1);
     });
 
-    it('should generate character declarations for variables', () => {
+    it("should generate character declarations for variables", () => {
       const opheliaAst: OpheliaAst.Program = {
-        type: 'program',
-        acts: [{
-          type: 'act',
-          actId: 'Main',
-          scenes: [{
-            type: 'scene',
-            sceneId: 'Start',
-            directions: [{
-              type: 'stage',
-              varId1: 'a',
-              varId2: 'b'
-            }]
-          }]
-        }]
+        type: "program",
+        acts: [
+          {
+            type: "act",
+            actId: "Main",
+            scenes: [
+              {
+                type: "scene",
+                sceneId: "Start",
+                directions: [
+                  {
+                    type: "stage",
+                    varId1: "a",
+                    varId2: "b",
+                  },
+                ],
+              },
+            ],
+          },
+        ],
       };
 
       const yorick = new Yorick(opheliaAst);
       const ast = yorick.run();
 
       expect(ast.declarations).toHaveLength(2);
-      
+
       const decl1 = ast.declarations[0]!;
       expect(decl1).toBeInstanceOf(Ast.Declaration);
       expect(decl1.character).toBeInstanceOf(Ast.Character);
       expect(decl1.comment).toBeInstanceOf(Ast.Comment);
-      expect(decl1.comment.sequence).toBe('the a variable');
+      expect(decl1.comment.sequence).toBe("the a variable");
 
       const decl2 = ast.declarations[1]!;
-      expect(decl2.comment.sequence).toBe('the b variable');
+      expect(decl2.comment.sequence).toBe("the b variable");
     });
   });
 
-  describe('acts and scenes', () => {
-    it('should convert acts to parts with roman numerals', () => {
+  describe("acts and scenes", () => {
+    it("should convert acts to parts with roman numerals", () => {
       const opheliaAst: OpheliaAst.Program = {
-        type: 'program',
-        acts: [{
-          type: 'act',
-          actId: 'FirstAct',
-          scenes: []
-        }, {
-          type: 'act',
-          actId: 'SecondAct',
-          scenes: []
-        }]
+        type: "program",
+        acts: [
+          {
+            type: "act",
+            actId: "FirstAct",
+            scenes: [],
+          },
+          {
+            type: "act",
+            actId: "SecondAct",
+            scenes: [],
+          },
+        ],
       };
 
       const yorick = new Yorick(opheliaAst);
       const ast = yorick.run();
 
       expect(ast.parts).toHaveLength(2);
-      
+
       const part1 = ast.parts[0]!;
       expect(part1).toBeInstanceOf(Ast.Part);
       expect(part1.numeral).toBeInstanceOf(Ast.Numeral);
-      expect(part1.numeral.sequence).toBe('I');
-      expect(part1.comment.sequence).toBe('First act');
+      expect(part1.numeral.sequence).toBe("I");
+      expect(part1.comment.sequence).toBe("First act");
 
       const part2 = ast.parts[1]!;
-      expect(part2.numeral.sequence).toBe('II');
-      expect(part2.comment.sequence).toBe('Second act');
+      expect(part2.numeral.sequence).toBe("II");
+      expect(part2.comment.sequence).toBe("Second act");
     });
 
-    it('should convert scenes to subparts', () => {
+    it("should convert scenes to subparts", () => {
       const opheliaAst: OpheliaAst.Program = {
-        type: 'program',
-        acts: [{
-          type: 'act',
-          actId: 'Main',
-          scenes: [{
-            type: 'scene',
-            sceneId: 'Beginning',
-            directions: []
-          }, {
-            type: 'scene',
-            sceneId: 'Middle',
-            directions: []
-          }, {
-            type: 'scene',
-            sceneId: 'End',
-            directions: []
-          }]
-        }]
+        type: "program",
+        acts: [
+          {
+            type: "act",
+            actId: "Main",
+            scenes: [
+              {
+                type: "scene",
+                sceneId: "Beginning",
+                directions: [],
+              },
+              {
+                type: "scene",
+                sceneId: "Middle",
+                directions: [],
+              },
+              {
+                type: "scene",
+                sceneId: "End",
+                directions: [],
+              },
+            ],
+          },
+        ],
       };
 
       const yorick = new Yorick(opheliaAst);
@@ -123,36 +142,42 @@ describe('Yorick Transpiler', () => {
 
       const scene1 = act.subparts[0]!;
       expect(scene1).toBeInstanceOf(Ast.Subpart);
-      expect(scene1.numeral.sequence).toBe('I');
-      expect(scene1.comment.sequence).toBe('Beginning');
+      expect(scene1.numeral.sequence).toBe("I");
+      expect(scene1.comment.sequence).toBe("Beginning");
 
       const scene2 = act.subparts[1]!;
-      expect(scene2.numeral.sequence).toBe('II');
-      expect(scene2.comment.sequence).toBe('Middle');
+      expect(scene2.numeral.sequence).toBe("II");
+      expect(scene2.comment.sequence).toBe("Middle");
 
       const scene3 = act.subparts[2]!;
-      expect(scene3.numeral.sequence).toBe('III');
-      expect(scene3.comment.sequence).toBe('End');
+      expect(scene3.numeral.sequence).toBe("III");
+      expect(scene3.comment.sequence).toBe("End");
     });
   });
 
-  describe('stage directions', () => {
-    it('should convert stage to enter', () => {
+  describe("stage directions", () => {
+    it("should convert stage to enter", () => {
       const opheliaAst: OpheliaAst.Program = {
-        type: 'program',
-        acts: [{
-          type: 'act',
-          actId: 'Main',
-          scenes: [{
-            type: 'scene',
-            sceneId: 'Start',
-            directions: [{
-              type: 'stage',
-              varId1: 'romeo',
-              varId2: null
-            }]
-          }]
-        }]
+        type: "program",
+        acts: [
+          {
+            type: "act",
+            actId: "Main",
+            scenes: [
+              {
+                type: "scene",
+                sceneId: "Start",
+                directions: [
+                  {
+                    type: "stage",
+                    varId1: "romeo",
+                    varId2: null,
+                  },
+                ],
+              },
+            ],
+          },
+        ],
       };
 
       const yorick = new Yorick(opheliaAst);
@@ -160,28 +185,34 @@ describe('Yorick Transpiler', () => {
 
       const stage = ast.parts[0]?.subparts[0]?.stage;
       expect(stage?.directions).toHaveLength(1);
-      
+
       const enter = stage?.directions[0] as Ast.Enter;
       expect(enter).toBeInstanceOf(Ast.Enter);
       expect(enter.character_1).toBeInstanceOf(Ast.Character);
     });
 
-    it('should convert stage with two characters', () => {
+    it("should convert stage with two characters", () => {
       const opheliaAst: OpheliaAst.Program = {
-        type: 'program',
-        acts: [{
-          type: 'act',
-          actId: 'Main',
-          scenes: [{
-            type: 'scene',
-            sceneId: 'Start',
-            directions: [{
-              type: 'stage',
-              varId1: 'romeo',
-              varId2: 'juliet'
-            }]
-          }]
-        }]
+        type: "program",
+        acts: [
+          {
+            type: "act",
+            actId: "Main",
+            scenes: [
+              {
+                type: "scene",
+                sceneId: "Start",
+                directions: [
+                  {
+                    type: "stage",
+                    varId1: "romeo",
+                    varId2: "juliet",
+                  },
+                ],
+              },
+            ],
+          },
+        ],
       };
 
       const yorick = new Yorick(opheliaAst);
@@ -192,21 +223,25 @@ describe('Yorick Transpiler', () => {
       expect(enter.character_2).toBeInstanceOf(Ast.Character);
     });
 
-    it('should convert unstage to exit', () => {
+    it("should convert unstage to exit", () => {
       const opheliaAst: OpheliaAst.Program = {
-        type: 'program',
-        acts: [{
-          type: 'act',
-          actId: 'Main',
-          scenes: [{
-            type: 'scene',
-            sceneId: 'Start',
-            directions: [
-              { type: 'stage', varId1: 'a', varId2: null },
-              { type: 'unstage', varId1: 'a', varId2: null }
-            ]
-          }]
-        }]
+        type: "program",
+        acts: [
+          {
+            type: "act",
+            actId: "Main",
+            scenes: [
+              {
+                type: "scene",
+                sceneId: "Start",
+                directions: [
+                  { type: "stage", varId1: "a", varId2: null },
+                  { type: "unstage", varId1: "a", varId2: null },
+                ],
+              },
+            ],
+          },
+        ],
       };
 
       const yorick = new Yorick(opheliaAst);
@@ -214,27 +249,31 @@ describe('Yorick Transpiler', () => {
 
       const events = ast.parts[0]?.subparts[0]?.stage.directions || [];
       expect(events).toHaveLength(2);
-      
+
       const exit = events[1] as Ast.Exit;
       expect(exit).toBeInstanceOf(Ast.Exit);
       expect(exit.character).toBeInstanceOf(Ast.Character);
     });
 
-    it('should convert unstage_all to exeunt', () => {
+    it("should convert unstage_all to exeunt", () => {
       const opheliaAst: OpheliaAst.Program = {
-        type: 'program',
-        acts: [{
-          type: 'act',
-          actId: 'Main',
-          scenes: [{
-            type: 'scene',
-            sceneId: 'Start',
-            directions: [
-              { type: 'stage', varId1: 'a', varId2: 'b' },
-              { type: 'unstage_all' }
-            ]
-          }]
-        }]
+        type: "program",
+        acts: [
+          {
+            type: "act",
+            actId: "Main",
+            scenes: [
+              {
+                type: "scene",
+                sceneId: "Start",
+                directions: [
+                  { type: "stage", varId1: "a", varId2: "b" },
+                  { type: "unstage_all" },
+                ],
+              },
+            ],
+          },
+        ],
       };
 
       const yorick = new Yorick(opheliaAst);
@@ -248,26 +287,30 @@ describe('Yorick Transpiler', () => {
     });
   });
 
-  describe('dialogue and statements', () => {
-    it('should convert dialogue blocks', () => {
+  describe("dialogue and statements", () => {
+    it("should convert dialogue blocks", () => {
       const opheliaAst: OpheliaAst.Program = {
-        type: 'program',
-        acts: [{
-          type: 'act',
-          actId: 'Main',
-          scenes: [{
-            type: 'scene',
-            sceneId: 'Start',
-            directions: [
-              { type: 'stage', varId1: 'speaker', varId2: 'listener' },
+        type: "program",
+        acts: [
+          {
+            type: "act",
+            actId: "Main",
+            scenes: [
               {
-                type: 'dialogue',
-                speakerVarId: 'speaker',
-                lines: []
-              }
-            ]
-          }]
-        }]
+                type: "scene",
+                sceneId: "Start",
+                directions: [
+                  { type: "stage", varId1: "speaker", varId2: "listener" },
+                  {
+                    type: "dialogue",
+                    speakerVarId: "speaker",
+                    lines: [],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
       };
 
       const yorick = new Yorick(opheliaAst);
@@ -280,144 +323,175 @@ describe('Yorick Transpiler', () => {
       expect(dialogue.lines[0]?.character).toBeInstanceOf(Ast.Character);
     });
 
-    it('should convert set statements', () => {
+    it("should convert set statements", () => {
       const opheliaAst: OpheliaAst.Program = {
-        type: 'program',
-        acts: [{
-          type: 'act',
-          actId: 'Main',
-          scenes: [{
-            type: 'scene',
-            sceneId: 'Start',
-            directions: [
-              { type: 'stage', varId1: 'a', varId2: 'b' },
+        type: "program",
+        acts: [
+          {
+            type: "act",
+            actId: "Main",
+            scenes: [
               {
-                type: 'dialogue',
-                speakerVarId: 'a',
-                lines: [{
-                  type: '.set',
-                  varId: 'b',
-                  value: { type: 'int', value: 42 }
-                }]
-              }
-            ]
-          }]
-        }]
+                type: "scene",
+                sceneId: "Start",
+                directions: [
+                  { type: "stage", varId1: "a", varId2: "b" },
+                  {
+                    type: "dialogue",
+                    speakerVarId: "a",
+                    lines: [
+                      {
+                        type: ".set",
+                        varId: "b",
+                        value: { type: "int", value: 42 },
+                      },
+                    ],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
       };
 
       const yorick = new Yorick(opheliaAst);
       const ast = yorick.run();
 
-      const dialogue = ast.parts[0]?.subparts[0]?.stage.directions[1] as Ast.Dialogue;
-      const sentence = dialogue.lines[0]?.sentences[0] as Ast.AssignmentSentence;
+      const dialogue = ast.parts[0]?.subparts[0]?.stage
+        .directions[1] as Ast.Dialogue;
+      const sentence = dialogue.lines[0]
+        ?.sentences[0] as Ast.AssignmentSentence;
       expect(sentence).toBeInstanceOf(Ast.AssignmentSentence);
       expect(sentence.be).toBeInstanceOf(Ast.Be);
       expect(sentence.value).toBeTruthy();
       expect(sentence.subject).toBeInstanceOf(Ast.Character);
     });
 
-    it('should convert print_char statements', () => {
+    it("should convert print_char statements", () => {
       const opheliaAst: OpheliaAst.Program = {
-        type: 'program',
-        acts: [{
-          type: 'act',
-          actId: 'Main',
-          scenes: [{
-            type: 'scene',
-            sceneId: 'Start',
-            directions: [
-              { type: 'stage', varId1: 'a', varId2: 'b' },
+        type: "program",
+        acts: [
+          {
+            type: "act",
+            actId: "Main",
+            scenes: [
               {
-                type: 'dialogue',
-                speakerVarId: 'a',
-                lines: [{
-                  type: '.print_char',
-                  varId: 'b'
-                }]
-              }
-            ]
-          }]
-        }]
+                type: "scene",
+                sceneId: "Start",
+                directions: [
+                  { type: "stage", varId1: "a", varId2: "b" },
+                  {
+                    type: "dialogue",
+                    speakerVarId: "a",
+                    lines: [
+                      {
+                        type: ".print_char",
+                        varId: "b",
+                      },
+                    ],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
       };
 
       const yorick = new Yorick(opheliaAst);
       const ast = yorick.run();
 
-      const dialogue = ast.parts[0]?.subparts[0]?.stage.directions[1] as Ast.Dialogue;
-      const sentence = dialogue.lines[0]?.sentences[0] as Ast.CharOutputSentence;
+      const dialogue = ast.parts[0]?.subparts[0]?.stage
+        .directions[1] as Ast.Dialogue;
+      const sentence = dialogue.lines[0]
+        ?.sentences[0] as Ast.CharOutputSentence;
       expect(sentence).toBeInstanceOf(Ast.CharOutputSentence);
       expect(sentence.sequence).toBeTruthy();
       expect(sentence.subject).toBeInstanceOf(Ast.Character);
     });
 
-    it('should convert goto statements', () => {
+    it("should convert goto statements", () => {
       const opheliaAst: OpheliaAst.Program = {
-        type: 'program',
-        acts: [{
-          type: 'act',
-          actId: 'Main',
-          scenes: [{
-            type: 'scene',
-            sceneId: 'Start',
-            directions: [
-              { type: 'stage', varId1: 'a', varId2: null },
+        type: "program",
+        acts: [
+          {
+            type: "act",
+            actId: "Main",
+            scenes: [
               {
-                type: 'dialogue',
-                speakerVarId: 'a',
-                lines: [{
-                  type: 'goto',
-                  labelId: 'End'
-                }]
-              }
-            ]
-          }, {
-            type: 'scene',
-            sceneId: 'End',
-            directions: []
-          }]
-        }]
+                type: "scene",
+                sceneId: "Start",
+                directions: [
+                  { type: "stage", varId1: "a", varId2: null },
+                  {
+                    type: "dialogue",
+                    speakerVarId: "a",
+                    lines: [
+                      {
+                        type: "goto",
+                        labelId: "End",
+                      },
+                    ],
+                  },
+                ],
+              },
+              {
+                type: "scene",
+                sceneId: "End",
+                directions: [],
+              },
+            ],
+          },
+        ],
       };
 
       const yorick = new Yorick(opheliaAst);
       const ast = yorick.run();
 
-      const dialogue = ast.parts[0]?.subparts[0]?.stage.directions[1] as Ast.Dialogue;
+      const dialogue = ast.parts[0]?.subparts[0]?.stage
+        .directions[1] as Ast.Dialogue;
       const sentence = dialogue.lines[0]?.sentences[0] as Ast.GotoSentence;
       expect(sentence).toBeInstanceOf(Ast.GotoSentence);
-      expect(sentence.part).toBe('scene');
+      expect(sentence.part).toBe("scene");
       expect(sentence.numeral).toBeInstanceOf(Ast.Numeral);
-      expect(sentence.numeral.sequence).toBe('II');
+      expect(sentence.numeral.sequence).toBe("II");
     });
 
-    it('should convert test statements', () => {
+    it("should convert test statements", () => {
       const opheliaAst: OpheliaAst.Program = {
-        type: 'program',
-        acts: [{
-          type: 'act',
-          actId: 'Main',
-          scenes: [{
-            type: 'scene',
-            sceneId: 'Start',
-            directions: [
-              { type: 'stage', varId1: 'a', varId2: 'b' },
+        type: "program",
+        acts: [
+          {
+            type: "act",
+            actId: "Main",
+            scenes: [
               {
-                type: 'dialogue',
-                speakerVarId: 'a',
-                lines: [{
-                  type: 'test_eq',
-                  left: { type: 'var', id: 'b' },
-                  right: { type: 'int', value: 0 }
-                }]
-              }
-            ]
-          }]
-        }]
+                type: "scene",
+                sceneId: "Start",
+                directions: [
+                  { type: "stage", varId1: "a", varId2: "b" },
+                  {
+                    type: "dialogue",
+                    speakerVarId: "a",
+                    lines: [
+                      {
+                        type: "test_eq",
+                        left: { type: "var", id: "b" },
+                        right: { type: "int", value: 0 },
+                      },
+                    ],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
       };
 
       const yorick = new Yorick(opheliaAst);
       const ast = yorick.run();
 
-      const dialogue = ast.parts[0]?.subparts[0]?.stage.directions[1] as Ast.Dialogue;
+      const dialogue = ast.parts[0]?.subparts[0]?.stage
+        .directions[1] as Ast.Dialogue;
       const sentence = dialogue.lines[0]?.sentences[0] as Ast.QuestionSentence;
       expect(sentence).toBeInstanceOf(Ast.QuestionSentence);
       expect(sentence.value1).toBeInstanceOf(Ast.BeComparative);
@@ -425,42 +499,50 @@ describe('Yorick Transpiler', () => {
       expect(sentence.value2).toBeTruthy();
     });
 
-    it('should convert if statements', () => {
+    it("should convert if statements", () => {
       const opheliaAst: OpheliaAst.Program = {
-        type: 'program',
-        acts: [{
-          type: 'act',
-          actId: 'Main',
-          scenes: [{
-            type: 'scene',
-            sceneId: 'Start',
-            directions: [
-              { type: 'stage', varId1: 'a', varId2: null },
+        type: "program",
+        acts: [
+          {
+            type: "act",
+            actId: "Main",
+            scenes: [
               {
-                type: 'dialogue',
-                speakerVarId: 'a',
-                lines: [{
-                  type: 'if',
-                  is: true,
-                  then: {
-                    type: 'goto',
-                    labelId: 'End'
-                  }
-                }]
-              }
-            ]
-          }, {
-            type: 'scene',
-            sceneId: 'End',
-            directions: []
-          }]
-        }]
+                type: "scene",
+                sceneId: "Start",
+                directions: [
+                  { type: "stage", varId1: "a", varId2: null },
+                  {
+                    type: "dialogue",
+                    speakerVarId: "a",
+                    lines: [
+                      {
+                        type: "if",
+                        is: true,
+                        then: {
+                          type: "goto",
+                          labelId: "End",
+                        },
+                      },
+                    ],
+                  },
+                ],
+              },
+              {
+                type: "scene",
+                sceneId: "End",
+                directions: [],
+              },
+            ],
+          },
+        ],
       };
 
       const yorick = new Yorick(opheliaAst);
       const ast = yorick.run();
 
-      const dialogue = ast.parts[0]?.subparts[0]?.stage.directions[1] as Ast.Dialogue;
+      const dialogue = ast.parts[0]?.subparts[0]?.stage
+        .directions[1] as Ast.Dialogue;
       const sentence = dialogue.lines[0]?.sentences[0] as Ast.ResponseSentence;
       expect(sentence).toBeInstanceOf(Ast.ResponseSentence);
       expect(sentence.runIf).toBe(true);
@@ -468,38 +550,46 @@ describe('Yorick Transpiler', () => {
     });
   });
 
-  describe('value generation', () => {
-    it('should convert positive integers to adjective chains', () => {
+  describe("value generation", () => {
+    it("should convert positive integers to adjective chains", () => {
       const opheliaAst: OpheliaAst.Program = {
-        type: 'program',
-        acts: [{
-          type: 'act',
-          actId: 'Main',
-          scenes: [{
-            type: 'scene',
-            sceneId: 'Start',
-            directions: [
-              { type: 'stage', varId1: 'a', varId2: 'b' },
+        type: "program",
+        acts: [
+          {
+            type: "act",
+            actId: "Main",
+            scenes: [
               {
-                type: 'dialogue',
-                speakerVarId: 'a',
-                lines: [{
-                  type: '.set',
-                  varId: 'b',
-                  value: { type: 'int', value: 5 } // Binary: 101 = 2^2 + 2^0
-                }]
-              }
-            ]
-          }]
-        }]
+                type: "scene",
+                sceneId: "Start",
+                directions: [
+                  { type: "stage", varId1: "a", varId2: "b" },
+                  {
+                    type: "dialogue",
+                    speakerVarId: "a",
+                    lines: [
+                      {
+                        type: ".set",
+                        varId: "b",
+                        value: { type: "int", value: 5 }, // Binary: 101 = 2^2 + 2^0
+                      },
+                    ],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
       };
 
       const yorick = new Yorick(opheliaAst);
       const ast = yorick.run();
 
-      const dialogue = ast.parts[0]?.subparts[0]?.stage.directions[1] as Ast.Dialogue;
-      const sentence = dialogue.lines[0]?.sentences[0] as Ast.AssignmentSentence;
-      
+      const dialogue = ast.parts[0]?.subparts[0]?.stage
+        .directions[1] as Ast.Dialogue;
+      const sentence = dialogue.lines[0]
+        ?.sentences[0] as Ast.AssignmentSentence;
+
       // 5 = 2^0 + 2^2 = 1 + 4
       // So we expect an ArithmeticOperationValue with addition
       const value = sentence.value as Ast.ArithmeticOperationValue;
@@ -507,147 +597,179 @@ describe('Yorick Transpiler', () => {
       expect(value.operator.sequence).toMatch(/sum|add/i);
     });
 
-    it('should convert zero to nothing', () => {
+    it("should convert zero to nothing", () => {
       const opheliaAst: OpheliaAst.Program = {
-        type: 'program',
-        acts: [{
-          type: 'act',
-          actId: 'Main',
-          scenes: [{
-            type: 'scene',
-            sceneId: 'Start',
-            directions: [
-              { type: 'stage', varId1: 'a', varId2: 'b' },
+        type: "program",
+        acts: [
+          {
+            type: "act",
+            actId: "Main",
+            scenes: [
               {
-                type: 'dialogue',
-                speakerVarId: 'a',
-                lines: [{
-                  type: '.set',
-                  varId: 'b',
-                  value: { type: 'int', value: 0 }
-                }]
-              }
-            ]
-          }]
-        }]
+                type: "scene",
+                sceneId: "Start",
+                directions: [
+                  { type: "stage", varId1: "a", varId2: "b" },
+                  {
+                    type: "dialogue",
+                    speakerVarId: "a",
+                    lines: [
+                      {
+                        type: ".set",
+                        varId: "b",
+                        value: { type: "int", value: 0 },
+                      },
+                    ],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
       };
 
       const yorick = new Yorick(opheliaAst);
       const ast = yorick.run();
 
-      const dialogue = ast.parts[0]?.subparts[0]?.stage.directions[1] as Ast.Dialogue;
-      const sentence = dialogue.lines[0]?.sentences[0] as Ast.AssignmentSentence;
+      const dialogue = ast.parts[0]?.subparts[0]?.stage
+        .directions[1] as Ast.Dialogue;
+      const sentence = dialogue.lines[0]
+        ?.sentences[0] as Ast.AssignmentSentence;
       const value = sentence.value as Ast.ZeroValue;
       expect(value).toBeInstanceOf(Ast.ZeroValue);
       expect(value.sequence).toMatch(/nothing|zero/i);
     });
 
-    it('should convert negative integers', () => {
+    it("should convert negative integers", () => {
       const opheliaAst: OpheliaAst.Program = {
-        type: 'program',
-        acts: [{
-          type: 'act',
-          actId: 'Main',
-          scenes: [{
-            type: 'scene',
-            sceneId: 'Start',
-            directions: [
-              { type: 'stage', varId1: 'a', varId2: 'b' },
+        type: "program",
+        acts: [
+          {
+            type: "act",
+            actId: "Main",
+            scenes: [
               {
-                type: 'dialogue',
-                speakerVarId: 'a',
-                lines: [{
-                  type: '.set',
-                  varId: 'b',
-                  value: { type: 'int', value: -3 }
-                }]
-              }
-            ]
-          }]
-        }]
+                type: "scene",
+                sceneId: "Start",
+                directions: [
+                  { type: "stage", varId1: "a", varId2: "b" },
+                  {
+                    type: "dialogue",
+                    speakerVarId: "a",
+                    lines: [
+                      {
+                        type: ".set",
+                        varId: "b",
+                        value: { type: "int", value: -3 },
+                      },
+                    ],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
       };
 
       const yorick = new Yorick(opheliaAst);
       const ast = yorick.run();
 
-      const dialogue = ast.parts[0]?.subparts[0]?.stage.directions[1] as Ast.Dialogue;
-      const sentence = dialogue.lines[0]?.sentences[0] as Ast.AssignmentSentence;
-      
+      const dialogue = ast.parts[0]?.subparts[0]?.stage
+        .directions[1] as Ast.Dialogue;
+      const sentence = dialogue.lines[0]
+        ?.sentences[0] as Ast.AssignmentSentence;
+
       // -3 should use negative adjectives/nouns
       const value = sentence.value;
       expect(value).toBeTruthy();
     });
 
-    it('should convert character literals to ASCII values', () => {
+    it("should convert character literals to ASCII values", () => {
       const opheliaAst: OpheliaAst.Program = {
-        type: 'program',
-        acts: [{
-          type: 'act',
-          actId: 'Main',
-          scenes: [{
-            type: 'scene',
-            sceneId: 'Start',
-            directions: [
-              { type: 'stage', varId1: 'a', varId2: 'b' },
+        type: "program",
+        acts: [
+          {
+            type: "act",
+            actId: "Main",
+            scenes: [
               {
-                type: 'dialogue',
-                speakerVarId: 'a',
-                lines: [{
-                  type: '.set',
-                  varId: 'b',
-                  value: { type: 'char', value: 'A' } // ASCII 65
-                }]
-              }
-            ]
-          }]
-        }]
+                type: "scene",
+                sceneId: "Start",
+                directions: [
+                  { type: "stage", varId1: "a", varId2: "b" },
+                  {
+                    type: "dialogue",
+                    speakerVarId: "a",
+                    lines: [
+                      {
+                        type: ".set",
+                        varId: "b",
+                        value: { type: "char", value: "A" }, // ASCII 65
+                      },
+                    ],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
       };
 
       const yorick = new Yorick(opheliaAst);
       const ast = yorick.run();
 
-      const dialogue = ast.parts[0]?.subparts[0]?.stage.directions[1] as Ast.Dialogue;
-      const sentence = dialogue.lines[0]?.sentences[0] as Ast.AssignmentSentence;
-      
+      const dialogue = ast.parts[0]?.subparts[0]?.stage
+        .directions[1] as Ast.Dialogue;
+      const sentence = dialogue.lines[0]
+        ?.sentences[0] as Ast.AssignmentSentence;
+
       // 'A' = 65 = 64 + 1 = 2^6 + 2^0
       expect(sentence.value).toBeTruthy();
     });
 
-    it('should convert arithmetic expressions', () => {
+    it("should convert arithmetic expressions", () => {
       const opheliaAst: OpheliaAst.Program = {
-        type: 'program',
-        acts: [{
-          type: 'act',
-          actId: 'Main',
-          scenes: [{
-            type: 'scene',
-            sceneId: 'Start',
-            directions: [
-              { type: 'stage', varId1: 'a', varId2: 'b' },
+        type: "program",
+        acts: [
+          {
+            type: "act",
+            actId: "Main",
+            scenes: [
               {
-                type: 'dialogue',
-                speakerVarId: 'a',
-                lines: [{
-                  type: '.set',
-                  varId: 'b',
-                  value: {
-                    type: 'arithmetic',
-                    op: '+',
-                    left: { type: 'var', id: 'a' },
-                    right: { type: 'int', value: 1 }
-                  }
-                }]
-              }
-            ]
-          }]
-        }]
+                type: "scene",
+                sceneId: "Start",
+                directions: [
+                  { type: "stage", varId1: "a", varId2: "b" },
+                  {
+                    type: "dialogue",
+                    speakerVarId: "a",
+                    lines: [
+                      {
+                        type: ".set",
+                        varId: "b",
+                        value: {
+                          type: "arithmetic",
+                          op: "+",
+                          left: { type: "var", id: "a" },
+                          right: { type: "int", value: 1 },
+                        },
+                      },
+                    ],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
       };
 
       const yorick = new Yorick(opheliaAst);
       const ast = yorick.run();
 
-      const dialogue = ast.parts[0]?.subparts[0]?.stage.directions[1] as Ast.Dialogue;
-      const sentence = dialogue.lines[0]?.sentences[0] as Ast.AssignmentSentence;
+      const dialogue = ast.parts[0]?.subparts[0]?.stage
+        .directions[1] as Ast.Dialogue;
+      const sentence = dialogue.lines[0]
+        ?.sentences[0] as Ast.AssignmentSentence;
       const value = sentence.value as Ast.ArithmeticOperationValue;
       expect(value).toBeInstanceOf(Ast.ArithmeticOperationValue);
       expect(value.operator.sequence).toMatch(/sum|add/i);
@@ -656,69 +778,83 @@ describe('Yorick Transpiler', () => {
     });
   });
 
-  describe('stack operations', () => {
-    it('should convert push statements', () => {
+  describe("stack operations", () => {
+    it("should convert push statements", () => {
       const opheliaAst: OpheliaAst.Program = {
-        type: 'program',
-        acts: [{
-          type: 'act',
-          actId: 'Main',
-          scenes: [{
-            type: 'scene',
-            sceneId: 'Start',
-            directions: [
-              { type: 'stage', varId1: 'a', varId2: 'b' },
+        type: "program",
+        acts: [
+          {
+            type: "act",
+            actId: "Main",
+            scenes: [
               {
-                type: 'dialogue',
-                speakerVarId: 'a',
-                lines: [{
-                  type: '.push',
-                  varId: 'b'
-                }]
-              }
-            ]
-          }]
-        }]
+                type: "scene",
+                sceneId: "Start",
+                directions: [
+                  { type: "stage", varId1: "a", varId2: "b" },
+                  {
+                    type: "dialogue",
+                    speakerVarId: "a",
+                    lines: [
+                      {
+                        type: ".push",
+                        varId: "b",
+                      },
+                    ],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
       };
 
       const yorick = new Yorick(opheliaAst);
       const ast = yorick.run();
 
-      const dialogue = ast.parts[0]?.subparts[0]?.stage.directions[1] as Ast.Dialogue;
+      const dialogue = ast.parts[0]?.subparts[0]?.stage
+        .directions[1] as Ast.Dialogue;
       const sentence = dialogue.lines[0]?.sentences[0] as Ast.RememberSentence;
       expect(sentence).toBeInstanceOf(Ast.RememberSentence);
       expect(sentence.pronoun).toBeInstanceOf(Ast.SecondPersonPronoun);
       expect(sentence.subject).toBeInstanceOf(Ast.Character);
     });
 
-    it('should convert pop statements', () => {
+    it("should convert pop statements", () => {
       const opheliaAst: OpheliaAst.Program = {
-        type: 'program',
-        acts: [{
-          type: 'act',
-          actId: 'Main',
-          scenes: [{
-            type: 'scene',
-            sceneId: 'Start',
-            directions: [
-              { type: 'stage', varId1: 'a', varId2: 'b' },
+        type: "program",
+        acts: [
+          {
+            type: "act",
+            actId: "Main",
+            scenes: [
               {
-                type: 'dialogue',
-                speakerVarId: 'a',
-                lines: [{
-                  type: '.pop',
-                  varId: 'b'
-                }]
-              }
-            ]
-          }]
-        }]
+                type: "scene",
+                sceneId: "Start",
+                directions: [
+                  { type: "stage", varId1: "a", varId2: "b" },
+                  {
+                    type: "dialogue",
+                    speakerVarId: "a",
+                    lines: [
+                      {
+                        type: ".pop",
+                        varId: "b",
+                      },
+                    ],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
       };
 
       const yorick = new Yorick(opheliaAst);
       const ast = yorick.run();
 
-      const dialogue = ast.parts[0]?.subparts[0]?.stage.directions[1] as Ast.Dialogue;
+      const dialogue = ast.parts[0]?.subparts[0]?.stage
+        .directions[1] as Ast.Dialogue;
       const sentence = dialogue.lines[0]?.sentences[0] as Ast.RecallSentence;
       expect(sentence).toBeInstanceOf(Ast.RecallSentence);
       expect(sentence.comment).toBeInstanceOf(Ast.Comment);
@@ -726,225 +862,266 @@ describe('Yorick Transpiler', () => {
     });
   });
 
-  describe('I/O operations', () => {
-    it('should convert read_char statements', () => {
+  describe("I/O operations", () => {
+    it("should convert read_char statements", () => {
       const opheliaAst: OpheliaAst.Program = {
-        type: 'program',
-        acts: [{
-          type: 'act',
-          actId: 'Main',
-          scenes: [{
-            type: 'scene',
-            sceneId: 'Start',
-            directions: [
-              { type: 'stage', varId1: 'a', varId2: 'b' },
+        type: "program",
+        acts: [
+          {
+            type: "act",
+            actId: "Main",
+            scenes: [
               {
-                type: 'dialogue',
-                speakerVarId: 'a',
-                lines: [{
-                  type: '.read_char',
-                  varId: 'b'
-                }]
-              }
-            ]
-          }]
-        }]
+                type: "scene",
+                sceneId: "Start",
+                directions: [
+                  { type: "stage", varId1: "a", varId2: "b" },
+                  {
+                    type: "dialogue",
+                    speakerVarId: "a",
+                    lines: [
+                      {
+                        type: ".read_char",
+                        varId: "b",
+                      },
+                    ],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
       };
 
       const yorick = new Yorick(opheliaAst);
       const ast = yorick.run();
 
-      const dialogue = ast.parts[0]?.subparts[0]?.stage.directions[1] as Ast.Dialogue;
+      const dialogue = ast.parts[0]?.subparts[0]?.stage
+        .directions[1] as Ast.Dialogue;
       const sentence = dialogue.lines[0]?.sentences[0] as Ast.CharInputSentence;
       expect(sentence).toBeInstanceOf(Ast.CharInputSentence);
       expect(sentence.sequence).toBeTruthy();
       expect(sentence.subject).toBeInstanceOf(Ast.Character);
     });
 
-    it('should convert print_int statements', () => {
+    it("should convert print_int statements", () => {
       const opheliaAst: OpheliaAst.Program = {
-        type: 'program',
-        acts: [{
-          type: 'act',
-          actId: 'Main',
-          scenes: [{
-            type: 'scene',
-            sceneId: 'Start',
-            directions: [
-              { type: 'stage', varId1: 'a', varId2: 'b' },
+        type: "program",
+        acts: [
+          {
+            type: "act",
+            actId: "Main",
+            scenes: [
               {
-                type: 'dialogue',
-                speakerVarId: 'a',
-                lines: [{
-                  type: '.print_int',
-                  varId: 'b'
-                }]
-              }
-            ]
-          }]
-        }]
+                type: "scene",
+                sceneId: "Start",
+                directions: [
+                  { type: "stage", varId1: "a", varId2: "b" },
+                  {
+                    type: "dialogue",
+                    speakerVarId: "a",
+                    lines: [
+                      {
+                        type: ".print_int",
+                        varId: "b",
+                      },
+                    ],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
       };
 
       const yorick = new Yorick(opheliaAst);
       const ast = yorick.run();
 
-      const dialogue = ast.parts[0]?.subparts[0]?.stage.directions[1] as Ast.Dialogue;
-      const sentence = dialogue.lines[0]?.sentences[0] as Ast.IntegerOutputSentence;
+      const dialogue = ast.parts[0]?.subparts[0]?.stage
+        .directions[1] as Ast.Dialogue;
+      const sentence = dialogue.lines[0]
+        ?.sentences[0] as Ast.IntegerOutputSentence;
       expect(sentence).toBeInstanceOf(Ast.IntegerOutputSentence);
       expect(sentence.sequence).toBeTruthy();
       expect(sentence.subject).toBeInstanceOf(Ast.Character);
     });
   });
 
-  describe('comparisons', () => {
-    it('should convert different test types to appropriate comparisons', () => {
-      const testCases: Array<[OpheliaAst.Test['type'], string]> = [
-        ['test_eq', 'EqualToComparison'],
-        ['test_gt', 'GreaterThanComparison'],
-        ['test_lt', 'LesserThanComparison'],
-        ['test_not_eq', 'InverseComparison'],
-        ['test_not_gt', 'InverseComparison'],
-        ['test_not_lt', 'InverseComparison']
+  describe("comparisons", () => {
+    it("should convert different test types to appropriate comparisons", () => {
+      const testCases: Array<[OpheliaAst.Test["type"], string]> = [
+        ["test_eq", "EqualToComparison"],
+        ["test_gt", "GreaterThanComparison"],
+        ["test_lt", "LesserThanComparison"],
+        ["test_not_eq", "InverseComparison"],
+        ["test_not_gt", "InverseComparison"],
+        ["test_not_lt", "InverseComparison"],
       ];
 
       testCases.forEach(([testType, expectedClass]) => {
         const opheliaAst: OpheliaAst.Program = {
-          type: 'program',
-          acts: [{
-            type: 'act',
-            actId: 'Main',
-            scenes: [{
-              type: 'scene',
-              sceneId: 'Start',
-              directions: [
-                { type: 'stage', varId1: 'a', varId2: 'b' },
+          type: "program",
+          acts: [
+            {
+              type: "act",
+              actId: "Main",
+              scenes: [
                 {
-                  type: 'dialogue',
-                  speakerVarId: 'a',
-                  lines: [{
-                    type: testType,
-                    left: { type: 'var', id: 'b' },
-                    right: { type: 'int', value: 0 }
-                  }]
-                }
-              ]
-            }]
-          }]
+                  type: "scene",
+                  sceneId: "Start",
+                  directions: [
+                    { type: "stage", varId1: "a", varId2: "b" },
+                    {
+                      type: "dialogue",
+                      speakerVarId: "a",
+                      lines: [
+                        {
+                          type: testType,
+                          left: { type: "var", id: "b" },
+                          right: { type: "int", value: 0 },
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
         };
 
         const yorick = new Yorick(opheliaAst);
         const ast = yorick.run();
 
-        const dialogue = ast.parts[0]?.subparts[0]?.stage.directions[1] as Ast.Dialogue;
-        const sentence = dialogue.lines[0]?.sentences[0] as Ast.QuestionSentence;
+        const dialogue = ast.parts[0]?.subparts[0]?.stage
+          .directions[1] as Ast.Dialogue;
+        const sentence = dialogue.lines[0]
+          ?.sentences[0] as Ast.QuestionSentence;
         expect(sentence.comparison.constructor.name).toBe(expectedClass);
       });
     });
   });
 
-  describe('pronoun usage', () => {
-    it('should use first person pronoun when speaker refers to self', () => {
+  describe("pronoun usage", () => {
+    it("should use first person pronoun when speaker refers to self", () => {
       const opheliaAst: OpheliaAst.Program = {
-        type: 'program',
-        acts: [{
-          type: 'act',
-          actId: 'Main',
-          scenes: [{
-            type: 'scene',
-            sceneId: 'Start',
-            directions: [
-              { type: 'stage', varId1: 'a', varId2: null },
+        type: "program",
+        acts: [
+          {
+            type: "act",
+            actId: "Main",
+            scenes: [
               {
-                type: 'dialogue',
-                speakerVarId: 'a',
-                lines: [{
-                  type: '.push',
-                  varId: 'a' // Speaker refers to self
-                }]
-              }
-            ]
-          }]
-        }]
+                type: "scene",
+                sceneId: "Start",
+                directions: [
+                  { type: "stage", varId1: "a", varId2: null },
+                  {
+                    type: "dialogue",
+                    speakerVarId: "a",
+                    lines: [
+                      {
+                        type: ".push",
+                        varId: "a", // Speaker refers to self
+                      },
+                    ],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
       };
 
       const yorick = new Yorick(opheliaAst);
       const ast = yorick.run();
 
-      const dialogue = ast.parts[0]?.subparts[0]?.stage.directions[1] as Ast.Dialogue;
+      const dialogue = ast.parts[0]?.subparts[0]?.stage
+        .directions[1] as Ast.Dialogue;
       const sentence = dialogue.lines[0]?.sentences[0] as Ast.RememberSentence;
       expect(sentence.pronoun).toBeInstanceOf(Ast.FirstPersonPronoun);
     });
 
-    it('should use correct be verb for first/second person', () => {
+    it("should use correct be verb for first/second person", () => {
       const opheliaAst: OpheliaAst.Program = {
-        type: 'program',
-        acts: [{
-          type: 'act',
-          actId: 'Main',
-          scenes: [{
-            type: 'scene',
-            sceneId: 'Start',
-            directions: [
-              { type: 'stage', varId1: 'a', varId2: 'b' },
+        type: "program",
+        acts: [
+          {
+            type: "act",
+            actId: "Main",
+            scenes: [
               {
-                type: 'dialogue',
-                speakerVarId: 'a',
-                lines: [
+                type: "scene",
+                sceneId: "Start",
+                directions: [
+                  { type: "stage", varId1: "a", varId2: "b" },
                   {
-                    type: '.set',
-                    varId: 'a', // First person
-                    value: { type: 'int', value: 1 }
+                    type: "dialogue",
+                    speakerVarId: "a",
+                    lines: [
+                      {
+                        type: ".set",
+                        varId: "a", // First person
+                        value: { type: "int", value: 1 },
+                      },
+                      {
+                        type: ".set",
+                        varId: "b", // Second person
+                        value: { type: "int", value: 2 },
+                      },
+                    ],
                   },
-                  {
-                    type: '.set',
-                    varId: 'b', // Second person
-                    value: { type: 'int', value: 2 }
-                  }
-                ]
-              }
-            ]
-          }]
-        }]
+                ],
+              },
+            ],
+          },
+        ],
       };
 
       const yorick = new Yorick(opheliaAst);
       const ast = yorick.run();
 
-      const dialogue = ast.parts[0]?.subparts[0]?.stage.directions[1] as Ast.Dialogue;
+      const dialogue = ast.parts[0]?.subparts[0]?.stage
+        .directions[1] as Ast.Dialogue;
       const sentences = dialogue.lines[0]?.sentences || [];
-      
+
       const firstPersonSentence = sentences[0] as Ast.AssignmentSentence;
       expect(firstPersonSentence.be.sequence).toMatch(/am/i);
-      
+
       const secondPersonSentence = sentences[1] as Ast.AssignmentSentence;
       expect(secondPersonSentence.be.sequence).toMatch(/are|art/i);
     });
   });
 
-  describe('error handling', () => {
-    it('should throw error for invalid character in char literal', () => {
+  describe("error handling", () => {
+    it("should throw error for invalid character in char literal", () => {
       const opheliaAst: OpheliaAst.Program = {
-        type: 'program',
-        acts: [{
-          type: 'act',
-          actId: 'Main',
-          scenes: [{
-            type: 'scene',
-            sceneId: 'Start',
-            directions: [
-              { type: 'stage', varId1: 'a', varId2: null },
+        type: "program",
+        acts: [
+          {
+            type: "act",
+            actId: "Main",
+            scenes: [
               {
-                type: 'dialogue',
-                speakerVarId: 'a',
-                lines: [{
-                  type: '.set',
-                  varId: 'a',
-                  value: { type: 'char', value: '' } // Empty string
-                }]
-              }
-            ]
-          }]
-        }]
+                type: "scene",
+                sceneId: "Start",
+                directions: [
+                  { type: "stage", varId1: "a", varId2: null },
+                  {
+                    type: "dialogue",
+                    speakerVarId: "a",
+                    lines: [
+                      {
+                        type: ".set",
+                        varId: "a",
+                        value: { type: "char", value: "" }, // Empty string
+                      },
+                    ],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
       };
 
       const yorick = new Yorick(opheliaAst);
@@ -952,58 +1129,68 @@ describe('Yorick Transpiler', () => {
     });
   });
 
-  describe('character assignment', () => {
-    it('should assign unique Shakespeare characters to variables', () => {
+  describe("character assignment", () => {
+    it("should assign unique Shakespeare characters to variables", () => {
       const opheliaAst: OpheliaAst.Program = {
-        type: 'program',
-        acts: [{
-          type: 'act',
-          actId: 'Main',
-          scenes: [{
-            type: 'scene',
-            sceneId: 'Start',
-            directions: [
-              { type: 'stage', varId1: 'a', varId2: 'b' },
-              { type: 'stage', varId1: 'c', varId2: null }
-            ]
-          }]
-        }]
+        type: "program",
+        acts: [
+          {
+            type: "act",
+            actId: "Main",
+            scenes: [
+              {
+                type: "scene",
+                sceneId: "Start",
+                directions: [
+                  { type: "stage", varId1: "a", varId2: "b" },
+                  { type: "stage", varId1: "c", varId2: null },
+                ],
+              },
+            ],
+          },
+        ],
       };
 
       const yorick = new Yorick(opheliaAst);
       const ast = yorick.run();
 
-      const charNames = ast.declarations.map(d => d.character.sequence);
+      const charNames = ast.declarations.map((d) => d.character.sequence);
       expect(charNames).toHaveLength(3);
       expect(new Set(charNames).size).toBe(3); // All unique
-      
+
       // Check that they're actual Shakespeare character names
-      charNames.forEach(name => {
+      charNames.forEach((name) => {
         expect(name).toMatch(/^[A-Z][a-zA-Z\s]+$/); // Capitalized names, can have spaces
       });
     });
   });
 
-  describe('camelCase conversion', () => {
-    it('should convert camelCase labels to sentence case', () => {
+  describe("camelCase conversion", () => {
+    it("should convert camelCase labels to sentence case", () => {
       const opheliaAst: OpheliaAst.Program = {
-        type: 'program',
-        acts: [{
-          type: 'act',
-          actId: 'MyFirstAct',
-          scenes: [{
-            type: 'scene',
-            sceneId: 'TheBeginningScene',
-            directions: []
-          }]
-        }]
+        type: "program",
+        acts: [
+          {
+            type: "act",
+            actId: "MyFirstAct",
+            scenes: [
+              {
+                type: "scene",
+                sceneId: "TheBeginningScene",
+                directions: [],
+              },
+            ],
+          },
+        ],
       };
 
       const yorick = new Yorick(opheliaAst);
       const ast = yorick.run();
 
-      expect(ast.parts[0]?.comment.sequence).toBe('My first act');
-      expect(ast.parts[0]?.subparts[0]?.comment.sequence).toBe('The beginning scene');
+      expect(ast.parts[0]?.comment.sequence).toBe("My first act");
+      expect(ast.parts[0]?.subparts[0]?.comment.sequence).toBe(
+        "The beginning scene",
+      );
     });
   });
 });
