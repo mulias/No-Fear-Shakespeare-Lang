@@ -11,6 +11,7 @@
     "format": "prettier --write \"src/**/*.{js,ts}\"",
     "format:check": "prettier --check \"src/**/*.{js,ts}\"",
     "have-no-fear": "yarn build && node dist/index.js",
+    "shakespeare": "yarn build && node dist/src/shakespeare.js",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage"
