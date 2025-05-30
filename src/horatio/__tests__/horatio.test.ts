@@ -36,7 +36,7 @@ describe("Horatio Compiler", () => {
     it("should parse a simple SPL program", () => {
       const spl = `
         A simple test program.
-        
+
         Romeo, a young man.
         Juliet, a lady.
 
@@ -64,11 +64,11 @@ describe("Horatio Compiler", () => {
     it("should parse character declarations", () => {
       const spl = `
         Character declaration test.
-        
+
         Romeo, a young man with a love problem.
         Juliet, the beautiful lady.
         Hamlet, the melancholy prince.
-        
+
         Act I: A minimal act.
         Scene I: A minimal scene.
       `;
@@ -93,7 +93,7 @@ describe("Horatio Compiler", () => {
     it("should parse acts and scenes", () => {
       const spl = `
         Act and scene parsing test.
-        
+
         Romeo, a character.
 
         Act I: The first act.
@@ -124,7 +124,7 @@ describe("Horatio Compiler", () => {
     it("should parse stage directions", () => {
       const spl = `
         Stage directions test.
-        
+
         Romeo, a character.
         Juliet, another character.
 
@@ -154,7 +154,7 @@ describe("Horatio Compiler", () => {
     it("should parse dialogue with various sentences", () => {
       const spl = `
         Dialogue parsing test.
-        
+
         Romeo, a character.
         Juliet, another character.
 
@@ -189,7 +189,7 @@ describe("Horatio Compiler", () => {
     it("should parse arithmetic expressions", () => {
       const spl = `
         Arithmetic expressions test.
-        
+
         Romeo, a character.
         Juliet, another character.
 
@@ -228,7 +228,7 @@ describe("Horatio Compiler", () => {
     it("should parse comparisons", () => {
       const spl = `
         Comparison parsing test.
-        
+
         Romeo, a character.
         Juliet, another character.
 
@@ -265,7 +265,7 @@ describe("Horatio Compiler", () => {
     it("should parse I/O statements", () => {
       const spl = `
         Input and output test.
-        
+
         Romeo, a character.
         Juliet, another character.
 
@@ -302,7 +302,7 @@ describe("Horatio Compiler", () => {
     it("should parse goto statements", () => {
       const spl = `
         Goto statements test.
-        
+
         Romeo, a character.
         Juliet, another character.
 
@@ -316,7 +316,7 @@ describe("Horatio Compiler", () => {
           We must return to act I.
 
         [Exeunt]
-        
+
         Scene II: Next.
       `;
 
@@ -343,7 +343,7 @@ describe("Horatio Compiler", () => {
     it("should parse conditional responses", () => {
       const spl = `
         Conditional response test.
-        
+
         Romeo, a character.
         Juliet, another character.
 
@@ -358,7 +358,7 @@ describe("Horatio Compiler", () => {
           If not, remember me.
 
         [Exeunt]
-        
+
         Scene II: Next.
       `;
 
@@ -387,7 +387,7 @@ describe("Horatio Compiler", () => {
     it("should parse stack operations", () => {
       const spl = `
         Stack operations test.
-        
+
         Romeo, a character.
         Juliet, another character.
 
@@ -423,6 +423,183 @@ describe("Horatio Compiler", () => {
 
       const recall = sentences[2] as Ast.RecallSentence;
       expect(recall).toBeInstanceOf(Ast.RecallSentence);
+    });
+
+    it("should fail to parse Enter with no characters specified", () => {
+      const spl = `
+        Empty Enter Test.
+
+        Romeo, a character.
+
+        Act I: Test.
+        Scene I: Test.
+
+        [Enter]
+
+        [Exeunt]
+      `;
+
+      const parser = new Parser(spl);
+      expect(() => parser.parse()).toThrow();
+    });
+
+    it("should fail to parse Exit with multiple characters", () => {
+      const spl = `
+        Multiple Exit Test.
+
+        Romeo, a character.
+        Juliet, another character.
+
+        Act I: Test.
+        Scene I: Test.
+
+        [Enter Romeo and Juliet]
+        [Exit Romeo and Juliet]
+
+        [Exeunt]
+      `;
+
+      const parser = new Parser(spl);
+      expect(() => parser.parse()).toThrow();
+    });
+
+    it("should fail to parse Exeunt with only one character", () => {
+      const spl = `
+        Single Exeunt Test.
+
+        Romeo, a character.
+        Juliet, another character.
+
+        Act I: Test.
+        Scene I: Test.
+
+        [Enter Romeo and Juliet]
+        [Exeunt Romeo]
+
+        [Exit Juliet]
+      `;
+
+      const parser = new Parser(spl);
+      expect(() => parser.parse()).toThrow();
+    });
+
+    it("should fail to parse program with no characters declared", () => {
+      const spl = `
+        Empty Cast.
+
+        Act I: Solo Act.
+        Scene I: Empty Scene.
+
+        [Exeunt]
+      `;
+
+      // The parser tries to parse "Act" as a character name when there's no empty line
+      const parser = new Parser(spl);
+      expect(() => parser.parse()).toThrow(
+        "Act is not a known Shakespeare character",
+      );
+    });
+
+    it("should fail on programs with no acts", () => {
+      const spl = `
+        No Acts Program.
+
+        Romeo, a character.
+        Juliet, another character.
+      `;
+
+      const parser = new Parser(spl);
+      expect(() => parser.parse()).toThrow();
+    });
+
+    it("should fail on invalid roman numerals", () => {
+      const spl = `
+        Invalid Roman Numeral.
+
+        Romeo, a character.
+
+        Act IIII: Bad Numeral.
+        Scene I: Test.
+
+        [Exeunt]
+      `;
+
+      const parser = new Parser(spl);
+      expect(() => parser.parse()).toThrow();
+    });
+
+    it("should parse multi-line titles", () => {
+      const spl = `
+        This is a very long title
+        that spans multiple lines
+        and ends with an exclamation point!
+
+        Romeo, a character.
+        Juliet, another character.
+
+        Act I: Test.
+        Scene I: Test.
+
+        [Exeunt]
+      `;
+
+      const parser = new Parser(spl);
+      const ast = parser.parse();
+
+      expect(ast.comment.sequence).toBe(
+        "This is a very long title that spans multiple lines and ends with an exclamation point",
+      );
+      expect(ast.declarations).toHaveLength(2);
+    });
+
+    it("should parse titles ending with question mark", () => {
+      const spl = `
+        Is this a valid title?
+
+        Romeo, a character.
+
+        Act I: Test.
+        Scene I: Test.
+
+        [Exeunt]
+      `;
+
+      const parser = new Parser(spl);
+      const ast = parser.parse();
+
+      expect(ast.comment.sequence).toBe("Is this a valid title");
+    });
+
+    it("should fail on malformed act declarations", () => {
+      const spl = `
+        Malformed Act.
+
+        Romeo, a character.
+
+        Act I The missing colon.
+        Scene I: Test.
+
+        [Exeunt]
+      `;
+
+      const parser = new Parser(spl);
+      expect(() => parser.parse()).toThrow();
+    });
+
+    it("should fail on malformed scene declarations", () => {
+      const spl = `
+        Malformed Scene.
+
+        Romeo, a character.
+
+        Act I: Test.
+        Scene I The missing colon.
+
+        [Exeunt]
+      `;
+
+      const parser = new Parser(spl);
+      expect(() => parser.parse()).toThrow();
     });
   });
 
@@ -549,7 +726,7 @@ describe("Horatio Compiler", () => {
       const io = new MockIO();
       const spl = `
         Ambiguous Address Test.
-        
+
         Romeo, a young man.
         Juliet, a young lady.
         Hamlet, a prince.
@@ -647,6 +824,69 @@ describe("Horatio Compiler", () => {
 
       const checker = new Checker();
       expect(() => checker.check(ast)).not.toThrow();
+    });
+
+    it("should handle self-referential assignments with thyself", () => {
+      const io = new MockIO();
+      const spl = `
+        Self Reference Test.
+
+        Romeo, a young man.
+        Juliet, a young lady.
+
+        Act I: Test.
+        Scene I: Test.
+
+        [Enter Romeo and Juliet]
+
+        Romeo:
+          You are the sum of a cat and a cat.
+          You are as good as the difference between thyself and a cat.
+          Open your heart!
+
+        [Exeunt]
+      `;
+
+      const compiler = Horatio.fromSource(spl, io);
+      compiler.run();
+
+      expect(io.output).toEqual(["1"]); // 2 - 1 = 1
+    });
+
+    it("should detect non-Shakespeare character names", () => {
+      const spl = `
+        Invalid Character Test.
+
+        Batman, a vigilante.
+        Juliet, a lady.
+
+        Act I: Test.
+        Scene I: Test.
+      `;
+
+      expect(() => {
+        const parser = new Parser(spl);
+        const ast = parser.parse();
+      }).toThrow("Batman is not a known Shakespeare character");
+    });
+
+    it("should handle character name case sensitivity", () => {
+      const spl = `
+        Case Sensitivity Test.
+
+        Romeo, a young man.
+        ROMEO, another character.
+
+        Act I: Test.
+        Scene I: Test.
+      `;
+
+      const parser = new Parser(spl);
+      const ast = parser.parse();
+
+      expect(ast.declarations).toHaveLength(2);
+      expect(ast.declarations[0]?.character.sequence).toBe("Romeo");
+      expect(ast.declarations[1]?.character.sequence).toBe("ROMEO");
     });
 
     it("should track characters entering and exiting", () => {
@@ -1118,6 +1358,818 @@ describe("Horatio Compiler", () => {
 
       expect(io.output).toEqual(["H"]);
     });
+
+    it("should handle pop from empty stack", () => {
+      const spl = `
+        Empty Stack Test.
+
+        Romeo, a character.
+        Juliet, another character.
+
+        Act I: Test.
+        Scene I: Test.
+
+        [Enter Romeo and Juliet]
+
+        Romeo:
+          Recall your past!
+
+        [Exeunt]
+      `;
+
+      const compiler = Horatio.fromSource(spl, io);
+      expect(() => compiler.run()).toThrow(
+        "Runtime Error - Trying to recall from empty stack.",
+      );
+    });
+
+    it("should detect character already on stage", () => {
+      const spl = `
+        Double Entry Test.
+
+        Romeo, a young man.
+        Juliet, a young lady.
+
+        Act I: Test.
+        Scene I: Test.
+
+        [Enter Romeo]
+        [Enter Romeo]
+
+        [Exeunt]
+      `;
+
+      const compiler = Horatio.fromSource(spl, io);
+      expect(() => compiler.run()).toThrow(
+        "Runtime Error: Romeo is already on stage",
+      );
+    });
+
+    it("should detect character not on stage when exiting", () => {
+      const spl = `
+        Exit Not On Stage Test.
+
+        Romeo, a young man.
+        Juliet, a young lady.
+
+        Act I: Test.
+        Scene I: Test.
+
+        [Enter Romeo]
+        [Exit Juliet]
+
+        [Exeunt]
+      `;
+
+      const compiler = Horatio.fromSource(spl, io);
+      expect(() => compiler.run()).toThrow(
+        "Runtime Error: Juliet is not on stage and consequently cannot exit",
+      );
+    });
+
+    it("should handle Exeunt with no characters (everyone leaves)", () => {
+      const spl = `
+        Exeunt All Test.
+
+        Romeo, a young man.
+        Juliet, a young lady.
+        Hamlet, a prince.
+
+        Act I: Test.
+        Scene I: Everyone Leaves.
+
+        [Enter Romeo and Juliet]
+
+        Romeo:
+          You are a cat!
+
+        [Enter Hamlet]
+        [Exeunt]
+
+        [Enter Romeo and Juliet]
+
+        Romeo:
+          Open your heart!
+
+        [Exeunt]
+      `;
+
+      const compiler = Horatio.fromSource(spl, io);
+      compiler.run();
+
+      expect(io.output).toEqual(["1"]); // Everyone left, then Romeo re-enters
+    });
+
+    it("should handle speaking after Exeunt", () => {
+      const spl = `
+        Speaking After Exeunt Test.
+
+        Romeo, a young man.
+        Juliet, a young lady.
+
+        Act I: Test.
+        Scene I: Empty Stage.
+
+        [Enter Romeo and Juliet]
+
+        Romeo:
+          You are a cat!
+
+        [Exeunt]
+
+        Romeo:
+          Open your heart!
+
+        [Exit Romeo]
+      `;
+
+      const compiler = Horatio.fromSource(spl, io);
+      expect(() => compiler.run()).toThrow(
+        /Romeo is trying to speak, but there is nobody else on stage/i,
+      );
+    });
+
+    it("should handle unicode output including emojis", () => {
+      const spl = `
+        Unicode Test.
+
+        Romeo, a character.
+        Juliet, another character.
+
+        Act I: Test.
+        Scene I: Test.
+
+        [Enter Romeo and Juliet]
+
+        Romeo:
+          You are nothing!
+          You are the sum of a big big big big big big big big big big big big big big big big cat and yourself.
+          You are the sum of a big big big big big big big big big big big big big big big cat and yourself.
+          You are the sum of a big big big big big big big big big big big big big big cat and yourself.
+          You are the sum of a big big big big big big big big big big big big big cat and yourself.
+          You are the sum of a big big big big big big big big big big big big cat and yourself.
+          You are the sum of a big big big big big big big big big big cat and yourself.
+          You are the sum of a big big big big big big big big big cat and yourself.
+          You are the sum of a big big big cat and yourself.
+          You are the sum of a big cat and yourself.
+
+          Speak your mind!
+
+        [Exeunt]
+      `;
+      const compiler = Horatio.fromSource(spl, io);
+      compiler.run();
+
+      expect(io.output.length).toBe(1);
+      expect(io.output[0]).toBe("😊");
+    });
+  });
+
+  describe("Arithmetic Edge Cases", () => {
+    let io: MockIO;
+
+    beforeEach(() => {
+      io = new MockIO();
+    });
+
+    it("should handle integer overflow", () => {
+      const spl = `
+        Integer Overflow Test.
+
+        Romeo, a character.
+        Juliet, another character.
+
+        Act I: Test.
+        Scene I: Test.
+
+        [Enter Romeo and Juliet]
+
+        Romeo:
+          You are the product of a big big big big big big big big big big big big big big big big big big big big big big big big big big big big big big cat and a big big big big big big big big big big big big big big big big big big big big big big big big big big big big big big cat.
+          Open your heart!
+
+        [Exeunt]
+      `;
+
+      const compiler = Horatio.fromSource(spl, io);
+      compiler.run();
+
+      // JavaScript handles large numbers, so we just check it runs without crashing
+      expect(io.output.length).toBe(1);
+    });
+
+    it("should fail to parse empty arithmetic expressions", () => {
+      const spl = `
+        Empty Expression Test.
+
+        Romeo, a character.
+        Juliet, another character.
+
+        Act I: Test.
+        Scene I: Test.
+
+        [Enter Romeo and Juliet]
+
+        Romeo:
+          You are the sum of.
+
+        [Exeunt]
+      `;
+
+      const parser = new Parser(spl);
+      expect(() => parser.parse()).toThrow();
+    });
+
+    it("should fail to parse malformed arithmetic expressions", () => {
+      const spl = `
+        Malformed Expression Test.
+
+        Romeo, a character.
+        Juliet, another character.
+
+        Act I: Test.
+        Scene I: Test.
+
+        [Enter Romeo and Juliet]
+
+        Romeo:
+          You are the sum of a cat and.
+
+        [Exeunt]
+      `;
+
+      const parser = new Parser(spl);
+      expect(() => parser.parse()).toThrow();
+    });
+
+    it("should handle square root of negative numbers", () => {
+      const spl = `
+        Square Root Test.
+
+        Romeo, a character.
+        Juliet, another character.
+
+        Act I: Test.
+        Scene I: Test.
+
+        [Enter Romeo and Juliet]
+
+        Romeo:
+          You are the square root of a pig!
+          Open your heart!
+
+        [Exeunt]
+      `;
+
+      const compiler = Horatio.fromSource(spl, io);
+      expect(() => compiler.run()).toThrow(
+        "Runtime Error - Arithmetic operation resulted in NaN.",
+      );
+    });
+
+    it("should handle cube of very large numbers", () => {
+      const spl = `
+        Cube Test.
+
+        Romeo, a character.
+        Juliet, another character.
+
+        Act I: Test.
+        Scene I: Test.
+
+        [Enter Romeo and Juliet]
+
+        Romeo:
+          You are the cube of a big big big big big big big big big big cat!
+          Open your heart!
+
+        [Exeunt]
+      `;
+
+      const compiler = Horatio.fromSource(spl, io);
+      compiler.run();
+
+      // 1024^3 = 1073741824
+      expect(io.output).toEqual(["1073741824"]);
+    });
+  });
+
+  describe("I/O Edge Cases", () => {
+    let io: MockIO;
+
+    beforeEach(() => {
+      io = new MockIO();
+    });
+
+    it("should handle invalid numeric input", () => {
+      const spl = `
+        Invalid Input Test.
+
+        Romeo, a character.
+        Juliet, another character.
+
+        Act I: Test.
+        Scene I: Test.
+
+        [Enter Romeo and Juliet]
+
+        Romeo:
+          Listen to your heart!
+          Open your heart!
+
+        [Exeunt]
+      `;
+
+      io.inputBuffer = ["abc", "123"]; // First invalid, then valid
+      const compiler = Horatio.fromSource(spl, io);
+      compiler.run();
+
+      // Should print error message for invalid input, then accept valid input
+      expect(io.output).toEqual([
+        "Error: Invalid numeric input. Please enter a valid integer.",
+        "123",
+      ]);
+    });
+
+    it("should handle empty input", () => {
+      const spl = `
+        EOF Test.
+
+        Romeo, a character.
+        Juliet, another character.
+
+        Act I: Test.
+        Scene I: Test.
+
+        [Enter Romeo and Juliet]
+
+        Romeo:
+          Listen to your heart!
+          Open your heart!
+
+        [Exeunt]
+      `;
+
+      io.inputBuffer = ["", "42"];
+      const compiler = Horatio.fromSource(spl, io);
+      compiler.run();
+
+      // Empty input should be ignored and prompt again
+      expect(io.output).toEqual([
+        "Error: Invalid numeric input. Please enter a valid integer.",
+        "42",
+      ]);
+    });
+
+    it("should handle numeric input correctly", () => {
+      const spl = `
+        Numeric Input Test.
+
+        Romeo, a character.
+        Juliet, another character.
+
+        Act I: Test.
+        Scene I: Test.
+
+        [Enter Romeo and Juliet]
+
+        Romeo:
+          Listen to your heart!
+          You are the sum of yourself and a cat.
+          Open your heart!
+
+        [Exeunt]
+      `;
+
+      io.inputBuffer = ["5"];
+      const compiler = Horatio.fromSource(spl, io);
+      compiler.run();
+
+      expect(io.output).toEqual(["6"]); // 5 + 1 = 6
+    });
+
+    it("should handle character input correctly", () => {
+      const spl = `
+        Character Input Test.
+
+        Romeo, a character.
+        Juliet, another character.
+
+        Act I: Test.
+        Scene I: Test.
+
+        [Enter Romeo and Juliet]
+
+        Romeo:
+          Open your mind!
+          Speak your mind!
+
+        [Exeunt]
+      `;
+
+      io.inputBuffer = ["A"];
+      const compiler = Horatio.fromSource(spl, io);
+      compiler.run();
+
+      expect(io.output).toEqual(["A"]);
+    });
+
+    it("should handle multiple inputs in sequence", () => {
+      const spl = `
+        Multiple Input Test.
+
+        Romeo, a character.
+        Juliet, another character.
+
+        Act I: Test.
+        Scene I: Test.
+
+        [Enter Romeo and Juliet]
+
+        Romeo:
+          Listen to your heart!
+          Remember yourself.
+          Listen to your heart!
+          You are the sum of yourself and the sum of yourself and a cat.
+          Open your heart!
+          Recall your past!
+          Open your heart!
+
+        [Exeunt]
+      `;
+
+      io.inputBuffer = ["10", "20"];
+      const compiler = Horatio.fromSource(spl, io);
+      compiler.run();
+
+      expect(io.output).toEqual(["41", "10"]); // 20 + 20 + 1 = 41, then recalled 10
+    });
+  });
+
+  describe("Control Flow Edge Cases", () => {
+    let io: MockIO;
+
+    beforeEach(() => {
+      io = new MockIO();
+    });
+
+    it("should handle nested goto scenarios", () => {
+      const spl = `
+        Nested Goto Test.
+
+        Romeo, a character.
+        Juliet, another character.
+
+        Act I: Test.
+        Scene I: Start.
+
+        [Enter Romeo and Juliet]
+
+        Romeo:
+          You are nothing.
+          Let us proceed to scene II.
+
+        Scene II: Middle.
+
+        Romeo:
+          You are the sum of yourself and a cat.
+          Are you as good as the sum of a cat and a cat?
+          If not, let us return to scene II.
+          Let us proceed to scene III.
+
+        Scene III: End.
+
+        Romeo:
+          Open your heart!
+
+        [Exeunt]
+      `;
+
+      const compiler = Horatio.fromSource(spl, io);
+      compiler.run();
+
+      expect(io.output).toEqual(["2"]);
+    });
+
+    it("should handle conditional without preceding question", () => {
+      const spl = `
+        No Question Test.
+
+        Romeo, a character.
+        Juliet, another character.
+
+        Act I: Test.
+        Scene I: Test.
+
+        [Enter Romeo and Juliet]
+
+        Romeo:
+          If so, remember me.
+
+        [Exeunt]
+      `;
+
+      const compiler = Horatio.fromSource(spl, io);
+      expect(() => compiler.run()).toThrow(
+        "Runtime Error: tried to execute a conditional with no prior question",
+      );
+    });
+
+    it("should handle edge cases with equality comparisons", () => {
+      const spl = `
+        Equality Test.
+
+        Romeo, a character.
+        Juliet, another character.
+
+        Act I: Test.
+        Scene I: Test.
+
+        [Enter Romeo and Juliet]
+
+        Romeo:
+          You are a cat.
+          Are you as good as a cat?
+          If so, open your heart!
+
+          You are nothing.
+          Are you as bad as nothing?
+          If so, open your heart!
+
+        [Exeunt]
+      `;
+
+      const compiler = Horatio.fromSource(spl, io);
+      compiler.run();
+
+      expect(io.output).toEqual(["1", "0"]);
+    });
+
+    it("should handle comparisons with very large numbers", () => {
+      const spl = `
+        Large Number Comparison Test.
+
+        Romeo, a character.
+        Juliet, another character.
+
+        Act I: Test.
+        Scene I: Test.
+
+        [Enter Romeo and Juliet]
+
+        Romeo:
+          You are the product of a big big big big big big big big big big big big big big big cat and a big big big big big big big big big big big big big big big cat.
+          Are you better than nothing?
+          If so, open your heart!
+
+        [Exeunt]
+      `;
+
+      const compiler = Horatio.fromSource(spl, io);
+      compiler.run();
+
+      expect(io.output.length).toBe(1);
+    });
+
+    it("should handle negated comparisons correctly", () => {
+      const spl = `
+        Negated Comparison Test.
+
+        Romeo, a character.
+        Juliet, another character.
+
+        Act I: Test.
+        Scene I: Test.
+
+        [Enter Romeo and Juliet]
+
+        Romeo:
+          You are a cat.
+          Are you not as good as a cat?
+          If so, you are nothing.
+          If not, you are a big cat.
+          Open your heart!
+
+        [Exeunt]
+      `;
+
+      const compiler = Horatio.fromSource(spl, io);
+      compiler.run();
+
+      // "not as good as" with 1==1 should be false, so "if not" executes
+      expect(io.output).toEqual(["2"]);
+    });
+  });
+
+  describe("Stack Edge Cases", () => {
+    let io: MockIO;
+
+    beforeEach(() => {
+      io = new MockIO();
+    });
+
+    it("should handle mixed operations on multiple character stacks", () => {
+      const spl = `
+        Multiple Stack Test.
+
+        Romeo, a character.
+        Juliet, another character.
+
+        Act I: Test.
+        Scene I: Test.
+
+        [Enter Romeo and Juliet]
+
+        Romeo:
+          You are a big big big big big big cat.
+          Remember yourself.
+          You are the sum of a cat and a cat.
+          Remember yourself.
+          I am the sum of a cat and the sum of a cat and a cat.
+          Remember me.
+
+        Juliet:
+          You are a big big big big big cat.
+
+        Romeo:
+          Remember me.
+          Open your heart!
+          Recall your past!
+          Open your heart!
+          Speak your mind!
+          Recall your love!
+          Open your heart!
+          Recall your love!
+          Open your heart!
+          Recall your love!
+          Open your heart!
+          Speak your mind!
+
+        [Exeunt]
+      `;
+
+      const compiler = Horatio.fromSource(spl, io);
+      compiler.run();
+
+      // Juliet's stack has [1, 2] from Romeo, then she pushes 5
+      // Stack: [1, 2, 5], recalls in LIFO order: 5, 2
+      expect(io.output).toEqual(["2", "32", " ", "3", "2", "64", "@"]);
+    });
+
+    it("remember me should push to listener's stack", () => {
+      const spl = `
+        Remember Me Test.
+
+        Romeo, a character.
+        Juliet, another character.
+
+        Act I: Test.
+        Scene I: Test.
+
+        [Enter Romeo and Juliet]
+
+        Romeo:
+          I am the sum of a cat and a cat.
+          Remember me.
+          I am nothing.
+          Recall your past!
+          Open your heart!
+
+        [Exeunt]
+      `;
+
+      const compiler = Horatio.fromSource(spl, io);
+      compiler.run();
+
+      expect(io.output).toEqual(["2"]);
+    });
+
+    it("should handle stack underflow as runtime error", () => {
+      const spl = `
+        Stack Underflow Test.
+
+        Romeo, a character.
+        Juliet, another character.
+
+        Act I: Test.
+        Scene I: Test.
+
+        [Enter Romeo and Juliet]
+
+        Romeo:
+          Remember me.
+          Recall your past!
+          Recall your past!
+
+        [Exeunt]
+      `;
+
+      const compiler = Horatio.fromSource(spl, io);
+      expect(() => compiler.run()).toThrow(/empty stack/i);
+    });
+  });
+
+  describe("Runtime Error Cases", () => {
+    let io: MockIO;
+
+    beforeEach(() => {
+      io = new MockIO();
+    });
+
+    it("should handle invalid arithmetic operations at runtime", () => {
+      const spl = `
+        Invalid Arithmetic Test.
+
+        Romeo, a character.
+        Juliet, another character.
+
+        Act I: Test.
+        Scene I: Test.
+
+        [Enter Romeo and Juliet]
+
+        Romeo:
+          You are nothing.
+          You are the remainder of the quotient between a cat and yourself!
+
+        [Exeunt]
+      `;
+
+      const compiler = Horatio.fromSource(spl, io);
+      expect(() => compiler.run()).toThrow(/division by zero/i);
+    });
+
+    it("should initialize characters to zero", () => {
+      const spl = `
+        Initial Value Test.
+
+        Romeo, a character.
+        Juliet, another character.
+
+        Act I: Test.
+        Scene I: Test.
+
+        [Enter Romeo and Juliet]
+
+        Romeo:
+          Open your heart!
+          You are the sum of yourself and a cat.
+          Open your heart!
+
+        [Exeunt]
+      `;
+
+      const compiler = Horatio.fromSource(spl, io);
+      compiler.run();
+
+      // Characters should be initialized to 0
+      expect(io.output).toEqual(["0", "1"]);
+    });
+  });
+
+  describe("Cross-Act Control Flow", () => {
+    let io: MockIO;
+
+    beforeEach(() => {
+      io = new MockIO();
+    });
+
+    it("should maintain state across act boundaries", () => {
+      const spl = `
+        State Preservation Test.
+
+        Romeo, a character.
+        Juliet, another character.
+
+        Act I: Setup.
+        Scene I: Initialize.
+
+        [Enter Romeo and Juliet]
+
+        Romeo:
+          You are the sum of a big big cat and a cat.
+          Remember yourself.
+          I am a big big big cat.
+          Remember me.
+          Let us proceed to act II.
+
+        Act II: Process.
+        Scene I: Use State.
+
+        Romeo:
+          Recall your past!
+          Open your heart!
+          Recall your past!
+          Open your heart!
+
+        [Exeunt]
+      `;
+
+      const compiler = Horatio.fromSource(spl, io);
+      compiler.run();
+
+      expect(io.output).toEqual(["8", "5"]); // Stack maintained across acts
+    });
   });
 
   describe("Full Compiler Integration", () => {
@@ -1161,7 +2213,7 @@ describe("Horatio Compiler", () => {
     it("should compile and run a loop", () => {
       const spl = `
         Counting to Three.
-        
+
         Romeo, the counter.
         Juliet, the assistant.
 
@@ -1201,6 +2253,81 @@ describe("Horatio Compiler", () => {
       }
 
       expect(io.output).toEqual(["1", "2", "3"]);
+    });
+
+    it("should handle negative number output", () => {
+      const spl = `
+        Negative Output Test.
+
+        Romeo, a character.
+        Juliet, another character.
+
+        Act I: Test.
+        Scene I: Test.
+
+        [Enter Romeo and Juliet]
+
+        Romeo:
+          You are a pig!
+          Open your heart!
+
+        [Exeunt]
+      `;
+
+      const compiler = Horatio.fromSource(spl, io);
+      compiler.run();
+
+      expect(io.output).toEqual(["-1"]);
+    });
+
+    it("should handle division by zero", () => {
+      const spl = `
+        Division by Zero Test.
+
+        Romeo, a character.
+        Juliet, another character.
+
+        Act I: Test.
+        Scene I: Test.
+
+        [Enter Romeo and Juliet]
+
+        Romeo:
+          You are nothing!
+          You are the quotient between a cat and yourself!
+
+        [Exeunt]
+      `;
+
+      const compiler = Horatio.fromSource(spl, io);
+      expect(() => compiler.run()).toThrow("Runtime Error - Division by zero.");
+    });
+
+    it("should handle multiple consecutive questions before conditional", () => {
+      const spl = `
+        Multiple Questions Test.
+
+        Romeo, a character.
+        Juliet, another character.
+
+        Act I: Test.
+        Scene I: Test.
+
+        [Enter Romeo and Juliet]
+
+        Romeo:
+          You are a cat!
+          Are you better than nothing?
+          Are you as good as a cat?
+          If so, open your heart!
+
+        [Exeunt]
+      `;
+
+      const compiler = Horatio.fromSource(spl, io);
+      compiler.run();
+
+      expect(io.output).toEqual(["1"]);
     });
   });
 
