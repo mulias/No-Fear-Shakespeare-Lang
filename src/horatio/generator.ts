@@ -747,28 +747,46 @@ export default class Generator {
   }
 
   /**
+   * Helper function to validate arithmetic results
+   */
+  private validateArithmeticResult(result: number): number {
+    if (isNaN(result)) {
+      throw new Error("Runtime Error - Arithmetic operation resulted in NaN.");
+    }
+    if (!isFinite(result)) {
+      throw new Error(
+        "Runtime Error - Arithmetic operation resulted in Infinity.",
+      );
+    }
+    return result;
+  }
+
+  /**
    * Unary Operator
    */
   visitUnaryOperator(
     operator: Ast.UnaryOperator,
     arg: { act: number; scene: number; character?: string },
   ) {
+    const validateResult = this.validateArithmeticResult.bind(this);
     const createCommand = (operator: string): Function => {
       let o = operator;
 
       switch (o) {
         case "square of":
           return function (v: number) {
-            return Math.pow(v, 2);
+            const result = Math.pow(v, 2);
+            return validateResult(result);
           };
         case "cube of":
           return function (v: number) {
-            return Math.pow(v, 3);
+            const result = Math.pow(v, 3);
+            return validateResult(result);
           };
         case "square root of":
           return function (v: number) {
-            let sign = v < 0 ? -1 : 1;
-            return sign * Math.floor(Math.sqrt(Math.abs(v)));
+            const result = Math.sqrt(v);
+            return Math.floor(validateResult(result));
           };
         case "factorial of":
           return function (v: number) {
@@ -778,11 +796,13 @@ export default class Generator {
             for (let i = 2; i <= num; i++) {
               fv = fv * i;
             }
-            return sign * fv;
+            const result = sign * fv;
+            return validateResult(result);
           };
         case "twice":
           return function (v: number) {
-            return 2 * v;
+            const result = 2 * v;
+            return validateResult(result);
           };
         default:
           throw new Error(`Unknown unary operator: ${o}`);
@@ -801,35 +821,41 @@ export default class Generator {
     operator: Ast.ArithmeticOperator,
     arg: { act: number; scene: number; character?: string },
   ) {
+    const validateResult = this.validateArithmeticResult.bind(this);
     const createCommand = (operator: string): Function => {
       let o = operator;
 
       switch (o) {
         case "sum of":
           return function (a: number, b: number) {
-            return a + b;
+            const result = a + b;
+            return validateResult(result);
           };
         case "difference between":
           return function (a: number, b: number) {
-            return a - b;
+            const result = a - b;
+            return validateResult(result);
           };
         case "product of":
           return function (a: number, b: number) {
-            return a * b;
+            const result = a * b;
+            return validateResult(result);
           };
         case "quotient between":
           return function (a: number, b: number) {
             if (b === 0) {
               throw new Error("Runtime Error - Division by zero.");
             }
-            return Math.round(a / b);
+            const result = Math.round(a / b);
+            return validateResult(result);
           };
         case "remainder of the quotient between":
           return function (a: number, b: number) {
             if (b === 0) {
               throw new Error("Runtime Error - Division by zero.");
             }
-            return a % b;
+            const result = a % b;
+            return validateResult(result);
           };
         default:
           throw new Error(`Unknown arithmetic operator: ${o}`);
