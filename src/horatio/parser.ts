@@ -73,8 +73,8 @@ export default class Parser {
 
   /* Parsers */
   parseProgram() {
-    let comment = this.parseComment();
-    this.acceptIf(Token.isStatementPunctuation);
+    let comment = this.parseTitle();
+    this.acceptIf(Token.isSentenceEndPunctuation);
     let declarations = [this.parseDeclaration()];
     while (
       this.isToken(this.currentToken) &&
@@ -83,21 +83,30 @@ export default class Parser {
       declarations.push(this.parseDeclaration());
     }
 
-    let parts: AST.Part[] = [];
-    if (
+    let parts = [this.parsePart()];
+    while (
       this.isToken(this.currentToken) &&
       this.currentToken.kind === Token.ACT
     ) {
-      parts = [this.parsePart()];
-      while (
-        this.isToken(this.currentToken) &&
-        this.currentToken.kind === Token.ACT
-      ) {
-        parts.push(this.parsePart());
-      }
+      parts.push(this.parsePart());
     }
 
     return new AST.Program(comment, declarations, parts);
+  }
+
+  parseTitle() {
+    let title = "";
+    while (
+      this.currentToken !== null &&
+      this.currentToken !== -1 &&
+      !Token.isSentenceEndPunctuation(this.currentToken as Token)
+    ) {
+      if (this.isToken(this.currentToken)) {
+        title += this.currentToken.sequence + " ";
+      }
+      this.acceptIt();
+    }
+    return new AST.Comment(title.trim());
   }
 
   parseComment() {

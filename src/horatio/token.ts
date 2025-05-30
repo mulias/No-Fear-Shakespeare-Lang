@@ -181,4 +181,12 @@ export default class Token {
       token.kind === Token.PERIOD || token.kind === Token.EXCLAMATION_POINT
     );
   }
+
+  static isSentenceEndPunctuation(token: Token): boolean {
+    return (
+      token.kind === Token.PERIOD ||
+      token.kind === Token.EXCLAMATION_POINT ||
+      token.kind === Token.QUESTION_MARK
+    );
+  }
 }
