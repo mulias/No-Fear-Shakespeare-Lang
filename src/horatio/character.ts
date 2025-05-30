@@ -3,12 +3,12 @@
  */
 export default class Character {
   private _name: string;
-  private _value: number | null;
+  private _value: number;
   private _memory: number[];
 
   constructor(name: string) {
     this._name = name;
-    this._value = null;
+    this._value = 0;
     this._memory = [];
   }
 
@@ -20,9 +20,9 @@ export default class Character {
   }
 
   /**
-   * @returns {number|null}
+   * @returns {number}
    */
-  value(): number | null {
+  value(): number {
     return this._value;
   }
 
