@@ -773,10 +773,16 @@ export default class Generator {
           };
         case "quotient between":
           return function (a: number, b: number) {
+            if (b === 0) {
+              throw new Error("Runtime Error - Division by zero.");
+            }
             return Math.round(a / b);
           };
         case "remainder of the quotient between":
           return function (a: number, b: number) {
+            if (b === 0) {
+              throw new Error("Runtime Error - Division by zero.");
+            }
             return a % b;
           };
         default:
