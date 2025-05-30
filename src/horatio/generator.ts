@@ -323,9 +323,22 @@ export default class Generator {
       return function (this: Program) {
         let subject = this.interlocutor(speaker!!!);
 
-        this.io.read((input) =>
-          subject.setValue(input === "" ? -1 : parseInt(input)),
-        );
+        let input: number | undefined;
+
+        while (input === undefined) {
+          this.io.read((value) => {
+            const parsed = parseInt(value);
+            if (isNaN(parsed)) {
+              this.io.print(
+                "Error: Invalid numeric input. Please enter a valid integer.",
+              );
+            } else {
+              input = parsed;
+            }
+          });
+        }
+
+        subject.setValue(input);
 
         if (this.io.debug) {
           this.io.printDebug(`${subject.name()} = ${subject.value()}`);
@@ -349,9 +362,22 @@ export default class Generator {
       return function (this: Program) {
         let subject = this.interlocutor(speaker!!!);
 
-        this.io.read((input) =>
-          subject.setValue(input === "" ? -1 : input.charCodeAt(0)),
-        );
+        let input: string | undefined;
+
+        while (input === undefined) {
+          this.io.read((value) => {
+            const codePoints = Array.from(value);
+            if (codePoints.length !== 1) {
+              this.io.print(
+                "Error: Invalid character input. Please enter exactly one character.",
+              );
+            } else {
+              input = codePoints[0];
+            }
+          });
+        }
+
+        subject.setValue(input.codePointAt(0)!);
 
         if (this.io.debug) {
           this.io.printDebug(`${subject.name()} = ${subject.value()}`);
