@@ -66,7 +66,15 @@ export default class Parser {
     this.currentToken = this.tokenizer.nextToken();
     let program = this.parseProgram();
     if (this.currentToken !== -1) {
-      throw new Error("Syntax Error - unexpected end of program");
+      if (this.isToken(this.currentToken)) {
+        throw new Error(
+          `Syntax Error - unexpected token after program end: "${this.currentToken.sequence}" (kind: ${this.currentToken.kind})`,
+        );
+      } else {
+        throw new Error(
+          `Syntax Error - unexpected end of program, remaining token: ${this.currentToken}`,
+        );
+      }
     }
     return program;
   }
@@ -412,20 +420,22 @@ export default class Parser {
   parseAssignment() {
     let be = this.parseBe();
     if (!be) throw this.unexpectedTokenError();
+    let comparative: AST.Adjective | undefined;
     if (
       this.isToken(this.currentToken) &&
       this.currentToken.kind === Token.AS
     ) {
       this.acceptIt();
-      this.parseAdjective();
+      comparative = this.parseAdjective();
       this.accept(Token.AS);
     }
     let value = this.parseValue();
-    return new AST.AssignmentSentence(be, value);
+    return new AST.AssignmentSentence(be, value, undefined, comparative);
   }
 
   parseValue(): AST.Value {
     let value, pronoun;
+    let article: string | undefined;
     if (
       this.isToken(this.currentToken) &&
       (this.currentToken.kind === Token.ARTICLE ||
@@ -433,6 +443,9 @@ export default class Parser {
         this.currentToken.kind === Token.SECOND_PERSON_POSSESSIVE ||
         this.currentToken.kind === Token.THIRD_PERSON_POSSESSIVE)
     ) {
+      if (this.currentToken.kind === Token.ARTICLE) {
+        article = this.currentToken.sequence;
+      }
       this.acceptIt();
     }
     if (!this.isToken(this.currentToken)) {
@@ -453,7 +466,7 @@ export default class Parser {
       case Token.POSITIVE_NOUN:
       case Token.NEUTRAL_NOUN:
       case Token.NEGATIVE_NOUN:
-        value = this.parseConstant();
+        value = this.parseConstant(article);
         break;
 
       case Token.NOTHING:
@@ -516,7 +529,7 @@ export default class Parser {
     return new AST.ArithmeticOperationValue(operator, value_1, value_2);
   }
 
-  parseConstant() {
+  parseConstant(article?: string) {
     let adjectives = [];
     let adjective;
     while (
@@ -556,25 +569,25 @@ export default class Parser {
       case Token.POSITIVE_NOUN:
         noun = new AST.PositiveNoun(this.currentToken.sequence);
         this.acceptIt();
-        return new AST.PositiveConstantValue(noun, adjectives);
+        return new AST.PositiveConstantValue(noun, adjectives, article);
       case Token.NEUTRAL_NOUN:
         noun = new AST.NeutralNoun(this.currentToken.sequence);
         this.acceptIt();
-        return new AST.PositiveConstantValue(noun, adjectives);
+        return new AST.PositiveConstantValue(noun, adjectives, article);
       case Token.NEGATIVE_NOUN:
         noun = new AST.NegativeNoun(this.currentToken.sequence);
         this.acceptIt();
-        return new AST.NegativeConstantValue(noun, adjectives);
+        return new AST.NegativeConstantValue(noun, adjectives, article);
       default:
         throw this.unexpectedTokenError();
     }
   }
 
   parseQuestion() {
-    let value1 = this.parseQuestionFirstValue();
+    let { prefix, value1 } = this.parseQuestionFirstValue();
     let comparison = this.parseComparative();
     let value2 = this.parseValue();
-    return new AST.QuestionSentence(value1, comparison, value2);
+    return new AST.QuestionSentence(prefix, value1, comparison, value2);
   }
 
   parseQuestionFirstValue() {
@@ -582,12 +595,18 @@ export default class Parser {
       this.isToken(this.currentToken) &&
       this.currentToken.kind === Token.BE_COMPARATIVE
     ) {
+      const prefix = this.currentToken.sequence;
       const be_comparative = new AST.BeComparative(this.currentToken.sequence);
       this.acceptIt();
-      return be_comparative;
+      return { prefix, value1: be_comparative };
     } else {
+      if (!this.isToken(this.currentToken)) {
+        throw this.unexpectedTokenError();
+      }
+      const prefix = this.currentToken.sequence; // Should be "Is"
       this.accept(Token.Is);
-      return this.parseValue();
+      const value1 = this.parseValue();
+      return { prefix, value1 };
     }
   }
 
@@ -630,31 +649,57 @@ export default class Parser {
   }
 
   parseGoto() {
+    // Capture the full source text for the goto statement
+    let sourceText = "";
+
+    // Capture "Let us" or similar imperative
+    if (this.isToken(this.currentToken)) {
+      sourceText += this.currentToken.sequence;
+    }
     this.accept(Token.IMPERATIVE);
+
+    // Capture "return" or "proceed"
+    if (this.isToken(this.currentToken)) {
+      sourceText += " " + this.currentToken.sequence;
+    }
     this.accept(Token.RETURN);
+
+    // Capture "to"
+    if (this.isToken(this.currentToken)) {
+      sourceText += " " + this.currentToken.sequence;
+    }
     this.accept(Token.TO);
+
     if (
       this.isToken(this.currentToken) &&
       this.currentToken.kind === Token.SCENE
     ) {
+      // Capture "Scene" or "scene"
+      sourceText += " " + this.currentToken.sequence;
       this.acceptIt();
       if (!this.isToken(this.currentToken)) {
         throw this.unexpectedTokenError();
       }
+      // Capture the roman numeral
+      sourceText += " " + this.currentToken.sequence;
       let numeral = new AST.Numeral(this.currentToken.sequence);
       this.accept(Token.ROMAN_NUMERAL);
-      return new AST.GotoSentence("scene", numeral);
+      return new AST.GotoSentence(sourceText, "scene", numeral);
     } else if (
       this.isToken(this.currentToken) &&
       this.currentToken.kind === Token.ACT
     ) {
+      // Capture "Act" or "act"
+      sourceText += " " + this.currentToken.sequence;
       this.acceptIt();
       if (!this.isToken(this.currentToken)) {
         throw this.unexpectedTokenError();
       }
+      // Capture the roman numeral
+      sourceText += " " + this.currentToken.sequence;
       let numeral = new AST.Numeral(this.currentToken.sequence);
       this.accept(Token.ROMAN_NUMERAL);
-      return new AST.GotoSentence("act", numeral);
+      return new AST.GotoSentence(sourceText, "act", numeral);
     } else {
       throw this.unexpectedTokenError();
     }

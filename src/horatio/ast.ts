@@ -190,11 +190,18 @@ export class AssignmentSentence {
   be: Be;
   value: Value;
   subject?: Character;
+  comparative?: Adjective;
 
-  constructor(be: Be, value: Value, subject?: Character) {
+  constructor(
+    be: Be,
+    value: Value,
+    subject?: Character,
+    comparative?: Adjective,
+  ) {
     this.be = be;
     this.value = value;
     this.subject = subject;
+    this.comparative = comparative;
   }
 
   visit(visitor: any, arg?: any): any {
@@ -203,15 +210,18 @@ export class AssignmentSentence {
 }
 
 export class QuestionSentence {
+  prefix: string; // "Is", "Am I", "Art thou", "Are you", etc.
   value1: BeComparative | Value;
   comparison: Comparison;
   value2: Value;
 
   constructor(
+    prefix: string,
     value1: BeComparative | Value,
     comparison: Comparison,
     value2: Value,
   ) {
+    this.prefix = prefix;
     this.value1 = value1;
     this.comparison = comparison;
     this.value2 = value2;
@@ -237,10 +247,12 @@ export class ResponseSentence {
 }
 
 export class GotoSentence {
+  sequence: string; // Store the original source text like "Let us return to Scene" or "let us proceed to scene"
   part: "act" | "scene";
   numeral: Numeral;
 
-  constructor(part: "act" | "scene", numeral: Numeral) {
+  constructor(sequence: string, part: "act" | "scene", numeral: Numeral) {
+    this.sequence = sequence;
     this.part = part;
     this.numeral = numeral;
   }
@@ -337,10 +349,12 @@ export class RecallSentence {
 export class PositiveConstantValue {
   noun: Noun;
   adjectives: Adjective[];
+  article?: string;
 
-  constructor(noun: Noun, adjectives: Adjective[]) {
+  constructor(noun: Noun, adjectives: Adjective[], article?: string) {
     this.noun = noun;
     this.adjectives = adjectives;
+    this.article = article;
   }
 
   visit(visitor: any, arg?: any): any {
@@ -351,10 +365,12 @@ export class PositiveConstantValue {
 export class NegativeConstantValue {
   noun: Noun;
   adjectives: Adjective[];
+  article?: string;
 
-  constructor(noun: Noun, adjectives: Adjective[]) {
+  constructor(noun: Noun, adjectives: Adjective[], article?: string) {
     this.noun = noun;
     this.adjectives = adjectives;
+    this.article = article;
   }
 
   visit(visitor: any, arg?: any): any {

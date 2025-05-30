@@ -219,7 +219,23 @@ export class Yorick {
 
   buildGotoSentence(goto: OpheliaAst.Goto): Ast.GotoSentence {
     const part = this.analyzer.partWithLabel(goto.labelId);
-    return new Ast.GotoSentence(part.type, this.buildNumeral(goto.labelId));
+    const numeral = this.buildNumeral(goto.labelId);
+
+    // Access wordlists directly since they're not in the generator's Category type
+    const wordlists = (this.gen as any).wordlists;
+    const imperatives = wordlists.imperatives || ["Let us", "let us"];
+    const proceed = wordlists.proceed || ["proceed", "return"];
+
+    // Pick random words
+    const imperative = imperatives[this.gen.randomIndex(imperatives)];
+    const returnWord = proceed[this.gen.randomIndex(proceed)];
+    const toWord = "to";
+    const partWord = part.type === "act" ? "act" : "scene";
+
+    // Construct the full source text
+    const sourceText = `${imperative} ${returnWord} ${toWord} ${partWord} ${numeral.sequence}`;
+
+    return new Ast.GotoSentence(sourceText, part.type, numeral);
   }
 
   buildResponseSentence(
@@ -236,13 +252,21 @@ export class Yorick {
     test: OpheliaAst.Test,
     speakerVarId: OpheliaAst.VarId,
   ): Ast.QuestionSentence {
-    const value1 =
-      test.left.type === "var"
-        ? this.buildBeComparative(test.left.id, speakerVarId)
-        : this.buildValue(test.left);
+    let prefix: string;
+    let value1: Ast.BeComparative | Ast.Value;
+
+    if (test.left.type === "var") {
+      const beComparative = this.buildBeComparative(test.left.id, speakerVarId);
+      prefix = beComparative.sequence;
+      value1 = beComparative;
+    } else {
+      prefix = "Is";
+      value1 = this.buildValue(test.left);
+    }
+
     const value2 = this.buildValue(test.right);
     const comparison = this.buildComparison(test);
-    return new Ast.QuestionSentence(value1, comparison, value2);
+    return new Ast.QuestionSentence(prefix, value1, comparison, value2);
   }
 
   buildValue(expression: OpheliaAst.Expression): Ast.Value {

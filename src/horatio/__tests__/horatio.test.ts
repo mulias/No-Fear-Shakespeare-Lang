@@ -767,7 +767,11 @@ describe("Horatio Compiler", () => {
                 new Ast.Enter(new Ast.Character("Romeo")),
                 new Ast.Dialogue([
                   new Ast.Line(new Ast.Character("Romeo"), [
-                    new Ast.GotoSentence("scene", new Ast.Numeral("III")), // Scene III doesn't exist
+                    new Ast.GotoSentence(
+                      "Let us return to scene III",
+                      "scene",
+                      new Ast.Numeral("III"),
+                    ), // Scene III doesn't exist
                   ]),
                 ]),
               ]),
@@ -798,7 +802,11 @@ describe("Horatio Compiler", () => {
                 new Ast.Enter(new Ast.Character("Romeo")),
                 new Ast.Dialogue([
                   new Ast.Line(new Ast.Character("Romeo"), [
-                    new Ast.GotoSentence("scene", new Ast.Numeral("II")),
+                    new Ast.GotoSentence(
+                      "Let us return to scene II",
+                      "scene",
+                      new Ast.Numeral("II"),
+                    ),
                   ]),
                 ]),
               ]),
@@ -1093,6 +1101,7 @@ describe("Horatio Compiler", () => {
                       new Ast.Character("Juliet"),
                     ),
                     new Ast.QuestionSentence(
+                      "Are you",
                       new Ast.BeComparative("Are you"),
                       new Ast.GreaterThanComparison(
                         new Ast.PositiveComparative("better"),
@@ -1226,7 +1235,11 @@ describe("Horatio Compiler", () => {
                       "Open your heart",
                       new Ast.Character("Juliet"),
                     ),
-                    new Ast.GotoSentence("scene", new Ast.Numeral("III")),
+                    new Ast.GotoSentence(
+                      "Let us return to scene III",
+                      "scene",
+                      new Ast.Numeral("III"),
+                    ),
                   ]),
                 ]),
               ]),

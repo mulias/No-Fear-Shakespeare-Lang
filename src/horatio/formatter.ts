@@ -115,7 +115,24 @@ export default class Formatter {
   visitLine(line: Ast.Line): Line {
     const name = line.character.visit(this) + ":";
     const text = line.sentences
-      .map((sentence) => sentence.visit(this) + ".")
+      .map((sentence) => {
+        const sentenceText = sentence.visit(this);
+        // Questions get question marks, commands get exclamation marks, everything else gets periods
+        let punctuation = ".";
+        if (sentence.constructor.name === "QuestionSentence") {
+          punctuation = "?";
+        } else if (
+          sentence.constructor.name === "IntegerOutputSentence" ||
+          sentence.constructor.name === "CharOutputSentence" ||
+          sentence.constructor.name === "IntegerInputSentence" ||
+          sentence.constructor.name === "CharInputSentence" ||
+          sentence.constructor.name === "RememberSentence" ||
+          sentence.constructor.name === "RecallSentence"
+        ) {
+          punctuation = "!";
+        }
+        return sentenceText + punctuation;
+      })
       .join(" ");
 
     return { name, text };
@@ -125,29 +142,55 @@ export default class Formatter {
     const be = assignment.be.visit(this);
     const value = assignment.value.visit(this);
 
-    return `${be} the ${value}`;
+    if (assignment.comparative) {
+      const adjective = assignment.comparative.visit(this);
+      // Check if value is an arithmetic operation - it needs "the" before it
+      if (assignment.value.constructor.name === "ArithmeticOperationValue") {
+        return `${be} as ${adjective} as the ${value}`;
+      }
+      return `${be} as ${adjective} as ${value}`;
+    }
+
+    // Check if value is an arithmetic operation - it needs "the" before it
+    if (assignment.value.constructor.name === "ArithmeticOperationValue") {
+      return `${be} the ${value}`;
+    }
+
+    return `${be} ${value}`;
   }
 
   visitQuestionSentence(question: Ast.QuestionSentence) {
-    const v1 = question.value1.visit(this);
+    const prefix = question.prefix;
     const comparison = question.comparison.visit(this);
     const v2 = question.value2.visit(this);
 
-    return `${v1} ${comparison} ${v2}`;
+    // For BE_COMPARATIVE (like "Am I"), prefix already includes the subject
+    if (question.value1.constructor.name === "BeComparative") {
+      return `${prefix} ${comparison} ${v2}`;
+    } else {
+      // For "Is" questions, we need to include the value1 after the prefix
+      const v1 = question.value1.visit(this);
+      return `${prefix} ${v1} ${comparison} ${v2}`;
+    }
   }
 
   visitResponseSentence(response: Ast.ResponseSentence) {
     const runIf = response.runIf ? "If so" : "If not";
     const sentence = response.sentence.visit(this);
 
-    return `${runIf} ${sentence}`;
+    return `${runIf}, ${sentence}`;
   }
 
   visitGotoSentence(goto: Ast.GotoSentence) {
+    // Use the original source text if available
+    if (goto.sequence) {
+      return goto.sequence;
+    }
+
+    // Fallback to constructing the text (for backward compatibility)
     const part = goto.part;
     const numeral = goto.numeral.visit(this);
-
-    return `${part} ${numeral}`;
+    return `let us return to ${part} ${numeral}`;
   }
 
   visitIntegerInputSentence(integer: Ast.IntegerInputSentence) {
@@ -181,15 +224,21 @@ export default class Formatter {
   visitPositiveConstantValue(v: Ast.PositiveConstantValue) {
     const adjectives = v.adjectives.map((adjective) => adjective.visit(this));
     const noun = v.noun.visit(this);
+    const parts = v.article
+      ? [v.article, ...adjectives, noun]
+      : [...adjectives, noun];
 
-    return [...adjectives, noun].join(" ");
+    return parts.join(" ");
   }
 
   visitNegativeConstantValue(v: Ast.NegativeConstantValue) {
     const adjectives = v.adjectives.map((adjective) => adjective.visit(this));
     const noun = v.noun.visit(this);
+    const parts = v.article
+      ? [v.article, ...adjectives, noun]
+      : [...adjectives, noun];
 
-    return [...adjectives, noun].join(" ");
+    return parts.join(" ");
   }
 
   visitZeroValue(zero: Ast.ZeroValue) {
@@ -220,11 +269,13 @@ export default class Formatter {
   }
 
   visitGreaterThanComparison(comparison: Ast.GreaterThanComparison) {
-    return comparison.comparative.visit(this);
+    const comparative = comparison.comparative.visit(this);
+    return `${comparative} than`;
   }
 
   visitLesserThanComparison(comparison: Ast.LesserThanComparison) {
-    return comparison.comparative.visit(this);
+    const comparative = comparison.comparative.visit(this);
+    return `${comparative} than`;
   }
 
   visitEqualToComparison(comparison: Ast.EqualToComparison) {

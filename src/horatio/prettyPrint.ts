@@ -47,7 +47,7 @@ const wrap = (text: string, maxLength: number): string => {
       line = line + " " + word;
     } else {
       lines.push(line);
-      line = "";
+      line = word;
     }
   });
 
