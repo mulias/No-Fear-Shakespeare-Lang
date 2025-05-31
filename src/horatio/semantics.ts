@@ -163,7 +163,6 @@ export default class Semantics {
     } else {
       throw new Error("Semantic Error - Numeral malformed.");
     }
-    return null;
   }
 
   /**
