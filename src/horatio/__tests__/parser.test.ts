@@ -1,5 +1,6 @@
 import Parser from "../parser";
 import * as Ast from "../ast";
+import Tokenizer from "../tokenizer";
 
 describe("Horatio Parser", () => {
   describe("YOU token handling", () => {
@@ -329,6 +330,300 @@ describe("Horatio Parser", () => {
       sentences.forEach((sentence) => {
         expect(sentence).toBeInstanceOf(Ast.AssignmentSentence);
       });
+    });
+  });
+
+  describe("Edge cases and error handling", () => {
+    it("should handle neutral adjectives in parseAdjective", () => {
+      const spl = `
+        Test neutral adjectives.
+
+        Romeo, a young man.
+        Juliet, a lady.
+
+        Act I: Test.
+        Scene I: Test.
+
+        [Enter Romeo and Juliet]
+
+        Romeo:
+          You are as little as a cat.
+
+        [Exeunt]
+      `;
+
+      const parser = new Parser(spl);
+      const ast = parser.parse();
+
+      const directions = ast.parts[0]?.subparts[0]?.stage.directions || [];
+      const dialogue = directions.find(
+        (d) => d instanceof Ast.Dialogue,
+      ) as Ast.Dialogue;
+      const sentence = dialogue.lines[0]
+        ?.sentences[0] as Ast.AssignmentSentence;
+
+      expect(sentence.comparative).toBeDefined();
+      expect(sentence.comparative).toBeInstanceOf(Ast.NeutralAdjective);
+      expect(sentence.comparative?.sequence).toBe("little");
+    });
+
+    it("should handle negative adjectives in parseAdjective", () => {
+      const spl = `
+        Test negative adjectives.
+
+        Romeo, a young man.
+        Juliet, a lady.
+
+        Act I: Test.
+        Scene I: Test.
+
+        [Enter Romeo and Juliet]
+
+        Romeo:
+          You are as evil as a cat.
+
+        [Exeunt]
+      `;
+
+      const parser = new Parser(spl);
+      const ast = parser.parse();
+
+      const directions = ast.parts[0]?.subparts[0]?.stage.directions || [];
+      const dialogue = directions.find(
+        (d) => d instanceof Ast.Dialogue,
+      ) as Ast.Dialogue;
+      const sentence = dialogue.lines[0]
+        ?.sentences[0] as Ast.AssignmentSentence;
+
+      expect(sentence.comparative).toBeDefined();
+      expect(sentence.comparative).toBeInstanceOf(Ast.NegativeAdjective);
+      expect(sentence.comparative?.sequence).toBe("evil");
+    });
+
+    it("should throw error when parseAdjective encounters non-adjective token", () => {
+      const spl = `
+        Test invalid adjective.
+
+        Romeo, a young man.
+        Juliet, a lady.
+
+        Act I: Test.
+        Scene I: Test.
+
+        [Enter Romeo and Juliet]
+
+        Romeo:
+          You are as 123 as a cat.
+
+        [Exeunt]
+      `;
+
+      const parser = new Parser(spl);
+      expect(() => parser.parse()).toThrow("Syntax Error");
+    });
+
+    it("should handle neutral nouns", () => {
+      const spl = `
+        Test neutral nouns.
+
+        Romeo, a young man.
+        Juliet, a lady.
+
+        Act I: Test.
+        Scene I: Test.
+
+        [Enter Romeo and Juliet]
+
+        Romeo:
+          You are a tree.
+
+        [Exeunt]
+      `;
+
+      const parser = new Parser(spl);
+      const ast = parser.parse();
+
+      const directions = ast.parts[0]?.subparts[0]?.stage.directions || [];
+      const dialogue = directions.find(
+        (d) => d instanceof Ast.Dialogue,
+      ) as Ast.Dialogue;
+      const sentence = dialogue.lines[0]
+        ?.sentences[0] as Ast.AssignmentSentence;
+      const value = sentence.value as Ast.PositiveConstantValue;
+
+      expect(value.noun).toBeInstanceOf(Ast.NeutralNoun);
+      expect(value.noun.sequence).toBe("tree");
+    });
+
+    it("should handle negative nouns", () => {
+      const spl = `
+        Test negative nouns.
+
+        Romeo, a young man.
+        Juliet, a lady.
+
+        Act I: Test.
+        Scene I: Test.
+
+        [Enter Romeo and Juliet]
+
+        Romeo:
+          You are a devil.
+
+        [Exeunt]
+      `;
+
+      const parser = new Parser(spl);
+      const ast = parser.parse();
+
+      const directions = ast.parts[0]?.subparts[0]?.stage.directions || [];
+      const dialogue = directions.find(
+        (d) => d instanceof Ast.Dialogue,
+      ) as Ast.Dialogue;
+      const sentence = dialogue.lines[0]
+        ?.sentences[0] as Ast.AssignmentSentence;
+      const value = sentence.value as Ast.NegativeConstantValue;
+
+      expect(value.noun).toBeInstanceOf(Ast.NegativeNoun);
+      expect(value.noun.sequence).toBe("devil");
+    });
+
+    it("should handle invalid tokens in presence parsing", () => {
+      const spl = `
+        Test invalid presence.
+
+        Romeo, a young man.
+        Juliet, a lady.
+
+        Act I: Test.
+        Scene I: Test.
+
+        [123 Romeo]
+
+        [Exeunt]
+      `;
+
+      const parser = new Parser(spl);
+      expect(() => parser.parse()).toThrow("Syntax Error");
+    });
+
+    it("should throw error for invalid pronoun in Remember statement", () => {
+      const spl = `
+        Test invalid remember.
+
+        Romeo, a young man.
+        Juliet, a lady.
+
+        Act I: Test.
+        Scene I: Test.
+
+        [Enter Romeo and Juliet]
+
+        Romeo:
+          Remember cat.
+
+        [Exeunt]
+      `;
+
+      const parser = new Parser(spl);
+      expect(() => parser.parse()).toThrow("Syntax Error");
+    });
+
+    it("should handle recall with second person possessive", () => {
+      const spl = `
+        Test recall with possessive.
+
+        Romeo, a young man.
+        Juliet, a lady.
+
+        Act I: Test.
+        Scene I: Test.
+
+        [Enter Romeo and Juliet]
+
+        Romeo:
+          Recall your past.
+
+        [Exeunt]
+      `;
+
+      const parser = new Parser(spl);
+      const ast = parser.parse();
+
+      const directions = ast.parts[0]?.subparts[0]?.stage.directions || [];
+      const dialogue = directions.find(
+        (d) => d instanceof Ast.Dialogue,
+      ) as Ast.Dialogue;
+      const sentence = dialogue.lines[0]?.sentences[0] as Ast.RecallSentence;
+
+      expect(sentence).toBeInstanceOf(Ast.RecallSentence);
+      expect(sentence.comment.sequence).toBe("past");
+    });
+
+    it("should handle tokenizer edge case with bracket", () => {
+      // Test tokenizer handling of brackets
+      const tokenizer = new Tokenizer("[Enter Romeo]");
+      const tokens = tokenizer.tokens;
+
+      // Should have tokenized the brackets
+      expect(tokens.length).toBeGreaterThan(0);
+      expect(tokens[0]?.kind).toBe(97); // LEFT_BRACKET
+    });
+
+    it("should handle parser edge case with null token", () => {
+      const spl = `
+        Test program.
+
+        Romeo, a young man.
+
+        Act I: Test.
+        Scene I: Test.
+
+        [Enter Romeo]
+
+        Romeo:
+          You are
+      `;
+
+      const parser = new Parser(spl);
+      // This should throw an error due to incomplete sentence
+      expect(() => parser.parse()).toThrow();
+    });
+
+    it("should test AST visitor methods for coverage", () => {
+      // Test LesserThanComparison visitor
+      const lesserThan = new Ast.LesserThanComparison(
+        new Ast.NegativeComparative("worse"),
+      );
+      const mockVisitor = {
+        visitLesserThanComparison: jest.fn(),
+      };
+      lesserThan.visit(mockVisitor);
+      expect(mockVisitor.visitLesserThanComparison).toHaveBeenCalledWith(
+        lesserThan,
+        undefined,
+      );
+
+      // Test EqualToComparison visitor
+      const equalTo = new Ast.EqualToComparison(
+        new Ast.PositiveAdjective("good"),
+      );
+      const mockVisitor2 = {
+        visitEqualToComparison: jest.fn(),
+      };
+      equalTo.visit(mockVisitor2);
+      expect(mockVisitor2.visitEqualToComparison).toHaveBeenCalledWith(
+        equalTo,
+        undefined,
+      );
+
+      // Test ZeroValue visitor
+      const zero = new Ast.ZeroValue("nothing");
+      const mockVisitor3 = {
+        visitZeroValue: jest.fn(),
+      };
+      zero.visit(mockVisitor3);
+      expect(mockVisitor3.visitZeroValue).toHaveBeenCalledWith(zero, undefined);
     });
   });
 });
