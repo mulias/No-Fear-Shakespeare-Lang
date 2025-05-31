@@ -145,15 +145,16 @@ export default class Tokenizer {
     wl.exeunt.forEach(function (w) {
       self.dictionary[w.toLowerCase()] = 17;
     });
+    wl.you.forEach(function (w) {
+      self.dictionary[w.toLowerCase()] = 18;
+    });
 
-    //wl.input                 .forEach(function(w) { self.dictionary[w] = 20; });
     wl.input_integer.forEach(function (w) {
       self.dictionary[w.toLowerCase()] = 21;
     });
     wl.input_char.forEach(function (w) {
       self.dictionary[w.toLowerCase()] = 22;
     });
-    //wl.output                .forEach(function(w) { self.dictionary[w] = 23; });
     wl.output_integer.forEach(function (w) {
       self.dictionary[w.toLowerCase()] = 24;
     });

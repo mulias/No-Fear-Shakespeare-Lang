@@ -37,6 +37,9 @@ export default class Token {
   static get EXEUNT() {
     return 17;
   }
+  static get YOU() {
+    return 18;
+  }
 
   static get INPUT_INTEGER() {
     return 21;

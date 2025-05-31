@@ -5,7 +5,6 @@ export const first_person_pronouns = [
 ];
 
 export const second_person_pronouns = [
-  "you",
   "yourself",
   "thyself",
   "thee",

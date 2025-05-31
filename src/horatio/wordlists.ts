@@ -34,6 +34,7 @@ import { second_person_reflexive } from "./wordlists/second_person_reflexive";
 import { remember, recall } from "./wordlists/stacks";
 import { third_person_possessive } from "./wordlists/third_person_possessive";
 import { unary_operators } from "./wordlists/unary_operators";
+import { you } from "./wordlists/you";
 import {
   first_person_pronouns,
   second_person_pronouns,
@@ -121,4 +122,5 @@ export default {
   right_bracket: right_bracket,
   third_person_possessive: third_person_possessive,
   unary_operators: unary_operators,
+  you: you,
 };

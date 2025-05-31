@@ -303,6 +303,7 @@ export default class Parser {
     function isSentence(kind: number) {
       switch (kind) {
         case Token.BE:
+        case Token.YOU:
         case Token.BE_COMPARATIVE:
         case Token.Is:
         case Token.IMPERATIVE:
@@ -362,6 +363,7 @@ export default class Parser {
     }
     switch (this.currentToken.kind) {
       case Token.BE:
+      case Token.YOU:
         sentence = this.parseAssignment();
         this.acceptIf(Token.isStatementPunctuation);
         break;
@@ -409,7 +411,8 @@ export default class Parser {
     let be;
     if (
       this.isToken(this.currentToken) &&
-      this.currentToken.kind === Token.BE
+      (this.currentToken.kind === Token.BE ||
+        this.currentToken.kind === Token.YOU)
     ) {
       be = new AST.Be(this.currentToken.sequence);
       this.acceptIt();
@@ -481,6 +484,7 @@ export default class Parser {
         break;
 
       case Token.SECOND_PERSON_PRONOUN:
+      case Token.YOU:
         pronoun = new AST.SecondPersonPronoun(this.currentToken.sequence);
         value = new AST.PronounValue(pronoun);
         this.acceptIt();
@@ -753,6 +757,7 @@ export default class Parser {
         this.acceptIt();
         break;
       case Token.SECOND_PERSON_PRONOUN:
+      case Token.YOU:
         pronoun = new AST.SecondPersonPronoun(this.currentToken.sequence);
         this.acceptIt();
         break;
