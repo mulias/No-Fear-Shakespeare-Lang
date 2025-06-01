@@ -88,7 +88,7 @@ describe("Ophelia Transformer", () => {
                 postfixed: { type: "var", value: "Start" },
                 value: [
                   {
-                    type: "method_block",
+                    type: "block",
                     postfixed: { type: "var", value: "b" },
                     value: [
                       {
@@ -148,7 +148,7 @@ describe("Ophelia Transformer", () => {
                 postfixed: { type: "var", value: "Start" },
                 value: [
                   {
-                    type: "method_block",
+                    type: "block",
                     postfixed: { type: "var", value: "speaker" },
                     value: [
                       {
@@ -192,7 +192,7 @@ describe("Ophelia Transformer", () => {
                 postfixed: { type: "var", value: "Start" },
                 value: [
                   {
-                    type: "method_block",
+                    type: "block",
                     postfixed: { type: "var", value: "speaker" },
                     value: [
                       {
@@ -242,7 +242,7 @@ describe("Ophelia Transformer", () => {
                 postfixed: { type: "var", value: "Start" },
                 value: [
                   {
-                    type: "method_block",
+                    type: "block",
                     postfixed: { type: "var", value: "speaker" },
                     value: [
                       {
@@ -358,7 +358,7 @@ describe("Ophelia Transformer", () => {
                 postfixed: { type: "var", value: "Start" },
                 value: [
                   {
-                    type: "method_block",
+                    type: "block",
                     postfixed: { type: "var", value: "speaker" },
                     value: [
                       {
@@ -405,7 +405,7 @@ describe("Ophelia Transformer", () => {
                 postfixed: { type: "var", value: "Scene2" },
                 value: [
                   {
-                    type: "method_block",
+                    type: "block",
                     postfixed: { type: "var", value: "speaker" },
                     value: [
                       {
@@ -490,6 +490,90 @@ describe("Ophelia Transformer", () => {
         "Found 1 error:\n  1. stage() arguments must be variables",
       );
     });
+
+    it("should report error for lowercase act names", () => {
+      const possumAst: PossumAst.Program = {
+        type: "program",
+        value: [
+          {
+            type: "block",
+            postfixed: { type: "var", value: "main" }, // lowercase
+            value: [
+              {
+                type: "block",
+                postfixed: { type: "var", value: "Start" },
+                value: [],
+              },
+            ],
+          },
+        ],
+      };
+
+      const ophelia = new Ophelia(possumAst);
+      expect(() => ophelia.run()).toThrow(
+        'Found 1 error:\n  1. Act labels must start with a capital letter, found: "main"',
+      );
+    });
+
+    it("should report error for lowercase scene names", () => {
+      const possumAst: PossumAst.Program = {
+        type: "program",
+        value: [
+          {
+            type: "block",
+            postfixed: { type: "var", value: "Main" },
+            value: [
+              {
+                type: "block",
+                postfixed: { type: "var", value: "start" }, // lowercase
+                value: [],
+              },
+            ],
+          },
+        ],
+      };
+
+      const ophelia = new Ophelia(possumAst);
+      expect(() => ophelia.run()).toThrow(
+        'Found 1 error:\n  1. Scene labels must start with a capital letter, found: "start"',
+      );
+    });
+
+    it("should report error for uppercase speaking block names", () => {
+      const possumAst: PossumAst.Program = {
+        type: "program",
+        value: [
+          {
+            type: "block",
+            postfixed: { type: "var", value: "Main" },
+            value: [
+              {
+                type: "block",
+                postfixed: { type: "var", value: "Start" },
+                value: [
+                  {
+                    type: "block",
+                    postfixed: { type: "var", value: "Speaker" }, // uppercase
+                    value: [
+                      {
+                        type: "method_access",
+                        left: { type: "var", value: "a" },
+                        right: { type: "var", value: "print_char" },
+                      },
+                    ],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      };
+
+      const ophelia = new Ophelia(possumAst);
+      expect(() => ophelia.run()).toThrow(
+        "Found 1 error:\n  1. Speaking blocks must use lowercase variable names, found: \"Speaker\". Use lowercase for dialogue (e.g., 'a { ... }') or place this at the scene level for a subscene.",
+      );
+    });
   });
 
   describe("complex scenarios", () => {
@@ -520,7 +604,7 @@ describe("Ophelia Transformer", () => {
                 postfixed: { type: "var", value: "Loop" },
                 value: [
                   {
-                    type: "method_block",
+                    type: "block",
                     postfixed: { type: "var", value: "out" },
                     value: [
                       {
@@ -563,6 +647,93 @@ describe("Ophelia Transformer", () => {
       expect(ast.acts[0]?.scenes[0]?.sceneId).toBe("Start");
       expect(ast.acts[0]?.scenes[1]?.sceneId).toBe("Loop");
       expect(ast.acts[0]?.scenes[2]?.sceneId).toBe("End");
+    });
+
+    it("should handle multiple speaking blocks in one scene", () => {
+      const possumAst: PossumAst.Program = {
+        type: "program",
+        value: [
+          {
+            type: "block",
+            postfixed: { type: "var", value: "Play" },
+            value: [
+              {
+                type: "block",
+                postfixed: { type: "var", value: "Dialogue" },
+                value: [
+                  {
+                    type: "function_call",
+                    postfixed: { type: "var", value: "stage" },
+                    value: [
+                      { type: "var", value: "a" },
+                      { type: "var", value: "b" },
+                    ],
+                  },
+                  {
+                    type: "block",
+                    postfixed: { type: "var", value: "a" },
+                    value: [
+                      {
+                        type: "method_access",
+                        left: { type: "var", value: "b" },
+                        right: {
+                          type: "function_call",
+                          postfixed: { type: "var", value: "set" },
+                          value: [{ type: "char", value: "H" }],
+                        },
+                      },
+                      {
+                        type: "method_access",
+                        left: { type: "var", value: "b" },
+                        right: { type: "var", value: "print_char" },
+                      },
+                    ],
+                  },
+                  {
+                    type: "block",
+                    postfixed: { type: "var", value: "b" },
+                    value: [
+                      {
+                        type: "method_access",
+                        left: { type: "var", value: "a" },
+                        right: {
+                          type: "function_call",
+                          postfixed: { type: "var", value: "set" },
+                          value: [{ type: "char", value: "i" }],
+                        },
+                      },
+                      {
+                        type: "method_access",
+                        left: { type: "var", value: "a" },
+                        right: { type: "var", value: "print_char" },
+                      },
+                    ],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      };
+
+      const ophelia = new Ophelia(possumAst);
+      const ast = ophelia.run();
+
+      const directions = ast.acts[0]?.scenes[0]?.directions || [];
+      expect(directions).toHaveLength(3); // stage + 2 dialogues
+
+      const stage = directions[0] as OpheliaAst.Stage;
+      expect(stage.type).toBe("stage");
+
+      const dialogue1 = directions[1] as OpheliaAst.Dialogue;
+      expect(dialogue1.type).toBe("dialogue");
+      expect(dialogue1.speakerVarId).toBe("a");
+      expect(dialogue1.lines).toHaveLength(2);
+
+      const dialogue2 = directions[2] as OpheliaAst.Dialogue;
+      expect(dialogue2.type).toBe("dialogue");
+      expect(dialogue2.speakerVarId).toBe("b");
+      expect(dialogue2.lines).toHaveLength(2);
     });
   });
 });

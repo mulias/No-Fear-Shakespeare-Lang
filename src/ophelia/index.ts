@@ -55,9 +55,20 @@ export class Ophelia {
     }
 
     if (expr.type === "block" && expr.postfixed.type === "var") {
+      const actId = expr.postfixed.value;
+
+      // Validate that act names start with capital letter
+      if (actId[0] && actId[0] !== actId[0].toUpperCase()) {
+        this.addProblem(
+          expr,
+          `Act labels must start with a capital letter, found: "${actId}"`,
+        );
+        return undefined;
+      }
+
       return {
         type: "act",
-        actId: expr.postfixed.value,
+        actId: actId,
         scenes: this.buildScenes(expr.value),
       };
     }
@@ -86,9 +97,20 @@ export class Ophelia {
     }
 
     if (expr.type === "block" && expr.postfixed.type === "var") {
+      const sceneId = expr.postfixed.value;
+
+      // Validate that scene names start with capital letter
+      if (sceneId[0] && sceneId[0] !== sceneId[0].toUpperCase()) {
+        this.addProblem(
+          expr,
+          `Scene labels must start with a capital letter, found: "${sceneId}"`,
+        );
+        return undefined;
+      }
+
       return {
         type: "scene",
-        sceneId: expr.postfixed.value,
+        sceneId: sceneId,
         directions: this.buildDirections(expr.value),
       };
     }
@@ -147,17 +169,31 @@ export class Ophelia {
       return this.buildUnstageDirection(expr.value);
     }
 
-    // Handle dialogue blocks like b.{ ... }
-    if (expr.type === "method_block" && expr.postfixed.type === "var") {
+    // Handle dialogue blocks like b { ... }
+    if (expr.type === "block" && expr.postfixed.type === "var") {
       const speakerVarId = expr.postfixed.value;
-      const statements = this.buildStatements(expr.value);
 
-      if (statements.length > 0) {
-        return {
-          type: "dialogue",
-          speakerVarId,
-          lines: statements,
-        };
+      // Check if this is a lowercase speaking block (not a scene/act)
+      if (
+        speakerVarId[0] &&
+        speakerVarId[0] === speakerVarId[0].toLowerCase()
+      ) {
+        const statements = this.buildStatements(expr.value);
+
+        if (statements.length > 0) {
+          return {
+            type: "dialogue",
+            speakerVarId,
+            lines: statements,
+          };
+        }
+      } else {
+        // This is an uppercase label in a direction context
+        this.addProblem(
+          expr,
+          `Speaking blocks must use lowercase variable names, found: "${speakerVarId}". Use lowercase for dialogue (e.g., 'a { ... }') or place this at the scene level for a subscene.`,
+        );
+        return undefined;
       }
     }
 

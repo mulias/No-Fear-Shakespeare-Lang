@@ -19,8 +19,7 @@ prefix =
   ("-" $ Ast.Precedence({"type": "negate"}, 3))
 
 infix =
-  (unless(".", ".{") $
-         Ast.InfixPrecedence({"type": "method_access"}, 4, 4.5)) |
+  ("." $ Ast.InfixPrecedence({"type": "method_access"}, 4, 4.5)) |
   (`%` $ Ast.InfixPrecedence({"type": "modulo"},        2, 2.5)) |
   ("*" $ Ast.InfixPrecedence({"type": "multiply"},      2, 2.5)) |
   ("/" $ Ast.InfixPrecedence({"type": "divide"},        2, 2.5)) |
@@ -28,8 +27,7 @@ infix =
   ("-" $ Ast.InfixPrecedence({"type": "subtract"},      1, 1.5))
 
 postfix =
-  (function_call -> Node $ Ast.Precedence(Node, 7)) |
-  (method_block  -> Node $ Ast.Precedence(Node, 6)) |
+  (function_call -> Node $ Ast.Precedence(Node, 6)) |
   (block         -> Node $ Ast.Precedence(Node, 5))
 
 function_call = ast.node(
@@ -37,13 +35,6 @@ function_call = ast.node(
   "(" > w >
   maybe_array_sep(expr_or_malformed("," | ")" | nl), ",")
   < w < ")"
-)
-
-method_block = ast.node(
-  $"method_block",
-  ".{" > w >
-  maybe_array_sep(expr_or_malformed("}" | nl), w)
-  < w < "}"
 )
 
 block = ast.node(

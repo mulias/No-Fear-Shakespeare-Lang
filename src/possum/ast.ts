@@ -16,7 +16,7 @@ export type Infix = {
 };
 
 export type Postfix = {
-  type: "function_call" | "method_block" | "block";
+  type: "function_call" | "block";
   value: (Expr | Malformed)[];
   postfixed: Expr;
 };
