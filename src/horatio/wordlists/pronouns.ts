@@ -4,9 +4,4 @@ export const first_person_pronouns = [
   "me",
 ];
 
-export const second_person_pronouns = [
-  "yourself",
-  "thyself",
-  "thee",
-  "thou",
-];
+export const second_person_pronouns = ["yourself", "thyself", "thee", "thou"];

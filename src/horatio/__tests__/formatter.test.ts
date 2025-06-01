@@ -44,11 +44,15 @@ describe("Horatio Formatter", () => {
       expect(ast1.comment.sequence).toBe(ast2.comment.sequence);
       expect(ast1.declarations.length).toBe(ast2.declarations.length);
       expect(ast1.parts.length).toBe(ast2.parts.length);
-      
+
       // Compare declarations
       ast1.declarations.forEach((decl, i) => {
-        expect(decl.character.sequence).toBe(ast2.declarations[i]!.character.sequence);
-        expect(decl.comment.sequence).toBe(ast2.declarations[i]!.comment.sequence);
+        expect(decl.character.sequence).toBe(
+          ast2.declarations[i]!.character.sequence,
+        );
+        expect(decl.comment.sequence).toBe(
+          ast2.declarations[i]!.comment.sequence,
+        );
       });
 
       // Compare acts and scenes
@@ -167,13 +171,13 @@ describe("Horatio Formatter", () => {
       expect(formatted.declarations).toHaveLength(2);
       expect(formatted.parts).toHaveLength(1);
       expect(formatted.parts[0]!.subparts).toHaveLength(1);
-      
+
       const scene = formatted.parts[0]!.subparts[0]!;
       expect(scene.heading).toBe("Scene I: All sentences.");
-      
+
       // Count dialogue lines
-      const dialogueLines = scene.body.filter(item => 
-        typeof item === 'object' && 'name' in item && 'text' in item
+      const dialogueLines = scene.body.filter(
+        (item) => typeof item === "object" && "name" in item && "text" in item,
       );
       expect(dialogueLines.length).toBeGreaterThan(0);
     });
@@ -202,9 +206,6 @@ describe("Horatio Formatter", () => {
       const parser = new Parser(spl);
       const ast = parser.parse();
       const generated = prettyPrint(ast);
-      
-      
-      
 
       // Parse the generated code to ensure it's valid
       const parser2 = new Parser(generated);
@@ -246,15 +247,15 @@ describe("Horatio Formatter", () => {
       const formatted = formatter.visitProgram(ast);
 
       const scene = formatted.parts[0]!.subparts[0]!;
-      const stageDirections = scene.body.filter(item => 
-        typeof item === 'string' && item.startsWith('[')
+      const stageDirections = scene.body.filter(
+        (item) => typeof item === "string" && item.startsWith("["),
       );
-      
-      expect(stageDirections).toContain('[Enter Romeo]');
-      expect(stageDirections).toContain('[Enter Juliet and Hamlet]');
-      expect(stageDirections).toContain('[Exit Romeo]');
-      expect(stageDirections).toContain('[Exit Juliet]');
-      expect(stageDirections).toContain('[Exeunt]');
+
+      expect(stageDirections).toContain("[Enter Romeo]");
+      expect(stageDirections).toContain("[Enter Juliet and Hamlet]");
+      expect(stageDirections).toContain("[Exit Romeo]");
+      expect(stageDirections).toContain("[Exit Juliet]");
+      expect(stageDirections).toContain("[Exeunt]");
     });
 
     it("should handle multi-line titles correctly", () => {
@@ -318,18 +319,20 @@ describe("Horatio Formatter", () => {
       // Should be able to parse the generated code
       const parser2 = new Parser(generated);
       const ast2 = parser2.parse();
-      
+
       // Check that all sentences are preserved
-      const sentences1 = ast.parts[0]!.subparts[0]!.stage.directions
-        .filter(d => d instanceof Ast.Dialogue)
+      const sentences1 = ast.parts[0]!.subparts[0]!.stage.directions.filter(
+        (d) => d instanceof Ast.Dialogue,
+      )
         .flatMap((d: any) => d.lines)
         .flatMap((l: any) => l.sentences);
-        
-      const sentences2 = ast2.parts[0]!.subparts[0]!.stage.directions
-        .filter(d => d instanceof Ast.Dialogue)
+
+      const sentences2 = ast2.parts[0]!.subparts[0]!.stage.directions.filter(
+        (d) => d instanceof Ast.Dialogue,
+      )
         .flatMap((d: any) => d.lines)
         .flatMap((l: any) => l.sentences);
-        
+
       expect(sentences2.length).toBe(sentences1.length);
     });
   });
@@ -353,8 +356,8 @@ describe("Horatio Formatter", () => {
       const ast = parser.parse();
       const generated = prettyPrint(ast);
 
-      expect(generated).toContain('[Enter Romeo]');
-      expect(generated).toContain('[Exit Romeo]');
+      expect(generated).toContain("[Enter Romeo]");
+      expect(generated).toContain("[Exit Romeo]");
     });
 
     it("should preserve punctuation in sentences", () => {
@@ -383,9 +386,9 @@ describe("Horatio Formatter", () => {
       const generated = prettyPrint(ast);
 
       // The pretty printer combines sentences on one line
-      expect(generated).toContain('You are nothing');
-      expect(generated).toContain('Are you better than nothing');
-      expect(generated).toContain('Speak your mind');
+      expect(generated).toContain("You are nothing");
+      expect(generated).toContain("Are you better than nothing");
+      expect(generated).toContain("Speak your mind");
     });
   });
 });
