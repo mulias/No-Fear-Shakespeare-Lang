@@ -6,100 +6,100 @@ Main {
   Start {
     stage(n, out)
 
-    out.{
-      n.set(0)
+    out {
+      @you.set(0)
     }
   }
 
   Loop {
-    out.{ n.set(n + 1) }
+    out { @you.set(@you + 1) }
 
-    out.{
-      test_gt(n, 100)
+    out {
+      test_gt(@you, 100)
       if_true(goto(End))
     }
 
-    out.{
-      test_eq(n % 15, 0)
+    out {
+      test_eq(@you % 15, 0)
       if_true(goto(Fizzbuzz))
     }
 
-    out.{
-      test_eq(n % 3, 0)
+    out {
+      test_eq(@you % 3, 0)
       if_true(goto(Fizz))
     }
 
-    out.{
-      test_eq(n % 5, 0)
+    out {
+      test_eq(@you % 5, 0)
       if_true(goto(Buzz))
     }
 
-    n.{
-      out.set(n)
-      out.print_int
-      out.set(10)
-      out.print_char
+    n {
+      @you.set(n)
+      @you.print_int
+      @you.set(10)
+      @you.print_char
       goto(Loop)
     }
   }
 
   Fizzbuzz {
-    n.{
-      out.set('f')
-      out.print_char
-      out.set('i')
-      out.print_char
-      out.set('z')
-      out.print_char
-      out.set('z')
-      out.print_char
-      out.set('b')
-      out.print_char
-      out.set('u')
-      out.print_char
-      out.set('z')
-      out.print_char
-      out.set('z')
-      out.print_char
+    n {
+      @you.set('f')
+      @you.print_char
+      @you.set('i')
+      @you.print_char
+      @you.set('z')
+      @you.print_char
+      @you.set('z')
+      @you.print_char
+      @you.set('b')
+      @you.print_char
+      @you.set('u')
+      @you.print_char
+      @you.set('z')
+      @you.print_char
+      @you.set('z')
+      @you.print_char
 
-      out.set(10)
-      out.print_char
+      @you.set(10)
+      @you.print_char
 
       goto(Loop)
     }
   }
 
   Fizz {
-    n.{
-      out.set('f')
-      out.print_char
-      out.set('i')
-      out.print_char
-      out.set('z')
-      out.print_char
-      out.set('z')
-      out.print_char
+    n {
+      @you.set('f')
+      @you.print_char
+      @you.set('i')
+      @you.print_char
+      @you.set('z')
+      @you.print_char
+      @you.set('z')
+      @you.print_char
 
-      out.set(10)
-      out.print_char
+      @you.set(10)
+      @you.print_char
 
       goto(Loop)
     }
   }
 
   Buzz {
-    n.{
-      out.set('b')
-      out.print_char
-      out.set('u')
-      out.print_char
-      out.set('z')
-      out.print_char
-      out.set('z')
-      out.print_char
+    n {
+      @you.set('b')
+      @you.print_char
+      @you.set('u')
+      @you.print_char
+      @you.set('z')
+      @you.print_char
+      @you.set('z')
+      @you.print_char
 
-      out.set(10)
-      out.print_char
+      @you.set(10)
+      @you.print_char
 
       goto(Loop)
     }

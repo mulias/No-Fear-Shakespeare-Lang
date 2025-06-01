@@ -6,15 +6,15 @@ Main {
     unknown_function()
 
     # This should fail - invalid method
-    a.invalid_method()
+    @you.invalid_method()
 
     # This should fail - wrong number of args
-    test_eq(a)
+    test_eq(@you)
 
     # This should fail - unknown if variant
     if_maybe(goto(End))
 
-    b.{
+    b {
       # This should fail - not a valid statement
       wrong_syntax
     }

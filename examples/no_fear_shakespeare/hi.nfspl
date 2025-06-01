@@ -2,19 +2,19 @@ Main {
   PrintHi {
     stage(a, b)
 
-    b.{
-      a.set(72)
-      a.print_char
+    b {
+      @you.set(72)
+      @you.print_char
     }
 
-    b.{
-      a.set(a + 1)
-      a.print_char
+    b {
+      @you.set(@you + 1)
+      @you.print_char
     }
 
-    b.{
-      a.set(10)
-      a.print_char
+    b {
+      @you.set(10)
+      @you.print_char
     }
 
     unstage_all

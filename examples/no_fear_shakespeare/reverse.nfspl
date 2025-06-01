@@ -7,37 +7,37 @@ Main {
   ## In the beginning, there was nothing
   Init {
     stage(stack, count)
-    stack.{ count.set(0) }
+    stack { @you.set(0) }
   }
 
   ## Pushing to the very end
   GetInput {
-    count.{
-      stack.read_char
-      stack.push
+    count {
+      @you.read_char
+      @you.push
     }
-    stack.{
-      count.set(count + 1)
+    stack {
+      @you.set(@you + 1)
       test_eq(stack, -1)
     }
-    count.{
+    count {
       if_false(goto(GetInput))
-      stack.pop
+      @you.pop
     }
-    stack.{ count.set(count - 1) }
+    stack { @you.set(@you - 1) }
   }
 
   ## Popping back up!
   PrintReversed {
-    count.{
-      stack.pop
-      stack.print_char
+    count {
+      @you.pop
+      @you.print_char
     }
-    stack.{
-      count.set(count - 1)
-      test_gt(count, 0)
+    stack {
+      @you.set(@you - 1)
+      test_gt(@you, 0)
     }
-    count.{ if_true(goto(PrintReversed)) }
+    count { if_true(goto(PrintReversed)) }
   }
 
   ## The end
