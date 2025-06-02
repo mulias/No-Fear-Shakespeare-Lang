@@ -344,7 +344,9 @@ export class Yorick {
       case "var":
         return this.builCharacterValue(expression);
       case "you":
-        return new Ast.SecondPersonPronoun("you");
+        return new Ast.PronounValue(
+          new Ast.SecondPersonPronoun(this.gen.random("second_person_pronouns"))
+        );
       default:
         const _: never = expression;
         throw new Error(`unexpected ast node ${expression}`);
