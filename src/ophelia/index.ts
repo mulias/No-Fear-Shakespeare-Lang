@@ -28,7 +28,15 @@ class PrettyPrinter {
   }
 
   printProgram(program: Ast.Program): string {
-    return program.items.map((item) => this.printProgramItem(item)).join("\n");
+    const parts: string[] = [];
+
+    if (program.title) {
+      parts.push(`## title: ${program.title}`);
+    }
+
+    parts.push(...program.items.map((item) => this.printProgramItem(item)));
+
+    return parts.join("\n");
   }
 
   private printProgramItem(item: Ast.ProgramItem): string {
@@ -116,7 +124,9 @@ class PrettyPrinter {
     }
 
     const lines = this.withIndent(() =>
-      dialogue.lines.map((line) => this.printStatementOrComment(line)).join("\n"),
+      dialogue.lines
+        .map((line) => this.printStatementOrComment(line))
+        .join("\n"),
     );
 
     return `${header}\n${lines}\n${footer}`;
@@ -231,13 +241,71 @@ export class Ophelia {
   }
 
   buildProgram(program: PossumAst.Program): Ast.Program {
+    const { title, items } = this.extractTitleAndItems(program.value);
+
     return {
       type: "program",
-      items: this.buildProgramItems(program.value),
+      title,
+      items: this.buildProgramItems(items),
     };
   }
 
-  buildProgramItems(nodes: (PossumAst.Node | PossumAst.Malformed)[]): Ast.ProgramItem[] {
+  extractTitleAndItems(nodes: (PossumAst.Node | PossumAst.Malformed)[]): {
+    title?: string;
+    items: (PossumAst.Node | PossumAst.Malformed)[];
+  } {
+    let titleDocComment: PossumAst.DocComment | undefined;
+    let titleCount = 0;
+    const remainingItems: (PossumAst.Node | PossumAst.Malformed)[] = [];
+
+    for (let i = 0; i < nodes.length; i++) {
+      const node = nodes[i];
+
+      // Check if this is a doc comment with title key
+      if (node && node.type === "doc_comment" && node.value[0] === "title") {
+        titleCount++;
+
+        if (titleCount > 1) {
+          this.addProblem(
+            node,
+            "Multiple title doc comments found. Only one title is allowed.",
+          );
+        } else if (i > 0) {
+          // Check if there are any non-doc-comment nodes before this
+          const hasNonDocCommentBefore = nodes
+            .slice(0, i)
+            .some((n) => n && n.type !== "doc_comment" && n.type !== "comment");
+
+          if (hasNonDocCommentBefore) {
+            this.addProblem(
+              node,
+              "Title doc comment must be at the top level of the program, before any acts.",
+            );
+          } else {
+            titleDocComment = node;
+          }
+        } else {
+          titleDocComment = node;
+        }
+      } else if (node && node.type === "doc_comment") {
+        // Doc comments with other keys at top level are invalid
+        this.addProblem(
+          node,
+          `Invalid doc comment key "${node.value[0]}" at program level. Only "title" is allowed at the top level.`,
+        );
+      } else if (node) {
+        remainingItems.push(node);
+      }
+    }
+
+    const title = titleDocComment ? titleDocComment.value[1] : undefined;
+
+    return { title, items: remainingItems };
+  }
+
+  buildProgramItems(
+    nodes: (PossumAst.Node | PossumAst.Malformed)[],
+  ): Ast.ProgramItem[] {
     const items: Ast.ProgramItem[] = [];
 
     for (const node of nodes) {
@@ -248,7 +316,9 @@ export class Ophelia {
     return items;
   }
 
-  buildProgramItem(node: PossumAst.Node | PossumAst.Malformed): Ast.ProgramItem | undefined {
+  buildProgramItem(
+    node: PossumAst.Node | PossumAst.Malformed,
+  ): Ast.ProgramItem | undefined {
     if (node.type === "malformed") {
       this.addProblem(node, `Malformed syntax: ${node.value}`);
       return undefined;
@@ -282,11 +352,16 @@ export class Ophelia {
       };
     }
 
-    this.addProblem(node, "Expected a block with a label (e.g., Main { ... }) or a comment");
+    this.addProblem(
+      node,
+      "Expected a block with a label (e.g., Main { ... }) or a comment",
+    );
     return undefined;
   }
 
-  buildActItems(nodes: (PossumAst.Node | PossumAst.Malformed)[]): Ast.ActItem[] {
+  buildActItems(
+    nodes: (PossumAst.Node | PossumAst.Malformed)[],
+  ): Ast.ActItem[] {
     const items: Ast.ActItem[] = [];
 
     for (const node of nodes) {
@@ -297,7 +372,9 @@ export class Ophelia {
     return items;
   }
 
-  buildActItem(node: PossumAst.Node | PossumAst.Malformed): Ast.ActItem | undefined {
+  buildActItem(
+    node: PossumAst.Node | PossumAst.Malformed,
+  ): Ast.ActItem | undefined {
     if (node.type === "malformed") {
       this.addProblem(node, `Malformed syntax: ${node.value}`);
       return undefined;
@@ -334,7 +411,6 @@ export class Ophelia {
     this.addProblem(node, "Expected a scene block with a label or a comment");
     return undefined;
   }
-
 
   buildDirections(
     nodes: (PossumAst.Node | PossumAst.Malformed)[],

@@ -2,7 +2,7 @@ export type Program = { type: "program"; value: (Node | Malformed)[] };
 
 export type Node = Operand | Prefix | Infix | Postfix;
 
-export type Operand = Number | Character | Var | Comment;
+export type Operand = Number | Character | Var | Comment | DocComment;
 
 export type Prefix = {
   type: "negate";
@@ -32,5 +32,10 @@ export type Character = { type: "char"; value: string };
 export type Var = { type: "var"; value: string };
 
 export type Comment = { type: "comment"; value: string };
+
+export type DocComment = {
+  type: "doc_comment";
+  value: [key: string, value: string];
+};
 
 export type Malformed = { type: "malformed"; value: string };

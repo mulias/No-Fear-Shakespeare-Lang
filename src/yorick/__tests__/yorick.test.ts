@@ -55,11 +55,11 @@ describe("Yorick Transpiler", () => {
       // Should have 1 part (act)
       expect(ast.parts).toHaveLength(1);
       const part = ast.parts[0];
-      
+
       // Should have 1 subpart (scene)
       expect(part?.subparts).toHaveLength(1);
       const subpart = part?.subparts[0];
-      
+
       // Stage should only have 3 directions (stage, dialogue, unstage_all - no comments)
       expect(subpart?.stage.directions).toHaveLength(3);
     });
@@ -92,6 +92,71 @@ describe("Yorick Transpiler", () => {
       expect(ast.comment.sequence).toMatch(/^The \w+ \w+ \w+$/); // e.g., "The beautiful wonderful rose" (no characters)
       expect(ast.declarations).toEqual([]);
       expect(ast.parts).toHaveLength(1);
+    });
+
+    it("should use provided title instead of generating one", () => {
+      const opheliaAst: OpheliaAst.Program = {
+        type: "program",
+        title: "To Fizz, Perchance To Buzz",
+        items: [
+          {
+            type: "act",
+            actId: "Main",
+            items: [
+              {
+                type: "scene",
+                sceneId: "Start",
+                directions: [
+                  {
+                    type: "stage",
+                    varId1: "a",
+                    varId2: "b",
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      };
+
+      const yorick = new Yorick(opheliaAst);
+      const ast = yorick.run();
+
+      expect(ast).toBeInstanceOf(Ast.Program);
+      expect(ast.comment).toBeInstanceOf(Ast.Comment);
+      expect(ast.comment.sequence).toBe("To Fizz, Perchance To Buzz");
+      expect(ast.declarations).toHaveLength(2);
+      expect(ast.parts).toHaveLength(1);
+    });
+
+    it("should generate title with character name when no custom title is provided", () => {
+      const opheliaAst: OpheliaAst.Program = {
+        type: "program",
+        items: [
+          {
+            type: "act",
+            actId: "Main",
+            items: [
+              {
+                type: "scene",
+                sceneId: "Start",
+                directions: [
+                  {
+                    type: "stage",
+                    varId1: "hero",
+                    varId2: null,
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      };
+
+      const yorick = new Yorick(opheliaAst);
+      const ast = yorick.run();
+
+      expect(ast.comment.sequence).toMatch(/^\w+ and the \w+ \w+$/); // e.g., "Romeo and the beautiful rose"
     });
 
     it("should generate character declarations for variables", () => {

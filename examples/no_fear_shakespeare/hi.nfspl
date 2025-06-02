@@ -1,3 +1,5 @@
+## title: A Simple Greeting
+
 Main {
   PrintHi {
     stage(a, b)

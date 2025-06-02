@@ -32,7 +32,11 @@ export class Yorick {
 
   buildProgram(program: OpheliaAst.Program): Ast.Program {
     let title: string;
-    if (this.vars.length > 0) {
+
+    // Use provided title if available, otherwise generate one
+    if (program.title) {
+      title = program.title;
+    } else if (this.vars.length > 0) {
       const character = this.characterName(this.vars[0] as OpheliaAst.VarId);
       const adjective = this.gen.randomAdjective();
       const noun = this.gen.randomNoun();
@@ -68,7 +72,9 @@ export class Yorick {
 
   buildParts(items: OpheliaAst.ProgramItem[]): Ast.Part[] {
     // Filter out comments and only process acts
-    const acts = items.filter(item => item.type === "act") as OpheliaAst.Act[];
+    const acts = items.filter(
+      (item) => item.type === "act",
+    ) as OpheliaAst.Act[];
     return acts.map(
       (act) =>
         new Ast.Part(
@@ -90,7 +96,9 @@ export class Yorick {
 
   buildSubparts(items: OpheliaAst.ActItem[]): Ast.Subpart[] {
     // Filter out comments and only process scenes
-    const scenes = items.filter(item => item.type === "scene") as OpheliaAst.Scene[];
+    const scenes = items.filter(
+      (item) => item.type === "scene",
+    ) as OpheliaAst.Scene[];
     return scenes.map(
       (scene) =>
         new Ast.Subpart(
@@ -103,8 +111,10 @@ export class Yorick {
 
   buildStage(directions: OpheliaAst.Direction[]): Ast.Stage {
     // Filter out comments - Yorick ignores them
-    const nonCommentDirections = directions.filter(d => d.type !== "comment");
-    return new Ast.Stage(nonCommentDirections.map((d) => this.buildDirection(d)));
+    const nonCommentDirections = directions.filter((d) => d.type !== "comment");
+    return new Ast.Stage(
+      nonCommentDirections.map((d) => this.buildDirection(d)),
+    );
   }
 
   buildDirection(direction: OpheliaAst.Direction): Ast.Dialogue | Ast.Presence {
@@ -119,7 +129,9 @@ export class Yorick {
         return this.buildExitAll();
       case "comment":
         // Comments are filtered out in buildStage, so this should never be reached
-        throw new Error(`Comments should be filtered out before reaching buildDirection`);
+        throw new Error(
+          `Comments should be filtered out before reaching buildDirection`,
+        );
       default:
         const _: never = direction;
         throw new Error(`unexpected ast node ${direction}`);
@@ -128,7 +140,9 @@ export class Yorick {
 
   buildDialogue(dialogue: OpheliaAst.Dialogue): Ast.Dialogue {
     // Filter out comments from dialogue lines
-    const statements = dialogue.lines.filter(line => line.type !== "comment") as OpheliaAst.Statement[];
+    const statements = dialogue.lines.filter(
+      (line) => line.type !== "comment",
+    ) as OpheliaAst.Statement[];
     return new Ast.Dialogue([
       new Ast.Line(
         this.buildCharacter(dialogue.speakerVarId),

@@ -72,7 +72,7 @@ export default class Tokenizer {
         let longestMatch = current;
         let longestMatchLower = currentLower;
         let longestMatchLength = 0; // number of additional words consumed
-        
+
         // Keep checking longer word chains until no match is found
         for (let i = 0; i < input_array.length; i++) {
           let testMatch = current;
@@ -80,14 +80,14 @@ export default class Tokenizer {
             testMatch += " " + input_array[j];
           }
           let testMatchLower = testMatch.toLowerCase();
-          
+
           if (this.dictionary[testMatchLower]) {
             longestMatch = testMatch;
             longestMatchLower = testMatchLower;
             longestMatchLength = i + 1;
           }
         }
-        
+
         this.tokens.push(
           new Token(this.dictionary[longestMatchLower]!!!, longestMatch),
         );
@@ -100,10 +100,7 @@ export default class Tokenizer {
         let currentLower = current.toLowerCase();
         let foundMatch = false;
 
-        while (
-          !this.dictionary[currentLower] &&
-          br < input_array.length
-        ) {
+        while (!this.dictionary[currentLower] && br < input_array.length) {
           current = current + " " + input_array[br];
           currentLower = current.toLowerCase();
 

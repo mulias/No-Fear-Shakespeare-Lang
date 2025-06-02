@@ -828,4 +828,106 @@ describe("Ophelia Pretty Printer", () => {
 }`);
     });
   });
+
+  describe("title doc comment", () => {
+    it("should print title doc comment with two hashes", () => {
+      const ast: OpheliaAst.Program = {
+        type: "program",
+        title: "My Awesome Program",
+        items: [
+          {
+            type: "act",
+            actId: "Main",
+            items: [
+              {
+                type: "scene",
+                sceneId: "Start",
+                directions: [],
+              },
+            ],
+          },
+        ],
+      };
+
+      const result = prettyPrint(ast);
+      expect(result).toBe(`## title: My Awesome Program
+Main {
+  Start {
+  }
+}`);
+    });
+
+    it("should work without title", () => {
+      const ast: OpheliaAst.Program = {
+        type: "program",
+        items: [
+          {
+            type: "act",
+            actId: "Main",
+            items: [
+              {
+                type: "scene",
+                sceneId: "Start",
+                directions: [],
+              },
+            ],
+          },
+        ],
+      };
+
+      const result = prettyPrint(ast);
+      expect(result).toBe(`Main {
+  Start {
+  }
+}`);
+    });
+
+    it("should print title and preserve other elements", () => {
+      const ast: OpheliaAst.Program = {
+        type: "program",
+        title: "FizzBuzz Implementation",
+        items: [
+          {
+            type: "act",
+            actId: "Main",
+            items: [
+              {
+                type: "scene",
+                sceneId: "Start",
+                directions: [
+                  {
+                    type: "stage",
+                    varId1: "n",
+                    varId2: "out",
+                  },
+                  {
+                    type: "dialogue",
+                    speakerVarId: "n",
+                    lines: [
+                      {
+                        type: ".set",
+                        value: { type: "int", value: 1 },
+                      },
+                    ],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      };
+
+      const result = prettyPrint(ast);
+      expect(result).toBe(`## title: FizzBuzz Implementation
+Main {
+  Start {
+    stage(n, out)
+
+    n {
+      @you.set(1)
+    }
+  }
+}`);
+    });
+  });
 });

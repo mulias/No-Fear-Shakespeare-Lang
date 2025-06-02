@@ -1,4 +1,4 @@
-export type Program = { type: "program"; items: ProgramItem[] };
+export type Program = { type: "program"; title?: string; items: ProgramItem[] };
 
 export type ProgramItem = Act | Comment;
 

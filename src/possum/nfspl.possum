@@ -9,6 +9,7 @@ node =
     surround(infix, w),
     surround(postfix, w),
   ) |
+  surround(doc_comment, w) |
   surround(comment, w)
 
 node_or_malformed(sync_point) = node | malformed(sync_point)
@@ -62,5 +63,11 @@ character = ast.node($"char", "'" > char < "'")
 var = ast.node($"var", maybe("@") + alpha + maybe(word))
 
 w = maybe_many(whitespace)
+
+doc_comment = "##" > w > ast.node(
+  $"doc_comment",
+  tuple2_sep(word, w > ":" < w, chars_until(nl))
+)
+
 
 comment = "#" > ast.node($"comment", chars_until(nl))
