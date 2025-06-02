@@ -7,6 +7,158 @@ type Problem = {
   context?: string;
 };
 
+export function prettyPrint(ast: Ast.Program): string {
+  const printer = new PrettyPrinter();
+  return printer.printProgram(ast);
+}
+
+class PrettyPrinter {
+  private indentLevel = 0;
+  private readonly indentSize = 2;
+
+  private indent(): string {
+    return " ".repeat(this.indentLevel * this.indentSize);
+  }
+
+  private withIndent<T>(fn: () => T): T {
+    this.indentLevel++;
+    const result = fn();
+    this.indentLevel--;
+    return result;
+  }
+
+  printProgram(program: Ast.Program): string {
+    return program.acts.map((act) => this.printAct(act)).join("\n");
+  }
+
+  private printAct(act: Ast.Act): string {
+    const header = `${act.actId} {`;
+    const scenes = this.withIndent(() =>
+      act.scenes.map((scene) => this.printScene(scene)).join("\n\n"),
+    );
+    const footer = "}";
+
+    return `${header}\n${scenes}\n${footer}`;
+  }
+
+  private printScene(scene: Ast.Scene): string {
+    const header = `${this.indent()}${scene.sceneId} {`;
+    const footer = `${this.indent()}}`;
+
+    if (scene.directions.length === 0) {
+      return `${header}\n${footer}`;
+    }
+
+    const directions = this.withIndent(() =>
+      scene.directions.map((dir) => this.printDirection(dir)).join("\n\n"),
+    );
+
+    return `${header}\n${directions}\n${footer}`;
+  }
+
+  private printDirection(direction: Ast.Direction): string {
+    switch (direction.type) {
+      case "dialogue":
+        return this.printDialogue(direction);
+      case "stage":
+        return this.printStage(direction);
+      case "unstage":
+        return this.printUnstage(direction);
+      case "unstage_all":
+        return `${this.indent()}unstage_all`;
+      default:
+        const _exhaustive: never = direction;
+        throw new Error(`Unknown direction type: ${(direction as any).type}`);
+    }
+  }
+
+  private printDialogue(dialogue: Ast.Dialogue): string {
+    const header = `${this.indent()}${dialogue.speakerVarId} {`;
+    const statements = this.withIndent(() =>
+      dialogue.lines.map((stmt) => this.printStatement(stmt)).join("\n"),
+    );
+    const footer = `${this.indent()}}`;
+
+    return `${header}\n${statements}\n${footer}`;
+  }
+
+  private printStage(stage: Ast.Stage): string {
+    const args = stage.varId2
+      ? `${stage.varId1}, ${stage.varId2}`
+      : stage.varId1;
+    return `${this.indent()}stage(${args})`;
+  }
+
+  private printUnstage(unstage: Ast.Unstage): string {
+    const args = unstage.varId2
+      ? `${unstage.varId1}, ${unstage.varId2}`
+      : unstage.varId1;
+    return `${this.indent()}unstage(${args})`;
+  }
+
+  private printStatement(statement: Ast.Statement): string {
+    switch (statement.type) {
+      case ".set":
+        return `${this.indent()}@you.set(${this.printExpression(
+          statement.value,
+        )})`;
+      case ".print_char":
+        return `${this.indent()}@you.print_char`;
+      case ".print_int":
+        return `${this.indent()}@you.print_int`;
+      case ".read_char":
+        return `${this.indent()}@you.read_char`;
+      case ".read_int":
+        return `${this.indent()}@you.read_int`;
+      case ".push_self":
+        return `${this.indent()}@you.push_self`;
+      case ".push_me":
+        return `${this.indent()}@you.push`;
+      case ".pop":
+        return `${this.indent()}@you.pop`;
+      case "test_eq":
+      case "test_gt":
+      case "test_lt":
+      case "test_not_eq":
+      case "test_not_gt":
+      case "test_not_lt":
+        return `${this.indent()}${statement.type}(${this.printExpression(
+          statement.left,
+        )}, ${this.printExpression(statement.right)})`;
+      case "if":
+        const condition = statement.is ? "if_true" : "if_false";
+        return `${this.indent()}${condition}(${this.printStatement(
+          statement.then,
+        ).trim()})`;
+      case "goto":
+        return `${this.indent()}goto(${statement.labelId})`;
+      default:
+        const _exhaustive: never = statement;
+        throw new Error(`Unknown statement type: ${(statement as any).type}`);
+    }
+  }
+
+  private printExpression(expression: Ast.Expression): string {
+    switch (expression.type) {
+      case "int":
+        return expression.value.toString();
+      case "char":
+        return `'${expression.value}'`;
+      case "var":
+        return expression.id;
+      case "you":
+        return "@you";
+      case "arithmetic":
+        return `${this.printExpression(expression.left)} ${
+          expression.op
+        } ${this.printExpression(expression.right)}`;
+      default:
+        const _exhaustive: never = expression;
+        throw new Error(`Unknown expression type: ${(expression as any).type}`);
+    }
+  }
+}
+
 export class Ophelia {
   possumAst: PossumAst.Program;
   problems: Problem[];
