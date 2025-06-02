@@ -1014,6 +1014,20 @@ export class Ophelia {
         break;
       }
 
+      case "negate": {
+        const expr = this.buildExpression(node.prefixed);
+        if (expr) {
+          // Convert -x to 0 - x
+          return {
+            type: "arithmetic",
+            left: { type: "int", value: 0 },
+            op: "-" as Ast.ArithmeticOp,
+            right: expr,
+          };
+        }
+        break;
+      }
+
       default:
         this.addProblem(node, `Cannot convert ${node.type} to expression`);
     }
