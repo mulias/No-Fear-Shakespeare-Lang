@@ -119,12 +119,12 @@ describe("Possum Parser", () => {
       expect(expr.value[0]).toEqual({ type: "int", value: 42 });
     });
 
-    it("should parse method blocks", async () => {
-      const possum = new Possum("a.{ b.set(1) }");
+    it("should parse dialogue blocks", async () => {
+      const possum = new Possum("a { @you.set(1) }");
       const ast = await possum.run();
 
       const expr = ast.value[0] as PossumAst.Postfix;
-      expect(expr.type).toBe("method_block");
+      expect(expr.type).toBe("block");
       expect(expr.postfixed).toEqual({ type: "var", value: "a" });
       expect(expr.value).toHaveLength(1);
     });
@@ -183,9 +183,9 @@ describe("Possum Parser", () => {
         Main {
           Start {
             stage(a, b)
-            b.{
-              a.set(72)
-              a.print_char
+            b {
+              @you.set(72)
+              @you.print_char
             }
             unstage_all
           }
@@ -205,7 +205,7 @@ describe("Possum Parser", () => {
       const startBlock = mainBlock.value[0] as PossumAst.Postfix;
       expect(startBlock.type).toBe("block");
       expect(startBlock.postfixed).toEqual({ type: "var", value: "Start" });
-      expect(startBlock.value).toHaveLength(3); // stage, b.{...}, unstage_all
+      expect(startBlock.value).toHaveLength(3); // stage, b {...}, unstage_all
     });
   });
 });

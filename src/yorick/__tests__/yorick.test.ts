@@ -342,7 +342,6 @@ describe("Yorick Transpiler", () => {
                     lines: [
                       {
                         type: ".set",
-                        varId: "b",
                         value: { type: "int", value: 42 },
                       },
                     ],
@@ -364,7 +363,7 @@ describe("Yorick Transpiler", () => {
       expect(sentence).toBeInstanceOf(Ast.AssignmentSentence);
       expect(sentence.be).toBeInstanceOf(Ast.Be);
       expect(sentence.value).toBeTruthy();
-      expect(sentence.subject).toBeInstanceOf(Ast.Character);
+      expect(sentence.subject).toBeUndefined(); // Always acts on @you
     });
 
     it("should convert print_char statements", () => {
@@ -386,7 +385,6 @@ describe("Yorick Transpiler", () => {
                     lines: [
                       {
                         type: ".print_char",
-                        varId: "b",
                       },
                     ],
                   },
@@ -406,7 +404,7 @@ describe("Yorick Transpiler", () => {
         ?.sentences[0] as Ast.CharOutputSentence;
       expect(sentence).toBeInstanceOf(Ast.CharOutputSentence);
       expect(sentence.sequence).toBeTruthy();
-      expect(sentence.subject).toBeInstanceOf(Ast.Character);
+      expect(sentence.subject).toBeUndefined();
     });
 
     it("should convert goto statements", () => {
@@ -570,7 +568,6 @@ describe("Yorick Transpiler", () => {
                     lines: [
                       {
                         type: ".set",
-                        varId: "b",
                         value: { type: "int", value: 5 }, // Binary: 101 = 2^2 + 2^0
                       },
                     ],
@@ -616,7 +613,6 @@ describe("Yorick Transpiler", () => {
                     lines: [
                       {
                         type: ".set",
-                        varId: "b",
                         value: { type: "int", value: 0 },
                       },
                     ],
@@ -659,7 +655,6 @@ describe("Yorick Transpiler", () => {
                     lines: [
                       {
                         type: ".set",
-                        varId: "b",
                         value: { type: "int", value: -3 },
                       },
                     ],
@@ -703,7 +698,6 @@ describe("Yorick Transpiler", () => {
                     lines: [
                       {
                         type: ".set",
-                        varId: "b",
                         value: { type: "char", value: "A" }, // ASCII 65
                       },
                     ],
@@ -746,7 +740,6 @@ describe("Yorick Transpiler", () => {
                     lines: [
                       {
                         type: ".set",
-                        varId: "b",
                         value: {
                           type: "arithmetic",
                           op: "+",
@@ -779,7 +772,7 @@ describe("Yorick Transpiler", () => {
   });
 
   describe("stack operations", () => {
-    it("should convert push statements", () => {
+    it("should convert push_self statements", () => {
       const opheliaAst: OpheliaAst.Program = {
         type: "program",
         acts: [
@@ -797,8 +790,7 @@ describe("Yorick Transpiler", () => {
                     speakerVarId: "a",
                     lines: [
                       {
-                        type: ".push",
-                        varId: "b",
+                        type: ".push_self",
                       },
                     ],
                   },
@@ -817,7 +809,48 @@ describe("Yorick Transpiler", () => {
       const sentence = dialogue.lines[0]?.sentences[0] as Ast.RememberSentence;
       expect(sentence).toBeInstanceOf(Ast.RememberSentence);
       expect(sentence.pronoun).toBeInstanceOf(Ast.SecondPersonPronoun);
+      expect(sentence.subject).toBeUndefined();
+    });
+
+    it("should convert push_me statements", () => {
+      const opheliaAst: OpheliaAst.Program = {
+        type: "program",
+        acts: [
+          {
+            type: "act",
+            actId: "Main",
+            scenes: [
+              {
+                type: "scene",
+                sceneId: "Start",
+                directions: [
+                  { type: "stage", varId1: "a", varId2: "b" },
+                  {
+                    type: "dialogue",
+                    speakerVarId: "a",
+                    lines: [
+                      {
+                        type: ".push_me",
+                      },
+                    ],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      };
+
+      const yorick = new Yorick(opheliaAst);
+      const ast = yorick.run();
+
+      const dialogue = ast.parts[0]?.subparts[0]?.stage
+        .directions[1] as Ast.Dialogue;
+      const sentence = dialogue.lines[0]?.sentences[0] as Ast.RememberSentence;
+      expect(sentence).toBeInstanceOf(Ast.RememberSentence);
+      expect(sentence.pronoun).toBeInstanceOf(Ast.FirstPersonPronoun);
       expect(sentence.subject).toBeInstanceOf(Ast.Character);
+      expect(sentence.subject?.sequence).toBeTruthy();
     });
 
     it("should convert pop statements", () => {
@@ -839,7 +872,6 @@ describe("Yorick Transpiler", () => {
                     lines: [
                       {
                         type: ".pop",
-                        varId: "b",
                       },
                     ],
                   },
@@ -858,7 +890,7 @@ describe("Yorick Transpiler", () => {
       const sentence = dialogue.lines[0]?.sentences[0] as Ast.RecallSentence;
       expect(sentence).toBeInstanceOf(Ast.RecallSentence);
       expect(sentence.comment).toBeInstanceOf(Ast.Comment);
-      expect(sentence.subject).toBeInstanceOf(Ast.Character);
+      expect(sentence.subject).toBeUndefined();
     });
   });
 
@@ -882,7 +914,6 @@ describe("Yorick Transpiler", () => {
                     lines: [
                       {
                         type: ".read_char",
-                        varId: "b",
                       },
                     ],
                   },
@@ -901,7 +932,7 @@ describe("Yorick Transpiler", () => {
       const sentence = dialogue.lines[0]?.sentences[0] as Ast.CharInputSentence;
       expect(sentence).toBeInstanceOf(Ast.CharInputSentence);
       expect(sentence.sequence).toBeTruthy();
-      expect(sentence.subject).toBeInstanceOf(Ast.Character);
+      expect(sentence.subject).toBeUndefined();
     });
 
     it("should convert print_int statements", () => {
@@ -923,7 +954,6 @@ describe("Yorick Transpiler", () => {
                     lines: [
                       {
                         type: ".print_int",
-                        varId: "b",
                       },
                     ],
                   },
@@ -943,7 +973,7 @@ describe("Yorick Transpiler", () => {
         ?.sentences[0] as Ast.IntegerOutputSentence;
       expect(sentence).toBeInstanceOf(Ast.IntegerOutputSentence);
       expect(sentence.sequence).toBeTruthy();
-      expect(sentence.subject).toBeInstanceOf(Ast.Character);
+      expect(sentence.subject).toBeUndefined();
     });
   });
 
@@ -1001,97 +1031,6 @@ describe("Yorick Transpiler", () => {
     });
   });
 
-  describe("pronoun usage", () => {
-    it("should use first person pronoun when speaker refers to self", () => {
-      const opheliaAst: OpheliaAst.Program = {
-        type: "program",
-        acts: [
-          {
-            type: "act",
-            actId: "Main",
-            scenes: [
-              {
-                type: "scene",
-                sceneId: "Start",
-                directions: [
-                  { type: "stage", varId1: "a", varId2: null },
-                  {
-                    type: "dialogue",
-                    speakerVarId: "a",
-                    lines: [
-                      {
-                        type: ".push",
-                        varId: "a", // Speaker refers to self
-                      },
-                    ],
-                  },
-                ],
-              },
-            ],
-          },
-        ],
-      };
-
-      const yorick = new Yorick(opheliaAst);
-      const ast = yorick.run();
-
-      const dialogue = ast.parts[0]?.subparts[0]?.stage
-        .directions[1] as Ast.Dialogue;
-      const sentence = dialogue.lines[0]?.sentences[0] as Ast.RememberSentence;
-      expect(sentence.pronoun).toBeInstanceOf(Ast.FirstPersonPronoun);
-    });
-
-    it("should use correct be verb for first/second person", () => {
-      const opheliaAst: OpheliaAst.Program = {
-        type: "program",
-        acts: [
-          {
-            type: "act",
-            actId: "Main",
-            scenes: [
-              {
-                type: "scene",
-                sceneId: "Start",
-                directions: [
-                  { type: "stage", varId1: "a", varId2: "b" },
-                  {
-                    type: "dialogue",
-                    speakerVarId: "a",
-                    lines: [
-                      {
-                        type: ".set",
-                        varId: "a", // First person
-                        value: { type: "int", value: 1 },
-                      },
-                      {
-                        type: ".set",
-                        varId: "b", // Second person
-                        value: { type: "int", value: 2 },
-                      },
-                    ],
-                  },
-                ],
-              },
-            ],
-          },
-        ],
-      };
-
-      const yorick = new Yorick(opheliaAst);
-      const ast = yorick.run();
-
-      const dialogue = ast.parts[0]?.subparts[0]?.stage
-        .directions[1] as Ast.Dialogue;
-      const sentences = dialogue.lines[0]?.sentences || [];
-
-      const firstPersonSentence = sentences[0] as Ast.AssignmentSentence;
-      expect(firstPersonSentence.be.sequence).toMatch(/am/i);
-
-      const secondPersonSentence = sentences[1] as Ast.AssignmentSentence;
-      expect(secondPersonSentence.be.sequence).toMatch(/are|art/i);
-    });
-  });
-
   describe("error handling", () => {
     it("should throw error for invalid character in char literal", () => {
       const opheliaAst: OpheliaAst.Program = {
@@ -1112,7 +1051,6 @@ describe("Yorick Transpiler", () => {
                     lines: [
                       {
                         type: ".set",
-                        varId: "a",
                         value: { type: "char", value: "" }, // Empty string
                       },
                     ],

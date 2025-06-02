@@ -12,6 +12,7 @@ type Category =
   | "roman_numerals"
   | "first_person_pronouns"
   | "second_person_pronouns"
+  | "second_person_reflexive"
   | "input_char"
   | "input_integer"
   | "output_char"

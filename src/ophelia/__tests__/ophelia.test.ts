@@ -93,7 +93,7 @@ describe("Ophelia Transformer", () => {
                     value: [
                       {
                         type: "method_access",
-                        left: { type: "var", value: "a" },
+                        left: { type: "var", value: "@you" },
                         right: {
                           type: "function_call",
                           postfixed: { type: "var", value: "set" },
@@ -102,7 +102,7 @@ describe("Ophelia Transformer", () => {
                       },
                       {
                         type: "method_access",
-                        left: { type: "var", value: "a" },
+                        left: { type: "var", value: "@you" },
                         right: { type: "var", value: "print_char" },
                       },
                     ],
@@ -127,12 +127,10 @@ describe("Ophelia Transformer", () => {
 
       const setStmt = dialogue.lines[0] as OpheliaAst.Set;
       expect(setStmt.type).toBe(".set");
-      expect(setStmt.varId).toBe("a");
       expect(setStmt.value).toEqual({ type: "int", value: 42 });
 
       const printStmt = dialogue.lines[1] as OpheliaAst.PrintChar;
       expect(printStmt.type).toBe(".print_char");
-      expect(printStmt.varId).toBe("a");
     });
 
     it("should transform test expressions", () => {
@@ -247,14 +245,14 @@ describe("Ophelia Transformer", () => {
                     value: [
                       {
                         type: "method_access",
-                        left: { type: "var", value: "a" },
+                        left: { type: "var", value: "@you" },
                         right: {
                           type: "function_call",
                           postfixed: { type: "var", value: "set" },
                           value: [
                             {
                               type: "add",
-                              left: { type: "var", value: "b" },
+                              left: { type: "var", value: "speaker" },
                               right: { type: "int", value: 1 },
                             },
                           ],
@@ -278,7 +276,7 @@ describe("Ophelia Transformer", () => {
       const arithmetic = setStmt.value as OpheliaAst.Arithmetic;
       expect(arithmetic.type).toBe("arithmetic");
       expect(arithmetic.op).toBe("+");
-      expect(arithmetic.left).toEqual({ type: "var", id: "b" });
+      expect(arithmetic.left).toEqual({ type: "var", id: "speaker" });
       expect(arithmetic.right).toEqual({ type: "int", value: 1 });
     });
   });
@@ -363,7 +361,7 @@ describe("Ophelia Transformer", () => {
                     value: [
                       {
                         type: "method_access",
-                        left: { type: "var", value: "a" },
+                        left: { type: "var", value: "@you" },
                         right: { type: "var", value: "invalid_method" },
                       },
                     ],
@@ -377,7 +375,7 @@ describe("Ophelia Transformer", () => {
 
       const ophelia = new Ophelia(possumAst);
       expect(() => ophelia.run()).toThrow(
-        /Unknown method: invalid_method at "a.invalid_method"/,
+        /Unknown method: invalid_method at "@you.invalid_method"/,
       );
     });
 
@@ -557,7 +555,7 @@ describe("Ophelia Transformer", () => {
                     value: [
                       {
                         type: "method_access",
-                        left: { type: "var", value: "a" },
+                        left: { type: "var", value: "@you" },
                         right: { type: "var", value: "print_char" },
                       },
                     ],
@@ -675,7 +673,7 @@ describe("Ophelia Transformer", () => {
                     value: [
                       {
                         type: "method_access",
-                        left: { type: "var", value: "b" },
+                        left: { type: "var", value: "@you" },
                         right: {
                           type: "function_call",
                           postfixed: { type: "var", value: "set" },
@@ -684,7 +682,7 @@ describe("Ophelia Transformer", () => {
                       },
                       {
                         type: "method_access",
-                        left: { type: "var", value: "b" },
+                        left: { type: "var", value: "@you" },
                         right: { type: "var", value: "print_char" },
                       },
                     ],
@@ -695,7 +693,7 @@ describe("Ophelia Transformer", () => {
                     value: [
                       {
                         type: "method_access",
-                        left: { type: "var", value: "a" },
+                        left: { type: "var", value: "@you" },
                         right: {
                           type: "function_call",
                           postfixed: { type: "var", value: "set" },
@@ -704,7 +702,7 @@ describe("Ophelia Transformer", () => {
                       },
                       {
                         type: "method_access",
-                        left: { type: "var", value: "a" },
+                        left: { type: "var", value: "@you" },
                         right: { type: "var", value: "print_char" },
                       },
                     ],
@@ -734,6 +732,495 @@ describe("Ophelia Transformer", () => {
       expect(dialogue2.type).toBe("dialogue");
       expect(dialogue2.speakerVarId).toBe("b");
       expect(dialogue2.lines).toHaveLength(2);
+    });
+
+    it("should handle @you variable correctly", () => {
+      const possumAst: PossumAst.Program = {
+        type: "program",
+        value: [
+          {
+            type: "block",
+            postfixed: { type: "var", value: "Main" },
+            value: [
+              {
+                type: "block",
+                postfixed: { type: "var", value: "Scene" },
+                value: [
+                  {
+                    type: "function_call",
+                    postfixed: { type: "var", value: "stage" },
+                    value: [
+                      { type: "var", value: "a" },
+                      { type: "var", value: "b" },
+                    ],
+                  },
+                  {
+                    type: "block",
+                    postfixed: { type: "var", value: "a" },
+                    value: [
+                      {
+                        type: "method_access",
+                        left: { type: "var", value: "@you" },
+                        right: {
+                          type: "function_call",
+                          postfixed: { type: "var", value: "set" },
+                          value: [{ type: "int", value: 42 }],
+                        },
+                      },
+                    ],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      };
+
+      const ophelia = new Ophelia(possumAst);
+      const result = ophelia.run();
+
+      const directions = result.acts[0]?.scenes[0]?.directions || [];
+      const dialogue = directions[1] as OpheliaAst.Dialogue;
+      expect(dialogue).toMatchObject({
+        type: "dialogue",
+        speakerVarId: "a",
+        lines: [
+          {
+            type: ".set",
+            value: { type: "int", value: 42 },
+          },
+        ],
+      });
+    });
+
+    it("should reject invalid @ variables", () => {
+      const possumAst: PossumAst.Program = {
+        type: "program",
+        value: [
+          {
+            type: "block",
+            postfixed: { type: "var", value: "Main" },
+            value: [
+              {
+                type: "block",
+                postfixed: { type: "var", value: "Scene" },
+                value: [
+                  {
+                    type: "function_call",
+                    postfixed: { type: "var", value: "stage" },
+                    value: [
+                      { type: "var", value: "a" },
+                      { type: "var", value: "b" },
+                    ],
+                  },
+                  {
+                    type: "block",
+                    postfixed: { type: "var", value: "a" },
+                    value: [
+                      {
+                        type: "method_access",
+                        left: { type: "var", value: "@invalid" },
+                        right: { type: "var", value: "print_char" },
+                      },
+                    ],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      };
+
+      const ophelia = new Ophelia(possumAst);
+      expect(() => ophelia.run()).toThrow(
+        /Invalid @ variable.*Only "@you" is allowed/,
+      );
+    });
+
+    it("should handle @you in expressions", () => {
+      const possumAst: PossumAst.Program = {
+        type: "program",
+        value: [
+          {
+            type: "block",
+            postfixed: { type: "var", value: "Main" },
+            value: [
+              {
+                type: "block",
+                postfixed: { type: "var", value: "Scene" },
+                value: [
+                  {
+                    type: "function_call",
+                    postfixed: { type: "var", value: "stage" },
+                    value: [
+                      { type: "var", value: "a" },
+                      { type: "var", value: "b" },
+                    ],
+                  },
+                  {
+                    type: "block",
+                    postfixed: { type: "var", value: "a" },
+                    value: [
+                      {
+                        type: "method_access",
+                        left: { type: "var", value: "@you" },
+                        right: {
+                          type: "function_call",
+                          postfixed: { type: "var", value: "set" },
+                          value: [
+                            {
+                              type: "add",
+                              left: { type: "var", value: "@you" },
+                              right: { type: "int", value: 1 },
+                            },
+                          ],
+                        },
+                      },
+                    ],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      };
+
+      const ophelia = new Ophelia(possumAst);
+      const result = ophelia.run();
+
+      const directions = result.acts[0]?.scenes[0]?.directions || [];
+      const dialogue = directions[1] as OpheliaAst.Dialogue;
+      const setStmt = dialogue.lines[0] as OpheliaAst.Set;
+      const arithmetic = setStmt.value as OpheliaAst.Arithmetic;
+
+      expect(arithmetic).toMatchObject({
+        type: "arithmetic",
+        op: "+",
+        left: { type: "you" },
+        right: { type: "int", value: 1 },
+      });
+    });
+
+    it("should reject @you in stage() calls", () => {
+      const possumAst: PossumAst.Program = {
+        type: "program",
+        value: [
+          {
+            type: "block",
+            postfixed: { type: "var", value: "Main" },
+            value: [
+              {
+                type: "block",
+                postfixed: { type: "var", value: "Scene" },
+                value: [
+                  {
+                    type: "function_call",
+                    postfixed: { type: "var", value: "stage" },
+                    value: [
+                      { type: "var", value: "@you" },
+                      { type: "var", value: "b" },
+                    ],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      };
+
+      const ophelia = new Ophelia(possumAst);
+      expect(() => ophelia.run()).toThrow(
+        /stage\(\) arguments must be variables/,
+      );
+    });
+
+    it("should reject @you in unstage() calls", () => {
+      const possumAst: PossumAst.Program = {
+        type: "program",
+        value: [
+          {
+            type: "block",
+            postfixed: { type: "var", value: "Main" },
+            value: [
+              {
+                type: "block",
+                postfixed: { type: "var", value: "Scene" },
+                value: [
+                  {
+                    type: "function_call",
+                    postfixed: { type: "var", value: "unstage" },
+                    value: [{ type: "var", value: "@you" }],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      };
+
+      const ophelia = new Ophelia(possumAst);
+      expect(() => ophelia.run()).toThrow(
+        /unstage\(\) arguments must be variables/,
+      );
+    });
+
+    it("should handle @you in all statement types", () => {
+      const possumAst: PossumAst.Program = {
+        type: "program",
+        value: [
+          {
+            type: "block",
+            postfixed: { type: "var", value: "Main" },
+            value: [
+              {
+                type: "block",
+                postfixed: { type: "var", value: "Scene" },
+                value: [
+                  {
+                    type: "function_call",
+                    postfixed: { type: "var", value: "stage" },
+                    value: [
+                      { type: "var", value: "a" },
+                      { type: "var", value: "b" },
+                    ],
+                  },
+                  {
+                    type: "block",
+                    postfixed: { type: "var", value: "a" },
+                    value: [
+                      // @you.print_char
+                      {
+                        type: "method_access",
+                        left: { type: "var", value: "@you" },
+                        right: { type: "var", value: "print_char" },
+                      },
+                      // @you.print_int
+                      {
+                        type: "method_access",
+                        left: { type: "var", value: "@you" },
+                        right: { type: "var", value: "print_int" },
+                      },
+                      // @you.read_char
+                      {
+                        type: "method_access",
+                        left: { type: "var", value: "@you" },
+                        right: { type: "var", value: "read_char" },
+                      },
+                      // @you.read_int
+                      {
+                        type: "method_access",
+                        left: { type: "var", value: "@you" },
+                        right: { type: "var", value: "read_int" },
+                      },
+                      // @you.push_self
+                      {
+                        type: "method_access",
+                        left: { type: "var", value: "@you" },
+                        right: { type: "var", value: "push_self" },
+                      },
+                      // @you.push_me
+                      {
+                        type: "method_access",
+                        left: { type: "var", value: "@you" },
+                        right: { type: "var", value: "push_me" },
+                      },
+                      // @you.pop
+                      {
+                        type: "method_access",
+                        left: { type: "var", value: "@you" },
+                        right: { type: "var", value: "pop" },
+                      },
+                    ],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      };
+
+      const ophelia = new Ophelia(possumAst);
+      const result = ophelia.run();
+
+      const directions = result.acts[0]?.scenes[0]?.directions || [];
+      const dialogue = directions[1] as OpheliaAst.Dialogue;
+
+      expect(dialogue.lines).toHaveLength(7);
+      expect(dialogue.lines[0]).toMatchObject({ type: ".print_char" });
+      expect(dialogue.lines[1]).toMatchObject({ type: ".print_int" });
+      expect(dialogue.lines[2]).toMatchObject({ type: ".read_char" });
+      expect(dialogue.lines[3]).toMatchObject({ type: ".read_int" });
+      expect(dialogue.lines[4]).toMatchObject({ type: ".push_self" });
+      expect(dialogue.lines[5]).toMatchObject({ type: ".push_me" });
+      expect(dialogue.lines[6]).toMatchObject({ type: ".pop" });
+    });
+
+    it("should handle @you in test expressions", () => {
+      const possumAst: PossumAst.Program = {
+        type: "program",
+        value: [
+          {
+            type: "block",
+            postfixed: { type: "var", value: "Main" },
+            value: [
+              {
+                type: "block",
+                postfixed: { type: "var", value: "Scene" },
+                value: [
+                  {
+                    type: "function_call",
+                    postfixed: { type: "var", value: "stage" },
+                    value: [
+                      { type: "var", value: "a" },
+                      { type: "var", value: "b" },
+                    ],
+                  },
+                  {
+                    type: "block",
+                    postfixed: { type: "var", value: "a" },
+                    value: [
+                      {
+                        type: "function_call",
+                        postfixed: { type: "var", value: "test_eq" },
+                        value: [
+                          { type: "var", value: "@you" },
+                          { type: "int", value: 42 },
+                        ],
+                      },
+                      {
+                        type: "function_call",
+                        postfixed: { type: "var", value: "test_gt" },
+                        value: [
+                          { type: "int", value: 10 },
+                          { type: "var", value: "@you" },
+                        ],
+                      },
+                    ],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      };
+
+      const ophelia = new Ophelia(possumAst);
+      const result = ophelia.run();
+
+      const directions = result.acts[0]?.scenes[0]?.directions || [];
+      const dialogue = directions[1] as OpheliaAst.Dialogue;
+
+      const test1 = dialogue.lines[0] as OpheliaAst.Test;
+      expect(test1).toMatchObject({
+        type: "test_eq",
+        left: { type: "you" },
+        right: { type: "int", value: 42 },
+      });
+
+      const test2 = dialogue.lines[1] as OpheliaAst.Test;
+      expect(test2).toMatchObject({
+        type: "test_gt",
+        left: { type: "int", value: 10 },
+        right: { type: "you" },
+      });
+    });
+
+    it("should reject @you as a speaker", () => {
+      const possumAst: PossumAst.Program = {
+        type: "program",
+        value: [
+          {
+            type: "block",
+            postfixed: { type: "var", value: "Main" },
+            value: [
+              {
+                type: "block",
+                postfixed: { type: "var", value: "Scene" },
+                value: [
+                  {
+                    type: "block",
+                    postfixed: { type: "var", value: "@you" }, // @you as speaker
+                    value: [
+                      {
+                        type: "method_access",
+                        left: { type: "var", value: "@you" },
+                        right: { type: "var", value: "print_char" },
+                      },
+                    ],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      };
+
+      const ophelia = new Ophelia(possumAst);
+      expect(() => ophelia.run()).toThrow(/@you cannot be used as a speaker/);
+    });
+
+    it("should handle mixed @you and regular variables in arithmetic", () => {
+      const possumAst: PossumAst.Program = {
+        type: "program",
+        value: [
+          {
+            type: "block",
+            postfixed: { type: "var", value: "Main" },
+            value: [
+              {
+                type: "block",
+                postfixed: { type: "var", value: "Scene" },
+                value: [
+                  {
+                    type: "function_call",
+                    postfixed: { type: "var", value: "stage" },
+                    value: [
+                      { type: "var", value: "a" },
+                      { type: "var", value: "b" },
+                    ],
+                  },
+                  {
+                    type: "block",
+                    postfixed: { type: "var", value: "a" },
+                    value: [
+                      {
+                        type: "method_access",
+                        left: { type: "var", value: "@you" },
+                        right: {
+                          type: "function_call",
+                          postfixed: { type: "var", value: "set" },
+                          value: [
+                            {
+                              type: "multiply",
+                              left: { type: "var", value: "@you" },
+                              right: { type: "var", value: "a" },
+                            },
+                          ],
+                        },
+                      },
+                    ],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      };
+
+      const ophelia = new Ophelia(possumAst);
+      const result = ophelia.run();
+
+      const directions = result.acts[0]?.scenes[0]?.directions || [];
+      const dialogue = directions[1] as OpheliaAst.Dialogue;
+      const setStmt = dialogue.lines[0] as OpheliaAst.Set;
+      const arithmetic = setStmt.value as OpheliaAst.Arithmetic;
+
+      expect(arithmetic).toMatchObject({
+        type: "arithmetic",
+        op: "*",
+        left: { type: "you" },
+        right: { type: "var", id: "a" },
+      });
     });
   });
 });

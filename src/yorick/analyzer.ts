@@ -103,20 +103,9 @@ export class Analyzer {
       case ".print_int":
       case ".read_char":
       case ".read_int":
-        this.assertValidVarUse(statement.varId, loc);
-        this.assertDistinctSpeakerAndSubject(
-          speakerVarId,
-          statement.varId,
-          loc,
-        );
-        break;
-      case ".push":
-        // Push allows self-reference (e.g., "Remember me")
-        this.assertValidVarUse(statement.varId, loc);
-        break;
+      case ".push_self":
+      case ".push_me":
       case ".set":
-        this.assertValidVarUse(statement.varId, loc);
-        this.checkExpression(statement.value, loc);
         break;
       case "goto":
         this.assertValidGoto(statement.labelId, loc);
@@ -151,6 +140,8 @@ export class Analyzer {
       case "var":
         this.assertValidVarUse(expression.id, loc);
         break;
+      case "you":
+        break;
       default:
         const _: never = expression;
     }
@@ -162,6 +153,11 @@ export class Analyzer {
   }
 
   assertValidVarUse(varId: OpheliaAst.VarId, loc: Location): void {
+    // @you is always valid in dialogue context
+    if (varId === "@you") {
+      return;
+    }
+
     if (!this.hasVar(varId)) {
       throw new Error(
         this.errorMessage(loc, `${varId} is used but never staged.`),
@@ -174,6 +170,11 @@ export class Analyzer {
     subjectVarId: OpheliaAst.VarId,
     loc: Location,
   ): void {
+    // @you always refers to the other character, so it's always distinct from speaker
+    if (subjectVarId === "@you") {
+      return;
+    }
+
     if (speakerVarId === subjectVarId) {
       throw new Error(
         this.errorMessage(
@@ -185,6 +186,11 @@ export class Analyzer {
   }
 
   assertValidUnstage(varId: OpheliaAst.VarId, loc: Location): void {
+    // @you cannot be unstaged
+    if (varId === "@you") {
+      throw new Error(this.errorMessage(loc, `@you cannot be unstaged.`));
+    }
+
     if (!this.hasVar(varId)) {
       throw new Error(
         this.errorMessage(loc, `${varId} is unstaged but never staged.`),

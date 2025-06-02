@@ -139,8 +139,10 @@ export class Yorick {
         return this.buildCharOutputSentence(statement);
       case ".print_int":
         return this.buildIntegerOutputSentence(statement);
-      case ".push":
-        return this.buildRememberSentence(statement, speakerVarId);
+      case ".push_self":
+        return this.buildRememberSelfSentence(statement);
+      case ".push_me":
+        return this.buildRememberMeSentence(statement, speakerVarId);
       case ".read_char":
         return this.buildCharInputSentence(statement);
       case ".read_int":
@@ -170,7 +172,8 @@ export class Yorick {
     const noun = this.gen.randomNoun();
     return new Ast.RecallSentence(
       this.buildComment(`${adjective1} ${adjective2} ${noun}`),
-      this.buildCharacter(pop.varId),
+      // No subject means it acts on @you
+      undefined,
     );
   }
 
@@ -179,7 +182,8 @@ export class Yorick {
   ): Ast.CharOutputSentence {
     return new Ast.CharOutputSentence(
       this.gen.random("output_char"),
-      this.buildCharacter(printChar.varId),
+      // No subject means it acts on @you
+      undefined,
     );
   }
 
@@ -188,20 +192,30 @@ export class Yorick {
   ): Ast.IntegerOutputSentence {
     return new Ast.IntegerOutputSentence(
       this.gen.random("output_integer"),
-      this.buildCharacter(printInt.varId),
+      // No subject means it acts on @you
+      undefined,
     );
   }
 
-  buildRememberSentence(
-    push: OpheliaAst.Push,
+  buildRememberSelfSentence(push: OpheliaAst.PushSelf): Ast.RememberSentence {
+    // Use reflexive pronoun for "Remember thyself/yourself"
+    const reflexivePronoun = new Ast.SecondPersonPronoun(
+      this.gen.random("second_person_reflexive"),
+    );
+    return new Ast.RememberSentence(
+      reflexivePronoun,
+      undefined, // No character needed
+    );
+  }
+
+  buildRememberMeSentence(
+    push: OpheliaAst.PushMe,
     speakerVarId: OpheliaAst.VarId,
   ): Ast.RememberSentence {
-    const pronoun =
-      push.varId === speakerVarId
-        ? this.buildFirstPersonPronoun()
-        : this.buildSecondPersonPronoun();
-
-    return new Ast.RememberSentence(pronoun, this.buildCharacter(push.varId));
+    return new Ast.RememberSentence(
+      this.buildFirstPersonPronoun(), // "me"
+      this.buildCharacter(speakerVarId), // The speaker
+    );
   }
 
   buildAssignmentSentence(
@@ -209,11 +223,9 @@ export class Yorick {
     speakerVarId: OpheliaAst.VarId,
   ): Ast.AssignmentSentence {
     return new Ast.AssignmentSentence(
-      this.buildBe(
-        set.varId === speakerVarId ? "be_first_person" : "be_second_person",
-      ),
+      this.buildBe("be_second_person"), // Always acts on @you
       this.buildValue(set.value),
-      this.buildCharacter(set.varId),
+      undefined, // No explicit character needed, it's always @you
     );
   }
 
@@ -279,6 +291,8 @@ export class Yorick {
         return this.buildIntConstantValue(expression);
       case "var":
         return this.builCharacterValue(expression);
+      case "you":
+        return new Ast.SecondPersonPronoun("you");
       default:
         const _: never = expression;
         throw new Error(`unexpected ast node ${expression}`);
@@ -298,7 +312,7 @@ export class Yorick {
   buildCharInputSentence(readChar: OpheliaAst.ReadChar): Ast.CharInputSentence {
     return new Ast.CharInputSentence(
       this.gen.random("input_char"),
-      this.buildCharacter(readChar.varId),
+      undefined, // Always acts on @you
     );
   }
 
@@ -307,7 +321,7 @@ export class Yorick {
   ): Ast.IntegerInputSentence {
     return new Ast.IntegerInputSentence(
       this.gen.random("input_integer"),
-      this.buildCharacter(readInt.varId),
+      undefined, // Always acts on @you
     );
   }
 

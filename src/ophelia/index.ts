@@ -173,6 +173,22 @@ export class Ophelia {
     if (expr.type === "block" && expr.postfixed.type === "var") {
       const speakerVarId = expr.postfixed.value;
 
+      // Check if this is @you as speaker
+      if (speakerVarId.startsWith("@")) {
+        if (speakerVarId !== "@you") {
+          this.addProblem(
+            expr,
+            `Invalid @ variable: "${speakerVarId}". Only "@you" is allowed.`,
+          );
+        } else {
+          this.addProblem(
+            expr,
+            `@you cannot be used as a speaker. The speaker must be one of the staged characters.`,
+          );
+        }
+        return undefined;
+      }
+
       // Check if this is a lowercase speaking block (not a scene/act)
       if (
         speakerVarId[0] &&
@@ -307,24 +323,39 @@ export class Ophelia {
 
     // Handle method calls like a.set(value), a.print_char, etc.
     if (expr.type === "method_access" && expr.left.type === "var") {
-      const varId = expr.left.value;
+      const varValue = expr.left.value;
+
+      // Check if this is @you
+      if (varValue.startsWith("@")) {
+        if (varValue !== "@you") {
+          this.addProblem(
+            expr,
+            `Invalid @ variable: "${varValue}". Only "@you" is allowed.`,
+          );
+          return undefined;
+        }
+      }
+
+      const varId = varValue;
       const method = expr.right;
 
       if (method.type === "var") {
-        // Simple method access like a.print_char
+        // Simple method access like @you.print_char
         switch (method.value) {
           case "print_char":
-            return { type: ".print_char", varId };
+            return { type: ".print_char" };
           case "print_int":
-            return { type: ".print_int", varId };
+            return { type: ".print_int" };
           case "read_char":
-            return { type: ".read_char", varId };
+            return { type: ".read_char" };
           case "read_int":
-            return { type: ".read_int", varId };
-          case "push":
-            return { type: ".push", varId };
+            return { type: ".read_int" };
+          case "push_self":
+            return { type: ".push_self" };
+          case "push_me":
+            return { type: ".push_me" };
           case "pop":
-            return { type: ".pop", varId };
+            return { type: ".pop" };
           default:
             this.addProblem(expr, `Unknown method: ${method.value}`);
             return undefined;
@@ -333,7 +364,7 @@ export class Ophelia {
         method.type === "function_call" &&
         method.postfixed.type === "var"
       ) {
-        // Method call like a.set(value)
+        // Method call like @you.set(value)
         const methodName = method.postfixed.value;
 
         if (methodName === "set" && method.value.length === 1) {
@@ -341,7 +372,7 @@ export class Ophelia {
           if (argExpr) {
             const valueExpr = this.buildExpression(argExpr);
             if (valueExpr) {
-              return { type: ".set", varId, value: valueExpr };
+              return { type: ".set", value: valueExpr };
             }
           }
         }
@@ -428,6 +459,19 @@ export class Ophelia {
         return { type: "char", value: expr.value };
 
       case "var":
+        // Check if the variable starts with @
+        if (expr.value.startsWith("@")) {
+          // Must be @you
+          if (expr.value === "@you") {
+            return { type: "you" };
+          } else {
+            this.addProblem(
+              expr,
+              `Invalid @ variable: "${expr.value}". Only "@you" is allowed.`,
+            );
+            return undefined;
+          }
+        }
         return { type: "var", id: expr.value };
 
       case "add":
@@ -469,6 +513,11 @@ export class Ophelia {
 
   extractVarId(expr: PossumAst.Expr | PossumAst.Malformed): string | null {
     if (expr.type === "var") {
+      // Check if this is @you
+      if (expr.value === "@you") {
+        this.addProblem(expr, `@you cannot be staged or unstaged.`);
+        return null;
+      }
       return expr.value;
     }
     return null;

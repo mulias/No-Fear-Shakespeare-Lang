@@ -18,9 +18,18 @@ export type Dialogue = {
 
 export type Presence = Stage | Unstage | UnstageAll;
 
-export type Statement = Set | Print | Read | Test | If | Goto | Push | Pop;
+export type Statement =
+  | Set
+  | Print
+  | Read
+  | Test
+  | If
+  | Goto
+  | PushSelf
+  | PushMe
+  | Pop;
 
-export type Expression = Arithmetic | Const | Var;
+export type Expression = Arithmetic | Const | Var | You;
 
 export type Arithmetic = {
   type: "arithmetic";
@@ -37,19 +46,19 @@ export type Int = { type: "int"; value: number };
 
 export type Char = { type: "char"; value: string };
 
-export type Set = { type: ".set"; varId: VarId; value: Expression };
+export type Set = { type: ".set"; value: Expression };
 
 export type Print = PrintChar | PrintInt;
 
-export type PrintChar = { type: ".print_char"; varId: VarId };
+export type PrintChar = { type: ".print_char" };
 
-export type PrintInt = { type: ".print_int"; varId: VarId };
+export type PrintInt = { type: ".print_int" };
 
 export type Read = ReadChar | ReadInt;
 
-export type ReadChar = { type: ".read_char"; varId: VarId };
+export type ReadChar = { type: ".read_char" };
 
-export type ReadInt = { type: ".read_int"; varId: VarId };
+export type ReadInt = { type: ".read_int" };
 
 export type Test = {
   type:
@@ -67,9 +76,11 @@ export type If = { type: "if"; is: boolean; then: Statement };
 
 export type Goto = { type: "goto"; labelId: LabelId };
 
-export type Push = { type: ".push"; varId: VarId };
+export type PushSelf = { type: ".push_self" };
 
-export type Pop = { type: ".pop"; varId: VarId };
+export type PushMe = { type: ".push_me" };
+
+export type Pop = { type: ".pop" };
 
 export type Stage = { type: "stage"; varId1: VarId; varId2: VarId | null };
 
@@ -78,6 +89,8 @@ export type Unstage = { type: "unstage"; varId1: VarId; varId2: VarId | null };
 export type UnstageAll = { type: "unstage_all" };
 
 export type Var = { type: "var"; id: VarId };
+
+export type You = { type: "you" };
 
 export type VarId = string;
 
