@@ -13,6 +13,7 @@
     "have-no-fear": "yarn build && node dist/src/index.js",
     "shakespeare": "yarn build && node dist/src/shakespeare.js",
     "transpile": "yarn build && node dist/src/transpiler.js",
+    "nfspl": "yarn build && node dist/src/nfspl.js",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage"
