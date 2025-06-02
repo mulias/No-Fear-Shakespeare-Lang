@@ -1,6 +1,6 @@
 ## title: Outputting Input Reversedly
-## declare {stack}, a stacky gentleperson
-## declare {count}, who counts the memories of {stack}
+## var stack: a stacky gentleperson
+## var count: who counts the memories of {stack}
 
 ## description: The one and only
 Main {

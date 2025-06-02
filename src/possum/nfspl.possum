@@ -66,8 +66,13 @@ w = maybe_many(whitespace)
 
 doc_comment = "##" > w > ast.node(
   $"doc_comment",
-  tuple2_sep(word, w > ":" < w, chars_until(nl))
+  tuple2_sep(doc_comment_key, w > ":" < w, chars_until(nl))
 )
 
+doc_comment_key = doc_comment_var | doc_comment_property
+
+doc_comment_var = "var" > w > var
+
+doc_comment_property = ast.node($"doc_comment_property", word)
 
 comment = "#" > ast.node($"comment", chars_until(nl))

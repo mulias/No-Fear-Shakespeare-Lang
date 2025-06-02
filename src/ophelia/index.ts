@@ -244,6 +244,17 @@ export class Ophelia {
     this.problems = [];
   }
 
+  private getDocCommentKeyDisplay(key: PossumAst.DocCommentKey): string {
+    if (key.type === "doc_comment_property") {
+      return key.value;
+    } else if (key.type === "var") {
+      return `var ${key.value}`;
+    } else {
+      throw new Error(`Unknown doc comment key type: ${(key as any).type}`);
+    }
+  }
+
+
   get hasProblems() {
     return this.problems.length > 0;
   }
@@ -280,7 +291,7 @@ export class Ophelia {
       const node = nodes[i];
 
       // Check if this is a doc comment with title key
-      if (node && node.type === "doc_comment" && node.value[0] === "title") {
+      if (node && node.type === "doc_comment" && node.value[0].type === "doc_comment_property" && node.value[0].value === "title") {
         titleCount++;
 
         if (titleCount > 1) {
@@ -327,7 +338,7 @@ export class Ophelia {
       if (!node) continue;
 
       // Check if this is a description doc comment
-      if (node.type === "doc_comment" && node.value[0] === "description") {
+      if (node.type === "doc_comment" && node.value[0].type === "doc_comment_property" && node.value[0].value === "description") {
         if (pendingDescription) {
           this.addProblem(
             node,
@@ -342,7 +353,7 @@ export class Ophelia {
       if (node.type === "doc_comment") {
         this.addProblem(
           node,
-          `Invalid doc comment key "${node.value[0]}" at program level. Only "title" and "description" are allowed at the top level.`,
+          `Invalid doc comment key "${this.getDocCommentKeyDisplay(node.value[0])}" at program level. Only "title" and "description" are allowed at the top level.`,
         );
         continue;
       }
@@ -434,7 +445,7 @@ export class Ophelia {
       if (!node) continue;
 
       // Check if this is a description doc comment
-      if (node.type === "doc_comment" && node.value[0] === "description") {
+      if (node.type === "doc_comment" && node.value[0].type === "doc_comment_property" && node.value[0].value === "description") {
         if (pendingDescription) {
           this.addProblem(
             node,
@@ -449,7 +460,7 @@ export class Ophelia {
       if (node.type === "doc_comment") {
         this.addProblem(
           node,
-          `Invalid doc comment key "${node.value[0]}" at act level. Only "description" is allowed here.`,
+          `Invalid doc comment key "${this.getDocCommentKeyDisplay(node.value[0])}" at act level. Only "description" is allowed here.`,
         );
         continue;
       }

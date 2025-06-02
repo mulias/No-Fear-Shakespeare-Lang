@@ -35,7 +35,16 @@ export type Comment = { type: "comment"; value: string };
 
 export type DocComment = {
   type: "doc_comment";
-  value: [key: string, value: string];
+  value: [key: DocCommentKey, value: string];
+};
+
+export type DocCommentKey = DocCommentVar | DocCommentProperty;
+
+export type DocCommentVar = Var;
+
+export type DocCommentProperty = {
+  type: "doc_comment_property";
+  value: string;
 };
 
 export type Malformed = { type: "malformed"; value: string };
