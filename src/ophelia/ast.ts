@@ -1,6 +1,10 @@
-export type Program = { type: "program"; acts: Act[] };
+export type Program = { type: "program"; items: ProgramItem[] };
 
-export type Act = { type: "act"; actId: LabelId; scenes: Scene[] };
+export type ProgramItem = Act | Comment;
+
+export type Act = { type: "act"; actId: LabelId; items: ActItem[] };
+
+export type ActItem = Scene | Comment;
 
 export type Scene = {
   type: "scene";
@@ -8,15 +12,19 @@ export type Scene = {
   directions: Direction[];
 };
 
-export type Direction = Dialogue | Presence;
+export type Direction = Dialogue | Presence | Comment;
 
 export type Dialogue = {
   type: "dialogue";
   speakerVarId: VarId;
-  lines: Statement[];
+  lines: StatementOrComment[];
 };
 
+export type StatementOrComment = Statement | Comment;
+
 export type Presence = Stage | Unstage | UnstageAll;
+
+export type Comment = { type: "comment"; content: string };
 
 export type Statement =
   | Set

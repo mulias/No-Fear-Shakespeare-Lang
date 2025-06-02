@@ -6,11 +6,11 @@ describe("Ophelia Pretty Printer", () => {
     it("should print a simple program with one act and scene", () => {
       const ast: OpheliaAst.Program = {
         type: "program",
-        acts: [
+        items: [
           {
             type: "act",
             actId: "Main",
-            scenes: [
+            items: [
               {
                 type: "scene",
                 sceneId: "Start",
@@ -31,11 +31,11 @@ describe("Ophelia Pretty Printer", () => {
     it("should print multiple acts and scenes", () => {
       const ast: OpheliaAst.Program = {
         type: "program",
-        acts: [
+        items: [
           {
             type: "act",
             actId: "Main",
-            scenes: [
+            items: [
               {
                 type: "scene",
                 sceneId: "Start",
@@ -66,11 +66,11 @@ describe("Ophelia Pretty Printer", () => {
     it("should print stage directions with one character", () => {
       const ast: OpheliaAst.Program = {
         type: "program",
-        acts: [
+        items: [
           {
             type: "act",
             actId: "Main",
-            scenes: [
+            items: [
               {
                 type: "scene",
                 sceneId: "Start",
@@ -98,11 +98,11 @@ describe("Ophelia Pretty Printer", () => {
     it("should print stage directions with two characters", () => {
       const ast: OpheliaAst.Program = {
         type: "program",
-        acts: [
+        items: [
           {
             type: "act",
             actId: "Main",
-            scenes: [
+            items: [
               {
                 type: "scene",
                 sceneId: "Start",
@@ -130,11 +130,11 @@ describe("Ophelia Pretty Printer", () => {
     it("should print unstage directions", () => {
       const ast: OpheliaAst.Program = {
         type: "program",
-        acts: [
+        items: [
           {
             type: "act",
             actId: "Main",
-            scenes: [
+            items: [
               {
                 type: "scene",
                 sceneId: "Start",
@@ -169,11 +169,11 @@ describe("Ophelia Pretty Printer", () => {
     it("should print simple dialogue with basic statements", () => {
       const ast: OpheliaAst.Program = {
         type: "program",
-        acts: [
+        items: [
           {
             type: "act",
             actId: "Main",
-            scenes: [
+            items: [
               {
                 type: "scene",
                 sceneId: "Start",
@@ -212,11 +212,11 @@ describe("Ophelia Pretty Printer", () => {
     it("should print multiple dialogue blocks", () => {
       const ast: OpheliaAst.Program = {
         type: "program",
-        acts: [
+        items: [
           {
             type: "act",
             actId: "Main",
-            scenes: [
+            items: [
               {
                 type: "scene",
                 sceneId: "Start",
@@ -282,11 +282,11 @@ describe("Ophelia Pretty Printer", () => {
     it("should print arithmetic expressions", () => {
       const ast: OpheliaAst.Program = {
         type: "program",
-        acts: [
+        items: [
           {
             type: "act",
             actId: "Main",
-            scenes: [
+            items: [
               {
                 type: "scene",
                 sceneId: "Start",
@@ -326,11 +326,11 @@ describe("Ophelia Pretty Printer", () => {
     it("should print complex arithmetic expressions", () => {
       const ast: OpheliaAst.Program = {
         type: "program",
-        acts: [
+        items: [
           {
             type: "act",
             actId: "Main",
-            scenes: [
+            items: [
               {
                 type: "scene",
                 sceneId: "Start",
@@ -375,11 +375,11 @@ describe("Ophelia Pretty Printer", () => {
     it("should print variables and @you", () => {
       const ast: OpheliaAst.Program = {
         type: "program",
-        acts: [
+        items: [
           {
             type: "act",
             actId: "Main",
-            scenes: [
+            items: [
               {
                 type: "scene",
                 sceneId: "Start",
@@ -421,11 +421,11 @@ describe("Ophelia Pretty Printer", () => {
     it("should print all I/O statements", () => {
       const ast: OpheliaAst.Program = {
         type: "program",
-        acts: [
+        items: [
           {
             type: "act",
             actId: "Main",
-            scenes: [
+            items: [
               {
                 type: "scene",
                 sceneId: "Start",
@@ -463,11 +463,11 @@ describe("Ophelia Pretty Printer", () => {
     it("should print stack operations", () => {
       const ast: OpheliaAst.Program = {
         type: "program",
-        acts: [
+        items: [
           {
             type: "act",
             actId: "Main",
-            scenes: [
+            items: [
               {
                 type: "scene",
                 sceneId: "Start",
@@ -503,11 +503,11 @@ describe("Ophelia Pretty Printer", () => {
     it("should print test statements", () => {
       const ast: OpheliaAst.Program = {
         type: "program",
-        acts: [
+        items: [
           {
             type: "act",
             actId: "Main",
-            scenes: [
+            items: [
               {
                 type: "scene",
                 sceneId: "Start",
@@ -555,11 +555,11 @@ describe("Ophelia Pretty Printer", () => {
     it("should print if statements", () => {
       const ast: OpheliaAst.Program = {
         type: "program",
-        acts: [
+        items: [
           {
             type: "act",
             actId: "Main",
-            scenes: [
+            items: [
               {
                 type: "scene",
                 sceneId: "Start",
@@ -606,11 +606,11 @@ describe("Ophelia Pretty Printer", () => {
     it("should print goto statements", () => {
       const ast: OpheliaAst.Program = {
         type: "program",
-        acts: [
+        items: [
           {
             type: "act",
             actId: "Main",
-            scenes: [
+            items: [
               {
                 type: "scene",
                 sceneId: "Start",
@@ -652,11 +652,11 @@ describe("Ophelia Pretty Printer", () => {
     it("should print a hello world program", () => {
       const ast: OpheliaAst.Program = {
         type: "program",
-        acts: [
+        items: [
           {
             type: "act",
             actId: "Main",
-            scenes: [
+            items: [
               {
                 type: "scene",
                 sceneId: "PrintHi",
@@ -730,11 +730,11 @@ describe("Ophelia Pretty Printer", () => {
     it("should print a fizzbuzz-like program structure", () => {
       const ast: OpheliaAst.Program = {
         type: "program",
-        acts: [
+        items: [
           {
             type: "act",
             actId: "Main",
-            scenes: [
+            items: [
               {
                 type: "scene",
                 sceneId: "Start",

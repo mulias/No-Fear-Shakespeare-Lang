@@ -68,29 +68,40 @@ export default class Tokenizer {
       let currentLower = current.toLowerCase();
 
       if (current && this.dictionary[currentLower]) {
-        let check_next = current + " " + (input_array[0] || "");
-        let check_next_lower = check_next.toLowerCase();
-
-        if (this.dictionary[check_next_lower]) {
-          current = check_next;
-          this.tokens.push(
-            new Token(this.dictionary[check_next_lower]!!!, current),
-          );
-          input_array.splice(0, 1);
-        } else {
-          this.tokens.push(
-            new Token(this.dictionary[currentLower]!!!, current),
-          );
+        // Always try to find the longest possible match
+        let longestMatch = current;
+        let longestMatchLower = currentLower;
+        let longestMatchLength = 0; // number of additional words consumed
+        
+        // Keep checking longer word chains until no match is found
+        for (let i = 0; i < input_array.length; i++) {
+          let testMatch = current;
+          for (let j = 0; j <= i; j++) {
+            testMatch += " " + input_array[j];
+          }
+          let testMatchLower = testMatch.toLowerCase();
+          
+          if (this.dictionary[testMatchLower]) {
+            longestMatch = testMatch;
+            longestMatchLower = testMatchLower;
+            longestMatchLength = i + 1;
+          }
         }
+        
+        this.tokens.push(
+          new Token(this.dictionary[longestMatchLower]!!!, longestMatch),
+        );
+        // Remove the consumed words from input_array
+        input_array.splice(0, longestMatchLength);
       } else {
         // check if further appends will find match
         let br = 0;
         let orig = current;
         let currentLower = current.toLowerCase();
+        let foundMatch = false;
 
         while (
           !this.dictionary[currentLower] &&
-          br < 6 &&
           br < input_array.length
         ) {
           current = current + " " + input_array[br];
@@ -101,13 +112,14 @@ export default class Tokenizer {
               new Token(this.dictionary[currentLower]!!!, current),
             );
             input_array.splice(0, br + 1);
+            foundMatch = true;
             break;
           }
           br += 1;
         }
 
-        // comment - use proper COMMENT token instead of hardcoded 43
-        if (br === 6 || (br < 6 && !this.dictionary[currentLower])) {
+        // Only treat as comment if we couldn't build any valid token
+        if (!foundMatch && !this.dictionary[orig.toLowerCase()]) {
           this.tokens.push(new Token(Token.COMMENT, orig));
         }
       }

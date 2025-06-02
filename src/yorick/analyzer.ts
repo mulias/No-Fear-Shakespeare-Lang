@@ -59,8 +59,12 @@ export class Analyzer {
   //   - speaker does not address self in invalid way
   //   - goto does not jump to a scene in a different act
   check() {
-    this.ast.acts.forEach((act, actIndex) => {
-      act.scenes.forEach((scene, sceneIndex) => {
+    // Filter out comments and only analyze acts
+    const acts = this.ast.items.filter(item => item.type === "act") as OpheliaAst.Act[];
+    acts.forEach((act, actIndex) => {
+      // Filter out comments and only analyze scenes
+      const scenes = act.items.filter(item => item.type === "scene") as OpheliaAst.Scene[];
+      scenes.forEach((scene, sceneIndex) => {
         scene.directions.forEach((direction) => {
           const loc = { actIndex, sceneIndex };
 
@@ -74,6 +78,9 @@ export class Analyzer {
               this.checkUnstage(direction, loc);
               break;
             case "unstage_all":
+              break;
+            case "comment":
+              // Comments are ignored in analysis
               break;
             default:
               const _: never = direction;
@@ -89,7 +96,9 @@ export class Analyzer {
   ): void {
     this.assertValidVarUse(speakerVarId, loc);
 
-    lines.forEach((line) => this.checkStatement(line, speakerVarId, loc));
+    // Filter out comments and only check statements
+    const statements = lines.filter(line => line.type !== "comment") as OpheliaAst.Statement[];
+    statements.forEach((statement) => this.checkStatement(statement, speakerVarId, loc));
   }
 
   checkStatement(
@@ -232,8 +241,12 @@ export class Analyzer {
 function allVars(ast: OpheliaAst.Program): Vars {
   let vars: Vars = new Set();
 
-  ast.acts.forEach((act) => {
-    act.scenes.forEach((scene) => {
+  // Filter out comments and only process acts
+  const acts = ast.items.filter(item => item.type === "act") as OpheliaAst.Act[];
+  acts.forEach((act) => {
+    // Filter out comments and only process scenes
+    const scenes = act.items.filter(item => item.type === "scene") as OpheliaAst.Scene[];
+    scenes.forEach((scene) => {
       scene.directions.forEach((direction) => {
         if (direction.type === "stage") {
           vars.add(direction.varId1);
@@ -251,10 +264,14 @@ function allVars(ast: OpheliaAst.Program): Vars {
 function labeledParts(ast: OpheliaAst.Program): LabeledParts {
   let parts: LabeledParts = {};
 
-  ast.acts.forEach((act, actIndex) => {
+  // Filter out comments and only process acts
+  const acts = ast.items.filter(item => item.type === "act") as OpheliaAst.Act[];
+  acts.forEach((act, actIndex) => {
     parts[act.actId] = { type: "act", actIndex };
 
-    act.scenes.forEach((scene, sceneIndex) => {
+    // Filter out comments and only process scenes
+    const scenes = act.items.filter(item => item.type === "scene") as OpheliaAst.Scene[];
+    scenes.forEach((scene, sceneIndex) => {
       parts[scene.sceneId] = { type: "scene", actIndex, sceneIndex };
     });
   });

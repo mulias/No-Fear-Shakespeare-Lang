@@ -1,111 +1,114 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`NFSPL to SPL Snapshots example programs should transpile fizzbuzz.nfspl to SPL 1`] = `
-"Lady Macduff and the large tree.
+"Doctor Caius and the vile kingdom.
 
-Lady Macduff, the n variable.
-Paris, the out variable.
+Doctor Caius, the n variable.
+Hermonie, the out variable.
 
                     Act I: Main.
 
                     Scene I: Start.
 
-[Enter Lady Macduff and Paris]
+[Enter Doctor Caius and Hermonie]
 
-Paris:
+Hermonie:
      Thou art nothing.
 
                     Scene II: Loop.
 
-Paris:
-     You are the sum of you and hamster.
+Hermonie:
+     Thou art the sum of you and cat.
 
-Paris:
-     Is you nicer than sum of sum of charming charming pony and brave sweetest
-    golden fine sweetest town and warm sweetest warm cute sunny healthy
-    happiness? If so, We shall return to scene VI.
+Hermonie:
+     Is you fresher than sum of sum of charming good nose and noble bold old
+    embroidered bold flower and beautiful warm sweet fair little golden plum?
+    If so, We must proceed to scene VI.
 
-Paris:
-     Is remainder of the quotient between you and sum of sum of sum of cat and
-    reddest purse and reddest cunning happiness and warm golden golden summer's
-    day as charming as nothing? If so, We must return to scene III.
+Hermonie:
+     Is remainder of the quotient between you and sum of sum of sum of sky and
+    reddest purse and sweetest healthy King and honest good handsome kingdom as
+    white as nothing? If so, Let us proceed to scene III.
 
-Paris:
-     Is remainder of the quotient between you and sum of sky and blossoming
-    pony as clearest as nothing? If so, we must proceed to scene IV.
+Hermonie:
+     Is remainder of the quotient between you and sum of nose and blossoming
+    town as loving as nothing? If so, we must proceed to scene IV.
 
-Paris:
-     Is remainder of the quotient between you and sum of kingdom and warm
-    loving Lord as lovely as nothing? If so, let us proceed to scene V.
+Hermonie:
+     Is remainder of the quotient between you and sum of joy and amazing
+    blossoming angel as beautiful as nothing? If so, We must proceed to scene
+    V.
 
-Lady Macduff:
-     You are Lady Macduff. Open thine heart! Thou art the sum of bold Lord and
-    sunny trustworthy old nose. Speak thy mind! Let us return to scene II.
+Doctor Caius:
+     Thou art Doctor Caius. Open thy heart! Thou art the sum of cute summer's
+    day and lovely reddest rich summer's day. Speak your mind! Let us return to
+    scene II.
 
                     Scene III: Fizzbuzz.
 
-Lady Macduff:
-     Thou art the sum of sum of sum of lovely summer's day and beautiful warm
-    angel and trustworthy pretty noble cunning mighty Lord and sweet mighty
-    loving warm fine trustworthy angel. Speak your mind! You are the sum of sum
-    of sum of town and peaceful beautiful brave sky and fair peaceful charming
-    clearest golden nose and lovely lovely clearest proud happy honest angel.
-    Speak your mind! Thou art the sum of sum of sum of sum of delicious
-    summer's day and honest beautiful happy pony and warm blossoming rich old
-    Heaven and proud warm clearest cunning fine Lord and little sunny charming
-    prompt amazing good flower. Speak thine mind! You are the sum of sum of sum
-    of sum of sweet angel and old sweetest smooth sky and charming little rich
-    tiny happiness and proud beautiful brave trustworthy prompt pony and happy
-    happy noble beautiful cute noble angel. Speak thy mind! You are the sum of
-    sum of prompt Lord and handsome white peaceful good smooth nose and noble
-    handsome prompt healthy little lovely sky. Speak thy mind! Thou art the sum
-    of sum of sum of sum of town and blossoming beautiful Lord and proud warm
-    blossoming bold Heaven and prompt peaceful good mighty fair flower and cute
-    loving cunning reddest honest charming cat. Speak your mind! Thou art the
-    sum of sum of sum of sum of sweet cat and handsome loving warm flower and
-    tiny healthy honest pretty joy and prompt fine pretty amazing little flower
-    and trustworthy charming beautiful good peaceful proud happiness. Speak
-    your mind! You are the sum of sum of sum of sum of bold Lord and gentle
-    peaceful prompt rose and amazing blossoming fine fair sky and gentle
-    charming beautiful lovely gentle angel and golden smooth rural loving noble
-    white purse. Speak your mind! Thou art the sum of rural angel and prompt
-    amazing blossoming hamster. Speak thine mind! let us return to scene II.
+Doctor Caius:
+     Thou art the sum of sum of sum of sweet nose and blossoming brave cat and
+    embroidered charming honest golden bold Heaven and mighty rich mighty noble
+    cunning sweetest nose. Speak thine mind! Thou art the sum of sum of sum of
+    angel and beautiful sunny embroidered town and prompt embroidered sweetest
+    gentle trustworthy cat and smooth golden tiny blossoming clearest little
+    happiness. Speak your mind! You are the sum of sum of sum of sum of tiny
+    flower and smooth gentle happy Heaven and rural charming prompt delicious
+    purse and prompt gentle cute lovely proud Heaven and happy good rural bold
+    sunny cute plum. Speak your mind! Thou art the sum of sum of sum of sum of
+    clearest Heaven and gentle rich trustworthy pony and mighty little happy
+    charming sky and happy golden lovely clearest peaceful angel and sunny
+    proud healthy white reddest proud hero. Speak thy mind! You are the sum of
+    sum of tiny hamster and brave smooth lovely lovely sweet Lord and sweetest
+    sweetest beautiful trustworthy tiny old purse. Speak thy mind! You are the
+    sum of sum of sum of sum of joy and tiny embroidered town and healthy
+    honest cute pretty purse and reddest peaceful fine reddest fine hero and
+    amazing beautiful reddest gentle pretty healthy cat. Speak your mind! Thou
+    art the sum of sum of sum of sum of sweet King and proud clearest fine
+    flower and white sweetest healthy sweet angel and healthy honest clearest
+    clearest bold kingdom and sweetest trustworthy warm rich trustworthy
+    handsome Heaven. Speak thine mind! You are the sum of sum of sum of sum of
+    good sky and little amazing good purse and old reddest sunny fair Lord and
+    tiny lovely peaceful golden proud joy and sweet cute peaceful fair sweet
+    cunning Heaven. Speak thine mind! You are the sum of smooth summer's day
+    and fine handsome handsome town. Speak thy mind! we shall return to scene
+    II.
 
                     Scene IV: Fizz.
 
-Lady Macduff:
-     You are the sum of sum of sum of bold purse and noble mighty nose and
-    cunning smooth sweet sweetest lovely sky and sweetest cunning good tiny
-    smooth reddest kingdom. Speak thy mind! You are the sum of sum of sum of
-    kingdom and proud reddest golden nose and pretty peaceful rich loving
-    cunning Lord and reddest golden cute clearest bold happy King. Speak thine
-    mind! You are the sum of sum of sum of sum of beautiful town and prompt
-    bold blossoming hamster and sweet healthy blossoming tiny sky and brave
-    good sweetest bold sweetest flower and pretty brave sunny clearest rural
-    proud Lord. Speak thine mind! Thou art the sum of sum of sum of sum of
-    trustworthy joy and old cunning handsome summer's day and proud honest
-    loving loving Heaven and healthy mighty lovely rich sweet pony and
-    trustworthy handsome blossoming little sweet reddest angel. Speak thy mind!
-    You are the sum of beautiful town and proud cunning reddest hamster. Speak
-    thy mind! we shall return to scene II.
+Doctor Caius:
+     You are the sum of sum of sum of rural sky and old golden purse and loving
+    sweet blossoming loving sweetest joy and happy happy mighty proud amazing
+    charming nose. Speak your mind! Thou art the sum of sum of sum of summer's
+    day and honest proud trustworthy hamster and sunny healthy white pretty
+    reddest rose and gentle beautiful smooth delicious good little hero. Speak
+    thine mind! Thou art the sum of sum of sum of sum of little summer's day
+    and reddest rural prompt pony and golden lovely charming cunning pony and
+    bold rural beautiful sunny golden sky and embroidered amazing white reddest
+    old rural hamster. Speak thine mind! Thou art the sum of sum of sum of sum
+    of prompt flower and bold mighty rich nose and loving tiny sweetest lovely
+    Lord and cunning amazing beautiful white proud joy and fair trustworthy
+    amazing good sweet pretty happiness. Speak thine mind! Thou art the sum of
+    noble joy and sweet delicious amazing plum. Speak thine mind! we shall
+    return to scene II.
 
                     Scene V: Buzz.
 
-Lady Macduff:
-     Thou art the sum of sum of warm cat and brave gentle blossoming cute bold
-    kingdom and healthy brave rich fine golden gentle purse. Speak thy mind!
-    You are the sum of sum of sum of sum of Heaven and smooth rural happiness
-    and happy loving reddest honest cat and handsome fair white rural
-    blossoming Lord and prompt reddest brave cute proud old rose. Speak thy
-    mind! Thou art the sum of sum of sum of sum of golden town and brave
-    embroidered smooth summer's day and warm golden golden cunning joy and fine
-    tiny lovely rich reddest flower and peaceful mighty old little sweetest
-    good summer's day. Speak your mind! You are the sum of sum of sum of sum of
-    fair pony and sweet rich noble sky and loving cute golden good happiness
-    and old bold honest pretty prompt kingdom and beautiful old embroidered
-    delicious cunning healthy happiness. Speak thine mind! Thou art the sum of
-    honest purse and peaceful little delicious rose. Speak your mind! we must
-    proceed to scene II.
+Doctor Caius:
+     Thou art the sum of sum of embroidered kingdom and amazing honest noble
+    white cunning happiness and trustworthy fine rich delicious happy healthy
+    summer's day. Speak thine mind! Thou art the sum of sum of sum of sum of
+    angel and bold pretty sky and bold lovely smooth good rose and lovely noble
+    golden mighty delicious King and lovely smooth golden bold reddest old joy.
+    Speak thine mind! You are the sum of sum of sum of sum of white Lord and
+    loving mighty cunning town and lovely proud gentle happy happiness and
+    handsome fair rural gentle pretty plum and healthy little cute mighty fine
+    fine Heaven. Speak thine mind! You are the sum of sum of sum of sum of
+    honest happiness and handsome amazing healthy rose and handsome pretty
+    embroidered beautiful purse and cunning blossoming amazing embroidered
+    amazing angel and golden fine happy cute good fine joy. Speak thine mind!
+    You are the sum of old purse and little brave healthy flower. Speak your
+    mind! we shall return to scene II.
 
                     Scene VI: End.
 
@@ -113,68 +116,67 @@ Lady Macduff:
 `;
 
 exports[`NFSPL to SPL Snapshots example programs should transpile hi.nfspl to SPL 1`] = `
-"Malcolm and the little blister.
+"Mistress Ford and the fat-kidneyed devil.
 
-Malcolm, the a variable.
-Montague, the b variable.
+Mistress Ford, the a variable.
+Balthazar, the b variable.
 
                     Act I: Main.
 
                     Scene I: Print hi.
 
-[Enter Malcolm and Montague]
+[Enter Mistress Ford and Balthazar]
 
-Montague:
-     You are the sum of pretty sweet sunny sky and golden delicious cute gentle
-    warm fair Heaven. Speak your mind!
+Balthazar:
+     Thou art the sum of gentle brave charming King and handsome old delicious
+    little little cute purse. Speak thine mind!
 
-Montague:
-     You are the sum of you and purse. Speak thine mind!
+Balthazar:
+     You are the sum of you and purse. Speak thy mind!
 
-Montague:
-     Thou art the sum of cunning hero and peaceful honest embroidered pony.
-    Speak your mind!
+Balthazar:
+     Thou art the sum of reddest hero and trustworthy bold sweetest hero. Speak
+    thy mind!
 
 [Exeunt]"
 `;
 
 exports[`NFSPL to SPL Snapshots example programs should transpile simplified reverse program 1`] = `
-"Thurio and the fat-kidneyed rose.
+"Dionyza and the bluest leech.
 
-Thurio, the stack variable.
-Pinch, the count variable.
+Dionyza, the stack variable.
+Demetrius, the count variable.
 
                     Act I: Main.
 
                     Scene I: Init.
 
-[Enter Thurio and Pinch]
+[Enter Dionyza and Demetrius]
 
-Thurio:
+Dionyza:
      You are nothing.
 
                     Scene II: Get input.
 
-Pinch:
-     Open thy mind! Remember thyself!
+Demetrius:
+     Open thine mind! Remember thyself!
 
-Thurio:
-     Thou art the sum of you and hero. Is you better than nothing?
+Dionyza:
+     You are the sum of you and summer's day. Is you bigger than nothing?
 
-Pinch:
-     If so, We must return to scene II. Recall your normal purple wolf!
+Demetrius:
+     If so, We must proceed to scene II. Recall your smooth green hero!
 
                     Scene III: Print reversed.
 
-Pinch:
-     Recall your honest blue cow! Speak thy mind!
+Demetrius:
+     Recall your tiny sunny grandmother! Speak your mind!
 
-Thurio:
-     Thou art the difference between you and sky. Is you friendlier than
-    nothing?
+Dionyza:
+     You are the difference between you and sky. Is you jollier than nothing?
 
-Pinch:
-     If so, let us proceed to scene III.
+Demetrius:
+     If so, we must return to scene III.
 
                     Scene IV: End.
 
@@ -182,170 +184,168 @@ Pinch:
 `;
 
 exports[`NFSPL to SPL Snapshots language features should transpile arithmetic operations 1`] = `
-"Hippolyta and the fatherless devil.
+"Octavius Caesar and the hairy pig.
 
-Hippolyta, the calc variable.
-Pinch, the result variable.
+Octavius Caesar, the calc variable.
+Desdemona, the result variable.
 
                     Act I: Main.
 
                     Scene I: Arithmetic test.
 
-[Enter Hippolyta and Pinch]
+[Enter Octavius Caesar and Desdemona]
 
-Hippolyta:
-     You are the sum of sum of reddest sky and sunny rich cute hamster and sum
-    of purse and handsome tiny nose. Thou art the difference between sum of
-    noble noble flower and reddest warm warm cunning flower and sum of sum of
-    sky and embroidered plum and bold sweetest hero. You are the product of sum
-    of brave Lord and brave happy summer's day and sum of sum of rose and rich
-    rose and prompt white cat. You are the quotient between sum of sum of sum
-    of summer's day and smooth summer's day and honest gentle Heaven and
-    handsome handsome rich happiness and sum of hamster and warm rose. You are
-    the remainder of the quotient between sum of Lord and proud brave rich
-    mighty King and sum of rose and happy pretty town.
+Octavius Caesar:
+     Thou art the sum of sum of white rose and amazing good rich happiness and
+    sum of sky and gentle tiny King. Thou art the difference between sum of
+    cute sunny plum and prompt rural cunning smooth happiness and sum of sum of
+    flower and peaceful Lord and cute rich cat. You are the product of sum of
+    cute purse and fine clearest sky and sum of sum of town and cute King and
+    amazing peaceful summer's day. You are the quotient between sum of sum of
+    sum of purse and old King and loving healthy kingdom and fine warm cunning
+    Heaven and sum of happiness and fair plum. You are the remainder of the
+    quotient between sum of purse and blossoming sweet sweet peaceful rose and
+    sum of summer's day and beautiful embroidered flower.
 
 [Exeunt]"
 `;
 
 exports[`NFSPL to SPL Snapshots language features should transpile basic I/O operations 1`] = `
-"Alonso and the fine summer's day.
+"Macbeth and the blue wind.
 
-Alonso, the reader variable.
-Achilles, the writer variable.
+Macbeth, the reader variable.
+Escalus, the writer variable.
 
                     Act I: Main.
 
                     Scene I: I o test.
 
-[Enter Alonso and Achilles]
+[Enter Macbeth and Escalus]
 
-Alonso:
-     Open your mind! Listen to your heart!
+Macbeth:
+     Open your mind! Listen to thy heart!
 
-Achilles:
-     You are the sum of flower and noble embroidered honest reddest bold
-    trustworthy purse. Speak your mind! Thou art the sum of sum of peaceful
-    summer's day and delicious proud mighty pony and beautiful rural
-    trustworthy cute cunning flower. Open thy heart!
+Escalus:
+     Thou art the sum of joy and tiny loving sweetest noble charming brave sky.
+    Speak thine mind! You are the sum of sum of bold cat and loving fine loving
+    kingdom and cute bold healthy pretty delicious rose. Open your heart!
 
 [Exeunt]"
 `;
 
 exports[`NFSPL to SPL Snapshots language features should transpile character literals 1`] = `
-"Cassandra and the reddest draught.
+"Octavia and the miserable curse.
 
-Cassandra, the char_writer variable.
-Benvolio, the output variable.
+Octavia, the char_writer variable.
+Queen Elinor, the output variable.
 
                     Act I: Main.
 
                     Scene I: Char test.
 
-[Enter Cassandra and Benvolio]
+[Enter Octavia and Queen Elinor]
 
-Cassandra:
-     You are the sum of hamster and reddest charming happy loving noble mighty
-    purse. Thou art the sum of sum of sum of mighty sky and brave sweet
-    blossoming pony and brave brave reddest proud town and sweetest fine old
-    trustworthy warm reddest King. You are the sum of sweet old noble smooth
-    hamster and clearest loving sweetest cute sweetest Heaven. Thou art the sum
-    of sum of sum of joy and peaceful blossoming sweetest happiness and fine
-    sunny delicious smooth flower and rural mighty trustworthy sunny gentle
-    summer's day.
+Octavia:
+     Thou art the sum of joy and smooth warm old old lovely beautiful nose.
+    Thou art the sum of sum of sum of beautiful town and cute mighty honest
+    nose and proud rich delicious bold kingdom and loving blossoming rural good
+    proud sunny Heaven. Thou art the sum of embroidered beautiful cute honest
+    purse and rural cunning rural trustworthy honest King. You are the sum of
+    sum of sum of hamster and brave clearest healthy purse and warm pretty
+    golden sweetest summer's day and delicious fine pretty good charming cat.
 
 [Exeunt]"
 `;
 
 exports[`NFSPL to SPL Snapshots language features should transpile comparison operations 1`] = `
-"Lysander and the sorry horse.
+"Brabantio and the charming father.
 
-Lysander, the left variable.
-Titus, the right variable.
+Brabantio, the left variable.
+Adonis, the right variable.
 
                     Act I: Main.
 
                     Scene I: Comparison test.
 
-[Enter Lysander and Titus]
+[Enter Brabantio and Adonis]
 
-Lysander:
-     Is you as little as Titus? Is you friendlier than Titus? Is you punier
-    than Titus? Is you not as cowardly as Titus? Is you not bigger than Titus?
-    Is you not smaller than Titus?
+Brabantio:
+     Is you as tiny as Adonis? Is you better than Adonis? Is you smaller than
+    Adonis? Is you not as cursed as Adonis? Is you not nicer than Adonis? Is
+    you not punier than Adonis?
 
 [Exeunt]"
 `;
 
 exports[`NFSPL to SPL Snapshots language features should transpile control flow 1`] = `
-"Vincentio and the small joy.
+"Mistress Ford and the large door.
 
-Vincentio, the tester variable.
-Orlando, the value variable.
-Ulysses, the winner variable.
-Don Pedro, the output variable.
-Isabella, the loser variable.
+Mistress Ford, the tester variable.
+Achilles, the value variable.
+Adriana, the winner variable.
+Orsino, the output variable.
+Dogberry, the loser variable.
 
                     Act I: Main.
 
                     Scene I: Control test.
 
-[Enter Vincentio and Orlando]
+[Enter Mistress Ford and Achilles]
 
-Vincentio:
-     Is you as embroidered as sum of sum of sweet rose and peaceful loving warm
-    sky and honest gentle pretty handsome little nose? If so, let us proceed to
-    scene II. Is you nicer than nothing? If not, let us return to scene III.
+Mistress Ford:
+     Is you as happy as sum of sum of rural plum and brave white pretty angel
+    and noble brave prompt healthy brave hero? If so, Let us return to scene
+    II. Is you nicer than nothing? If not, we shall proceed to scene III.
 
                     Scene II: Success.
 
-[Enter Ulysses and Don Pedro]
+[Enter Adriana and Orsino]
 
-Ulysses:
-     You are the sum of sum of sum of sum of flower and tiny purse and bold
-    clearest nose and loving old tiny cunning Lord and clearest handsome
-    blossoming loving good lovely King.
+Adriana:
+     You are the sum of sum of sum of sum of Lord and charming hero and fair
+    delicious happiness and handsome rural smooth pretty kingdom and cunning
+    embroidered healthy pretty white peaceful cat.
 
 [Exeunt]
 
                     Scene III: Failure.
 
-[Enter Isabella and Don Pedro]
+[Enter Dogberry and Orsino]
 
-Isabella:
-     You are the sum of sum of little handsome purse and warm good rural cat
-    and golden happy amazing embroidered smooth sunny Lord.
+Dogberry:
+     You are the sum of sum of sunny peaceful hero and delicious happy
+    beautiful flower and beautiful sweet loving peaceful beautiful noble rose.
 
 [Exeunt]"
 `;
 
 exports[`NFSPL to SPL Snapshots language features should transpile multiple acts and scenes 1`] = `
-"Cordelia and the good nose.
+"Robin and the handsome kingdom.
 
-Cordelia, the a variable.
-Demetrius, the b variable.
-Paris, the c variable.
-Rosalind, the d variable.
-Claudio, the e variable.
-Bianca, the f variable.
+Robin, the a variable.
+Macbeth, the b variable.
+Macduff, the c variable.
+Lady Macbeth, the d variable.
+Angelo, the e variable.
+Rosalind, the f variable.
 
                     Act I: Act1.
 
                     Scene I: Scene1.
 
-[Enter Cordelia and Demetrius]
+[Enter Robin and Macbeth]
 
-Cordelia:
-     Thou art rose.
+Robin:
+     You are Lord.
 
 [Exeunt]
 
                     Scene II: Scene2.
 
-[Enter Paris and Rosalind]
+[Enter Macduff and Lady Macbeth]
 
-Paris:
-     You are embroidered flower.
+Macduff:
+     You are golden flower.
 
 [Exeunt]
 
@@ -353,77 +353,77 @@ Paris:
 
                     Scene I: Scene1.
 
-[Enter Claudio and Bianca]
+[Enter Angelo and Rosalind]
 
-Claudio:
-     You are the sum of happiness and honest angel.
+Angelo:
+     You are the sum of King and rural rose.
 
 [Exeunt]"
 `;
 
 exports[`NFSPL to SPL Snapshots language features should transpile positive numbers 1`] = `
-"Paris and the blossoming hero.
+"Dorcas and the fat-kidneyed death.
 
-Paris, the numbers variable.
-Slender, the output variable.
+Dorcas, the numbers variable.
+Agamemnon, the output variable.
 
                     Act I: Main.
 
                     Scene I: Number test.
 
-[Enter Paris and Slender]
+[Enter Dorcas and Agamemnon]
 
-Paris:
-     Thou art nothing. Thou art nose. You are the sum of sum of little summer's
-    day and beautiful beautiful blossoming summer's day and trustworthy loving
-    good mighty clearest summer's day. You are the sum of sum of peaceful noble
-    hero and trustworthy good tiny sunny reddest hamster and delicious gentle
-    healthy loving reddest delicious kingdom.
+Dorcas:
+     Thou art nothing. Thou art Lord. Thou art the sum of sum of good Heaven
+    and prompt happy pretty King and handsome white cunning delicious charming
+    town. Thou art the sum of sum of cunning happy happiness and lovely
+    beautiful little peaceful sweetest hamster and delicious sunny embroidered
+    amazing old white rose.
 
 [Exeunt]"
 `;
 
 exports[`NFSPL to SPL Snapshots language features should transpile stack operations 1`] = `
-"Francisca and the black lantern.
+"Bianca and the yellow plum.
 
-Francisca, the pusher variable.
-Viola, the stack variable.
+Bianca, the pusher variable.
+Queen Elinor, the stack variable.
 
                     Act I: Main.
 
                     Scene I: Stack test.
 
-[Enter Francisca and Viola]
+[Enter Bianca and Queen Elinor]
 
-Francisca:
-     You are the sum of sum of rural happiness and fair peaceful lovely
-    summer's day and charming cunning delicious sweet pretty joy. Remember
-    yourself! Remember myself!
+Bianca:
+     You are the sum of sum of clearest flower and prompt beautiful smooth King
+    and healthy smooth sunny bold honest rose. Remember yourself! Remember
+    myself!
 
-Viola:
-     Recall your smelly fat-kidneyed thing! Recall your evil purple animal!
+Queen Elinor:
+     Recall your fine happy lantern! Recall your small fat-kidneyed plum!
 
 [Exeunt]"
 `;
 
 exports[`NFSPL to SPL Snapshots language features should transpile variable references 1`] = `
-"Thurio and the evil sky.
+"Friar John and the big war.
 
-Thurio, the a variable.
-Bianca, the b variable.
+Friar John, the a variable.
+Fenton, the b variable.
 
                     Act I: Main.
 
                     Scene I: Variable test.
 
-[Enter Thurio and Bianca]
+[Enter Friar John and Fenton]
 
-Thurio:
-     Thou art the sum of sunny Heaven and brave loving rich flower.
+Friar John:
+     You are the sum of bold summer's day and white brave proud purse.
 
-Bianca:
-     You are the sum of Thurio and sum of pony and pretty sweet hamster. Thou
-    art the product of Thurio and Bianca.
+Fenton:
+     You are the sum of Friar John and sum of flower and bold little Lord. You
+    are the product of Friar John and Fenton.
 
 [Exeunt]"
 `;

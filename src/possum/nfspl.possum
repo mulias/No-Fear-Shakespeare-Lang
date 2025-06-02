@@ -1,15 +1,17 @@
-w > program < w < end
+input(program)
 
-program = ast.node($"program", maybe_array_sep(expr_or_malformed(nl), w))
+program = ast.node($"program", maybe_array_sep(node_or_malformed(nl), w))
 
-expr = ast.with_operator_precedence(
-  surround(operand, w),
-  surround(prefix, w),
-  surround(infix, w),
-  surround(postfix, w),
-)
+node =
+  ast.with_operator_precedence(
+    surround(operand, w),
+    surround(prefix, w),
+    surround(infix, w),
+    surround(postfix, w),
+  ) |
+  surround(comment, w)
 
-expr_or_malformed(sync_point) = expr | malformed(sync_point)
+node_or_malformed(sync_point) = node | malformed(sync_point)
 
 malformed(sync_point) = ast.node($"malformed", chars_until(sync_point))
 
@@ -33,20 +35,20 @@ postfix =
 function_call = ast.node(
   $"function_call",
   "(" > w >
-  maybe_array_sep(expr_or_malformed("," | ")" | nl), ",")
+  maybe_array_sep(node_or_malformed("," | ")" | nl), ",")
   < w < ")"
 )
 
 block = ast.node(
   $"block",
   "{" > w >
-  maybe_array_sep(expr_or_malformed("}" | nl), w)
+  maybe_array_sep(node_or_malformed("}" | nl), w)
   < w < "}"
 )
 
 group =
   "(" > w >
-  expr_or_malformed(")" | nl)
+  node_or_malformed(")" | nl)
   < w < ")"
 
 number = invalid_number | integer
@@ -59,6 +61,6 @@ character = ast.node($"char", "'" > char < "'")
 
 var = ast.node($"var", maybe("@") + alpha + maybe(word))
 
-w = maybe_many(whitespace | comment)
+w = maybe_many(whitespace)
 
-comment = "#" > chars_until(nl) < ws
+comment = "#" > ast.node($"comment", chars_until(nl))

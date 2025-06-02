@@ -3,15 +3,77 @@ import * as OpheliaAst from "../../ophelia/ast";
 import * as Ast from "../../horatio/ast";
 
 describe("Yorick Transpiler", () => {
+  describe("comment handling", () => {
+    it("should ignore comments when generating SPL AST", () => {
+      const opheliaAst: OpheliaAst.Program = {
+        type: "program",
+        items: [
+          {
+            type: "act",
+            actId: "Main",
+            items: [
+              {
+                type: "scene",
+                sceneId: "Start",
+                directions: [
+                  {
+                    type: "comment",
+                    content: "This comment should be ignored",
+                  },
+                  {
+                    type: "stage",
+                    varId1: "a",
+                    varId2: "b",
+                  },
+                  {
+                    type: "comment",
+                    content: "Another comment to ignore",
+                  },
+                  {
+                    type: "dialogue",
+                    speakerVarId: "a",
+                    lines: [
+                      {
+                        type: ".set",
+                        value: { type: "int", value: 42 },
+                      },
+                    ],
+                  },
+                  {
+                    type: "unstage_all",
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      };
+
+      const yorick = new Yorick(opheliaAst);
+      const ast = yorick.run();
+
+      // Should have 1 part (act)
+      expect(ast.parts).toHaveLength(1);
+      const part = ast.parts[0];
+      
+      // Should have 1 subpart (scene)
+      expect(part?.subparts).toHaveLength(1);
+      const subpart = part?.subparts[0];
+      
+      // Stage should only have 3 directions (stage, dialogue, unstage_all - no comments)
+      expect(subpart?.stage.directions).toHaveLength(3);
+    });
+  });
+
   describe("basic program structure", () => {
     it("should generate a program with title and declarations", () => {
       const opheliaAst: OpheliaAst.Program = {
         type: "program",
-        acts: [
+        items: [
           {
             type: "act",
             actId: "Main",
-            scenes: [
+            items: [
               {
                 type: "scene",
                 sceneId: "Start",
@@ -35,11 +97,11 @@ describe("Yorick Transpiler", () => {
     it("should generate character declarations for variables", () => {
       const opheliaAst: OpheliaAst.Program = {
         type: "program",
-        acts: [
+        items: [
           {
             type: "act",
             actId: "Main",
-            scenes: [
+            items: [
               {
                 type: "scene",
                 sceneId: "Start",
@@ -76,16 +138,16 @@ describe("Yorick Transpiler", () => {
     it("should convert acts to parts with roman numerals", () => {
       const opheliaAst: OpheliaAst.Program = {
         type: "program",
-        acts: [
+        items: [
           {
             type: "act",
             actId: "FirstAct",
-            scenes: [],
+            items: [],
           },
           {
             type: "act",
             actId: "SecondAct",
-            scenes: [],
+            items: [],
           },
         ],
       };
@@ -109,11 +171,11 @@ describe("Yorick Transpiler", () => {
     it("should convert scenes to subparts", () => {
       const opheliaAst: OpheliaAst.Program = {
         type: "program",
-        acts: [
+        items: [
           {
             type: "act",
             actId: "Main",
-            scenes: [
+            items: [
               {
                 type: "scene",
                 sceneId: "Beginning",
@@ -159,11 +221,11 @@ describe("Yorick Transpiler", () => {
     it("should convert stage to enter", () => {
       const opheliaAst: OpheliaAst.Program = {
         type: "program",
-        acts: [
+        items: [
           {
             type: "act",
             actId: "Main",
-            scenes: [
+            items: [
               {
                 type: "scene",
                 sceneId: "Start",
@@ -194,11 +256,11 @@ describe("Yorick Transpiler", () => {
     it("should convert stage with two characters", () => {
       const opheliaAst: OpheliaAst.Program = {
         type: "program",
-        acts: [
+        items: [
           {
             type: "act",
             actId: "Main",
-            scenes: [
+            items: [
               {
                 type: "scene",
                 sceneId: "Start",
@@ -226,11 +288,11 @@ describe("Yorick Transpiler", () => {
     it("should convert unstage to exit", () => {
       const opheliaAst: OpheliaAst.Program = {
         type: "program",
-        acts: [
+        items: [
           {
             type: "act",
             actId: "Main",
-            scenes: [
+            items: [
               {
                 type: "scene",
                 sceneId: "Start",
@@ -258,11 +320,11 @@ describe("Yorick Transpiler", () => {
     it("should convert unstage_all to exeunt", () => {
       const opheliaAst: OpheliaAst.Program = {
         type: "program",
-        acts: [
+        items: [
           {
             type: "act",
             actId: "Main",
-            scenes: [
+            items: [
               {
                 type: "scene",
                 sceneId: "Start",
@@ -291,11 +353,11 @@ describe("Yorick Transpiler", () => {
     it("should convert dialogue blocks", () => {
       const opheliaAst: OpheliaAst.Program = {
         type: "program",
-        acts: [
+        items: [
           {
             type: "act",
             actId: "Main",
-            scenes: [
+            items: [
               {
                 type: "scene",
                 sceneId: "Start",
@@ -326,11 +388,11 @@ describe("Yorick Transpiler", () => {
     it("should convert set statements", () => {
       const opheliaAst: OpheliaAst.Program = {
         type: "program",
-        acts: [
+        items: [
           {
             type: "act",
             actId: "Main",
-            scenes: [
+            items: [
               {
                 type: "scene",
                 sceneId: "Start",
@@ -369,11 +431,11 @@ describe("Yorick Transpiler", () => {
     it("should convert print_char statements", () => {
       const opheliaAst: OpheliaAst.Program = {
         type: "program",
-        acts: [
+        items: [
           {
             type: "act",
             actId: "Main",
-            scenes: [
+            items: [
               {
                 type: "scene",
                 sceneId: "Start",
@@ -410,11 +472,11 @@ describe("Yorick Transpiler", () => {
     it("should convert goto statements", () => {
       const opheliaAst: OpheliaAst.Program = {
         type: "program",
-        acts: [
+        items: [
           {
             type: "act",
             actId: "Main",
-            scenes: [
+            items: [
               {
                 type: "scene",
                 sceneId: "Start",
@@ -457,11 +519,11 @@ describe("Yorick Transpiler", () => {
     it("should convert test statements", () => {
       const opheliaAst: OpheliaAst.Program = {
         type: "program",
-        acts: [
+        items: [
           {
             type: "act",
             actId: "Main",
-            scenes: [
+            items: [
               {
                 type: "scene",
                 sceneId: "Start",
@@ -500,11 +562,11 @@ describe("Yorick Transpiler", () => {
     it("should convert if statements", () => {
       const opheliaAst: OpheliaAst.Program = {
         type: "program",
-        acts: [
+        items: [
           {
             type: "act",
             actId: "Main",
-            scenes: [
+            items: [
               {
                 type: "scene",
                 sceneId: "Start",
@@ -552,11 +614,11 @@ describe("Yorick Transpiler", () => {
     it("should convert positive integers to adjective chains", () => {
       const opheliaAst: OpheliaAst.Program = {
         type: "program",
-        acts: [
+        items: [
           {
             type: "act",
             actId: "Main",
-            scenes: [
+            items: [
               {
                 type: "scene",
                 sceneId: "Start",
@@ -597,11 +659,11 @@ describe("Yorick Transpiler", () => {
     it("should convert zero to nothing", () => {
       const opheliaAst: OpheliaAst.Program = {
         type: "program",
-        acts: [
+        items: [
           {
             type: "act",
             actId: "Main",
-            scenes: [
+            items: [
               {
                 type: "scene",
                 sceneId: "Start",
@@ -639,11 +701,11 @@ describe("Yorick Transpiler", () => {
     it("should convert negative integers", () => {
       const opheliaAst: OpheliaAst.Program = {
         type: "program",
-        acts: [
+        items: [
           {
             type: "act",
             actId: "Main",
-            scenes: [
+            items: [
               {
                 type: "scene",
                 sceneId: "Start",
@@ -682,11 +744,11 @@ describe("Yorick Transpiler", () => {
     it("should convert character literals to ASCII values", () => {
       const opheliaAst: OpheliaAst.Program = {
         type: "program",
-        acts: [
+        items: [
           {
             type: "act",
             actId: "Main",
-            scenes: [
+            items: [
               {
                 type: "scene",
                 sceneId: "Start",
@@ -724,11 +786,11 @@ describe("Yorick Transpiler", () => {
     it("should convert arithmetic expressions", () => {
       const opheliaAst: OpheliaAst.Program = {
         type: "program",
-        acts: [
+        items: [
           {
             type: "act",
             actId: "Main",
-            scenes: [
+            items: [
               {
                 type: "scene",
                 sceneId: "Start",
@@ -775,11 +837,11 @@ describe("Yorick Transpiler", () => {
     it("should convert push_self statements", () => {
       const opheliaAst: OpheliaAst.Program = {
         type: "program",
-        acts: [
+        items: [
           {
             type: "act",
             actId: "Main",
-            scenes: [
+            items: [
               {
                 type: "scene",
                 sceneId: "Start",
@@ -815,11 +877,11 @@ describe("Yorick Transpiler", () => {
     it("should convert push_me statements", () => {
       const opheliaAst: OpheliaAst.Program = {
         type: "program",
-        acts: [
+        items: [
           {
             type: "act",
             actId: "Main",
-            scenes: [
+            items: [
               {
                 type: "scene",
                 sceneId: "Start",
@@ -856,11 +918,11 @@ describe("Yorick Transpiler", () => {
     it("should convert pop statements", () => {
       const opheliaAst: OpheliaAst.Program = {
         type: "program",
-        acts: [
+        items: [
           {
             type: "act",
             actId: "Main",
-            scenes: [
+            items: [
               {
                 type: "scene",
                 sceneId: "Start",
@@ -898,11 +960,11 @@ describe("Yorick Transpiler", () => {
     it("should convert read_char statements", () => {
       const opheliaAst: OpheliaAst.Program = {
         type: "program",
-        acts: [
+        items: [
           {
             type: "act",
             actId: "Main",
-            scenes: [
+            items: [
               {
                 type: "scene",
                 sceneId: "Start",
@@ -938,11 +1000,11 @@ describe("Yorick Transpiler", () => {
     it("should convert print_int statements", () => {
       const opheliaAst: OpheliaAst.Program = {
         type: "program",
-        acts: [
+        items: [
           {
             type: "act",
             actId: "Main",
-            scenes: [
+            items: [
               {
                 type: "scene",
                 sceneId: "Start",
@@ -991,11 +1053,11 @@ describe("Yorick Transpiler", () => {
       testCases.forEach(([testType, expectedClass]) => {
         const opheliaAst: OpheliaAst.Program = {
           type: "program",
-          acts: [
+          items: [
             {
               type: "act",
               actId: "Main",
-              scenes: [
+              items: [
                 {
                   type: "scene",
                   sceneId: "Start",
@@ -1035,11 +1097,11 @@ describe("Yorick Transpiler", () => {
     it("should throw error for invalid character in char literal", () => {
       const opheliaAst: OpheliaAst.Program = {
         type: "program",
-        acts: [
+        items: [
           {
             type: "act",
             actId: "Main",
-            scenes: [
+            items: [
               {
                 type: "scene",
                 sceneId: "Start",
@@ -1071,11 +1133,11 @@ describe("Yorick Transpiler", () => {
     it("should assign unique Shakespeare characters to variables", () => {
       const opheliaAst: OpheliaAst.Program = {
         type: "program",
-        acts: [
+        items: [
           {
             type: "act",
             actId: "Main",
-            scenes: [
+            items: [
               {
                 type: "scene",
                 sceneId: "Start",
@@ -1107,11 +1169,11 @@ describe("Yorick Transpiler", () => {
     it("should convert camelCase labels to sentence case", () => {
       const opheliaAst: OpheliaAst.Program = {
         type: "program",
-        acts: [
+        items: [
           {
             type: "act",
             actId: "MyFirstAct",
-            scenes: [
+            items: [
               {
                 type: "scene",
                 sceneId: "TheBeginningScene",

@@ -2,7 +2,7 @@ import * as PossumAst from "../possum/ast";
 import * as Ast from "./ast";
 
 type Problem = {
-  node: PossumAst.Expr | PossumAst.Malformed;
+  node: PossumAst.Node | PossumAst.Malformed;
   message: string;
   context?: string;
 };
@@ -28,17 +28,46 @@ class PrettyPrinter {
   }
 
   printProgram(program: Ast.Program): string {
-    return program.acts.map((act) => this.printAct(act)).join("\n");
+    return program.items.map((item) => this.printProgramItem(item)).join("\n");
+  }
+
+  private printProgramItem(item: Ast.ProgramItem): string {
+    switch (item.type) {
+      case "act":
+        return this.printAct(item);
+      case "comment":
+        return this.printComment(item);
+      default:
+        const _exhaustive: never = item;
+        throw new Error(`Unknown program item type: ${(item as any).type}`);
+    }
   }
 
   private printAct(act: Ast.Act): string {
     const header = `${act.actId} {`;
-    const scenes = this.withIndent(() =>
-      act.scenes.map((scene) => this.printScene(scene)).join("\n\n"),
-    );
     const footer = "}";
 
-    return `${header}\n${scenes}\n${footer}`;
+    if (act.items.length === 0) {
+      return `${header}\n${footer}`;
+    }
+
+    const items = this.withIndent(() =>
+      act.items.map((item) => this.printActItem(item)).join("\n\n"),
+    );
+
+    return `${header}\n${items}\n${footer}`;
+  }
+
+  private printActItem(item: Ast.ActItem): string {
+    switch (item.type) {
+      case "scene":
+        return this.printScene(item);
+      case "comment":
+        return this.printComment(item);
+      default:
+        const _exhaustive: never = item;
+        throw new Error(`Unknown act item type: ${(item as any).type}`);
+    }
   }
 
   private printScene(scene: Ast.Scene): string {
@@ -66,20 +95,39 @@ class PrettyPrinter {
         return this.printUnstage(direction);
       case "unstage_all":
         return `${this.indent()}unstage_all`;
+      case "comment":
+        return this.printComment(direction);
       default:
         const _exhaustive: never = direction;
         throw new Error(`Unknown direction type: ${(direction as any).type}`);
     }
   }
 
+  private printComment(comment: Ast.Comment): string {
+    return `${this.indent()}# ${comment.content}`;
+  }
+
   private printDialogue(dialogue: Ast.Dialogue): string {
     const header = `${this.indent()}${dialogue.speakerVarId} {`;
-    const statements = this.withIndent(() =>
-      dialogue.lines.map((stmt) => this.printStatement(stmt)).join("\n"),
-    );
     const footer = `${this.indent()}}`;
 
-    return `${header}\n${statements}\n${footer}`;
+    if (dialogue.lines.length === 0) {
+      return `${header}\n${footer}`;
+    }
+
+    const lines = this.withIndent(() =>
+      dialogue.lines.map((line) => this.printStatementOrComment(line)).join("\n"),
+    );
+
+    return `${header}\n${lines}\n${footer}`;
+  }
+
+  private printStatementOrComment(item: Ast.StatementOrComment): string {
+    if (item.type === "comment") {
+      return this.printComment(item);
+    } else {
+      return this.printStatement(item);
+    }
   }
 
   private printStage(stage: Ast.Stage): string {
@@ -185,34 +233,43 @@ export class Ophelia {
   buildProgram(program: PossumAst.Program): Ast.Program {
     return {
       type: "program",
-      acts: this.buildActs(program.value),
+      items: this.buildProgramItems(program.value),
     };
   }
 
-  buildActs(exprs: (PossumAst.Expr | PossumAst.Malformed)[]): Ast.Act[] {
-    const acts: Ast.Act[] = [];
+  buildProgramItems(nodes: (PossumAst.Node | PossumAst.Malformed)[]): Ast.ProgramItem[] {
+    const items: Ast.ProgramItem[] = [];
 
-    for (const expr of exprs) {
-      const act = this.buildAct(expr);
-      if (act) acts.push(act);
+    for (const node of nodes) {
+      const item = this.buildProgramItem(node);
+      if (item) items.push(item);
     }
 
-    return acts;
+    return items;
   }
 
-  buildAct(expr: PossumAst.Expr | PossumAst.Malformed): Ast.Act | undefined {
-    if (expr.type === "malformed") {
-      this.addProblem(expr, `Malformed syntax: ${expr.value}`);
+  buildProgramItem(node: PossumAst.Node | PossumAst.Malformed): Ast.ProgramItem | undefined {
+    if (node.type === "malformed") {
+      this.addProblem(node, `Malformed syntax: ${node.value}`);
       return undefined;
     }
 
-    if (expr.type === "block" && expr.postfixed.type === "var") {
-      const actId = expr.postfixed.value;
+    // Handle comments at program level
+    if (node.type === "comment") {
+      return {
+        type: "comment",
+        content: node.value,
+      };
+    }
+
+    // Handle acts
+    if (node.type === "block" && node.postfixed.type === "var") {
+      const actId = node.postfixed.value;
 
       // Validate that act names start with capital letter
       if (actId[0] && actId[0] !== actId[0].toUpperCase()) {
         this.addProblem(
-          expr,
+          node,
           `Act labels must start with a capital letter, found: "${actId}"`,
         );
         return undefined;
@@ -221,40 +278,47 @@ export class Ophelia {
       return {
         type: "act",
         actId: actId,
-        scenes: this.buildScenes(expr.value),
+        items: this.buildActItems(node.value),
       };
     }
 
-    this.addProblem(expr, "Expected a block with a label (e.g., Main { ... })");
+    this.addProblem(node, "Expected a block with a label (e.g., Main { ... }) or a comment");
     return undefined;
   }
 
-  buildScenes(exprs: (PossumAst.Expr | PossumAst.Malformed)[]): Ast.Scene[] {
-    const scenes: Ast.Scene[] = [];
+  buildActItems(nodes: (PossumAst.Node | PossumAst.Malformed)[]): Ast.ActItem[] {
+    const items: Ast.ActItem[] = [];
 
-    for (const expr of exprs) {
-      const scene = this.buildScene(expr);
-      if (scene) scenes.push(scene);
+    for (const node of nodes) {
+      const item = this.buildActItem(node);
+      if (item) items.push(item);
     }
 
-    return scenes;
+    return items;
   }
 
-  buildScene(
-    expr: PossumAst.Expr | PossumAst.Malformed,
-  ): Ast.Scene | undefined {
-    if (expr.type === "malformed") {
-      this.addProblem(expr, `Malformed syntax: ${expr.value}`);
+  buildActItem(node: PossumAst.Node | PossumAst.Malformed): Ast.ActItem | undefined {
+    if (node.type === "malformed") {
+      this.addProblem(node, `Malformed syntax: ${node.value}`);
       return undefined;
     }
 
-    if (expr.type === "block" && expr.postfixed.type === "var") {
-      const sceneId = expr.postfixed.value;
+    // Handle comments at act level
+    if (node.type === "comment") {
+      return {
+        type: "comment",
+        content: node.value,
+      };
+    }
+
+    // Handle scenes
+    if (node.type === "block" && node.postfixed.type === "var") {
+      const sceneId = node.postfixed.value;
 
       // Validate that scene names start with capital letter
       if (sceneId[0] && sceneId[0] !== sceneId[0].toUpperCase()) {
         this.addProblem(
-          expr,
+          node,
           `Scene labels must start with a capital letter, found: "${sceneId}"`,
         );
         return undefined;
@@ -263,21 +327,22 @@ export class Ophelia {
       return {
         type: "scene",
         sceneId: sceneId,
-        directions: this.buildDirections(expr.value),
+        directions: this.buildDirections(node.value),
       };
     }
 
-    this.addProblem(expr, "Expected a scene block with a label");
+    this.addProblem(node, "Expected a scene block with a label or a comment");
     return undefined;
   }
 
+
   buildDirections(
-    exprs: (PossumAst.Expr | PossumAst.Malformed)[],
+    nodes: (PossumAst.Node | PossumAst.Malformed)[],
   ): Ast.Direction[] {
     const directions: Ast.Direction[] = [];
 
-    for (const expr of exprs) {
-      const direction = this.buildDirection(expr);
+    for (const node of nodes) {
+      const direction = this.buildDirection(node);
       if (direction) {
         if (Array.isArray(direction)) {
           directions.push(...direction);
@@ -291,50 +356,58 @@ export class Ophelia {
   }
 
   buildDirection(
-    expr: PossumAst.Expr | PossumAst.Malformed,
+    node: PossumAst.Node | PossumAst.Malformed,
   ): Ast.Direction | Ast.Direction[] | undefined {
-    if (expr.type === "malformed") {
-      this.addProblem(expr, `Malformed syntax: ${expr.value}`);
+    if (node.type === "malformed") {
+      this.addProblem(node, `Malformed syntax: ${node.value}`);
       return undefined;
+    }
+
+    // Handle comments
+    if (node.type === "comment") {
+      return {
+        type: "comment",
+        content: node.value,
+      };
     }
 
     // Handle stage(a, b) or stage(a)
     if (
-      expr.type === "function_call" &&
-      expr.postfixed.type === "var" &&
-      expr.postfixed.value === "stage"
+      node.type === "function_call" &&
+      node.postfixed.type === "var" &&
+      node.postfixed.value === "stage"
     ) {
-      return this.buildStageDirection(expr.value);
+      return this.buildStageDirection(node.value);
     }
 
     // Handle unstage_all
-    if (expr.type === "var" && expr.value === "unstage_all") {
+    if (node.type === "var" && node.value === "unstage_all") {
       return { type: "unstage_all" };
     }
 
     // Handle unstage(a) or unstage(a, b)
     if (
-      expr.type === "function_call" &&
-      expr.postfixed.type === "var" &&
-      expr.postfixed.value === "unstage"
+      node.type === "function_call" &&
+      node.postfixed.type === "var" &&
+      node.postfixed.value === "unstage"
     ) {
-      return this.buildUnstageDirection(expr.value);
+      return this.buildUnstageDirection(node.value);
     }
 
     // Handle dialogue blocks like b { ... }
-    if (expr.type === "block" && expr.postfixed.type === "var") {
-      const speakerVarId = expr.postfixed.value;
+    if (node.type === "block" && node.postfixed.type === "var") {
+      const speakerVarId = node.postfixed.value;
 
       // Check if this is @you as speaker
       if (speakerVarId.startsWith("@")) {
         if (speakerVarId !== "@you") {
           this.addProblem(
-            expr,
+            node,
             `Invalid @ variable: "${speakerVarId}". Only "@you" is allowed.`,
           );
         } else {
           this.addProblem(
-            expr,
+            node,
             `@you cannot be used as a speaker. The speaker must be one of the staged characters.`,
           );
         }
@@ -346,7 +419,7 @@ export class Ophelia {
         speakerVarId[0] &&
         speakerVarId[0] === speakerVarId[0].toLowerCase()
       ) {
-        const statements = this.buildStatements(expr.value);
+        const statements = this.buildStatements(node.value);
 
         if (statements.length > 0) {
           return {
@@ -358,7 +431,7 @@ export class Ophelia {
       } else {
         // This is an uppercase label in a direction context
         this.addProblem(
-          expr,
+          node,
           `Speaking blocks must use lowercase variable names, found: "${speakerVarId}". Use lowercase for dialogue (e.g., 'a { ... }') or place this at the scene level for a subscene.`,
         );
         return undefined;
@@ -367,11 +440,11 @@ export class Ophelia {
 
     // Handle goto statements
     if (
-      expr.type === "function_call" &&
-      expr.postfixed.type === "var" &&
-      expr.postfixed.value === "goto"
+      node.type === "function_call" &&
+      node.postfixed.type === "var" &&
+      node.postfixed.value === "goto"
     ) {
-      const labelExpr = expr.value[0];
+      const labelExpr = node.value[0];
       if (labelExpr && labelExpr.type === "var") {
         // Create a default speaker dialogue
         const defaultSpeaker = "_speaker";
@@ -388,12 +461,12 @@ export class Ophelia {
       }
     }
 
-    this.addProblem(expr, "Expected a stage direction or dialogue block");
+    this.addProblem(node, "Expected a stage direction or dialogue block");
     return undefined;
   }
 
   buildStageDirection(
-    args: (PossumAst.Expr | PossumAst.Malformed)[],
+    args: (PossumAst.Node | PossumAst.Malformed)[],
   ): Ast.Stage | undefined {
     if (args.length === 0 || args.length > 2) {
       const problemNode = args[0] || { type: "malformed" as const, value: "" };
@@ -423,7 +496,7 @@ export class Ophelia {
   }
 
   buildUnstageDirection(
-    args: (PossumAst.Expr | PossumAst.Malformed)[],
+    args: (PossumAst.Node | PossumAst.Malformed)[],
   ): Ast.Unstage | undefined {
     if (args.length === 0 || args.length > 2) {
       const problemNode = args[0] || { type: "malformed" as const, value: "" };
@@ -453,35 +526,55 @@ export class Ophelia {
   }
 
   buildStatements(
-    exprs: (PossumAst.Expr | PossumAst.Malformed)[],
-  ): Ast.Statement[] {
-    const statements: Ast.Statement[] = [];
+    nodes: (PossumAst.Node | PossumAst.Malformed)[],
+  ): Ast.StatementOrComment[] {
+    const statements: Ast.StatementOrComment[] = [];
 
-    for (const expr of exprs) {
-      const statement = this.buildStatement(expr);
+    for (const node of nodes) {
+      const statement = this.buildStatementOrComment(node);
       if (statement) statements.push(statement);
     }
 
     return statements;
   }
 
+  buildStatementOrComment(
+    node: PossumAst.Node | PossumAst.Malformed,
+  ): Ast.StatementOrComment | undefined {
+    if (node.type === "malformed") {
+      this.addProblem(node, `Malformed syntax: ${node.value}`);
+      return undefined;
+    }
+
+    // Handle comments in dialogue
+    if (node.type === "comment") {
+      return {
+        type: "comment",
+        content: node.value,
+      };
+    }
+
+    // Handle regular statements
+    return this.buildStatement(node);
+  }
+
   buildStatement(
-    expr: PossumAst.Expr | PossumAst.Malformed,
+    node: PossumAst.Node | PossumAst.Malformed,
   ): Ast.Statement | undefined {
-    if (expr.type === "malformed") {
-      this.addProblem(expr, `Malformed syntax: ${expr.value}`);
+    if (node.type === "malformed") {
+      this.addProblem(node, `Malformed syntax: ${node.value}`);
       return undefined;
     }
 
     // Handle method calls like a.set(value), a.print_char, etc.
-    if (expr.type === "method_access" && expr.left.type === "var") {
-      const varValue = expr.left.value;
+    if (node.type === "method_access" && node.left.type === "var") {
+      const varValue = node.left.value;
 
       // Check if this is @you
       if (varValue.startsWith("@")) {
         if (varValue !== "@you") {
           this.addProblem(
-            expr,
+            node,
             `Invalid @ variable: "${varValue}". Only "@you" is allowed.`,
           );
           return undefined;
@@ -489,7 +582,7 @@ export class Ophelia {
       }
 
       const varId = varValue;
-      const method = expr.right;
+      const method = node.right;
 
       if (method.type === "var") {
         // Simple method access like @you.print_char
@@ -509,7 +602,7 @@ export class Ophelia {
           case "pop":
             return { type: ".pop" };
           default:
-            this.addProblem(expr, `Unknown method: ${method.value}`);
+            this.addProblem(node, `Unknown method: ${method.value}`);
             return undefined;
         }
       } else if (
@@ -532,11 +625,11 @@ export class Ophelia {
     }
 
     // Handle test expressions (comparisons)
-    if (expr.type === "function_call" && expr.postfixed.type === "var") {
-      const funcName = expr.postfixed.value;
-      if (funcName.startsWith("test_") && expr.value.length === 2) {
-        const leftExpr = expr.value[0];
-        const rightExpr = expr.value[1];
+    if (node.type === "function_call" && node.postfixed.type === "var") {
+      const funcName = node.postfixed.value;
+      if (funcName.startsWith("test_") && node.value.length === 2) {
+        const leftExpr = node.value[0];
+        const rightExpr = node.value[1];
 
         if (leftExpr && rightExpr) {
           const left = this.buildExpression(leftExpr);
@@ -550,8 +643,8 @@ export class Ophelia {
       }
 
       // Handle goto statements
-      if (funcName === "goto" && expr.value.length === 1) {
-        const labelExpr = expr.value[0];
+      if (funcName === "goto" && node.value.length === 1) {
+        const labelExpr = node.value[0];
         if (labelExpr && labelExpr.type === "var") {
           return {
             type: "goto",
@@ -562,13 +655,13 @@ export class Ophelia {
     }
 
     // Handle if statements (if_true, if_false)
-    if (expr.type === "function_call" && expr.postfixed.type === "var") {
-      const funcName = expr.postfixed.value;
+    if (node.type === "function_call" && node.postfixed.type === "var") {
+      const funcName = node.postfixed.value;
       if (
         (funcName === "if_true" || funcName === "if_false") &&
-        expr.value.length === 1
+        node.value.length === 1
       ) {
-        const thenExpr = expr.value[0];
+        const thenExpr = node.value[0];
 
         if (thenExpr) {
           const thenStatement = this.buildStatement(thenExpr);
@@ -585,54 +678,54 @@ export class Ophelia {
 
     // Provide more helpful error messages
     let errorMsg = "Expected a valid statement";
-    if (expr.type === "function_call" && expr.postfixed.type === "var") {
-      errorMsg = `Unknown function: ${expr.postfixed.value}`;
-    } else if (expr.type === "method_access") {
+    if (node.type === "function_call" && node.postfixed.type === "var") {
+      errorMsg = `Unknown function: ${node.postfixed.value}`;
+    } else if (node.type === "method_access") {
       errorMsg = `Invalid method call`;
     }
 
-    this.addProblem(expr, errorMsg);
+    this.addProblem(node, errorMsg);
     return undefined;
   }
 
   buildExpression(
-    expr: PossumAst.Expr | PossumAst.Malformed,
+    node: PossumAst.Node | PossumAst.Malformed,
   ): Ast.Expression | undefined {
-    if (expr.type === "malformed") {
-      this.addProblem(expr, `Malformed syntax: ${expr.value}`);
+    if (node.type === "malformed") {
+      this.addProblem(node, `Malformed syntax: ${node.value}`);
       return undefined;
     }
 
-    switch (expr.type) {
+    switch (node.type) {
       case "int":
-        return { type: "int", value: expr.value };
+        return { type: "int", value: node.value };
 
       case "char":
-        return { type: "char", value: expr.value };
+        return { type: "char", value: node.value };
 
       case "var":
         // Check if the variable starts with @
-        if (expr.value.startsWith("@")) {
+        if (node.value.startsWith("@")) {
           // Must be @you
-          if (expr.value === "@you") {
+          if (node.value === "@you") {
             return { type: "you" };
           } else {
             this.addProblem(
-              expr,
-              `Invalid @ variable: "${expr.value}". Only "@you" is allowed.`,
+              node,
+              `Invalid @ variable: "${node.value}". Only "@you" is allowed.`,
             );
             return undefined;
           }
         }
-        return { type: "var", id: expr.value };
+        return { type: "var", id: node.value };
 
       case "add":
       case "subtract":
       case "multiply":
       case "divide":
       case "modulo": {
-        const left = this.buildExpression(expr.left);
-        const right = this.buildExpression(expr.right);
+        const left = this.buildExpression(node.left);
+        const right = this.buildExpression(node.right);
 
         if (left && right) {
           const opMap: Record<string, Ast.ArithmeticOp> = {
@@ -643,7 +736,7 @@ export class Ophelia {
             modulo: "%",
           };
 
-          const op = opMap[expr.type];
+          const op = opMap[node.type];
           if (op) {
             return {
               type: "arithmetic",
@@ -657,20 +750,20 @@ export class Ophelia {
       }
 
       default:
-        this.addProblem(expr, `Cannot convert ${expr.type} to expression`);
+        this.addProblem(node, `Cannot convert ${node.type} to expression`);
     }
 
     return undefined;
   }
 
-  extractVarId(expr: PossumAst.Expr | PossumAst.Malformed): string | null {
-    if (expr.type === "var") {
+  extractVarId(node: PossumAst.Node | PossumAst.Malformed): string | null {
+    if (node.type === "var") {
       // Check if this is @you
-      if (expr.value === "@you") {
-        this.addProblem(expr, `@you cannot be staged or unstaged.`);
+      if (node.value === "@you") {
+        this.addProblem(node, `@you cannot be staged or unstaged.`);
         return null;
       }
-      return expr.value;
+      return node.value;
     }
     return null;
   }
@@ -685,7 +778,7 @@ export class Ophelia {
     return [];
   }
 
-  addProblem(node: PossumAst.Expr | PossumAst.Malformed, message: string) {
+  addProblem(node: PossumAst.Node | PossumAst.Malformed, message: string) {
     // Try to extract context from the node
     let context = "";
     if (node.type === "function_call" && node.postfixed.type === "var") {
@@ -697,6 +790,8 @@ export class Ophelia {
     ) {
       context = `${node.left.value}.${node.right.value}`;
     } else if (node.type === "var") {
+      context = node.value;
+    } else if (node.type === "comment") {
       context = node.value;
     } else if (node.type === "malformed") {
       context = node.value;

@@ -26,10 +26,10 @@ describe("Ophelia Transformer", () => {
       const ast = ophelia.run();
 
       expect(ast.type).toBe("program");
-      expect(ast.acts).toHaveLength(1);
-      expect(ast.acts[0]?.actId).toBe("Main");
-      expect(ast.acts[0]?.scenes).toHaveLength(1);
-      expect(ast.acts[0]?.scenes[0]?.sceneId).toBe("Start");
+      expect(ast.items.filter((item): item is OpheliaAst.Act => item.type === "act")).toHaveLength(1);
+      expect((ast.items.filter((item): item is OpheliaAst.Act => item.type === "act")[0] as OpheliaAst.Act).actId).toBe("Main");
+      expect((ast.items.filter((item): item is OpheliaAst.Act => item.type === "act")[0] as OpheliaAst.Act).items.filter((item): item is OpheliaAst.Scene => item.type === "scene")).toHaveLength(1);
+      expect((ast.items.filter((item): item is OpheliaAst.Act => item.type === "act")[0] as OpheliaAst.Act).items.filter((item): item is OpheliaAst.Scene => item.type === "scene")[0]?.sceneId).toBe("Start");
     });
 
     it("should transform stage directions", () => {
@@ -63,7 +63,7 @@ describe("Ophelia Transformer", () => {
       const ophelia = new Ophelia(possumAst);
       const ast = ophelia.run();
 
-      const directions = ast.acts[0]?.scenes[0]?.directions || [];
+      const directions = (ast.items.filter((item): item is OpheliaAst.Act => item.type === "act")[0] as OpheliaAst.Act).items.filter((item): item is OpheliaAst.Scene => item.type === "scene")[0]?.directions || [];
       expect(directions).toHaveLength(2);
 
       const stage = directions[0] as OpheliaAst.Stage;
@@ -117,7 +117,7 @@ describe("Ophelia Transformer", () => {
       const ophelia = new Ophelia(possumAst);
       const ast = ophelia.run();
 
-      const directions = ast.acts[0]?.scenes[0]?.directions || [];
+      const directions = (ast.items.filter((item): item is OpheliaAst.Act => item.type === "act")[0] as OpheliaAst.Act).items.filter((item): item is OpheliaAst.Scene => item.type === "scene")[0]?.directions || [];
       expect(directions).toHaveLength(1);
 
       const dialogue = directions[0] as OpheliaAst.Dialogue;
@@ -169,7 +169,7 @@ describe("Ophelia Transformer", () => {
       const ophelia = new Ophelia(possumAst);
       const ast = ophelia.run();
 
-      const directions = ast.acts[0]?.scenes[0]?.directions || [];
+      const directions = (ast.items.filter((item): item is OpheliaAst.Act => item.type === "act")[0] as OpheliaAst.Act).items.filter((item): item is OpheliaAst.Scene => item.type === "scene")[0]?.directions || [];
       const dialogue = directions[0] as OpheliaAst.Dialogue;
       const testStmt = dialogue.lines[0] as OpheliaAst.Test;
       expect(testStmt.type).toBe("test_eq");
@@ -216,7 +216,7 @@ describe("Ophelia Transformer", () => {
       const ophelia = new Ophelia(possumAst);
       const ast = ophelia.run();
 
-      const directions = ast.acts[0]?.scenes[0]?.directions || [];
+      const directions = (ast.items.filter((item): item is OpheliaAst.Act => item.type === "act")[0] as OpheliaAst.Act).items.filter((item): item is OpheliaAst.Scene => item.type === "scene")[0]?.directions || [];
       const dialogue = directions[0] as OpheliaAst.Dialogue;
       const ifStmt = dialogue.lines[0] as OpheliaAst.If;
       expect(ifStmt.type).toBe("if");
@@ -270,7 +270,7 @@ describe("Ophelia Transformer", () => {
       const ophelia = new Ophelia(possumAst);
       const ast = ophelia.run();
 
-      const directions = ast.acts[0]?.scenes[0]?.directions || [];
+      const directions = (ast.items.filter((item): item is OpheliaAst.Act => item.type === "act")[0] as OpheliaAst.Act).items.filter((item): item is OpheliaAst.Scene => item.type === "scene")[0]?.directions || [];
       const dialogue = directions[0] as OpheliaAst.Dialogue;
       const setStmt = dialogue.lines[0] as OpheliaAst.Set;
       const arithmetic = setStmt.value as OpheliaAst.Arithmetic;
@@ -574,6 +574,116 @@ describe("Ophelia Transformer", () => {
     });
   });
 
+  describe("comment support", () => {
+    it("should transform comments", () => {
+      const possumAst: PossumAst.Program = {
+        type: "program",
+        value: [
+          {
+            type: "block",
+            postfixed: { type: "var", value: "Main" },
+            value: [
+              {
+                type: "block",
+                postfixed: { type: "var", value: "Start" },
+                value: [
+                  {
+                    type: "comment",
+                    value: "This is a comment",
+                  },
+                  {
+                    type: "function_call",
+                    postfixed: { type: "var", value: "stage" },
+                    value: [
+                      { type: "var", value: "a" },
+                      { type: "var", value: "b" },
+                    ],
+                  },
+                  {
+                    type: "comment",
+                    value: "Another comment",
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      };
+
+      const ophelia = new Ophelia(possumAst);
+      const ast = ophelia.run();
+
+      const directions = (ast.items.filter((item): item is OpheliaAst.Act => item.type === "act")[0] as OpheliaAst.Act).items.filter((item): item is OpheliaAst.Scene => item.type === "scene")[0]?.directions || [];
+      expect(directions).toHaveLength(3);
+
+      const comment1 = directions[0] as OpheliaAst.Comment;
+      expect(comment1.type).toBe("comment");
+      expect(comment1.content).toBe("This is a comment");
+
+      const stage = directions[1] as OpheliaAst.Stage;
+      expect(stage.type).toBe("stage");
+
+      const comment2 = directions[2] as OpheliaAst.Comment;
+      expect(comment2.type).toBe("comment");
+      expect(comment2.content).toBe("Another comment");
+    });
+
+    it("should handle comments mixed with dialogue", () => {
+      const possumAst: PossumAst.Program = {
+        type: "program",
+        value: [
+          {
+            type: "block",
+            postfixed: { type: "var", value: "Main" },
+            value: [
+              {
+                type: "block",
+                postfixed: { type: "var", value: "Scene" },
+                value: [
+                  {
+                    type: "comment",
+                    value: "Setup comment",
+                  },
+                  {
+                    type: "function_call",
+                    postfixed: { type: "var", value: "stage" },
+                    value: [{ type: "var", value: "speaker" }],
+                  },
+                  {
+                    type: "comment",
+                    value: "Dialogue comment",
+                  },
+                  {
+                    type: "block",
+                    postfixed: { type: "var", value: "speaker" },
+                    value: [
+                      {
+                        type: "method_access",
+                        left: { type: "var", value: "@you" },
+                        right: { type: "var", value: "print_char" },
+                      },
+                    ],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      };
+
+      const ophelia = new Ophelia(possumAst);
+      const ast = ophelia.run();
+
+      const directions = (ast.items.filter((item): item is OpheliaAst.Act => item.type === "act")[0] as OpheliaAst.Act).items.filter((item): item is OpheliaAst.Scene => item.type === "scene")[0]?.directions || [];
+      expect(directions).toHaveLength(4);
+
+      expect(directions[0]?.type).toBe("comment");
+      expect(directions[1]?.type).toBe("stage");
+      expect(directions[2]?.type).toBe("comment");
+      expect(directions[3]?.type).toBe("dialogue");
+    });
+  });
+
   describe("complex scenarios", () => {
     it("should handle fizzbuzz-like structures", () => {
       const possumAst: PossumAst.Program = {
@@ -641,10 +751,10 @@ describe("Ophelia Transformer", () => {
       const ophelia = new Ophelia(possumAst);
       const ast = ophelia.run();
 
-      expect(ast.acts[0]?.scenes).toHaveLength(3);
-      expect(ast.acts[0]?.scenes[0]?.sceneId).toBe("Start");
-      expect(ast.acts[0]?.scenes[1]?.sceneId).toBe("Loop");
-      expect(ast.acts[0]?.scenes[2]?.sceneId).toBe("End");
+      expect((ast.items.filter((item): item is OpheliaAst.Act => item.type === "act")[0] as OpheliaAst.Act).items.filter((item): item is OpheliaAst.Scene => item.type === "scene")).toHaveLength(3);
+      expect((ast.items.filter((item): item is OpheliaAst.Act => item.type === "act")[0] as OpheliaAst.Act).items.filter((item): item is OpheliaAst.Scene => item.type === "scene")[0]?.sceneId).toBe("Start");
+      expect((ast.items.filter((item): item is OpheliaAst.Act => item.type === "act")[0] as OpheliaAst.Act).items.filter((item): item is OpheliaAst.Scene => item.type === "scene")[1]?.sceneId).toBe("Loop");
+      expect((ast.items.filter((item): item is OpheliaAst.Act => item.type === "act")[0] as OpheliaAst.Act).items.filter((item): item is OpheliaAst.Scene => item.type === "scene")[2]?.sceneId).toBe("End");
     });
 
     it("should handle multiple speaking blocks in one scene", () => {
@@ -717,7 +827,7 @@ describe("Ophelia Transformer", () => {
       const ophelia = new Ophelia(possumAst);
       const ast = ophelia.run();
 
-      const directions = ast.acts[0]?.scenes[0]?.directions || [];
+      const directions = (ast.items.filter((item): item is OpheliaAst.Act => item.type === "act")[0] as OpheliaAst.Act).items.filter((item): item is OpheliaAst.Scene => item.type === "scene")[0]?.directions || [];
       expect(directions).toHaveLength(3); // stage + 2 dialogues
 
       const stage = directions[0] as OpheliaAst.Stage;
@@ -779,7 +889,7 @@ describe("Ophelia Transformer", () => {
       const ophelia = new Ophelia(possumAst);
       const result = ophelia.run();
 
-      const directions = result.acts[0]?.scenes[0]?.directions || [];
+      const directions = (result.items.filter((item): item is OpheliaAst.Act => item.type === "act")[0]?.items.filter((item): item is OpheliaAst.Scene => item.type === "scene")[0]?.directions || []);
       const dialogue = directions[1] as OpheliaAst.Dialogue;
       expect(dialogue).toMatchObject({
         type: "dialogue",
@@ -888,7 +998,7 @@ describe("Ophelia Transformer", () => {
       const ophelia = new Ophelia(possumAst);
       const result = ophelia.run();
 
-      const directions = result.acts[0]?.scenes[0]?.directions || [];
+      const directions = (result.items.filter((item): item is OpheliaAst.Act => item.type === "act")[0]?.items.filter((item): item is OpheliaAst.Scene => item.type === "scene")[0]?.directions || []);
       const dialogue = directions[1] as OpheliaAst.Dialogue;
       const setStmt = dialogue.lines[0] as OpheliaAst.Set;
       const arithmetic = setStmt.value as OpheliaAst.Arithmetic;
@@ -1042,7 +1152,7 @@ describe("Ophelia Transformer", () => {
       const ophelia = new Ophelia(possumAst);
       const result = ophelia.run();
 
-      const directions = result.acts[0]?.scenes[0]?.directions || [];
+      const directions = (result.items.filter((item): item is OpheliaAst.Act => item.type === "act")[0]?.items.filter((item): item is OpheliaAst.Scene => item.type === "scene")[0]?.directions || []);
       const dialogue = directions[1] as OpheliaAst.Dialogue;
 
       expect(dialogue.lines).toHaveLength(7);
@@ -1107,7 +1217,7 @@ describe("Ophelia Transformer", () => {
       const ophelia = new Ophelia(possumAst);
       const result = ophelia.run();
 
-      const directions = result.acts[0]?.scenes[0]?.directions || [];
+      const directions = (result.items.filter((item): item is OpheliaAst.Act => item.type === "act")[0]?.items.filter((item): item is OpheliaAst.Scene => item.type === "scene")[0]?.directions || []);
       const dialogue = directions[1] as OpheliaAst.Dialogue;
 
       const test1 = dialogue.lines[0] as OpheliaAst.Test;
@@ -1210,7 +1320,7 @@ describe("Ophelia Transformer", () => {
       const ophelia = new Ophelia(possumAst);
       const result = ophelia.run();
 
-      const directions = result.acts[0]?.scenes[0]?.directions || [];
+      const directions = (result.items.filter((item): item is OpheliaAst.Act => item.type === "act")[0]?.items.filter((item): item is OpheliaAst.Scene => item.type === "scene")[0]?.directions || []);
       const dialogue = directions[1] as OpheliaAst.Dialogue;
       const setStmt = dialogue.lines[0] as OpheliaAst.Set;
       const arithmetic = setStmt.value as OpheliaAst.Arithmetic;
