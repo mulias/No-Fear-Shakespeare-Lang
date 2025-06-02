@@ -52,18 +52,27 @@ class PrettyPrinter {
   }
 
   private printAct(act: Ast.Act): string {
+    const parts: string[] = [];
+
+    // Add description doc comment if present
+    if (act.description) {
+      parts.push(`## description: ${act.description}`);
+    }
+
     const header = `${act.actId} {`;
     const footer = "}";
 
     if (act.items.length === 0) {
-      return `${header}\n${footer}`;
+      parts.push(`${header}\n${footer}`);
+      return parts.join("\n");
     }
 
     const items = this.withIndent(() =>
       act.items.map((item) => this.printActItem(item)).join("\n\n"),
     );
 
-    return `${header}\n${items}\n${footer}`;
+    parts.push(`${header}\n${items}\n${footer}`);
+    return parts.join("\n");
   }
 
   private printActItem(item: Ast.ActItem): string {
@@ -79,18 +88,27 @@ class PrettyPrinter {
   }
 
   private printScene(scene: Ast.Scene): string {
+    const parts: string[] = [];
+
+    // Add description doc comment if present
+    if (scene.description) {
+      parts.push(`${this.indent()}## description: ${scene.description}`);
+    }
+
     const header = `${this.indent()}${scene.sceneId} {`;
     const footer = `${this.indent()}}`;
 
     if (scene.directions.length === 0) {
-      return `${header}\n${footer}`;
+      parts.push(`${header}\n${footer}`);
+      return parts.join("\n");
     }
 
     const directions = this.withIndent(() =>
       scene.directions.map((dir) => this.printDirection(dir)).join("\n\n"),
     );
 
-    return `${header}\n${directions}\n${footer}`;
+    parts.push(`${header}\n${directions}\n${footer}`);
+    return parts.join("\n");
   }
 
   private printDirection(direction: Ast.Direction): string {
@@ -287,13 +305,8 @@ export class Ophelia {
         } else {
           titleDocComment = node;
         }
-      } else if (node && node.type === "doc_comment") {
-        // Doc comments with other keys at top level are invalid
-        this.addProblem(
-          node,
-          `Invalid doc comment key "${node.value[0]}" at program level. Only "title" is allowed at the top level.`,
-        );
       } else if (node) {
+        // Pass through all other nodes (including non-title doc comments)
         remainingItems.push(node);
       }
     }
@@ -307,10 +320,46 @@ export class Ophelia {
     nodes: (PossumAst.Node | PossumAst.Malformed)[],
   ): Ast.ProgramItem[] {
     const items: Ast.ProgramItem[] = [];
+    let pendingDescription: string | undefined;
 
-    for (const node of nodes) {
-      const item = this.buildProgramItem(node);
-      if (item) items.push(item);
+    for (let i = 0; i < nodes.length; i++) {
+      const node = nodes[i];
+      if (!node) continue;
+
+      // Check if this is a description doc comment
+      if (node.type === "doc_comment" && node.value[0] === "description") {
+        if (pendingDescription) {
+          this.addProblem(
+            node,
+            "Multiple description doc comments found before act. Only one description is allowed.",
+          );
+        }
+        pendingDescription = node.value[1];
+        continue;
+      }
+
+      // Check if this is a different type of doc comment at program level
+      if (node.type === "doc_comment") {
+        this.addProblem(
+          node,
+          `Invalid doc comment key "${node.value[0]}" at program level. Only "title" and "description" are allowed at the top level.`,
+        );
+        continue;
+      }
+
+      const item = this.buildProgramItem(node, pendingDescription);
+      if (item) {
+        items.push(item);
+        pendingDescription = undefined; // Reset after use
+      }
+    }
+
+    // If there's a pending description with no following act
+    if (pendingDescription) {
+      this.addProblem(
+        { type: "malformed" as const, value: "" },
+        "Description doc comment must be followed by an act",
+      );
     }
 
     return items;
@@ -318,6 +367,7 @@ export class Ophelia {
 
   buildProgramItem(
     node: PossumAst.Node | PossumAst.Malformed,
+    description?: string,
   ): Ast.ProgramItem | undefined {
     if (node.type === "malformed") {
       this.addProblem(node, `Malformed syntax: ${node.value}`);
@@ -326,6 +376,12 @@ export class Ophelia {
 
     // Handle comments at program level
     if (node.type === "comment") {
+      if (description) {
+        this.addProblem(
+          node,
+          "Description doc comment must be followed by an act, not a regular comment",
+        );
+      }
       return {
         type: "comment",
         content: node.value,
@@ -348,8 +404,16 @@ export class Ophelia {
       return {
         type: "act",
         actId: actId,
+        description,
         items: this.buildActItems(node.value),
       };
+    }
+
+    if (description) {
+      this.addProblem(
+        node,
+        "Description doc comment must be followed by an act",
+      );
     }
 
     this.addProblem(
@@ -363,10 +427,46 @@ export class Ophelia {
     nodes: (PossumAst.Node | PossumAst.Malformed)[],
   ): Ast.ActItem[] {
     const items: Ast.ActItem[] = [];
+    let pendingDescription: string | undefined;
 
-    for (const node of nodes) {
-      const item = this.buildActItem(node);
-      if (item) items.push(item);
+    for (let i = 0; i < nodes.length; i++) {
+      const node = nodes[i];
+      if (!node) continue;
+
+      // Check if this is a description doc comment
+      if (node.type === "doc_comment" && node.value[0] === "description") {
+        if (pendingDescription) {
+          this.addProblem(
+            node,
+            "Multiple description doc comments found before scene. Only one description is allowed.",
+          );
+        }
+        pendingDescription = node.value[1];
+        continue;
+      }
+
+      // Check if this is a different type of doc comment at act level
+      if (node.type === "doc_comment") {
+        this.addProblem(
+          node,
+          `Invalid doc comment key "${node.value[0]}" at act level. Only "description" is allowed here.`,
+        );
+        continue;
+      }
+
+      const item = this.buildActItem(node, pendingDescription);
+      if (item) {
+        items.push(item);
+        pendingDescription = undefined; // Reset after use
+      }
+    }
+
+    // If there's a pending description with no following scene
+    if (pendingDescription) {
+      this.addProblem(
+        { type: "malformed" as const, value: "" },
+        "Description doc comment must be followed by a scene",
+      );
     }
 
     return items;
@@ -374,6 +474,7 @@ export class Ophelia {
 
   buildActItem(
     node: PossumAst.Node | PossumAst.Malformed,
+    description?: string,
   ): Ast.ActItem | undefined {
     if (node.type === "malformed") {
       this.addProblem(node, `Malformed syntax: ${node.value}`);
@@ -382,6 +483,12 @@ export class Ophelia {
 
     // Handle comments at act level
     if (node.type === "comment") {
+      if (description) {
+        this.addProblem(
+          node,
+          "Description doc comment must be followed by a scene, not a regular comment",
+        );
+      }
       return {
         type: "comment",
         content: node.value,
@@ -404,8 +511,16 @@ export class Ophelia {
       return {
         type: "scene",
         sceneId: sceneId,
+        description,
         directions: this.buildDirections(node.value),
       };
+    }
+
+    if (description) {
+      this.addProblem(
+        node,
+        "Description doc comment must be followed by a scene",
+      );
     }
 
     this.addProblem(node, "Expected a scene block with a label or a comment");
@@ -436,6 +551,12 @@ export class Ophelia {
   ): Ast.Direction | Ast.Direction[] | undefined {
     if (node.type === "malformed") {
       this.addProblem(node, `Malformed syntax: ${node.value}`);
+      return undefined;
+    }
+
+    // Reject doc comments inside scenes
+    if (node.type === "doc_comment") {
+      this.addProblem(node, "Doc comments are not allowed inside scenes");
       return undefined;
     }
 

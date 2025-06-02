@@ -79,7 +79,7 @@ export class Yorick {
       (act) =>
         new Ast.Part(
           this.buildNumeral(act.actId),
-          this.buildComment(camelToSentenceCase(act.actId)),
+          this.buildComment(act.description || camelToSentenceCase(act.actId)),
           this.buildSubparts(act.items),
         ),
     );
@@ -103,7 +103,9 @@ export class Yorick {
       (scene) =>
         new Ast.Subpart(
           this.buildNumeral(scene.sceneId),
-          this.buildComment(camelToSentenceCase(scene.sceneId)),
+          this.buildComment(
+            scene.description || camelToSentenceCase(scene.sceneId),
+          ),
           this.buildStage(scene.directions),
         ),
     );

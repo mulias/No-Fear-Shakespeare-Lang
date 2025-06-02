@@ -159,6 +159,128 @@ describe("Yorick Transpiler", () => {
       expect(ast.comment.sequence).toMatch(/^\w+ and the \w+ \w+$/); // e.g., "Romeo and the beautiful rose"
     });
 
+    it("should use provided description for acts", () => {
+      const opheliaAst: OpheliaAst.Program = {
+        type: "program",
+        items: [
+          {
+            type: "act",
+            actId: "Main",
+            description: "The grand opening act",
+            items: [
+              {
+                type: "scene",
+                sceneId: "Start",
+                directions: [],
+              },
+            ],
+          },
+        ],
+      };
+
+      const yorick = new Yorick(opheliaAst);
+      const ast = yorick.run();
+
+      expect(ast.parts[0]?.comment.sequence).toBe("The grand opening act");
+    });
+
+    it("should use provided description for scenes", () => {
+      const opheliaAst: OpheliaAst.Program = {
+        type: "program",
+        items: [
+          {
+            type: "act",
+            actId: "Main",
+            items: [
+              {
+                type: "scene",
+                sceneId: "Start",
+                description: "Where it all begins",
+                directions: [],
+              },
+            ],
+          },
+        ],
+      };
+
+      const yorick = new Yorick(opheliaAst);
+      const ast = yorick.run();
+
+      expect(ast.parts[0]?.subparts[0]?.comment.sequence).toBe(
+        "Where it all begins",
+      );
+    });
+
+    it("should fall back to auto-generated descriptions when not provided", () => {
+      const opheliaAst: OpheliaAst.Program = {
+        type: "program",
+        items: [
+          {
+            type: "act",
+            actId: "MainAct",
+            items: [
+              {
+                type: "scene",
+                sceneId: "OpeningScene",
+                directions: [],
+              },
+            ],
+          },
+        ],
+      };
+
+      const yorick = new Yorick(opheliaAst);
+      const ast = yorick.run();
+
+      // Should convert camelCase to sentence case
+      expect(ast.parts[0]?.comment.sequence).toBe("Main act");
+      expect(ast.parts[0]?.subparts[0]?.comment.sequence).toBe("Opening scene");
+    });
+
+    it("should handle both act and scene descriptions together", () => {
+      const opheliaAst: OpheliaAst.Program = {
+        type: "program",
+        items: [
+          {
+            type: "act",
+            actId: "Main",
+            description: "The main storyline",
+            items: [
+              {
+                type: "scene",
+                sceneId: "Start",
+                description: "Setting the stage",
+                directions: [
+                  {
+                    type: "stage",
+                    varId1: "a",
+                    varId2: null,
+                  },
+                ],
+              },
+              {
+                type: "scene",
+                sceneId: "End",
+                description: "The grand finale",
+                directions: [],
+              },
+            ],
+          },
+        ],
+      };
+
+      const yorick = new Yorick(opheliaAst);
+      const ast = yorick.run();
+
+      expect(ast.parts[0]?.comment.sequence).toBe("The main storyline");
+      expect(ast.parts[0]?.subparts[0]?.comment.sequence).toBe(
+        "Setting the stage",
+      );
+      expect(ast.parts[0]?.subparts[1]?.comment.sequence).toBe(
+        "The grand finale",
+      );
+    });
+
     it("should generate character declarations for variables", () => {
       const opheliaAst: OpheliaAst.Program = {
         type: "program",

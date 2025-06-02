@@ -1609,7 +1609,7 @@ describe("Ophelia Transformer", () => {
 
       const ophelia = new Ophelia(possumAst);
       expect(() => ophelia.run()).toThrow(
-        'Invalid doc comment key "author" at program level. Only "title" is allowed at the top level',
+        'Invalid doc comment key "author" at program level. Only "title" and "description" are allowed at the top level.',
       );
     });
 
@@ -1722,6 +1722,319 @@ Main {
       // Pretty printing again should produce the same result
       const prettyPrinted2 = prettyPrint(opheliaAst2);
       expect(prettyPrinted2).toBe(prettyPrinted);
+    });
+  });
+
+  describe("doc comment description support", () => {
+    it("should extract description for act", () => {
+      const possumAst: PossumAst.Program = {
+        type: "program",
+        value: [
+          {
+            type: "doc_comment",
+            value: ["description", "The main act where everything happens"],
+          },
+          {
+            type: "block",
+            postfixed: { type: "var", value: "Main" },
+            value: [
+              {
+                type: "block",
+                postfixed: { type: "var", value: "Start" },
+                value: [],
+              },
+            ],
+          },
+        ],
+      };
+
+      const ophelia = new Ophelia(possumAst);
+      const ast = ophelia.run();
+
+      const act = ast.items[0] as OpheliaAst.Act;
+      expect(act.type).toBe("act");
+      expect(act.description).toBe("The main act where everything happens");
+    });
+
+    it("should extract description for scene", () => {
+      const possumAst: PossumAst.Program = {
+        type: "program",
+        value: [
+          {
+            type: "block",
+            postfixed: { type: "var", value: "Main" },
+            value: [
+              {
+                type: "doc_comment",
+                value: ["description", "The opening scene"],
+              },
+              {
+                type: "block",
+                postfixed: { type: "var", value: "Start" },
+                value: [],
+              },
+            ],
+          },
+        ],
+      };
+
+      const ophelia = new Ophelia(possumAst);
+      const ast = ophelia.run();
+
+      const act = ast.items[0] as OpheliaAst.Act;
+      const scene = act.items[0] as OpheliaAst.Scene;
+      expect(scene.type).toBe("scene");
+      expect(scene.description).toBe("The opening scene");
+    });
+
+    it("should handle acts and scenes without descriptions", () => {
+      const possumAst: PossumAst.Program = {
+        type: "program",
+        value: [
+          {
+            type: "block",
+            postfixed: { type: "var", value: "Main" },
+            value: [
+              {
+                type: "block",
+                postfixed: { type: "var", value: "Start" },
+                value: [],
+              },
+            ],
+          },
+        ],
+      };
+
+      const ophelia = new Ophelia(possumAst);
+      const ast = ophelia.run();
+
+      const act = ast.items[0] as OpheliaAst.Act;
+      const scene = act.items[0] as OpheliaAst.Scene;
+      expect(act.description).toBeUndefined();
+      expect(scene.description).toBeUndefined();
+    });
+
+    it("should reject multiple description doc comments before act", () => {
+      const possumAst: PossumAst.Program = {
+        type: "program",
+        value: [
+          {
+            type: "doc_comment",
+            value: ["description", "First description"],
+          },
+          {
+            type: "doc_comment",
+            value: ["description", "Second description"],
+          },
+          {
+            type: "block",
+            postfixed: { type: "var", value: "Main" },
+            value: [],
+          },
+        ],
+      };
+
+      const ophelia = new Ophelia(possumAst);
+      expect(() => ophelia.run()).toThrow(
+        "Multiple description doc comments found before act",
+      );
+    });
+
+    it("should reject multiple description doc comments before scene", () => {
+      const possumAst: PossumAst.Program = {
+        type: "program",
+        value: [
+          {
+            type: "block",
+            postfixed: { type: "var", value: "Main" },
+            value: [
+              {
+                type: "doc_comment",
+                value: ["description", "First description"],
+              },
+              {
+                type: "doc_comment",
+                value: ["description", "Second description"],
+              },
+              {
+                type: "block",
+                postfixed: { type: "var", value: "Start" },
+                value: [],
+              },
+            ],
+          },
+        ],
+      };
+
+      const ophelia = new Ophelia(possumAst);
+      expect(() => ophelia.run()).toThrow(
+        "Multiple description doc comments found before scene",
+      );
+    });
+
+    it("should reject description doc comment not followed by act", () => {
+      const possumAst: PossumAst.Program = {
+        type: "program",
+        value: [
+          {
+            type: "doc_comment",
+            value: ["description", "Orphaned description"],
+          },
+          {
+            type: "comment",
+            value: "Just a comment",
+          },
+        ],
+      };
+
+      const ophelia = new Ophelia(possumAst);
+      expect(() => ophelia.run()).toThrow(
+        "Description doc comment must be followed by an act",
+      );
+    });
+
+    it("should reject description doc comment not followed by scene", () => {
+      const possumAst: PossumAst.Program = {
+        type: "program",
+        value: [
+          {
+            type: "block",
+            postfixed: { type: "var", value: "Main" },
+            value: [
+              {
+                type: "doc_comment",
+                value: ["description", "Orphaned description"],
+              },
+              {
+                type: "comment",
+                value: "Just a comment",
+              },
+            ],
+          },
+        ],
+      };
+
+      const ophelia = new Ophelia(possumAst);
+      expect(() => ophelia.run()).toThrow(
+        "Description doc comment must be followed by a scene",
+      );
+    });
+
+    it("should reject doc comments inside scenes", () => {
+      const possumAst: PossumAst.Program = {
+        type: "program",
+        value: [
+          {
+            type: "block",
+            postfixed: { type: "var", value: "Main" },
+            value: [
+              {
+                type: "block",
+                postfixed: { type: "var", value: "Start" },
+                value: [
+                  {
+                    type: "doc_comment",
+                    value: ["description", "Invalid placement"],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      };
+
+      const ophelia = new Ophelia(possumAst);
+      expect(() => ophelia.run()).toThrow(
+        "Doc comments are not allowed inside scenes",
+      );
+    });
+
+    it("should reject non-description doc comments at program level", () => {
+      const possumAst: PossumAst.Program = {
+        type: "program",
+        value: [
+          {
+            type: "doc_comment",
+            value: ["author", "Shakespeare"],
+          },
+          {
+            type: "block",
+            postfixed: { type: "var", value: "Main" },
+            value: [],
+          },
+        ],
+      };
+
+      const ophelia = new Ophelia(possumAst);
+      expect(() => ophelia.run()).toThrow(
+        'Invalid doc comment key "author" at program level',
+      );
+    });
+
+    it("should allow regular comments between description and act", () => {
+      const possumAst: PossumAst.Program = {
+        type: "program",
+        value: [
+          {
+            type: "doc_comment",
+            value: ["description", "The main act"],
+          },
+          {
+            type: "comment",
+            value: "This is fine",
+          },
+          {
+            type: "block",
+            postfixed: { type: "var", value: "Main" },
+            value: [],
+          },
+        ],
+      };
+
+      const ophelia = new Ophelia(possumAst);
+      expect(() => ophelia.run()).toThrow(
+        "Description doc comment must be followed by an act, not a regular comment",
+      );
+    });
+
+    it("should preserve descriptions through pretty printing", () => {
+      const ast: OpheliaAst.Program = {
+        type: "program",
+        items: [
+          {
+            type: "act",
+            actId: "Main",
+            description: "The main act",
+            items: [
+              {
+                type: "scene",
+                sceneId: "Start",
+                description: "The starting scene",
+                directions: [],
+              },
+            ],
+          },
+        ],
+      };
+
+      const prettyPrinted = prettyPrint(ast);
+      expect(prettyPrinted).toContain("## description: The main act");
+      expect(prettyPrinted).toContain("## description: The starting scene");
+
+      // Check proper placement
+      const lines = prettyPrinted.split("\n");
+      const actDescIndex = lines.findIndex((l) =>
+        l.includes("## description: The main act"),
+      );
+      const actIndex = lines.findIndex((l) => l.includes("Main {"));
+      const sceneDescIndex = lines.findIndex((l) =>
+        l.includes("## description: The starting scene"),
+      );
+      const sceneIndex = lines.findIndex((l) => l.includes("Start {"));
+
+      expect(actDescIndex).toBeLessThan(actIndex);
+      expect(sceneDescIndex).toBeLessThan(sceneIndex);
+      expect(sceneDescIndex).toBeGreaterThan(actIndex);
     });
   });
 });

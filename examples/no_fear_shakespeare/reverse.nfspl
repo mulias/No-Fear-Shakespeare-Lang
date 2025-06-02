@@ -2,15 +2,15 @@
 ## declare {stack}, a stacky gentleperson
 ## declare {count}, who counts the memories of {stack}
 
-## The one and only
+## description: The one and only
 Main {
-  ## In the beginning, there was nothing
+  ## description: In the beginning, there was nothing
   Init {
     stage(stack, count)
     stack { @you.set(0) }
   }
 
-  ## Pushing to the very end
+  ## description: Pushing to the very end
   GetInput {
     count {
       @you.read_char
@@ -27,7 +27,7 @@ Main {
     stack { @you.set(@you - 1) }
   }
 
-  ## Popping back up!
+  ## description: Popping back up!
   PrintReversed {
     count {
       @you.pop
@@ -40,7 +40,7 @@ Main {
     count { if_true(goto(PrintReversed)) }
   }
 
-  ## The end
+  ## description: The end
   End {
     unstage_all
   }

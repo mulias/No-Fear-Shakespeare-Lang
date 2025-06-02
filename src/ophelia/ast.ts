@@ -2,13 +2,19 @@ export type Program = { type: "program"; title?: string; items: ProgramItem[] };
 
 export type ProgramItem = Act | Comment;
 
-export type Act = { type: "act"; actId: LabelId; items: ActItem[] };
+export type Act = {
+  type: "act";
+  actId: LabelId;
+  description?: string;
+  items: ActItem[];
+};
 
 export type ActItem = Scene | Comment;
 
 export type Scene = {
   type: "scene";
   sceneId: LabelId;
+  description?: string;
   directions: Direction[];
 };
 
