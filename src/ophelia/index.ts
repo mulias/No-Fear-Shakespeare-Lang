@@ -252,7 +252,7 @@ export class Ophelia {
   private getDocCommentKeyDisplay(key: PossumAst.DocCommentKey): string {
     if (key.type === "doc_comment_property") {
       return key.value;
-    } else if (key.type === "var") {
+    } else if (key.type === "doc_comment_var") {
       return `var ${key.value}`;
     } else {
       throw new Error(`Unknown doc comment key type: ${(key as any).type}`);
@@ -333,7 +333,7 @@ export class Ophelia {
       } else if (
         node &&
         node.type === "doc_comment" &&
-        node.value[0].type === "var"
+        node.value[0].type === "doc_comment_var"
       ) {
         // Handle var doc comments
         const varName = node.value[0].value;

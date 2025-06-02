@@ -2100,11 +2100,17 @@ Main {
         value: [
           {
             type: "doc_comment",
-            value: [{ type: "var", value: "stack" }, "a stacky gentleperson"],
+            value: [
+              { type: "doc_comment_var", value: "stack" },
+              "a stacky gentleperson",
+            ],
           },
           {
             type: "doc_comment",
-            value: [{ type: "var", value: "count" }, "who counts the memories"],
+            value: [
+              { type: "doc_comment_var", value: "count" },
+              "who counts the memories",
+            ],
           },
           {
             type: "block",
@@ -2146,11 +2152,17 @@ Main {
         value: [
           {
             type: "doc_comment",
-            value: [{ type: "var", value: "stack" }, "first description"],
+            value: [
+              { type: "doc_comment_var", value: "stack" },
+              "first description",
+            ],
           },
           {
             type: "doc_comment",
-            value: [{ type: "var", value: "stack" }, "second description"],
+            value: [
+              { type: "doc_comment_var", value: "stack" },
+              "second description",
+            ],
           },
           {
             type: "block",

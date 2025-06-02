@@ -40,7 +40,10 @@ export type DocComment = {
 
 export type DocCommentKey = DocCommentVar | DocCommentProperty;
 
-export type DocCommentVar = Var;
+export type DocCommentVar = {
+  type: "doc_comment_var";
+  value: string;
+};
 
 export type DocCommentProperty = {
   type: "doc_comment_property";

@@ -60,7 +60,9 @@ invalid_number = ast.node($"invalid_number", float)
 
 character = ast.node($"char", "'" > char < "'")
 
-var = ast.node($"var", maybe("@") + alpha + maybe(word))
+var = ast.node($"var", var_id)
+
+var_id = maybe("@") + alpha + maybe(word)
 
 w = maybe_many(whitespace)
 
@@ -71,7 +73,7 @@ doc_comment = "##" > w > ast.node(
 
 doc_comment_key = doc_comment_var | doc_comment_property
 
-doc_comment_var = "var" > w > var
+doc_comment_var = "var" > w > ast.node($"doc_comment_var", var_id)
 
 doc_comment_property = ast.node($"doc_comment_property", word)
 
