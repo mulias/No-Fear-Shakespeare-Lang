@@ -32,7 +32,8 @@ export class Generator {
   rand: Random;
 
   constructor(seed: string) {
-    this.wordlists = wordlists;
+    // Create a deep copy of wordlists to avoid shared state mutation
+    this.wordlists = JSON.parse(JSON.stringify(wordlists)) as Wordlists;
     this.rand = new Random(seed);
   }
 
