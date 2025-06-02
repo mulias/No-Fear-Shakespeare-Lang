@@ -27,16 +27,30 @@ class PrettyPrinter {
     return result;
   }
 
+  private printTemplateString(templateString: Ast.TemplateString): string {
+    return templateString.value
+      .map((segment) => {
+        if (segment.type === "template_string_segment") {
+          return segment.value;
+        } else if (segment.type === "template_var_segment") {
+          return `{${segment.value}}`;
+        } else {
+          throw new Error(`Unknown template segment type: ${(segment as any).type}`);
+        }
+      })
+      .join("");
+  }
+
   printProgram(program: Ast.Program): string {
     const parts: string[] = [];
 
     if (program.title) {
-      parts.push(`## title: ${program.title}`);
+      parts.push(`## title: ${this.printTemplateString(program.title)}`);
     }
 
     // Add var declarations
     for (const [varName, description] of program.varDeclarations) {
-      parts.push(`## var ${varName}: ${description}`);
+      parts.push(`## var ${varName}: ${this.printTemplateString(description)}`);
     }
 
     parts.push(...program.items.map((item) => this.printProgramItem(item)));
@@ -61,7 +75,7 @@ class PrettyPrinter {
 
     // Add description doc comment if present
     if (act.description) {
-      parts.push(`## description: ${act.description}`);
+      parts.push(`## description: ${this.printTemplateString(act.description)}`);
     }
 
     const header = `${act.actId} {`;
@@ -97,7 +111,7 @@ class PrettyPrinter {
 
     // Add description doc comment if present
     if (scene.description) {
-      parts.push(`${this.indent()}## description: ${scene.description}`);
+      parts.push(`${this.indent()}## description: ${this.printTemplateString(scene.description)}`);
     }
 
     const header = `${this.indent()}${scene.sceneId} {`;
@@ -287,13 +301,13 @@ export class Ophelia {
   }
 
   extractFrontmatter(nodes: (PossumAst.Node | PossumAst.Malformed)[]): {
-    title?: string;
-    varDeclarations: Map<string, string>;
+    title?: PossumAst.TemplateString;
+    varDeclarations: Map<string, PossumAst.TemplateString>;
     items: (PossumAst.Node | PossumAst.Malformed)[];
   } {
     let titleDocComment: PossumAst.DocComment | undefined;
     let titleCount = 0;
-    const varDeclarations = new Map<string, string>();
+    const varDeclarations = new Map<string, PossumAst.TemplateString>();
     const remainingItems: (PossumAst.Node | PossumAst.Malformed)[] = [];
 
     for (let i = 0; i < nodes.length; i++) {
@@ -362,7 +376,7 @@ export class Ophelia {
     nodes: (PossumAst.Node | PossumAst.Malformed)[],
   ): Ast.ProgramItem[] {
     const items: Ast.ProgramItem[] = [];
-    let pendingDescription: string | undefined;
+    let pendingDescription: PossumAst.TemplateString | undefined;
 
     for (let i = 0; i < nodes.length; i++) {
       const node = nodes[i];
@@ -415,7 +429,7 @@ export class Ophelia {
 
   buildProgramItem(
     node: PossumAst.Node | PossumAst.Malformed,
-    description?: string,
+    description?: PossumAst.TemplateString,
   ): Ast.ProgramItem | undefined {
     if (node.type === "malformed") {
       this.addProblem(node, `Malformed syntax: ${node.value}`);
@@ -475,7 +489,7 @@ export class Ophelia {
     nodes: (PossumAst.Node | PossumAst.Malformed)[],
   ): Ast.ActItem[] {
     const items: Ast.ActItem[] = [];
-    let pendingDescription: string | undefined;
+    let pendingDescription: PossumAst.TemplateString | undefined;
 
     for (let i = 0; i < nodes.length; i++) {
       const node = nodes[i];
@@ -528,7 +542,7 @@ export class Ophelia {
 
   buildActItem(
     node: PossumAst.Node | PossumAst.Malformed,
-    description?: string,
+    description?: PossumAst.TemplateString,
   ): Ast.ActItem | undefined {
     if (node.type === "malformed") {
       this.addProblem(node, `Malformed syntax: ${node.value}`);

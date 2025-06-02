@@ -1,6 +1,7 @@
 import { Ophelia, prettyPrint } from "../index";
 import * as PossumAst from "../../possum/ast";
 import * as OpheliaAst from "../ast";
+import { templateString } from "../../test-helpers";
 
 describe("Ophelia Transformer", () => {
   describe("valid AST transformations", () => {
@@ -1480,7 +1481,12 @@ describe("Ophelia Transformer", () => {
             type: "doc_comment",
             value: [
               { type: "doc_comment_property", value: "title" },
-              "To Fizz, Perchance To Buzz",
+              {
+                type: "template_string",
+                value: [
+                  { type: "template_string_segment", value: "To Fizz, Perchance To Buzz" }
+                ]
+              },
             ],
           },
           {
@@ -1501,7 +1507,12 @@ describe("Ophelia Transformer", () => {
       const ast = ophelia.run();
 
       expect(ast.title).toBeDefined();
-      expect(ast.title).toBe("To Fizz, Perchance To Buzz");
+      expect(ast.title).toEqual({
+        type: "template_string",
+        value: [
+          { type: "template_string_segment", value: "To Fizz, Perchance To Buzz" }
+        ]
+      });
     });
 
     it("should work without title doc comment", () => {
@@ -1547,7 +1558,7 @@ describe("Ophelia Transformer", () => {
             type: "doc_comment",
             value: [
               { type: "doc_comment_property", value: "title" },
-              "Too Late Title",
+              templateString("Too Late Title"),
             ],
           },
         ],
@@ -1567,14 +1578,14 @@ describe("Ophelia Transformer", () => {
             type: "doc_comment",
             value: [
               { type: "doc_comment_property", value: "title" },
-              "First Title",
+              templateString("First Title"),
             ],
           },
           {
             type: "doc_comment",
             value: [
               { type: "doc_comment_property", value: "title" },
-              "Second Title",
+              templateString("Second Title"),
             ],
           },
           {
@@ -1605,7 +1616,7 @@ describe("Ophelia Transformer", () => {
             type: "doc_comment",
             value: [
               { type: "doc_comment_property", value: "author" },
-              "William Shakespeare",
+              templateString("William Shakespeare"),
             ],
           },
           {
@@ -1640,7 +1651,7 @@ describe("Ophelia Transformer", () => {
             type: "doc_comment",
             value: [
               { type: "doc_comment_property", value: "title" },
-              "The Title After Comment",
+              templateString("The Title After Comment"),
             ],
           },
           {
@@ -1661,7 +1672,12 @@ describe("Ophelia Transformer", () => {
       const ast = ophelia.run();
 
       expect(ast.title).toBeDefined();
-      expect(ast.title).toBe("The Title After Comment");
+      expect(ast.title).toEqual({
+        type: "template_string",
+        value: [
+          { type: "template_string_segment", value: "The Title After Comment" }
+        ]
+      });
     });
 
     it("should preserve title through pretty printing", () => {
@@ -1672,7 +1688,7 @@ describe("Ophelia Transformer", () => {
             type: "doc_comment",
             value: [
               { type: "doc_comment_property", value: "title" },
-              "Pretty Printed Title",
+              templateString("Pretty Printed Title"),
             ],
           },
           {
@@ -1737,7 +1753,7 @@ Main {
       const opheliaAst2 = ophelia2.run();
 
       // The two Ophelia ASTs should be equivalent
-      expect(opheliaAst2.title).toBe(opheliaAst1.title);
+      expect(opheliaAst2.title).toEqual(opheliaAst1.title);
       expect(opheliaAst2.items).toEqual(opheliaAst1.items);
 
       // Pretty printing again should produce the same result
@@ -1755,7 +1771,7 @@ Main {
             type: "doc_comment",
             value: [
               { type: "doc_comment_property", value: "description" },
-              "The main act where everything happens",
+              templateString("The main act where everything happens"),
             ],
           },
           {
@@ -1777,7 +1793,12 @@ Main {
 
       const act = ast.items[0] as OpheliaAst.Act;
       expect(act.type).toBe("act");
-      expect(act.description).toBe("The main act where everything happens");
+      expect(act.description).toEqual({
+        type: "template_string",
+        value: [
+          { type: "template_string_segment", value: "The main act where everything happens" }
+        ]
+      });
     });
 
     it("should extract description for scene", () => {
@@ -1792,7 +1813,7 @@ Main {
                 type: "doc_comment",
                 value: [
                   { type: "doc_comment_property", value: "description" },
-                  "The opening scene",
+                  templateString("The opening scene"),
                 ],
               },
               {
@@ -1811,7 +1832,12 @@ Main {
       const act = ast.items[0] as OpheliaAst.Act;
       const scene = act.items[0] as OpheliaAst.Scene;
       expect(scene.type).toBe("scene");
-      expect(scene.description).toBe("The opening scene");
+      expect(scene.description).toEqual({
+        type: "template_string",
+        value: [
+          { type: "template_string_segment", value: "The opening scene" }
+        ]
+      });
     });
 
     it("should handle acts and scenes without descriptions", () => {
@@ -1849,14 +1875,14 @@ Main {
             type: "doc_comment",
             value: [
               { type: "doc_comment_property", value: "description" },
-              "First description",
+              templateString("First description"),
             ],
           },
           {
             type: "doc_comment",
             value: [
               { type: "doc_comment_property", value: "description" },
-              "Second description",
+              templateString("Second description"),
             ],
           },
           {
@@ -1885,14 +1911,14 @@ Main {
                 type: "doc_comment",
                 value: [
                   { type: "doc_comment_property", value: "description" },
-                  "First description",
+                  templateString("First description"),
                 ],
               },
               {
                 type: "doc_comment",
                 value: [
                   { type: "doc_comment_property", value: "description" },
-                  "Second description",
+                  templateString("Second description"),
                 ],
               },
               {
@@ -1919,7 +1945,7 @@ Main {
             type: "doc_comment",
             value: [
               { type: "doc_comment_property", value: "description" },
-              "Orphaned description",
+              templateString("Orphaned description"),
             ],
           },
           {
@@ -1947,7 +1973,7 @@ Main {
                 type: "doc_comment",
                 value: [
                   { type: "doc_comment_property", value: "description" },
-                  "Orphaned description",
+                  templateString("Orphaned description"),
                 ],
               },
               {
@@ -1981,7 +2007,7 @@ Main {
                     type: "doc_comment",
                     value: [
                       { type: "doc_comment_property", value: "description" },
-                      "Invalid placement",
+                      templateString("Invalid placement"),
                     ],
                   },
                 ],
@@ -2005,7 +2031,7 @@ Main {
             type: "doc_comment",
             value: [
               { type: "doc_comment_property", value: "author" },
-              "Shakespeare",
+              templateString("Shakespeare"),
             ],
           },
           {
@@ -2030,7 +2056,7 @@ Main {
             type: "doc_comment",
             value: [
               { type: "doc_comment_property", value: "description" },
-              "The main act",
+              templateString("The main act"),
             ],
           },
           {
@@ -2059,12 +2085,12 @@ Main {
           {
             type: "act",
             actId: "Main",
-            description: "The main act",
+            description: templateString("The main act"),
             items: [
               {
                 type: "scene",
                 sceneId: "Start",
-                description: "The starting scene",
+                description: templateString("The starting scene"),
                 directions: [],
               },
             ],
@@ -2102,14 +2128,14 @@ Main {
             type: "doc_comment",
             value: [
               { type: "doc_comment_var", value: "stack" },
-              "a stacky gentleperson",
+              templateString("a stacky gentleperson"),
             ],
           },
           {
             type: "doc_comment",
             value: [
               { type: "doc_comment_var", value: "count" },
-              "who counts the memories",
+              templateString("who counts the memories"),
             ],
           },
           {
@@ -2124,8 +2150,8 @@ Main {
       const ast = ophelia.run();
 
       expect(ast.varDeclarations.size).toBe(2);
-      expect(ast.varDeclarations.get("stack")).toBe("a stacky gentleperson");
-      expect(ast.varDeclarations.get("count")).toBe("who counts the memories");
+      expect(ast.varDeclarations.get("stack")).toEqual(templateString("a stacky gentleperson"));
+      expect(ast.varDeclarations.get("count")).toEqual(templateString("who counts the memories"));
     });
 
     it("should handle programs without var declarations", () => {
@@ -2154,14 +2180,14 @@ Main {
             type: "doc_comment",
             value: [
               { type: "doc_comment_var", value: "stack" },
-              "first description",
+              templateString("first description"),
             ],
           },
           {
             type: "doc_comment",
             value: [
               { type: "doc_comment_var", value: "stack" },
-              "second description",
+              templateString("second description"),
             ],
           },
           {
@@ -2182,8 +2208,8 @@ Main {
       const ast: OpheliaAst.Program = {
         type: "program",
         varDeclarations: new Map([
-          ["stack", "a stacky gentleperson"],
-          ["count", "who counts things"],
+          ["stack", templateString("a stacky gentleperson")],
+          ["count", templateString("who counts things")],
         ]),
         items: [
           {
@@ -2197,6 +2223,317 @@ Main {
       const prettyPrinted = prettyPrint(ast);
       expect(prettyPrinted).toContain("## var stack: a stacky gentleperson");
       expect(prettyPrinted).toContain("## var count: who counts things");
+    });
+  });
+
+  describe("template string support", () => {
+    it("should handle template strings in title doc comments", () => {
+      const possumAst: PossumAst.Program = {
+        type: "program",
+        value: [
+          {
+            type: "doc_comment",
+            value: [
+              { type: "doc_comment_property", value: "title" },
+              {
+                type: "template_string",
+                value: [
+                  { type: "template_string_segment", value: "The Tale of " },
+                  { type: "template_var_segment", value: "a" },
+                  { type: "template_string_segment", value: " and " },
+                  { type: "template_var_segment", value: "b" }
+                ]
+              },
+            ],
+          },
+          {
+            type: "block",
+            postfixed: { type: "var", value: "Main" },
+            value: [
+              {
+                type: "block",
+                postfixed: { type: "var", value: "Start" },
+                value: [],
+              },
+            ],
+          },
+        ],
+      };
+
+      const ophelia = new Ophelia(possumAst);
+      const ast = ophelia.run();
+
+      expect(ast.title).toBeDefined();
+      expect(ast.title?.type).toBe("template_string");
+      expect(ast.title?.value).toHaveLength(4);
+      expect(ast.title?.value[0]).toEqual({ type: "template_string_segment", value: "The Tale of " });
+      expect(ast.title?.value[1]).toEqual({ type: "template_var_segment", value: "a" });
+      expect(ast.title?.value[2]).toEqual({ type: "template_string_segment", value: " and " });
+      expect(ast.title?.value[3]).toEqual({ type: "template_var_segment", value: "b" });
+    });
+
+    it("should handle template strings in var declarations", () => {
+      const possumAst: PossumAst.Program = {
+        type: "program",
+        value: [
+          {
+            type: "doc_comment",
+            value: [
+              { type: "doc_comment_var", value: "stack" },
+              {
+                type: "template_string",
+                value: [
+                  { type: "template_string_segment", value: "a stacky gentleperson named " },
+                  { type: "template_var_segment", value: "stack" }
+                ]
+              },
+            ],
+          },
+          {
+            type: "block",
+            postfixed: { type: "var", value: "Main" },
+            value: [],
+          },
+        ],
+      };
+
+      const ophelia = new Ophelia(possumAst);
+      const ast = ophelia.run();
+
+      expect(ast.varDeclarations.size).toBe(1);
+      const stackDescription = ast.varDeclarations.get("stack");
+      expect(stackDescription).toBeDefined();
+      expect(stackDescription?.type).toBe("template_string");
+      expect(stackDescription?.value).toHaveLength(2);
+      expect(stackDescription?.value[0]).toEqual({ type: "template_string_segment", value: "a stacky gentleperson named " });
+      expect(stackDescription?.value[1]).toEqual({ type: "template_var_segment", value: "stack" });
+    });
+
+    it("should handle template strings in act descriptions", () => {
+      const possumAst: PossumAst.Program = {
+        type: "program",
+        value: [
+          {
+            type: "doc_comment",
+            value: [
+              { type: "doc_comment_property", value: "description" },
+              {
+                type: "template_string",
+                value: [
+                  { type: "template_string_segment", value: "An act featuring " },
+                  { type: "template_var_segment", value: "hero" },
+                  { type: "template_string_segment", value: " the brave" }
+                ]
+              },
+            ],
+          },
+          {
+            type: "block",
+            postfixed: { type: "var", value: "Main" },
+            value: [
+              {
+                type: "block",
+                postfixed: { type: "var", value: "Start" },
+                value: [],
+              },
+            ],
+          },
+        ],
+      };
+
+      const ophelia = new Ophelia(possumAst);
+      const ast = ophelia.run();
+
+      const act = ast.items[0] as OpheliaAst.Act;
+      expect(act.description).toBeDefined();
+      expect(act.description?.type).toBe("template_string");
+      expect(act.description?.value).toHaveLength(3);
+      expect(act.description?.value[0]).toEqual({ type: "template_string_segment", value: "An act featuring " });
+      expect(act.description?.value[1]).toEqual({ type: "template_var_segment", value: "hero" });
+      expect(act.description?.value[2]).toEqual({ type: "template_string_segment", value: " the brave" });
+    });
+
+    it("should handle template strings in scene descriptions", () => {
+      const possumAst: PossumAst.Program = {
+        type: "program",
+        value: [
+          {
+            type: "block",
+            postfixed: { type: "var", value: "Main" },
+            value: [
+              {
+                type: "doc_comment",
+                value: [
+                  { type: "doc_comment_property", value: "description" },
+                  {
+                    type: "template_string",
+                    value: [
+                      { type: "template_string_segment", value: "Where " },
+                      { type: "template_var_segment", value: "protagonist" },
+                      { type: "template_string_segment", value: " meets " },
+                      { type: "template_var_segment", value: "antagonist" }
+                    ]
+                  },
+                ],
+              },
+              {
+                type: "block",
+                postfixed: { type: "var", value: "Start" },
+                value: [],
+              },
+            ],
+          },
+        ],
+      };
+
+      const ophelia = new Ophelia(possumAst);
+      const ast = ophelia.run();
+
+      const act = ast.items[0] as OpheliaAst.Act;
+      const scene = act.items[0] as OpheliaAst.Scene;
+      expect(scene.description).toBeDefined();
+      expect(scene.description?.type).toBe("template_string");
+      expect(scene.description?.value).toHaveLength(4);
+      expect(scene.description?.value[0]).toEqual({ type: "template_string_segment", value: "Where " });
+      expect(scene.description?.value[1]).toEqual({ type: "template_var_segment", value: "protagonist" });
+      expect(scene.description?.value[2]).toEqual({ type: "template_string_segment", value: " meets " });
+      expect(scene.description?.value[3]).toEqual({ type: "template_var_segment", value: "antagonist" });
+    });
+
+    it("should preserve template variables in pretty printing", () => {
+      const ast: OpheliaAst.Program = {
+        type: "program",
+        title: {
+          type: "template_string",
+          value: [
+            { type: "template_string_segment", value: "The Adventures of " },
+            { type: "template_var_segment", value: "hero" }
+          ]
+        },
+        varDeclarations: new Map([
+          ["hero", {
+            type: "template_string",
+            value: [
+              { type: "template_string_segment", value: "a brave " },
+              { type: "template_var_segment", value: "hero" }
+            ]
+          }]
+        ]),
+        items: [
+          {
+            type: "act",
+            actId: "Main",
+            description: {
+              type: "template_string",
+              value: [
+                { type: "template_string_segment", value: "The main act starring " },
+                { type: "template_var_segment", value: "hero" }
+              ]
+            },
+            items: [
+              {
+                type: "scene",
+                sceneId: "Start",
+                description: {
+                  type: "template_string",
+                  value: [
+                    { type: "template_string_segment", value: "Where " },
+                    { type: "template_var_segment", value: "hero" },
+                    { type: "template_string_segment", value: " begins the journey" }
+                  ]
+                },
+                directions: [],
+              },
+            ],
+          },
+        ],
+      };
+
+      const prettyPrinted = prettyPrint(ast);
+      expect(prettyPrinted).toContain("## title: The Adventures of {hero}");
+      expect(prettyPrinted).toContain("## var hero: a brave {hero}");
+      expect(prettyPrinted).toContain("## description: The main act starring {hero}");
+      expect(prettyPrinted).toContain("## description: Where {hero} begins the journey");
+    });
+
+    it("should handle template strings with only text segments", () => {
+      const possumAst: PossumAst.Program = {
+        type: "program",
+        value: [
+          {
+            type: "doc_comment",
+            value: [
+              { type: "doc_comment_property", value: "title" },
+              {
+                type: "template_string",
+                value: [
+                  { type: "template_string_segment", value: "Plain text title" }
+                ]
+              },
+            ],
+          },
+          {
+            type: "block",
+            postfixed: { type: "var", value: "Main" },
+            value: [
+              {
+                type: "block",
+                postfixed: { type: "var", value: "Start" },
+                value: [],
+              },
+            ],
+          },
+        ],
+      };
+
+      const ophelia = new Ophelia(possumAst);
+      const ast = ophelia.run();
+
+      expect(ast.title).toBeDefined();
+      expect(ast.title?.type).toBe("template_string");
+      expect(ast.title?.value).toHaveLength(1);
+      expect(ast.title?.value[0]).toEqual({ type: "template_string_segment", value: "Plain text title" });
+
+      const prettyPrinted = prettyPrint(ast);
+      expect(prettyPrinted).toContain("## title: Plain text title");
+    });
+
+    it("should handle template strings with only variable segments", () => {
+      const possumAst: PossumAst.Program = {
+        type: "program",
+        value: [
+          {
+            type: "doc_comment",
+            value: [
+              { type: "doc_comment_var", value: "name" },
+              {
+                type: "template_string",
+                value: [
+                  { type: "template_var_segment", value: "name" }
+                ]
+              },
+            ],
+          },
+          {
+            type: "block",
+            postfixed: { type: "var", value: "Main" },
+            value: [],
+          },
+        ],
+      };
+
+      const ophelia = new Ophelia(possumAst);
+      const ast = ophelia.run();
+
+      expect(ast.varDeclarations.size).toBe(1);
+      const nameDescription = ast.varDeclarations.get("name");
+      expect(nameDescription).toBeDefined();
+      expect(nameDescription?.type).toBe("template_string");
+      expect(nameDescription?.value).toHaveLength(1);
+      expect(nameDescription?.value[0]).toEqual({ type: "template_var_segment", value: "name" });
+
+      const prettyPrinted = prettyPrint(ast);
+      expect(prettyPrinted).toContain("## var name: {name}");
     });
   });
 });

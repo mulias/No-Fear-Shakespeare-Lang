@@ -35,7 +35,7 @@ export class Yorick {
 
     // Use provided title if available, otherwise generate one
     if (program.title) {
-      title = program.title;
+      title = this.convertTemplateStringToString(program.title);
     } else if (this.vars.length > 0) {
       const character = this.characterName(this.vars[0] as OpheliaAst.VarId);
       const adjective = this.gen.randomAdjective();
@@ -56,14 +56,31 @@ export class Yorick {
     );
   }
 
+  convertTemplateStringToString(templateString: OpheliaAst.TemplateString): string {
+    return templateString.value
+      .map((segment) => {
+        if (segment.type === "template_string_segment") {
+          return segment.value;
+        } else if (segment.type === "template_var_segment") {
+          const characterName = this.characterName(segment.value as OpheliaAst.VarId);
+          return characterName;
+        } else {
+          throw new Error(`Unknown template segment type: ${(segment as any).type}`);
+        }
+      })
+      .join("");
+  }
+
   buildComment(text: string): Ast.Comment {
     return new Ast.Comment(text);
   }
 
   buildDeclarations(vars: string[]): Ast.Declaration[] {
     return vars.map((varId) => {
-      const description =
-        this.ast.varDeclarations.get(varId) ?? `the ${varId} variable`;
+      const templateDescription = this.ast.varDeclarations.get(varId);
+      const description = templateDescription 
+        ? this.convertTemplateStringToString(templateDescription)
+        : `the ${varId} variable`;
 
       return new Ast.Declaration(
         this.buildCharacter(varId),
@@ -81,7 +98,11 @@ export class Yorick {
       (act) =>
         new Ast.Part(
           this.buildNumeral(act.actId),
-          this.buildComment(act.description || camelToSentenceCase(act.actId)),
+          this.buildComment(
+            act.description 
+              ? this.convertTemplateStringToString(act.description)
+              : camelToSentenceCase(act.actId)
+          ),
           this.buildSubparts(act.items),
         ),
     );
@@ -106,7 +127,9 @@ export class Yorick {
         new Ast.Subpart(
           this.buildNumeral(scene.sceneId),
           this.buildComment(
-            scene.description || camelToSentenceCase(scene.sceneId),
+            scene.description 
+              ? this.convertTemplateStringToString(scene.description)
+              : camelToSentenceCase(scene.sceneId),
           ),
           this.buildStage(scene.directions),
         ),

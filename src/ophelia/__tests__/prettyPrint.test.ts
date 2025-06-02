@@ -1,5 +1,6 @@
 import { prettyPrint } from "../index";
 import * as OpheliaAst from "../ast";
+import { templateString } from "../../test-helpers";
 
 describe("Ophelia Pretty Printer", () => {
   describe("basic program structure", () => {
@@ -850,7 +851,7 @@ describe("Ophelia Pretty Printer", () => {
     it("should print title doc comment with two hashes", () => {
       const ast: OpheliaAst.Program = {
         type: "program",
-        title: "My Awesome Program",
+        title: templateString("My Awesome Program"),
         varDeclarations: new Map(),
         items: [
           {
@@ -904,7 +905,7 @@ Main {
     it("should print title and preserve other elements", () => {
       const ast: OpheliaAst.Program = {
         type: "program",
-        title: "FizzBuzz Implementation",
+        title: templateString("FizzBuzz Implementation"),
         varDeclarations: new Map(),
         items: [
           {

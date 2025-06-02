@@ -1,7 +1,11 @@
+import * as PossumAst from "../possum/ast";
+
+export type TemplateString = PossumAst.TemplateString;
+
 export type Program = {
   type: "program";
-  title?: string;
-  varDeclarations: Map<VarId, string>;
+  title?: TemplateString;
+  varDeclarations: Map<VarId, TemplateString>;
   items: ProgramItem[];
 };
 
@@ -10,7 +14,7 @@ export type ProgramItem = Act | Comment;
 export type Act = {
   type: "act";
   actId: LabelId;
-  description?: string;
+  description?: TemplateString;
   items: ActItem[];
 };
 
@@ -19,7 +23,7 @@ export type ActItem = Scene | Comment;
 export type Scene = {
   type: "scene";
   sceneId: LabelId;
-  description?: string;
+  description?: TemplateString;
   directions: Direction[];
 };
 

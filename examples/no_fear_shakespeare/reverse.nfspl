@@ -1,4 +1,4 @@
-## title: Outputting Input Reversedly
+## title: {stack} and {count} Output The Input Reversedly
 ## var stack: a stacky gentleperson
 ## var count: who counts the memories of {stack}
 
@@ -10,7 +10,7 @@ Main {
     stack { @you.set(0) }
   }
 
-  ## description: Pushing to the very end
+  ## description: Pushing to {stack}
   GetInput {
     count {
       @you.read_char
@@ -27,7 +27,7 @@ Main {
     stack { @you.set(@you - 1) }
   }
 
-  ## description: Popping back up!
+  ## description: Counting to {count}
   PrintReversed {
     count {
       @you.pop

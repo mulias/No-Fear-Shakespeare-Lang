@@ -35,7 +35,7 @@ export type Comment = { type: "comment"; value: string };
 
 export type DocComment = {
   type: "doc_comment";
-  value: [key: DocCommentKey, value: string];
+  value: [key: DocCommentKey, value: TemplateString];
 };
 
 export type DocCommentKey = DocCommentVar | DocCommentProperty;
@@ -47,6 +47,21 @@ export type DocCommentVar = {
 
 export type DocCommentProperty = {
   type: "doc_comment_property";
+  value: string;
+};
+
+export type TemplateString = {
+  type: "template_string";
+  value: (TemplateVarSegment | TemplateStringSegment)[];
+};
+
+export type TemplateVarSegment = {
+  type: "template_var_segment";
+  value: string;
+};
+
+export type TemplateStringSegment = {
+  type: "template_string_segment";
   value: string;
 };
 
