@@ -1,4 +1,9 @@
-export type Program = { type: "program"; title?: string; items: ProgramItem[] };
+export type Program = {
+  type: "program";
+  title?: string;
+  varDeclarations: Map<VarId, string>;
+  items: ProgramItem[];
+};
 
 export type ProgramItem = Act | Comment;
 

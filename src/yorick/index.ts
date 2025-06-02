@@ -61,13 +61,15 @@ export class Yorick {
   }
 
   buildDeclarations(vars: string[]): Ast.Declaration[] {
-    return vars.map(
-      (varId) =>
-        new Ast.Declaration(
-          this.buildCharacter(varId),
-          this.buildComment(`the ${varId} variable`),
-        ),
-    );
+    return vars.map((varId) => {
+      const description =
+        this.ast.varDeclarations.get(varId) ?? `the ${varId} variable`;
+
+      return new Ast.Declaration(
+        this.buildCharacter(varId),
+        this.buildComment(description),
+      );
+    });
   }
 
   buildParts(items: OpheliaAst.ProgramItem[]): Ast.Part[] {

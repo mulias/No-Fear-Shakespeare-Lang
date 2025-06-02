@@ -1478,7 +1478,10 @@ describe("Ophelia Transformer", () => {
         value: [
           {
             type: "doc_comment",
-            value: [{ type: "doc_comment_property", value: "title" }, "To Fizz, Perchance To Buzz"],
+            value: [
+              { type: "doc_comment_property", value: "title" },
+              "To Fizz, Perchance To Buzz",
+            ],
           },
           {
             type: "block",
@@ -1542,7 +1545,10 @@ describe("Ophelia Transformer", () => {
           },
           {
             type: "doc_comment",
-            value: [{ type: "doc_comment_property", value: "title" }, "Too Late Title"],
+            value: [
+              { type: "doc_comment_property", value: "title" },
+              "Too Late Title",
+            ],
           },
         ],
       };
@@ -1559,11 +1565,17 @@ describe("Ophelia Transformer", () => {
         value: [
           {
             type: "doc_comment",
-            value: [{ type: "doc_comment_property", value: "title" }, "First Title"],
+            value: [
+              { type: "doc_comment_property", value: "title" },
+              "First Title",
+            ],
           },
           {
             type: "doc_comment",
-            value: [{ type: "doc_comment_property", value: "title" }, "Second Title"],
+            value: [
+              { type: "doc_comment_property", value: "title" },
+              "Second Title",
+            ],
           },
           {
             type: "block",
@@ -1591,7 +1603,10 @@ describe("Ophelia Transformer", () => {
         value: [
           {
             type: "doc_comment",
-            value: [{ type: "doc_comment_property", value: "author" }, "William Shakespeare"],
+            value: [
+              { type: "doc_comment_property", value: "author" },
+              "William Shakespeare",
+            ],
           },
           {
             type: "block",
@@ -1609,7 +1624,7 @@ describe("Ophelia Transformer", () => {
 
       const ophelia = new Ophelia(possumAst);
       expect(() => ophelia.run()).toThrow(
-        'Invalid doc comment key "author" at program level. Only "title" and "description" are allowed at the top level.',
+        'Invalid doc comment key "author" at program level. Only "title", "var", and "description" are allowed at the top level.',
       );
     });
 
@@ -1623,7 +1638,10 @@ describe("Ophelia Transformer", () => {
           },
           {
             type: "doc_comment",
-            value: [{ type: "doc_comment_property", value: "title" }, "The Title After Comment"],
+            value: [
+              { type: "doc_comment_property", value: "title" },
+              "The Title After Comment",
+            ],
           },
           {
             type: "block",
@@ -1652,7 +1670,10 @@ describe("Ophelia Transformer", () => {
         value: [
           {
             type: "doc_comment",
-            value: [{ type: "doc_comment_property", value: "title" }, "Pretty Printed Title"],
+            value: [
+              { type: "doc_comment_property", value: "title" },
+              "Pretty Printed Title",
+            ],
           },
           {
             type: "block",
@@ -1732,7 +1753,10 @@ Main {
         value: [
           {
             type: "doc_comment",
-            value: [{ type: "doc_comment_property", value: "description" }, "The main act where everything happens"],
+            value: [
+              { type: "doc_comment_property", value: "description" },
+              "The main act where everything happens",
+            ],
           },
           {
             type: "block",
@@ -1766,7 +1790,10 @@ Main {
             value: [
               {
                 type: "doc_comment",
-                value: [{ type: "doc_comment_property", value: "description" }, "The opening scene"],
+                value: [
+                  { type: "doc_comment_property", value: "description" },
+                  "The opening scene",
+                ],
               },
               {
                 type: "block",
@@ -1820,11 +1847,17 @@ Main {
         value: [
           {
             type: "doc_comment",
-            value: [{ type: "doc_comment_property", value: "description" }, "First description"],
+            value: [
+              { type: "doc_comment_property", value: "description" },
+              "First description",
+            ],
           },
           {
             type: "doc_comment",
-            value: [{ type: "doc_comment_property", value: "description" }, "Second description"],
+            value: [
+              { type: "doc_comment_property", value: "description" },
+              "Second description",
+            ],
           },
           {
             type: "block",
@@ -1850,11 +1883,17 @@ Main {
             value: [
               {
                 type: "doc_comment",
-                value: [{ type: "doc_comment_property", value: "description" }, "First description"],
+                value: [
+                  { type: "doc_comment_property", value: "description" },
+                  "First description",
+                ],
               },
               {
                 type: "doc_comment",
-                value: [{ type: "doc_comment_property", value: "description" }, "Second description"],
+                value: [
+                  { type: "doc_comment_property", value: "description" },
+                  "Second description",
+                ],
               },
               {
                 type: "block",
@@ -1878,7 +1917,10 @@ Main {
         value: [
           {
             type: "doc_comment",
-            value: [{ type: "doc_comment_property", value: "description" }, "Orphaned description"],
+            value: [
+              { type: "doc_comment_property", value: "description" },
+              "Orphaned description",
+            ],
           },
           {
             type: "comment",
@@ -1903,7 +1945,10 @@ Main {
             value: [
               {
                 type: "doc_comment",
-                value: [{ type: "doc_comment_property", value: "description" }, "Orphaned description"],
+                value: [
+                  { type: "doc_comment_property", value: "description" },
+                  "Orphaned description",
+                ],
               },
               {
                 type: "comment",
@@ -1934,7 +1979,10 @@ Main {
                 value: [
                   {
                     type: "doc_comment",
-                    value: [{ type: "doc_comment_property", value: "description" }, "Invalid placement"],
+                    value: [
+                      { type: "doc_comment_property", value: "description" },
+                      "Invalid placement",
+                    ],
                   },
                 ],
               },
@@ -1955,7 +2003,10 @@ Main {
         value: [
           {
             type: "doc_comment",
-            value: [{ type: "doc_comment_property", value: "author" }, "Shakespeare"],
+            value: [
+              { type: "doc_comment_property", value: "author" },
+              "Shakespeare",
+            ],
           },
           {
             type: "block",
@@ -1977,7 +2028,10 @@ Main {
         value: [
           {
             type: "doc_comment",
-            value: [{ type: "doc_comment_property", value: "description" }, "The main act"],
+            value: [
+              { type: "doc_comment_property", value: "description" },
+              "The main act",
+            ],
           },
           {
             type: "comment",
@@ -2000,6 +2054,7 @@ Main {
     it("should preserve descriptions through pretty printing", () => {
       const ast: OpheliaAst.Program = {
         type: "program",
+        varDeclarations: new Map(),
         items: [
           {
             type: "act",
@@ -2035,6 +2090,101 @@ Main {
       expect(actDescIndex).toBeLessThan(actIndex);
       expect(sceneDescIndex).toBeLessThan(sceneIndex);
       expect(sceneDescIndex).toBeGreaterThan(actIndex);
+    });
+  });
+
+  describe("var doc comment support", () => {
+    it("should extract var declarations from doc comments", () => {
+      const possumAst: PossumAst.Program = {
+        type: "program",
+        value: [
+          {
+            type: "doc_comment",
+            value: [{ type: "var", value: "stack" }, "a stacky gentleperson"],
+          },
+          {
+            type: "doc_comment",
+            value: [{ type: "var", value: "count" }, "who counts the memories"],
+          },
+          {
+            type: "block",
+            postfixed: { type: "var", value: "Main" },
+            value: [],
+          },
+        ],
+      };
+
+      const ophelia = new Ophelia(possumAst);
+      const ast = ophelia.run();
+
+      expect(ast.varDeclarations.size).toBe(2);
+      expect(ast.varDeclarations.get("stack")).toBe("a stacky gentleperson");
+      expect(ast.varDeclarations.get("count")).toBe("who counts the memories");
+    });
+
+    it("should handle programs without var declarations", () => {
+      const possumAst: PossumAst.Program = {
+        type: "program",
+        value: [
+          {
+            type: "block",
+            postfixed: { type: "var", value: "Main" },
+            value: [],
+          },
+        ],
+      };
+
+      const ophelia = new Ophelia(possumAst);
+      const ast = ophelia.run();
+
+      expect(ast.varDeclarations.size).toBe(0);
+    });
+
+    it("should reject duplicate var declarations", () => {
+      const possumAst: PossumAst.Program = {
+        type: "program",
+        value: [
+          {
+            type: "doc_comment",
+            value: [{ type: "var", value: "stack" }, "first description"],
+          },
+          {
+            type: "doc_comment",
+            value: [{ type: "var", value: "stack" }, "second description"],
+          },
+          {
+            type: "block",
+            postfixed: { type: "var", value: "Main" },
+            value: [],
+          },
+        ],
+      };
+
+      const ophelia = new Ophelia(possumAst);
+      expect(() => ophelia.run()).toThrow(
+        'Variable "stack" already declared. Only one declaration per variable is allowed.',
+      );
+    });
+
+    it("should preserve var declarations through pretty printing", () => {
+      const ast: OpheliaAst.Program = {
+        type: "program",
+        varDeclarations: new Map([
+          ["stack", "a stacky gentleperson"],
+          ["count", "who counts things"],
+        ]),
+        items: [
+          {
+            type: "act",
+            actId: "Main",
+            items: [],
+          },
+        ],
+      };
+
+      const prettyPrinted = prettyPrint(ast);
+      expect(prettyPrinted).toContain("## var stack: a stacky gentleperson");
+      expect(prettyPrinted).toContain("## var count: who counts things");
     });
   });
 });

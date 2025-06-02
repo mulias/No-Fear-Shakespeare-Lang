@@ -34,6 +34,11 @@ class PrettyPrinter {
       parts.push(`## title: ${program.title}`);
     }
 
+    // Add var declarations
+    for (const [varName, description] of program.varDeclarations) {
+      parts.push(`## var ${varName}: ${description}`);
+    }
+
     parts.push(...program.items.map((item) => this.printProgramItem(item)));
 
     return parts.join("\n");
@@ -254,7 +259,6 @@ export class Ophelia {
     }
   }
 
-
   get hasProblems() {
     return this.problems.length > 0;
   }
@@ -270,28 +274,38 @@ export class Ophelia {
   }
 
   buildProgram(program: PossumAst.Program): Ast.Program {
-    const { title, items } = this.extractTitleAndItems(program.value);
+    const { title, varDeclarations, items } = this.extractFrontmatter(
+      program.value,
+    );
 
     return {
       type: "program",
       title,
+      varDeclarations,
       items: this.buildProgramItems(items),
     };
   }
 
-  extractTitleAndItems(nodes: (PossumAst.Node | PossumAst.Malformed)[]): {
+  extractFrontmatter(nodes: (PossumAst.Node | PossumAst.Malformed)[]): {
     title?: string;
+    varDeclarations: Map<string, string>;
     items: (PossumAst.Node | PossumAst.Malformed)[];
   } {
     let titleDocComment: PossumAst.DocComment | undefined;
     let titleCount = 0;
+    const varDeclarations = new Map<string, string>();
     const remainingItems: (PossumAst.Node | PossumAst.Malformed)[] = [];
 
     for (let i = 0; i < nodes.length; i++) {
       const node = nodes[i];
 
       // Check if this is a doc comment with title key
-      if (node && node.type === "doc_comment" && node.value[0].type === "doc_comment_property" && node.value[0].value === "title") {
+      if (
+        node &&
+        node.type === "doc_comment" &&
+        node.value[0].type === "doc_comment_property" &&
+        node.value[0].value === "title"
+      ) {
         titleCount++;
 
         if (titleCount > 1) {
@@ -316,15 +330,32 @@ export class Ophelia {
         } else {
           titleDocComment = node;
         }
+      } else if (
+        node &&
+        node.type === "doc_comment" &&
+        node.value[0].type === "var"
+      ) {
+        // Handle var doc comments
+        const varName = node.value[0].value;
+        const varDescription = node.value[1];
+
+        if (varDeclarations.has(varName)) {
+          this.addProblem(
+            node,
+            `Variable "${varName}" already declared. Only one declaration per variable is allowed.`,
+          );
+        } else {
+          varDeclarations.set(varName, varDescription);
+        }
       } else if (node) {
-        // Pass through all other nodes (including non-title doc comments)
+        // Pass through all other nodes (including non-title/var doc comments)
         remainingItems.push(node);
       }
     }
 
     const title = titleDocComment ? titleDocComment.value[1] : undefined;
 
-    return { title, items: remainingItems };
+    return { title, varDeclarations, items: remainingItems };
   }
 
   buildProgramItems(
@@ -338,7 +369,11 @@ export class Ophelia {
       if (!node) continue;
 
       // Check if this is a description doc comment
-      if (node.type === "doc_comment" && node.value[0].type === "doc_comment_property" && node.value[0].value === "description") {
+      if (
+        node.type === "doc_comment" &&
+        node.value[0].type === "doc_comment_property" &&
+        node.value[0].value === "description"
+      ) {
         if (pendingDescription) {
           this.addProblem(
             node,
@@ -353,7 +388,9 @@ export class Ophelia {
       if (node.type === "doc_comment") {
         this.addProblem(
           node,
-          `Invalid doc comment key "${this.getDocCommentKeyDisplay(node.value[0])}" at program level. Only "title" and "description" are allowed at the top level.`,
+          `Invalid doc comment key "${this.getDocCommentKeyDisplay(
+            node.value[0],
+          )}" at program level. Only "title", "var", and "description" are allowed at the top level.`,
         );
         continue;
       }
@@ -445,7 +482,11 @@ export class Ophelia {
       if (!node) continue;
 
       // Check if this is a description doc comment
-      if (node.type === "doc_comment" && node.value[0].type === "doc_comment_property" && node.value[0].value === "description") {
+      if (
+        node.type === "doc_comment" &&
+        node.value[0].type === "doc_comment_property" &&
+        node.value[0].value === "description"
+      ) {
         if (pendingDescription) {
           this.addProblem(
             node,
@@ -460,7 +501,9 @@ export class Ophelia {
       if (node.type === "doc_comment") {
         this.addProblem(
           node,
-          `Invalid doc comment key "${this.getDocCommentKeyDisplay(node.value[0])}" at act level. Only "description" is allowed here.`,
+          `Invalid doc comment key "${this.getDocCommentKeyDisplay(
+            node.value[0],
+          )}" at act level. Only "description" is allowed here.`,
         );
         continue;
       }

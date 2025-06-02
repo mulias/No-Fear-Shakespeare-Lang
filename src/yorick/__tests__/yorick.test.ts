@@ -7,6 +7,7 @@ describe("Yorick Transpiler", () => {
     it("should ignore comments when generating SPL AST", () => {
       const opheliaAst: OpheliaAst.Program = {
         type: "program",
+        varDeclarations: new Map(),
         items: [
           {
             type: "act",
@@ -69,6 +70,7 @@ describe("Yorick Transpiler", () => {
     it("should generate a program with title and declarations", () => {
       const opheliaAst: OpheliaAst.Program = {
         type: "program",
+        varDeclarations: new Map(),
         items: [
           {
             type: "act",
@@ -98,6 +100,7 @@ describe("Yorick Transpiler", () => {
       const opheliaAst: OpheliaAst.Program = {
         type: "program",
         title: "To Fizz, Perchance To Buzz",
+        varDeclarations: new Map(),
         items: [
           {
             type: "act",
@@ -132,6 +135,7 @@ describe("Yorick Transpiler", () => {
     it("should generate title with character name when no custom title is provided", () => {
       const opheliaAst: OpheliaAst.Program = {
         type: "program",
+        varDeclarations: new Map(),
         items: [
           {
             type: "act",
@@ -162,6 +166,7 @@ describe("Yorick Transpiler", () => {
     it("should use provided description for acts", () => {
       const opheliaAst: OpheliaAst.Program = {
         type: "program",
+        varDeclarations: new Map(),
         items: [
           {
             type: "act",
@@ -187,6 +192,7 @@ describe("Yorick Transpiler", () => {
     it("should use provided description for scenes", () => {
       const opheliaAst: OpheliaAst.Program = {
         type: "program",
+        varDeclarations: new Map(),
         items: [
           {
             type: "act",
@@ -214,6 +220,7 @@ describe("Yorick Transpiler", () => {
     it("should fall back to auto-generated descriptions when not provided", () => {
       const opheliaAst: OpheliaAst.Program = {
         type: "program",
+        varDeclarations: new Map(),
         items: [
           {
             type: "act",
@@ -240,6 +247,7 @@ describe("Yorick Transpiler", () => {
     it("should handle both act and scene descriptions together", () => {
       const opheliaAst: OpheliaAst.Program = {
         type: "program",
+        varDeclarations: new Map(),
         items: [
           {
             type: "act",
@@ -284,6 +292,7 @@ describe("Yorick Transpiler", () => {
     it("should generate character declarations for variables", () => {
       const opheliaAst: OpheliaAst.Program = {
         type: "program",
+        varDeclarations: new Map(),
         items: [
           {
             type: "act",
@@ -325,6 +334,7 @@ describe("Yorick Transpiler", () => {
     it("should convert acts to parts with roman numerals", () => {
       const opheliaAst: OpheliaAst.Program = {
         type: "program",
+        varDeclarations: new Map(),
         items: [
           {
             type: "act",
@@ -358,6 +368,7 @@ describe("Yorick Transpiler", () => {
     it("should convert scenes to subparts", () => {
       const opheliaAst: OpheliaAst.Program = {
         type: "program",
+        varDeclarations: new Map(),
         items: [
           {
             type: "act",
@@ -408,6 +419,7 @@ describe("Yorick Transpiler", () => {
     it("should convert stage to enter", () => {
       const opheliaAst: OpheliaAst.Program = {
         type: "program",
+        varDeclarations: new Map(),
         items: [
           {
             type: "act",
@@ -443,6 +455,7 @@ describe("Yorick Transpiler", () => {
     it("should convert stage with two characters", () => {
       const opheliaAst: OpheliaAst.Program = {
         type: "program",
+        varDeclarations: new Map(),
         items: [
           {
             type: "act",
@@ -475,6 +488,7 @@ describe("Yorick Transpiler", () => {
     it("should convert unstage to exit", () => {
       const opheliaAst: OpheliaAst.Program = {
         type: "program",
+        varDeclarations: new Map(),
         items: [
           {
             type: "act",
@@ -507,6 +521,7 @@ describe("Yorick Transpiler", () => {
     it("should convert unstage_all to exeunt", () => {
       const opheliaAst: OpheliaAst.Program = {
         type: "program",
+        varDeclarations: new Map(),
         items: [
           {
             type: "act",
@@ -540,6 +555,7 @@ describe("Yorick Transpiler", () => {
     it("should convert dialogue blocks", () => {
       const opheliaAst: OpheliaAst.Program = {
         type: "program",
+        varDeclarations: new Map(),
         items: [
           {
             type: "act",
@@ -575,6 +591,7 @@ describe("Yorick Transpiler", () => {
     it("should convert set statements", () => {
       const opheliaAst: OpheliaAst.Program = {
         type: "program",
+        varDeclarations: new Map(),
         items: [
           {
             type: "act",
@@ -618,6 +635,7 @@ describe("Yorick Transpiler", () => {
     it("should convert print_char statements", () => {
       const opheliaAst: OpheliaAst.Program = {
         type: "program",
+        varDeclarations: new Map(),
         items: [
           {
             type: "act",
@@ -659,6 +677,7 @@ describe("Yorick Transpiler", () => {
     it("should convert goto statements", () => {
       const opheliaAst: OpheliaAst.Program = {
         type: "program",
+        varDeclarations: new Map(),
         items: [
           {
             type: "act",
@@ -706,6 +725,7 @@ describe("Yorick Transpiler", () => {
     it("should convert test statements", () => {
       const opheliaAst: OpheliaAst.Program = {
         type: "program",
+        varDeclarations: new Map(),
         items: [
           {
             type: "act",
@@ -749,6 +769,7 @@ describe("Yorick Transpiler", () => {
     it("should convert if statements", () => {
       const opheliaAst: OpheliaAst.Program = {
         type: "program",
+        varDeclarations: new Map(),
         items: [
           {
             type: "act",
@@ -801,6 +822,7 @@ describe("Yorick Transpiler", () => {
     it("should convert positive integers to adjective chains", () => {
       const opheliaAst: OpheliaAst.Program = {
         type: "program",
+        varDeclarations: new Map(),
         items: [
           {
             type: "act",
@@ -846,6 +868,7 @@ describe("Yorick Transpiler", () => {
     it("should convert zero to nothing", () => {
       const opheliaAst: OpheliaAst.Program = {
         type: "program",
+        varDeclarations: new Map(),
         items: [
           {
             type: "act",
@@ -888,6 +911,7 @@ describe("Yorick Transpiler", () => {
     it("should convert negative integers", () => {
       const opheliaAst: OpheliaAst.Program = {
         type: "program",
+        varDeclarations: new Map(),
         items: [
           {
             type: "act",
@@ -931,6 +955,7 @@ describe("Yorick Transpiler", () => {
     it("should convert character literals to ASCII values", () => {
       const opheliaAst: OpheliaAst.Program = {
         type: "program",
+        varDeclarations: new Map(),
         items: [
           {
             type: "act",
@@ -973,6 +998,7 @@ describe("Yorick Transpiler", () => {
     it("should convert arithmetic expressions", () => {
       const opheliaAst: OpheliaAst.Program = {
         type: "program",
+        varDeclarations: new Map(),
         items: [
           {
             type: "act",
@@ -1024,6 +1050,7 @@ describe("Yorick Transpiler", () => {
     it("should convert push_self statements", () => {
       const opheliaAst: OpheliaAst.Program = {
         type: "program",
+        varDeclarations: new Map(),
         items: [
           {
             type: "act",
@@ -1064,6 +1091,7 @@ describe("Yorick Transpiler", () => {
     it("should convert push_me statements", () => {
       const opheliaAst: OpheliaAst.Program = {
         type: "program",
+        varDeclarations: new Map(),
         items: [
           {
             type: "act",
@@ -1105,6 +1133,7 @@ describe("Yorick Transpiler", () => {
     it("should convert pop statements", () => {
       const opheliaAst: OpheliaAst.Program = {
         type: "program",
+        varDeclarations: new Map(),
         items: [
           {
             type: "act",
@@ -1147,6 +1176,7 @@ describe("Yorick Transpiler", () => {
     it("should convert read_char statements", () => {
       const opheliaAst: OpheliaAst.Program = {
         type: "program",
+        varDeclarations: new Map(),
         items: [
           {
             type: "act",
@@ -1187,6 +1217,7 @@ describe("Yorick Transpiler", () => {
     it("should convert print_int statements", () => {
       const opheliaAst: OpheliaAst.Program = {
         type: "program",
+        varDeclarations: new Map(),
         items: [
           {
             type: "act",
@@ -1240,6 +1271,7 @@ describe("Yorick Transpiler", () => {
       testCases.forEach(([testType, expectedClass]) => {
         const opheliaAst: OpheliaAst.Program = {
           type: "program",
+          varDeclarations: new Map(),
           items: [
             {
               type: "act",
@@ -1284,6 +1316,7 @@ describe("Yorick Transpiler", () => {
     it("should throw error for invalid character in char literal", () => {
       const opheliaAst: OpheliaAst.Program = {
         type: "program",
+        varDeclarations: new Map(),
         items: [
           {
             type: "act",
@@ -1320,6 +1353,7 @@ describe("Yorick Transpiler", () => {
     it("should assign unique Shakespeare characters to variables", () => {
       const opheliaAst: OpheliaAst.Program = {
         type: "program",
+        varDeclarations: new Map(),
         items: [
           {
             type: "act",
@@ -1356,6 +1390,7 @@ describe("Yorick Transpiler", () => {
     it("should convert camelCase labels to sentence case", () => {
       const opheliaAst: OpheliaAst.Program = {
         type: "program",
+        varDeclarations: new Map(),
         items: [
           {
             type: "act",
@@ -1378,6 +1413,167 @@ describe("Yorick Transpiler", () => {
       expect(ast.parts[0]?.subparts[0]?.comment.sequence).toBe(
         "The beginning scene",
       );
+    });
+  });
+
+  describe("var declarations", () => {
+    it("should use var descriptions from declarations", () => {
+      const opheliaAst: OpheliaAst.Program = {
+        type: "program",
+        varDeclarations: new Map([
+          ["stack", "a stacky gentleperson"],
+          ["count", "who counts the memories"],
+        ]),
+        items: [
+          {
+            type: "act",
+            actId: "Main",
+            items: [
+              {
+                type: "scene",
+                sceneId: "Start",
+                directions: [
+                  {
+                    type: "stage",
+                    varId1: "stack",
+                    varId2: "count",
+                  },
+                  {
+                    type: "dialogue",
+                    speakerVarId: "stack",
+                    lines: [
+                      {
+                        type: ".set",
+                        value: { type: "int", value: 42 },
+                      },
+                    ],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      };
+
+      const yorick = new Yorick(opheliaAst);
+      const ast = yorick.run();
+
+      expect(ast.declarations).toHaveLength(2);
+
+      // Find the declarations by their description
+      const stackDecl = ast.declarations.find(
+        (d) => d.comment.sequence === "a stacky gentleperson",
+      );
+      const countDecl = ast.declarations.find(
+        (d) => d.comment.sequence === "who counts the memories",
+      );
+
+      expect(stackDecl?.comment.sequence).toBe("a stacky gentleperson");
+      expect(countDecl?.comment.sequence).toBe("who counts the memories");
+    });
+
+    it("should fall back to default descriptions for undeclared vars", () => {
+      const opheliaAst: OpheliaAst.Program = {
+        type: "program",
+        varDeclarations: new Map([["stack", "a stacky gentleperson"]]),
+        items: [
+          {
+            type: "act",
+            actId: "Main",
+            items: [
+              {
+                type: "scene",
+                sceneId: "Start",
+                directions: [
+                  {
+                    type: "stage",
+                    varId1: "stack",
+                    varId2: "undeclared",
+                  },
+                  {
+                    type: "dialogue",
+                    speakerVarId: "stack",
+                    lines: [
+                      {
+                        type: ".set",
+                        value: { type: "int", value: 42 },
+                      },
+                    ],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      };
+
+      const yorick = new Yorick(opheliaAst);
+      const ast = yorick.run();
+
+      expect(ast.declarations).toHaveLength(2);
+
+      // Find the declarations by their description
+      const stackDecl = ast.declarations.find(
+        (d) => d.comment.sequence === "a stacky gentleperson",
+      );
+      const undeclaredDecl = ast.declarations.find(
+        (d) => d.comment.sequence === "the undeclared variable",
+      );
+
+      expect(stackDecl?.comment.sequence).toBe("a stacky gentleperson");
+      expect(undeclaredDecl?.comment.sequence).toBe("the undeclared variable");
+    });
+
+    it("should work when no vars are declared", () => {
+      const opheliaAst: OpheliaAst.Program = {
+        type: "program",
+        varDeclarations: new Map(),
+        items: [
+          {
+            type: "act",
+            actId: "Main",
+            items: [
+              {
+                type: "scene",
+                sceneId: "Start",
+                directions: [
+                  {
+                    type: "stage",
+                    varId1: "a",
+                    varId2: "b",
+                  },
+                  {
+                    type: "dialogue",
+                    speakerVarId: "a",
+                    lines: [
+                      {
+                        type: ".set",
+                        value: { type: "int", value: 42 },
+                      },
+                    ],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      };
+
+      const yorick = new Yorick(opheliaAst);
+      const ast = yorick.run();
+
+      expect(ast.declarations).toHaveLength(2);
+
+      // Find the declarations by their description
+      const aDecl = ast.declarations.find(
+        (d) => d.comment.sequence === "the a variable",
+      );
+      const bDecl = ast.declarations.find(
+        (d) => d.comment.sequence === "the b variable",
+      );
+
+      expect(aDecl?.comment.sequence).toBe("the a variable");
+      expect(bDecl?.comment.sequence).toBe("the b variable");
     });
   });
 });
