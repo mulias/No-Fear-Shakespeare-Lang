@@ -14,7 +14,7 @@ Main {
   GetInput {
     count {
       @you.read_char
-      @you.push
+      @you.push_self
     }
     stack {
       @you.set(@you + 1)
