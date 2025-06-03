@@ -281,7 +281,7 @@ exports[`NFSPL Round-trip Snapshots formatting fixes should fix missing spaces a
     calc {
       @you.set(5 + 3 * 2)
       @you.set(@you / 4 - 1)
-      @you.set(temp + @you % 10)
+      @you.set((temp + @you) % 10)
     }
 
     unstage_all
@@ -583,9 +583,9 @@ exports[`NFSPL Round-trip Snapshots language features should round-trip nested a
     stage(calc, temp)
 
     calc {
-      @you.set(5 + 3 * 2)
+      @you.set((5 + 3) * 2)
       @you.set(@you / 4 - 1)
-      @you.set(temp + @you % 10)
+      @you.set((temp + @you) % 10)
     }
 
     unstage_all

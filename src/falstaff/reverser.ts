@@ -436,7 +436,18 @@ export class Reverser {
   private convertUnary(
     unary: HoratioAst.UnaryOperationValue,
     speaker: string,
-  ): OpheliaAst.Unary {
+  ): OpheliaAst.Unary | OpheliaAst.Arithmetic {
+    // Special case: "twice" should convert to "2 * X"
+    if (unary.operator.sequence === "twice") {
+      const operand = this.convertValue(unary.value, speaker);
+      return {
+        type: "arithmetic",
+        left: { type: "int", value: 2 },
+        op: "*",
+        right: operand,
+      };
+    }
+
     const operand = this.convertValue(unary.value, speaker);
     const op = this.convertUnaryOperator(unary.operator);
 

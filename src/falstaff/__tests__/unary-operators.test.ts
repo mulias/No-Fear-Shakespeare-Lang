@@ -341,6 +341,152 @@ describe("Falstaff Unary Operators", () => {
     });
   });
 
+  describe("twice operator", () => {
+    it("should convert 'twice' to '2 * X'", () => {
+      const title = new HoratioAst.Comment("Twice Test Program.");
+      const romeo = new HoratioAst.Character("Romeo");
+      const juliet = new HoratioAst.Character("Juliet");
+
+      const romeoDecl = new HoratioAst.Declaration(
+        romeo,
+        new HoratioAst.Comment("a number holder."),
+      );
+      const julietDecl = new HoratioAst.Declaration(
+        juliet,
+        new HoratioAst.Comment("a calculator."),
+      );
+
+      // Create value: twice Romeo
+      const romeoValue = new HoratioAst.CharacterValue(romeo);
+      const twiceOperator = new HoratioAst.UnaryOperator("twice");
+      const twiceValue = new HoratioAst.UnaryOperationValue(
+        twiceOperator,
+        romeoValue,
+      );
+
+      const assignment = new HoratioAst.AssignmentSentence(
+        new HoratioAst.Be("are"),
+        twiceValue,
+        new HoratioAst.SecondPersonPronoun("You"),
+        new HoratioAst.BeComparative("twice"),
+      );
+
+      const line = new HoratioAst.Line(juliet, [assignment]);
+      const dialogue = new HoratioAst.Dialogue([line]);
+
+      const subpart = new HoratioAst.Subpart(
+        new HoratioAst.Numeral("I"),
+        new HoratioAst.Comment("Test scene."),
+        new HoratioAst.Stage([
+          new HoratioAst.Enter(romeo, juliet),
+          dialogue,
+          new HoratioAst.Exeunt(),
+        ]),
+      );
+
+      const act = new HoratioAst.Part(
+        new HoratioAst.Numeral("I"),
+        new HoratioAst.Comment("Test act."),
+        [subpart],
+      );
+
+      const program = new HoratioAst.Program(
+        title,
+        [romeoDecl, julietDecl],
+        [act],
+      );
+
+      const falstaff = new Falstaff(program);
+      const opheliaAst = falstaff.run();
+      const nfspl = prettyPrint(opheliaAst);
+
+      expect(nfspl).toContain("@you.set(2 * romeo)");
+    });
+
+    it("should convert 'twice' with complex expression", () => {
+      const title = new HoratioAst.Comment("Twice Complex Test Program.");
+      const romeo = new HoratioAst.Character("Romeo");
+      const juliet = new HoratioAst.Character("Juliet");
+
+      const romeoDecl = new HoratioAst.Declaration(
+        romeo,
+        new HoratioAst.Comment("a number holder."),
+      );
+      const julietDecl = new HoratioAst.Declaration(
+        juliet,
+        new HoratioAst.Comment("a calculator."),
+      );
+
+      // Create value: twice the sum of Romeo and 3
+      const romeoValue = new HoratioAst.CharacterValue(romeo);
+      const cat = new HoratioAst.PositiveConstantValue(
+        new HoratioAst.PositiveNoun("cat"),
+        [new HoratioAst.PositiveAdjective("lovely")], // 2^1 = 2
+        "a",
+      );
+      const dog = new HoratioAst.PositiveConstantValue(
+        new HoratioAst.PositiveNoun("dog"),
+        [],
+        "a",
+      ); // 1
+      const sumValue = new HoratioAst.ArithmeticOperationValue(
+        new HoratioAst.ArithmeticOperator("sum of"),
+        cat,
+        dog,
+      ); // 2 + 1 = 3
+
+      const innerSum = new HoratioAst.ArithmeticOperationValue(
+        new HoratioAst.ArithmeticOperator("sum of"),
+        romeoValue,
+        sumValue,
+      ); // romeo + 3
+
+      const twiceOperator = new HoratioAst.UnaryOperator("twice");
+      const twiceValue = new HoratioAst.UnaryOperationValue(
+        twiceOperator,
+        innerSum,
+      );
+
+      const assignment = new HoratioAst.AssignmentSentence(
+        new HoratioAst.Be("are"),
+        twiceValue,
+        new HoratioAst.SecondPersonPronoun("You"),
+        new HoratioAst.BeComparative("twice"),
+      );
+
+      const line = new HoratioAst.Line(juliet, [assignment]);
+      const dialogue = new HoratioAst.Dialogue([line]);
+
+      const subpart = new HoratioAst.Subpart(
+        new HoratioAst.Numeral("I"),
+        new HoratioAst.Comment("Test scene."),
+        new HoratioAst.Stage([
+          new HoratioAst.Enter(romeo, juliet),
+          dialogue,
+          new HoratioAst.Exeunt(),
+        ]),
+      );
+
+      const act = new HoratioAst.Part(
+        new HoratioAst.Numeral("I"),
+        new HoratioAst.Comment("Test act."),
+        [subpart],
+      );
+
+      const program = new HoratioAst.Program(
+        title,
+        [romeoDecl, julietDecl],
+        [act],
+      );
+
+      const falstaff = new Falstaff(program);
+      const opheliaAst = falstaff.run();
+      const nfspl = prettyPrint(opheliaAst);
+
+      expect(nfspl).toContain("@you.set(2 * (romeo + 2 + 1))");
+    });
+  });
+
   describe("unary with arithmetic", () => {
     it("should handle unary operations within arithmetic expressions", () => {
       const title = new HoratioAst.Comment("Mixed Operations Test Program.");

@@ -342,6 +342,17 @@ export class Yorick {
   buildValue(expression: OpheliaAst.Expression): Ast.Value {
     switch (expression.type) {
       case "arithmetic":
+        // Special case: convert "2 * X" to "twice X"
+        if (
+          expression.op === "*" &&
+          expression.left.type === "int" &&
+          expression.left.value === 2
+        ) {
+          return new Ast.UnaryOperationValue(
+            new Ast.UnaryOperator("twice"),
+            this.buildValue(expression.right),
+          );
+        }
         return this.buildArithmeticOperationValue(expression);
       case "unary":
         return this.buildUnaryOperationValue(expression);

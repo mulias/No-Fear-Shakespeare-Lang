@@ -242,6 +242,13 @@ class PrettyPrinter {
   }
 
   private printExpression(expression: Ast.Expression): string {
+    return this.printExpressionWithPrecedence(expression, 0);
+  }
+
+  private printExpressionWithPrecedence(
+    expression: Ast.Expression,
+    parentPrecedence: number,
+  ): string {
     switch (expression.type) {
       case "int":
         return expression.value.toString();
@@ -252,14 +259,45 @@ class PrettyPrinter {
       case "you":
         return "@you";
       case "arithmetic":
-        return `${this.printExpression(expression.left)} ${
-          expression.op
-        } ${this.printExpression(expression.right)}`;
+        const precedence = this.getOperatorPrecedence(expression.op);
+        const left = this.printExpressionWithPrecedence(
+          expression.left,
+          precedence,
+        );
+        const right = this.printExpressionWithPrecedence(
+          expression.right,
+          precedence,
+        );
+        const result = `${left} ${expression.op} ${right}`;
+
+        // Add parentheses if this operator has lower precedence than parent
+        if (precedence < parentPrecedence) {
+          return `(${result})`;
+        }
+        return result;
       case "unary":
-        return `${expression.op}(${this.printExpression(expression.operand)})`;
+        return `${expression.op}(${this.printExpressionWithPrecedence(
+          expression.operand,
+          0,
+        )})`;
       default:
         const _exhaustive: never = expression;
         throw new Error(`Unknown expression type: ${(expression as any).type}`);
+    }
+  }
+
+  private getOperatorPrecedence(op: Ast.ArithmeticOp): number {
+    // PEMDAS precedence: higher number = higher precedence
+    switch (op) {
+      case "*":
+      case "/":
+      case "%":
+        return 2; // Multiplication, Division, Modulo
+      case "+":
+      case "-":
+        return 1; // Addition, Subtraction
+      default:
+        return 0;
     }
   }
 }
