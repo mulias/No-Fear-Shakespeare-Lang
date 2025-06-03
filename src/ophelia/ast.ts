@@ -52,7 +52,7 @@ export type Statement =
   | PushMe
   | Pop;
 
-export type Expression = Arithmetic | Const | Var | You;
+export type Expression = Arithmetic | Unary | Const | Var | You;
 
 export type Arithmetic = {
   type: "arithmetic";
@@ -62,6 +62,14 @@ export type Arithmetic = {
 };
 
 export type ArithmeticOp = "+" | "-" | "/" | "*" | "%";
+
+export type Unary = {
+  type: "unary";
+  op: UnaryOp;
+  operand: Expression;
+};
+
+export type UnaryOp = "square" | "cube" | "square_root" | "factorial";
 
 export type Const = Int | Char;
 

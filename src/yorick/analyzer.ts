@@ -150,6 +150,9 @@ export class Analyzer {
         this.checkExpression(expression.left, loc);
         this.checkExpression(expression.right, loc);
         break;
+      case "unary":
+        this.checkExpression(expression.operand, loc);
+        break;
       case "char":
         break;
       case "int":

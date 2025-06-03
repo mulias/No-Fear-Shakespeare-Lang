@@ -388,10 +388,7 @@ export class Reverser {
     } else if (value instanceof HoratioAst.ArithmeticOperationValue) {
       return this.convertArithmetic(value, speaker);
     } else if (value instanceof HoratioAst.UnaryOperationValue) {
-      // Handle unary operations
-      const operand = this.convertValue(value.value, speaker);
-      // For now, we'll handle specific unary operations as needed
-      return operand; // Placeholder
+      return this.convertUnary(value, speaker);
     }
 
     // Default fallback
@@ -419,13 +416,52 @@ export class Reverser {
   ): OpheliaAst.ArithmeticOp {
     const opMap: Record<string, OpheliaAst.ArithmeticOp> = {
       sum: "+",
+      "sum of": "+",
       difference: "-",
+      "difference between": "-",
       product: "*",
       quotient: "/",
+      "quotient between": "/",
       remainder: "%",
+      "remainder of the quotient between": "%",
     };
 
-    return opMap[operator.sequence] || "+";
+    const op = opMap[operator.sequence];
+    if (!op) {
+      throw new Error(`Unknown arithmetic operator: ${operator.sequence}`);
+    }
+    return op;
+  }
+
+  private convertUnary(
+    unary: HoratioAst.UnaryOperationValue,
+    speaker: string,
+  ): OpheliaAst.Unary {
+    const operand = this.convertValue(unary.value, speaker);
+    const op = this.convertUnaryOperator(unary.operator);
+
+    return {
+      type: "unary",
+      op,
+      operand,
+    };
+  }
+
+  private convertUnaryOperator(
+    operator: HoratioAst.UnaryOperator,
+  ): OpheliaAst.UnaryOp {
+    const opMap: Record<string, OpheliaAst.UnaryOp> = {
+      "square of": "square",
+      "cube of": "cube",
+      "square root of": "square_root",
+      "factorial of": "factorial",
+    };
+
+    const op = opMap[operator.sequence];
+    if (!op) {
+      throw new Error(`Unknown unary operator: ${operator.sequence}`);
+    }
+    return op;
   }
 
   private convertRemember(

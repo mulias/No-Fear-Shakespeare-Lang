@@ -343,6 +343,8 @@ export class Yorick {
     switch (expression.type) {
       case "arithmetic":
         return this.buildArithmeticOperationValue(expression);
+      case "unary":
+        return this.buildUnaryOperationValue(expression);
       case "char":
         return this.buildCharConstantValue(expression);
       case "int":
@@ -494,6 +496,13 @@ export class Yorick {
     );
   }
 
+  buildUnaryOperationValue(unary: OpheliaAst.Unary): Ast.UnaryOperationValue {
+    return new Ast.UnaryOperationValue(
+      this.buildUnaryOperator(unary.op),
+      this.buildValue(unary.operand),
+    );
+  }
+
   buildArithmeticOperator(op: OpheliaAst.ArithmeticOp): Ast.ArithmeticOperator {
     switch (op) {
       case "+":
@@ -517,6 +526,17 @@ export class Yorick {
       default:
         throw new Error(`unexpected operator ${op}`);
     }
+  }
+
+  buildUnaryOperator(op: OpheliaAst.UnaryOp): Ast.UnaryOperator {
+    const opMap: Record<OpheliaAst.UnaryOp, string> = {
+      square: "square of",
+      cube: "cube of",
+      square_root: "square root of",
+      factorial: "factorial of",
+    };
+
+    return new Ast.UnaryOperator(opMap[op]);
   }
 
   buildIntConstantValue(int: OpheliaAst.Int): Ast.Value {

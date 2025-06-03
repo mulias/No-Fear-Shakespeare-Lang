@@ -103,13 +103,20 @@ Within a dialogue block, the following statements are available:
 
 ### Arithmetic Operations
 
-Values can be expressions using:
+Values can be expressions using binary operators:
 
 - `+` (addition) - "the sum of X and Y"
 - `-` (subtraction) - "the difference between X and Y"
 - `*` (multiplication) - "the product of X and Y"
 - `/` (division) - "the quotient between X and Y"
 - `%` (modulo) - "the remainder of the quotient between X and Y"
+
+And unary functions:
+
+- `square(X)` - "the square of X"
+- `cube(X)` - "the cube of X"
+- `square_root(X)` - "the square root of X"
+- `factorial(X)` - "the factorial of X"
 
 ### I/O Operations
 

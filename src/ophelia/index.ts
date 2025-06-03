@@ -255,6 +255,8 @@ class PrettyPrinter {
         return `${this.printExpression(expression.left)} ${
           expression.op
         } ${this.printExpression(expression.right)}`;
+      case "unary":
+        return `${expression.op}(${this.printExpression(expression.operand)})`;
       default:
         const _exhaustive: never = expression;
         throw new Error(`Unknown expression type: ${(expression as any).type}`);
@@ -1033,6 +1035,40 @@ export class Ophelia {
             right: expr,
           };
         }
+        break;
+      }
+
+      case "function_call": {
+        // Handle unary operators
+        if (node.postfixed.type === "var" && node.value.length === 1) {
+          const funcName = node.postfixed.value;
+          const unaryOps: Record<string, Ast.UnaryOp> = {
+            square: "square",
+            cube: "cube",
+            square_root: "square_root",
+            factorial: "factorial",
+          };
+
+          if (funcName in unaryOps) {
+            const operandNode = node.value[0];
+            if (operandNode) {
+              const operand = this.buildExpression(operandNode);
+              if (operand) {
+                return {
+                  type: "unary",
+                  op: unaryOps[funcName]!,
+                  operand,
+                };
+              }
+            }
+          }
+        }
+        this.addProblem(
+          node,
+          `Unknown function in expression: ${
+            node.postfixed.type === "var" ? node.postfixed.value : "unknown"
+          }`,
+        );
         break;
       }
 
