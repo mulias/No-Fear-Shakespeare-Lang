@@ -2,6 +2,7 @@ import * as OpheliaAst from "../ophelia/ast";
 import * as Ast from "../horatio/ast";
 import { Analyzer } from "./analyzer";
 import { Generator } from "./generator";
+import { UsageContext, getArticleForNoun } from "../horatio/nounDatabase";
 
 type Characters = Record<string, string>;
 
@@ -282,7 +283,7 @@ export class Yorick {
   ): Ast.AssignmentSentence {
     return new Ast.AssignmentSentence(
       this.buildBe("be_second_person"), // Always acts on @you
-      this.buildValue(set.value),
+      this.buildValue(set.value, UsageContext.ASSIGNMENT),
       undefined, // No explicit character needed, it's always @you
     );
   }
@@ -331,15 +332,18 @@ export class Yorick {
       value1 = beComparative;
     } else {
       prefix = "Is";
-      value1 = this.buildValue(test.left);
+      value1 = this.buildValue(test.left, UsageContext.COMPARISON);
     }
 
-    const value2 = this.buildValue(test.right);
+    const value2 = this.buildValue(test.right, UsageContext.COMPARISON);
     const comparison = this.buildComparison(test);
     return new Ast.QuestionSentence(prefix, value1, comparison, value2);
   }
 
-  buildValue(expression: OpheliaAst.Expression): Ast.Value {
+  buildValue(
+    expression: OpheliaAst.Expression,
+    context?: UsageContext,
+  ): Ast.Value {
     switch (expression.type) {
       case "arithmetic":
         // Special case: convert "2 * X" to "twice X"
@@ -350,16 +354,16 @@ export class Yorick {
         ) {
           return new Ast.UnaryOperationValue(
             new Ast.UnaryOperator("twice"),
-            this.buildValue(expression.right),
+            this.buildValue(expression.right, context),
           );
         }
-        return this.buildArithmeticOperationValue(expression);
+        return this.buildArithmeticOperationValue(expression, context);
       case "unary":
-        return this.buildUnaryOperationValue(expression);
+        return this.buildUnaryOperationValue(expression, context);
       case "char":
-        return this.buildCharConstantValue(expression);
+        return this.buildCharConstantValue(expression, context);
       case "int":
-        return this.buildIntConstantValue(expression);
+        return this.buildIntConstantValue(expression, context);
       case "var":
         return this.builCharacterValue(expression);
       case "you":
@@ -499,18 +503,22 @@ export class Yorick {
 
   buildArithmeticOperationValue(
     arithmetic: OpheliaAst.Arithmetic,
+    context?: UsageContext,
   ): Ast.ArithmeticOperationValue {
     return new Ast.ArithmeticOperationValue(
       this.buildArithmeticOperator(arithmetic.op),
-      this.buildValue(arithmetic.left),
-      this.buildValue(arithmetic.right),
+      this.buildValue(arithmetic.left, UsageContext.ARITHMETIC_OPERAND),
+      this.buildValue(arithmetic.right, UsageContext.ARITHMETIC_OPERAND),
     );
   }
 
-  buildUnaryOperationValue(unary: OpheliaAst.Unary): Ast.UnaryOperationValue {
+  buildUnaryOperationValue(
+    unary: OpheliaAst.Unary,
+    context?: UsageContext,
+  ): Ast.UnaryOperationValue {
     return new Ast.UnaryOperationValue(
       this.buildUnaryOperator(unary.op),
-      this.buildValue(unary.operand),
+      this.buildValue(unary.operand, context),
     );
   }
 
@@ -550,38 +558,47 @@ export class Yorick {
     return new Ast.UnaryOperator(opMap[op]);
   }
 
-  buildIntConstantValue(int: OpheliaAst.Int): Ast.Value {
+  buildIntConstantValue(
+    int: OpheliaAst.Int,
+    context?: UsageContext,
+  ): Ast.Value {
     const n = int.value;
 
     if (n >= 0) {
-      return this.buildPositiveNumber(n);
+      return this.buildPositiveNumber(n, context);
     } else {
-      return this.buildNegativeNumber(n);
+      return this.buildNegativeNumber(n, context);
     }
   }
 
-  buildCharConstantValue(char: OpheliaAst.Char): Ast.Value {
+  buildCharConstantValue(
+    char: OpheliaAst.Char,
+    context?: UsageContext,
+  ): Ast.Value {
     const n = char.value.codePointAt(0);
 
     if (n != null) {
-      return this.buildPositiveNumber(n);
+      return this.buildPositiveNumber(n, context);
     } else {
       throw new Error(`not a valid ascii character ${n}`);
     }
   }
 
-  buildPositiveNumber(n: number): Ast.Value {
+  buildPositiveNumber(n: number, context?: UsageContext): Ast.Value {
     const sizes = binaryDecomposition(n);
     const [firstSize, ...restSizes] = sizes;
 
     if (firstSize != null) {
-      const first = this.buildPositiveConstantValue(firstSize);
+      const first = this.buildPositiveConstantValue(firstSize, context);
       return restSizes.reduce(
         (acc: Ast.Value, size: number) =>
           new Ast.ArithmeticOperationValue(
             this.buildArithmeticOperator("+"),
             acc,
-            this.buildPositiveConstantValue(size),
+            this.buildPositiveConstantValue(
+              size,
+              UsageContext.ARITHMETIC_OPERAND,
+            ),
           ),
         first,
       );
@@ -590,19 +607,22 @@ export class Yorick {
     }
   }
 
-  buildNegativeNumber(n: number): Ast.Value {
+  buildNegativeNumber(n: number, context?: UsageContext): Ast.Value {
     const posN = Math.abs(n);
     const sizes = binaryDecomposition(posN);
     const [firstSize, ...restSizes] = sizes;
 
     if (firstSize != null) {
-      const first = this.buildNegativeConstantValue(firstSize);
+      const first = this.buildNegativeConstantValue(firstSize, context);
       return restSizes.reduce(
         (acc: Ast.Value, size: number) =>
           new Ast.ArithmeticOperationValue(
             this.buildArithmeticOperator("+"),
             acc,
-            this.buildNegativeConstantValue(size),
+            this.buildNegativeConstantValue(
+              size,
+              UsageContext.ARITHMETIC_OPERAND,
+            ),
           ),
         first,
       );
@@ -611,20 +631,48 @@ export class Yorick {
     }
   }
 
-  buildPositiveConstantValue(size: number): Ast.PositiveConstantValue {
+  buildPositiveConstantValue(
+    size: number,
+    context?: UsageContext,
+  ): Ast.PositiveConstantValue {
     const noun = this.buildPositiveNoun();
     const adjectives = Array.apply(null, Array(size)).map((_) =>
       this.buildPositiveAdjective(),
     );
-    return new Ast.PositiveConstantValue(noun, adjectives);
+
+    // Use the noun database to determine the correct article
+    const firstWord =
+      adjectives.length > 0 ? adjectives[0]!.sequence : noun.sequence;
+    const article = getArticleForNoun(
+      noun.sequence,
+      context || UsageContext.ASSIGNMENT,
+      adjectives.length > 0,
+      firstWord,
+    );
+
+    return new Ast.PositiveConstantValue(noun, adjectives, article, context);
   }
 
-  buildNegativeConstantValue(size: number): Ast.PositiveConstantValue {
+  buildNegativeConstantValue(
+    size: number,
+    context?: UsageContext,
+  ): Ast.PositiveConstantValue {
     const noun = this.buildNegativeNoun();
     const adjectives = Array.apply(null, Array(size)).map((_) =>
       this.buildNegativeAdjective(),
     );
-    return new Ast.NegativeConstantValue(noun, adjectives);
+
+    // Use the noun database to determine the correct article
+    const firstWord =
+      adjectives.length > 0 ? adjectives[0]!.sequence : noun.sequence;
+    const article = getArticleForNoun(
+      noun.sequence,
+      context || UsageContext.ASSIGNMENT,
+      adjectives.length > 0,
+      firstWord,
+    );
+
+    return new Ast.NegativeConstantValue(noun, adjectives, article, context);
   }
 
   buildZeroValue() {

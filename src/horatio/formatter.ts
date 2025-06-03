@@ -257,6 +257,14 @@ export default class Formatter {
     let v1 = arithmetic.value_1.visit(this);
     let v2 = arithmetic.value_2.visit(this);
 
+    // Add "the" before nested arithmetic operations
+    if (arithmetic.value_1.constructor.name === "ArithmeticOperationValue") {
+      v1 = `the ${v1}`;
+    }
+    if (arithmetic.value_2.constructor.name === "ArithmeticOperationValue") {
+      v2 = `the ${v2}`;
+    }
+
     return `${op} ${v1} and ${v2}`;
   }
 

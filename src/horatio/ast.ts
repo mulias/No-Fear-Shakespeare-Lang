@@ -350,11 +350,18 @@ export class PositiveConstantValue {
   noun: Noun;
   adjectives: Adjective[];
   article?: string;
+  context?: string;
 
-  constructor(noun: Noun, adjectives: Adjective[], article?: string) {
+  constructor(
+    noun: Noun,
+    adjectives: Adjective[],
+    article?: string,
+    context?: string,
+  ) {
     this.noun = noun;
     this.adjectives = adjectives;
     this.article = article;
+    this.context = context;
   }
 
   visit(visitor: any, arg?: any): any {
@@ -366,11 +373,18 @@ export class NegativeConstantValue {
   noun: Noun;
   adjectives: Adjective[];
   article?: string;
+  context?: string;
 
-  constructor(noun: Noun, adjectives: Adjective[], article?: string) {
+  constructor(
+    noun: Noun,
+    adjectives: Adjective[],
+    article?: string,
+    context?: string,
+  ) {
     this.noun = noun;
     this.adjectives = adjectives;
     this.article = article;
+    this.context = context;
   }
 
   visit(visitor: any, arg?: any): any {
