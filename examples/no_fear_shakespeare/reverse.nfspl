@@ -14,20 +14,18 @@ Main {
   GetInput {
     count {
       @you.read_char
-      @you.push_self
+      test_eq(stack, 0)
+      if_false(@you.push_self)
     }
     stack {
-      @you.set(@you + 1)
-      test_eq(stack, -1)
+      if_false(@you.set(@you + 1))
     }
     count {
       if_false(goto(GetInput))
-      @you.pop
     }
-    stack { @you.set(@you - 1) }
   }
 
-  ## description: Counting to {count}
+  ## description: Counting of {count}
   PrintReversed {
     count {
       @you.pop

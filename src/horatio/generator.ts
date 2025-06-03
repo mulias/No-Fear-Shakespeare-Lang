@@ -327,7 +327,7 @@ export default class Generator {
 
         while (input === undefined) {
           this.io.read((value) => {
-            const parsed = parseInt(value);
+            const parsed = parseInt(value || "0");
             if (isNaN(parsed)) {
               this.io.print(
                 "Error: Invalid numeric input. Please enter a valid integer.",
@@ -362,22 +362,25 @@ export default class Generator {
       return function (this: Program) {
         let subject = this.interlocutor(speaker!!!);
 
-        let input: string | undefined;
+        let input: number | undefined;
 
         while (input === undefined) {
           this.io.read((value) => {
-            const codePoints = Array.from(value);
-            if (codePoints.length !== 1) {
-              this.io.print(
-                "Error: Invalid character input. Please enter exactly one character.",
-              );
+            if (value === "") {
+              input = 0;
             } else {
-              input = codePoints[0];
+              if (value.length === 1) {
+                input = value.codePointAt(0);
+              } else {
+                this.io.print(
+                  "Error: Invalid character input. Please enter exactly one character.",
+                );
+              }
             }
           });
         }
 
-        subject.setValue(input.codePointAt(0)!);
+        subject.setValue(input);
 
         if (this.io.debug) {
           this.io.printDebug(`${subject.name()} = ${subject.value()}`);
