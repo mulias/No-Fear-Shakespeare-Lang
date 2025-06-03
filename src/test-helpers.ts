@@ -9,8 +9,8 @@ export function templateString(text: string): TemplateString {
     value: [
       {
         type: "template_string_segment",
-        value: text
-      }
-    ]
+        value: text,
+      },
+    ],
   };
 }

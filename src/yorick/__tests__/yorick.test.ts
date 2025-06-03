@@ -1476,7 +1476,9 @@ describe("Yorick Transpiler", () => {
     it("should fall back to default descriptions for undeclared vars", () => {
       const opheliaAst: OpheliaAst.Program = {
         type: "program",
-        varDeclarations: new Map([["stack", templateString("a stacky gentleperson")]]),
+        varDeclarations: new Map([
+          ["stack", templateString("a stacky gentleperson")],
+        ]),
         items: [
           {
             type: "act",
@@ -1583,22 +1585,28 @@ describe("Yorick Transpiler", () => {
       const opheliaAst: OpheliaAst.Program = {
         type: "program",
         varDeclarations: new Map([
-          ["hero", {
-            type: "template_string",
-            value: [
-              { type: "template_string_segment", value: "a brave " },
-              { type: "template_var_segment", value: "hero" },
-              { type: "template_string_segment", value: " named " },
-              { type: "template_var_segment", value: "hero" }
-            ]
-          }],
-          ["villain", {
-            type: "template_string",
-            value: [
-              { type: "template_string_segment", value: "the evil " },
-              { type: "template_var_segment", value: "villain" }
-            ]
-          }]
+          [
+            "hero",
+            {
+              type: "template_string",
+              value: [
+                { type: "template_string_segment", value: "a brave " },
+                { type: "template_var_segment", value: "hero" },
+                { type: "template_string_segment", value: " named " },
+                { type: "template_var_segment", value: "hero" },
+              ],
+            },
+          ],
+          [
+            "villain",
+            {
+              type: "template_string",
+              value: [
+                { type: "template_string_segment", value: "the evil " },
+                { type: "template_var_segment", value: "villain" },
+              ],
+            },
+          ],
         ]),
         items: [
           {
@@ -1634,21 +1642,23 @@ describe("Yorick Transpiler", () => {
       expect(heroDecl?.comment.sequence).toContain("a brave ");
       expect(heroDecl?.comment.sequence).toContain(" named ");
       expect(heroDecl?.comment.sequence).not.toContain("{hero}");
-      
+
       expect(villainDecl?.comment.sequence).toContain("the evil ");
       expect(villainDecl?.comment.sequence).not.toContain("{villain}");
 
       // The character names should be actual Shakespeare characters
       const heroCharacterName = heroDecl?.character.sequence;
       const villainCharacterName = villainDecl?.character.sequence;
-      
+
       expect(heroCharacterName).toMatch(/^[A-Z][a-zA-Z\s]+$/);
       expect(villainCharacterName).toMatch(/^[A-Z][a-zA-Z\s]+$/);
       expect(heroCharacterName).not.toBe(villainCharacterName);
 
       // The template should be replaced with the actual character names
       expect(heroDecl?.comment.sequence).toContain(heroCharacterName || "");
-      expect(villainDecl?.comment.sequence).toContain(villainCharacterName || "");
+      expect(villainDecl?.comment.sequence).toContain(
+        villainCharacterName || "",
+      );
     });
 
     it("should convert template strings in title", () => {
@@ -1660,8 +1670,8 @@ describe("Yorick Transpiler", () => {
             { type: "template_string_segment", value: "The Adventures of " },
             { type: "template_var_segment", value: "hero" },
             { type: "template_string_segment", value: " and " },
-            { type: "template_var_segment", value: "sidekick" }
-          ]
+            { type: "template_var_segment", value: "sidekick" },
+          ],
         },
         varDeclarations: new Map(),
         items: [
@@ -1695,8 +1705,12 @@ describe("Yorick Transpiler", () => {
       expect(ast.comment.sequence).not.toContain("{sidekick}");
 
       // Extract the character names from declarations to verify they match
-      const heroCharacterName = ast.declarations.find(d => d.comment.sequence === "the hero variable")?.character.sequence;
-      const sidekickCharacterName = ast.declarations.find(d => d.comment.sequence === "the sidekick variable")?.character.sequence;
+      const heroCharacterName = ast.declarations.find(
+        (d) => d.comment.sequence === "the hero variable",
+      )?.character.sequence;
+      const sidekickCharacterName = ast.declarations.find(
+        (d) => d.comment.sequence === "the sidekick variable",
+      )?.character.sequence;
 
       expect(ast.comment.sequence).toContain(heroCharacterName || "");
       expect(ast.comment.sequence).toContain(sidekickCharacterName || "");
@@ -1715,8 +1729,11 @@ describe("Yorick Transpiler", () => {
               value: [
                 { type: "template_string_segment", value: "Where " },
                 { type: "template_var_segment", value: "protagonist" },
-                { type: "template_string_segment", value: " faces great challenges" }
-              ]
+                {
+                  type: "template_string_segment",
+                  value: " faces great challenges",
+                },
+              ],
             },
             items: [
               {
@@ -1763,11 +1780,14 @@ describe("Yorick Transpiler", () => {
                 description: {
                   type: "template_string",
                   value: [
-                    { type: "template_string_segment", value: "The scene where " },
+                    {
+                      type: "template_string_segment",
+                      value: "The scene where ",
+                    },
                     { type: "template_var_segment", value: "player1" },
                     { type: "template_string_segment", value: " meets " },
-                    { type: "template_var_segment", value: "player2" }
-                  ]
+                    { type: "template_var_segment", value: "player2" },
+                  ],
                 },
                 directions: [
                   {
@@ -1804,8 +1824,8 @@ describe("Yorick Transpiler", () => {
         title: {
           type: "template_string",
           value: [
-            { type: "template_string_segment", value: "Plain Text Title" }
-          ]
+            { type: "template_string_segment", value: "Plain Text Title" },
+          ],
         },
         varDeclarations: new Map(),
         items: [
@@ -1833,12 +1853,13 @@ describe("Yorick Transpiler", () => {
       const opheliaAst: OpheliaAst.Program = {
         type: "program",
         varDeclarations: new Map([
-          ["name", {
-            type: "template_string",
-            value: [
-              { type: "template_var_segment", value: "name" }
-            ]
-          }]
+          [
+            "name",
+            {
+              type: "template_string",
+              value: [{ type: "template_var_segment", value: "name" }],
+            },
+          ],
         ]),
         items: [
           {
@@ -1866,7 +1887,7 @@ describe("Yorick Transpiler", () => {
 
       const nameDecl = ast.declarations[0];
       const characterName = nameDecl?.character.sequence;
-      
+
       // The description should just be the character name
       expect(nameDecl?.comment.sequence).toBe(characterName);
       expect(nameDecl?.comment.sequence).not.toContain("{name}");

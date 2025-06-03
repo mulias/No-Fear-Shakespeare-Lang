@@ -35,7 +35,9 @@ class PrettyPrinter {
         } else if (segment.type === "template_var_segment") {
           return `{${segment.value}}`;
         } else {
-          throw new Error(`Unknown template segment type: ${(segment as any).type}`);
+          throw new Error(
+            `Unknown template segment type: ${(segment as any).type}`,
+          );
         }
       })
       .join("");
@@ -75,7 +77,9 @@ class PrettyPrinter {
 
     // Add description doc comment if present
     if (act.description) {
-      parts.push(`## description: ${this.printTemplateString(act.description)}`);
+      parts.push(
+        `## description: ${this.printTemplateString(act.description)}`,
+      );
     }
 
     const header = `${act.actId} {`;
@@ -111,7 +115,11 @@ class PrettyPrinter {
 
     // Add description doc comment if present
     if (scene.description) {
-      parts.push(`${this.indent()}## description: ${this.printTemplateString(scene.description)}`);
+      parts.push(
+        `${this.indent()}## description: ${this.printTemplateString(
+          scene.description,
+        )}`,
+      );
     }
 
     const header = `${this.indent()}${scene.sceneId} {`;

@@ -56,16 +56,22 @@ export class Yorick {
     );
   }
 
-  convertTemplateStringToString(templateString: OpheliaAst.TemplateString): string {
+  convertTemplateStringToString(
+    templateString: OpheliaAst.TemplateString,
+  ): string {
     return templateString.value
       .map((segment) => {
         if (segment.type === "template_string_segment") {
           return segment.value;
         } else if (segment.type === "template_var_segment") {
-          const characterName = this.characterName(segment.value as OpheliaAst.VarId);
+          const characterName = this.characterName(
+            segment.value as OpheliaAst.VarId,
+          );
           return characterName;
         } else {
-          throw new Error(`Unknown template segment type: ${(segment as any).type}`);
+          throw new Error(
+            `Unknown template segment type: ${(segment as any).type}`,
+          );
         }
       })
       .join("");
@@ -78,7 +84,7 @@ export class Yorick {
   buildDeclarations(vars: string[]): Ast.Declaration[] {
     return vars.map((varId) => {
       const templateDescription = this.ast.varDeclarations.get(varId);
-      const description = templateDescription 
+      const description = templateDescription
         ? this.convertTemplateStringToString(templateDescription)
         : `the ${varId} variable`;
 
@@ -99,9 +105,9 @@ export class Yorick {
         new Ast.Part(
           this.buildNumeral(act.actId),
           this.buildComment(
-            act.description 
+            act.description
               ? this.convertTemplateStringToString(act.description)
-              : camelToSentenceCase(act.actId)
+              : camelToSentenceCase(act.actId),
           ),
           this.buildSubparts(act.items),
         ),
@@ -127,7 +133,7 @@ export class Yorick {
         new Ast.Subpart(
           this.buildNumeral(scene.sceneId),
           this.buildComment(
-            scene.description 
+            scene.description
               ? this.convertTemplateStringToString(scene.description)
               : camelToSentenceCase(scene.sceneId),
           ),
@@ -345,7 +351,9 @@ export class Yorick {
         return this.builCharacterValue(expression);
       case "you":
         return new Ast.PronounValue(
-          new Ast.SecondPersonPronoun(this.gen.random("second_person_pronouns"))
+          new Ast.SecondPersonPronoun(
+            this.gen.random("second_person_pronouns"),
+          ),
         );
       default:
         const _: never = expression;

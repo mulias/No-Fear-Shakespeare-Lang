@@ -1484,8 +1484,11 @@ describe("Ophelia Transformer", () => {
               {
                 type: "template_string",
                 value: [
-                  { type: "template_string_segment", value: "To Fizz, Perchance To Buzz" }
-                ]
+                  {
+                    type: "template_string_segment",
+                    value: "To Fizz, Perchance To Buzz",
+                  },
+                ],
               },
             ],
           },
@@ -1510,8 +1513,11 @@ describe("Ophelia Transformer", () => {
       expect(ast.title).toEqual({
         type: "template_string",
         value: [
-          { type: "template_string_segment", value: "To Fizz, Perchance To Buzz" }
-        ]
+          {
+            type: "template_string_segment",
+            value: "To Fizz, Perchance To Buzz",
+          },
+        ],
       });
     });
 
@@ -1675,8 +1681,8 @@ describe("Ophelia Transformer", () => {
       expect(ast.title).toEqual({
         type: "template_string",
         value: [
-          { type: "template_string_segment", value: "The Title After Comment" }
-        ]
+          { type: "template_string_segment", value: "The Title After Comment" },
+        ],
       });
     });
 
@@ -1796,8 +1802,11 @@ Main {
       expect(act.description).toEqual({
         type: "template_string",
         value: [
-          { type: "template_string_segment", value: "The main act where everything happens" }
-        ]
+          {
+            type: "template_string_segment",
+            value: "The main act where everything happens",
+          },
+        ],
       });
     });
 
@@ -1835,8 +1844,8 @@ Main {
       expect(scene.description).toEqual({
         type: "template_string",
         value: [
-          { type: "template_string_segment", value: "The opening scene" }
-        ]
+          { type: "template_string_segment", value: "The opening scene" },
+        ],
       });
     });
 
@@ -2150,8 +2159,12 @@ Main {
       const ast = ophelia.run();
 
       expect(ast.varDeclarations.size).toBe(2);
-      expect(ast.varDeclarations.get("stack")).toEqual(templateString("a stacky gentleperson"));
-      expect(ast.varDeclarations.get("count")).toEqual(templateString("who counts the memories"));
+      expect(ast.varDeclarations.get("stack")).toEqual(
+        templateString("a stacky gentleperson"),
+      );
+      expect(ast.varDeclarations.get("count")).toEqual(
+        templateString("who counts the memories"),
+      );
     });
 
     it("should handle programs without var declarations", () => {
@@ -2241,8 +2254,8 @@ Main {
                   { type: "template_string_segment", value: "The Tale of " },
                   { type: "template_var_segment", value: "a" },
                   { type: "template_string_segment", value: " and " },
-                  { type: "template_var_segment", value: "b" }
-                ]
+                  { type: "template_var_segment", value: "b" },
+                ],
               },
             ],
           },
@@ -2266,10 +2279,22 @@ Main {
       expect(ast.title).toBeDefined();
       expect(ast.title?.type).toBe("template_string");
       expect(ast.title?.value).toHaveLength(4);
-      expect(ast.title?.value[0]).toEqual({ type: "template_string_segment", value: "The Tale of " });
-      expect(ast.title?.value[1]).toEqual({ type: "template_var_segment", value: "a" });
-      expect(ast.title?.value[2]).toEqual({ type: "template_string_segment", value: " and " });
-      expect(ast.title?.value[3]).toEqual({ type: "template_var_segment", value: "b" });
+      expect(ast.title?.value[0]).toEqual({
+        type: "template_string_segment",
+        value: "The Tale of ",
+      });
+      expect(ast.title?.value[1]).toEqual({
+        type: "template_var_segment",
+        value: "a",
+      });
+      expect(ast.title?.value[2]).toEqual({
+        type: "template_string_segment",
+        value: " and ",
+      });
+      expect(ast.title?.value[3]).toEqual({
+        type: "template_var_segment",
+        value: "b",
+      });
     });
 
     it("should handle template strings in var declarations", () => {
@@ -2283,9 +2308,12 @@ Main {
               {
                 type: "template_string",
                 value: [
-                  { type: "template_string_segment", value: "a stacky gentleperson named " },
-                  { type: "template_var_segment", value: "stack" }
-                ]
+                  {
+                    type: "template_string_segment",
+                    value: "a stacky gentleperson named ",
+                  },
+                  { type: "template_var_segment", value: "stack" },
+                ],
               },
             ],
           },
@@ -2305,8 +2333,14 @@ Main {
       expect(stackDescription).toBeDefined();
       expect(stackDescription?.type).toBe("template_string");
       expect(stackDescription?.value).toHaveLength(2);
-      expect(stackDescription?.value[0]).toEqual({ type: "template_string_segment", value: "a stacky gentleperson named " });
-      expect(stackDescription?.value[1]).toEqual({ type: "template_var_segment", value: "stack" });
+      expect(stackDescription?.value[0]).toEqual({
+        type: "template_string_segment",
+        value: "a stacky gentleperson named ",
+      });
+      expect(stackDescription?.value[1]).toEqual({
+        type: "template_var_segment",
+        value: "stack",
+      });
     });
 
     it("should handle template strings in act descriptions", () => {
@@ -2320,10 +2354,13 @@ Main {
               {
                 type: "template_string",
                 value: [
-                  { type: "template_string_segment", value: "An act featuring " },
+                  {
+                    type: "template_string_segment",
+                    value: "An act featuring ",
+                  },
                   { type: "template_var_segment", value: "hero" },
-                  { type: "template_string_segment", value: " the brave" }
-                ]
+                  { type: "template_string_segment", value: " the brave" },
+                ],
               },
             ],
           },
@@ -2348,9 +2385,18 @@ Main {
       expect(act.description).toBeDefined();
       expect(act.description?.type).toBe("template_string");
       expect(act.description?.value).toHaveLength(3);
-      expect(act.description?.value[0]).toEqual({ type: "template_string_segment", value: "An act featuring " });
-      expect(act.description?.value[1]).toEqual({ type: "template_var_segment", value: "hero" });
-      expect(act.description?.value[2]).toEqual({ type: "template_string_segment", value: " the brave" });
+      expect(act.description?.value[0]).toEqual({
+        type: "template_string_segment",
+        value: "An act featuring ",
+      });
+      expect(act.description?.value[1]).toEqual({
+        type: "template_var_segment",
+        value: "hero",
+      });
+      expect(act.description?.value[2]).toEqual({
+        type: "template_string_segment",
+        value: " the brave",
+      });
     });
 
     it("should handle template strings in scene descriptions", () => {
@@ -2371,8 +2417,8 @@ Main {
                       { type: "template_string_segment", value: "Where " },
                       { type: "template_var_segment", value: "protagonist" },
                       { type: "template_string_segment", value: " meets " },
-                      { type: "template_var_segment", value: "antagonist" }
-                    ]
+                      { type: "template_var_segment", value: "antagonist" },
+                    ],
                   },
                 ],
               },
@@ -2394,10 +2440,22 @@ Main {
       expect(scene.description).toBeDefined();
       expect(scene.description?.type).toBe("template_string");
       expect(scene.description?.value).toHaveLength(4);
-      expect(scene.description?.value[0]).toEqual({ type: "template_string_segment", value: "Where " });
-      expect(scene.description?.value[1]).toEqual({ type: "template_var_segment", value: "protagonist" });
-      expect(scene.description?.value[2]).toEqual({ type: "template_string_segment", value: " meets " });
-      expect(scene.description?.value[3]).toEqual({ type: "template_var_segment", value: "antagonist" });
+      expect(scene.description?.value[0]).toEqual({
+        type: "template_string_segment",
+        value: "Where ",
+      });
+      expect(scene.description?.value[1]).toEqual({
+        type: "template_var_segment",
+        value: "protagonist",
+      });
+      expect(scene.description?.value[2]).toEqual({
+        type: "template_string_segment",
+        value: " meets ",
+      });
+      expect(scene.description?.value[3]).toEqual({
+        type: "template_var_segment",
+        value: "antagonist",
+      });
     });
 
     it("should preserve template variables in pretty printing", () => {
@@ -2407,17 +2465,20 @@ Main {
           type: "template_string",
           value: [
             { type: "template_string_segment", value: "The Adventures of " },
-            { type: "template_var_segment", value: "hero" }
-          ]
+            { type: "template_var_segment", value: "hero" },
+          ],
         },
         varDeclarations: new Map([
-          ["hero", {
-            type: "template_string",
-            value: [
-              { type: "template_string_segment", value: "a brave " },
-              { type: "template_var_segment", value: "hero" }
-            ]
-          }]
+          [
+            "hero",
+            {
+              type: "template_string",
+              value: [
+                { type: "template_string_segment", value: "a brave " },
+                { type: "template_var_segment", value: "hero" },
+              ],
+            },
+          ],
         ]),
         items: [
           {
@@ -2426,9 +2487,12 @@ Main {
             description: {
               type: "template_string",
               value: [
-                { type: "template_string_segment", value: "The main act starring " },
-                { type: "template_var_segment", value: "hero" }
-              ]
+                {
+                  type: "template_string_segment",
+                  value: "The main act starring ",
+                },
+                { type: "template_var_segment", value: "hero" },
+              ],
             },
             items: [
               {
@@ -2439,8 +2503,11 @@ Main {
                   value: [
                     { type: "template_string_segment", value: "Where " },
                     { type: "template_var_segment", value: "hero" },
-                    { type: "template_string_segment", value: " begins the journey" }
-                  ]
+                    {
+                      type: "template_string_segment",
+                      value: " begins the journey",
+                    },
+                  ],
                 },
                 directions: [],
               },
@@ -2452,8 +2519,12 @@ Main {
       const prettyPrinted = prettyPrint(ast);
       expect(prettyPrinted).toContain("## title: The Adventures of {hero}");
       expect(prettyPrinted).toContain("## var hero: a brave {hero}");
-      expect(prettyPrinted).toContain("## description: The main act starring {hero}");
-      expect(prettyPrinted).toContain("## description: Where {hero} begins the journey");
+      expect(prettyPrinted).toContain(
+        "## description: The main act starring {hero}",
+      );
+      expect(prettyPrinted).toContain(
+        "## description: Where {hero} begins the journey",
+      );
     });
 
     it("should handle template strings with only text segments", () => {
@@ -2467,8 +2538,11 @@ Main {
               {
                 type: "template_string",
                 value: [
-                  { type: "template_string_segment", value: "Plain text title" }
-                ]
+                  {
+                    type: "template_string_segment",
+                    value: "Plain text title",
+                  },
+                ],
               },
             ],
           },
@@ -2492,7 +2566,10 @@ Main {
       expect(ast.title).toBeDefined();
       expect(ast.title?.type).toBe("template_string");
       expect(ast.title?.value).toHaveLength(1);
-      expect(ast.title?.value[0]).toEqual({ type: "template_string_segment", value: "Plain text title" });
+      expect(ast.title?.value[0]).toEqual({
+        type: "template_string_segment",
+        value: "Plain text title",
+      });
 
       const prettyPrinted = prettyPrint(ast);
       expect(prettyPrinted).toContain("## title: Plain text title");
@@ -2508,9 +2585,7 @@ Main {
               { type: "doc_comment_var", value: "name" },
               {
                 type: "template_string",
-                value: [
-                  { type: "template_var_segment", value: "name" }
-                ]
+                value: [{ type: "template_var_segment", value: "name" }],
               },
             ],
           },
@@ -2530,7 +2605,10 @@ Main {
       expect(nameDescription).toBeDefined();
       expect(nameDescription?.type).toBe("template_string");
       expect(nameDescription?.value).toHaveLength(1);
-      expect(nameDescription?.value[0]).toEqual({ type: "template_var_segment", value: "name" });
+      expect(nameDescription?.value[0]).toEqual({
+        type: "template_var_segment",
+        value: "name",
+      });
 
       const prettyPrinted = prettyPrint(ast);
       expect(prettyPrinted).toContain("## var name: {name}");
