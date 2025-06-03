@@ -506,7 +506,7 @@ describe("Ophelia Pretty Printer", () => {
   Start {
     stack {
       @you.push_self
-      @you.push
+      @you.push_me
       @you.pop
     }
   }

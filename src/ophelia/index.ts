@@ -216,7 +216,7 @@ class PrettyPrinter {
       case ".push_self":
         return `${this.indent()}@you.push_self`;
       case ".push_me":
-        return `${this.indent()}@you.push`;
+        return `${this.indent()}@you.push_me`;
       case ".pop":
         return `${this.indent()}@you.pop`;
       case "test_eq":

@@ -503,7 +503,7 @@ exports[`NFSPL Round-trip Snapshots language features should round-trip mixed @y
     listener {
       @you.set(speaker + @you)
       @you.push_self
-      @you.push
+      @you.push_me
       @you.pop
     }
 
@@ -601,7 +601,7 @@ exports[`NFSPL Round-trip Snapshots language features should round-trip stack op
     pusher {
       @you.set(42)
       @you.push_self
-      @you.push
+      @you.push_me
     }
 
     stack {

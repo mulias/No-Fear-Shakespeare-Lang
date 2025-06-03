@@ -9,13 +9,15 @@ import { Ophelia } from "./ophelia";
 import { Yorick } from "./yorick";
 import Horatio from "./horatio/horatio";
 import { prettyPrint } from "./horatio/prettyPrint";
+import { prettyPrint as opheliaPrettyPrint } from "./ophelia";
+import { Falstaff } from "./falstaff";
 import type { IO } from "./horatio/types";
 
 const USAGE = `Usage: nfspl <command> [options] <file>
 
 Commands:
   execute, exec, run               Execute an NFSPL or SPL file
-  transpile, translate, trans      Translate NFSPL into SPL
+  transpile, translate, trans      Translate between NFSPL and SPL
   format, fmt                      Format an NFSPL or SPL file
 
 Options:
@@ -26,6 +28,7 @@ Examples:
   nfspl run program.nfspl
   nfspl exec program.spl
   nfspl transpile program.nfspl -o output.spl
+  nfspl transpile program.spl -o output.nfspl
   nfspl format program.spl
 `;
 
@@ -199,6 +202,17 @@ async function formatNfspl(inputFile: string): Promise<string> {
   return await readFile(inputFile);
 }
 
+async function transpileSplToNfspl(inputFile: string): Promise<string> {
+  const source = await readFile(inputFile);
+  const io = new TermIO();
+  const horatio = Horatio.fromSource(source, io);
+
+  const falstaff = new Falstaff(horatio.ast);
+  const opheliaAst = falstaff.run();
+
+  return opheliaPrettyPrint(opheliaAst);
+}
+
 async function main() {
   const args = process.argv.slice(2);
 
@@ -225,14 +239,13 @@ async function main() {
       case "transpile":
       case "translate":
       case "trans": {
-        if (fileType !== "nfspl") {
-          console.error(
-            "Error: Transpile command only works with .nfspl files",
-          );
-          process.exit(1);
-        }
+        let result: string;
 
-        const result = await transpileNfsplToSpl(inputFile);
+        if (fileType === "nfspl") {
+          result = await transpileNfsplToSpl(inputFile);
+        } else {
+          result = await transpileSplToNfspl(inputFile);
+        }
 
         if (outputFile) {
           await writeFile(outputFile, result);

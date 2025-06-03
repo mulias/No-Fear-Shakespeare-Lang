@@ -104,13 +104,48 @@ export default class Parser {
 
   parseTitle() {
     let title = "";
+    let lastWasPunctuation = false;
     while (
       this.currentToken !== null &&
       this.currentToken !== -1 &&
       !Token.isSentenceEndPunctuation(this.currentToken as Token)
     ) {
       if (this.isToken(this.currentToken)) {
-        title += this.currentToken.sequence + " ";
+        // Convert punctuation tokens back to their original form
+        let sequence = this.currentToken.sequence;
+        let isPunctuation = false;
+        switch (this.currentToken.kind) {
+          case Token.COMMA:
+            sequence = ",";
+            isPunctuation = true;
+            break;
+          case Token.COLON:
+            sequence = ":";
+            isPunctuation = true;
+            break;
+          case Token.EXCLAMATION_POINT:
+            sequence = "!";
+            isPunctuation = true;
+            break;
+          case Token.QUESTION_MARK:
+            sequence = "?";
+            isPunctuation = true;
+            break;
+          // PERIOD is sentence end punctuation, so we don't need it here
+        }
+
+        // Add space before token if needed (not for punctuation)
+        if (title.length > 0 && !isPunctuation && !lastWasPunctuation) {
+          title += " ";
+        }
+        title += sequence;
+
+        // Add space after punctuation
+        if (isPunctuation) {
+          title += " ";
+        }
+
+        lastWasPunctuation = isPunctuation;
       }
       this.acceptIt();
     }
@@ -119,13 +154,48 @@ export default class Parser {
 
   parseComment() {
     let comment = "";
+    let lastWasPunctuation = false;
     while (
       this.currentToken !== null &&
       this.currentToken !== -1 &&
       !Token.isStatementPunctuation(this.currentToken as Token)
     ) {
       if (this.isToken(this.currentToken)) {
-        comment += this.currentToken.sequence + " ";
+        // Convert punctuation tokens back to their original form
+        let sequence = this.currentToken.sequence;
+        let isPunctuation = false;
+        switch (this.currentToken.kind) {
+          case Token.COMMA:
+            sequence = ",";
+            isPunctuation = true;
+            break;
+          case Token.COLON:
+            sequence = ":";
+            isPunctuation = true;
+            break;
+          case Token.EXCLAMATION_POINT:
+            sequence = "!";
+            isPunctuation = true;
+            break;
+          case Token.QUESTION_MARK:
+            sequence = "?";
+            isPunctuation = true;
+            break;
+          // PERIOD is statement punctuation, so we don't need it here
+        }
+
+        // Add space before token if needed (not for punctuation)
+        if (comment.length > 0 && !isPunctuation && !lastWasPunctuation) {
+          comment += " ";
+        }
+        comment += sequence;
+
+        // Add space after punctuation
+        if (isPunctuation) {
+          comment += " ";
+        }
+
+        lastWasPunctuation = isPunctuation;
       }
       this.acceptIt();
     }
