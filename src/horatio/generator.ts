@@ -326,7 +326,7 @@ export default class Generator {
         let input: number | undefined;
 
         while (input === undefined) {
-          this.io.read((value) => {
+          this.io.read_int((value) => {
             const parsed = parseInt(value || "0");
             if (isNaN(parsed)) {
               this.io.print(
@@ -365,7 +365,7 @@ export default class Generator {
         let input: number | undefined;
 
         while (input === undefined) {
-          this.io.read((value) => {
+          this.io.read_char((value) => {
             if (value === "") {
               input = 0;
             } else {

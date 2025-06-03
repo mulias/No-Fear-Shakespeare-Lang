@@ -14,7 +14,12 @@ class MockIO {
     this.output.push(text);
   }
 
-  read(callback: (input: string) => void): void {
+  read_char(callback: (input: string) => void): void {
+    const input = this.inputBuffer.shift() || "";
+    callback(input);
+  }
+
+  read_int(callback: (input: string) => void): void {
     const input = this.inputBuffer.shift() || "";
     callback(input);
   }
@@ -1723,7 +1728,7 @@ describe("Horatio Compiler", () => {
         [Exeunt]
       `;
 
-      io.inputBuffer = ["", "42"];
+      io.inputBuffer = ["foo", "42"];
       const compiler = Horatio.fromSource(spl, io);
       compiler.run();
 

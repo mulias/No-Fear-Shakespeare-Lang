@@ -10,7 +10,11 @@ const reader = prompt({ sigint: true });
 
 const io: IO = {
   print: (v) => process.stdout.write(`${v}`),
-  read: (callback) => {
+  read_char: (callback) => {
+    const input = reader("> ");
+    callback(input);
+  },
+  read_int: (callback) => {
     const input = reader("> ");
     callback(input);
   },

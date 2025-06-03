@@ -107,22 +107,46 @@ async function writeFile(filename: string, content: string): Promise<void> {
 
 const reader = prompt({ sigint: true });
 
-const io: IO = {
-  print: (text: string): void => {
+class TermIO implements IO {
+  _hasBufferedInput = false;
+  _inputBuffer = "";
+  debug = false;
+
+  print(text: string): void {
     process.stdout.write(text);
-  },
-  read: (callback) => {
+  }
+
+  read_char(callback: (input: string) => void): void {
+    const input = this._hasBufferedInput ? this._inputBuffer : reader("> ");
+
+    const char = input.slice(0, 1);
+    const restInput = input.slice(1);
+
+    callback(char);
+
+    this._hasBufferedInput = !!char;
+    this._inputBuffer = restInput;
+  }
+
+  read_int(callback: (input: string) => void): void {
+    if (this._inputBuffer) {
+      this._hasBufferedInput = false;
+      this._inputBuffer = "";
+    }
+
     const input = reader("> ");
     callback(input);
-  },
-  debug: false,
-  printDebug: (text: string): void => {
-    process.stderr.write(`[DEBUG] ${text}`);
-  },
-  clear: (): void => {},
-};
+  }
+
+  printDebug(text: string): void {
+    process.stderr.write(`[DEBUG] ${text}\n`);
+  }
+
+  clear(): void {}
+}
 
 async function executeNfspl(filename: string): Promise<void> {
+  const io = new TermIO();
   const source = await readFile(filename);
 
   const possum = new Possum(source);
@@ -136,12 +160,15 @@ async function executeNfspl(filename: string): Promise<void> {
 
   const horatio = Horatio.fromAst(horatioAst, io);
   horatio.run();
+  io.print("\n");
 }
 
 async function executeSpl(filename: string): Promise<void> {
+  const io = new TermIO();
   const source = await readFile(filename);
   const horatio = Horatio.fromSource(source, io);
   horatio.run();
+  io.print("\n");
 }
 
 async function transpileNfsplToSpl(inputFile: string): Promise<string> {
@@ -160,6 +187,7 @@ async function transpileNfsplToSpl(inputFile: string): Promise<string> {
 }
 
 async function formatSpl(inputFile: string): Promise<string> {
+  const io = new TermIO();
   const source = await readFile(inputFile);
   const horatio = Horatio.fromSource(source, io);
   return prettyPrint(horatio.ast);

@@ -9,7 +9,8 @@ describe("NFSPL to SPL Snapshots", () => {
   // Mock IO interface for testing
   const mockIO: IO = {
     print: () => {},
-    read: () => {},
+    read_char: () => {},
+    read_int: () => {},
     debug: false,
     printDebug: () => {},
     clear: () => {},

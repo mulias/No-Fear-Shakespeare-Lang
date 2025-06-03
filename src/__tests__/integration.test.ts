@@ -19,7 +19,8 @@ describe("NFSPL to SPL Integration Tests", () => {
 
   const mockIO: IO = {
     print: () => {},
-    read: () => {},
+    read_char: () => {},
+    read_int: () => {},
     debug: false,
     printDebug: () => {},
     clear: () => {},
