@@ -18,16 +18,20 @@ import { first_person_possessive } from "./wordlists/first_person_possessive";
 import { first_person_reflexive } from "./wordlists/first_person_reflexive";
 import { imperatives, to, proceed } from "./wordlists/imperatives";
 import { as, not, than, if_so, if_not, and } from "./wordlists/misc";
-import { negative_adjectives } from "./wordlists/negative_adjectives";
+import {
+  negative_adjectives,
+  neutral_adjectives,
+  positive_adjectives,
+  adjectiveDatabase,
+  sortAdjectivesByCategory,
+} from "./wordlists/adjectives";
 import { negative_comparatives } from "./wordlists/negative_comparatives";
-import { neutral_adjectives } from "./wordlists/neutral_adjectives";
 import {
   negative_nouns,
   neutral_nouns,
   positive_nouns,
 } from "./wordlists/nouns";
 import { nothing } from "./wordlists/nothing";
-import { positive_adjectives } from "./wordlists/positive_adjectives";
 import { positive_comparatives } from "./wordlists/positive_comparatives";
 import { roman_numerals } from "./wordlists/roman_numerals";
 import { second_person } from "./wordlists/second_person";
@@ -125,4 +129,6 @@ export default {
   third_person_possessive: third_person_possessive,
   unary_operators: unary_operators,
   you: you,
+  adjectiveDatabase: adjectiveDatabase,
+  sortAdjectivesByCategory: sortAdjectivesByCategory,
 };

@@ -3,6 +3,7 @@ import * as Ast from "../horatio/ast";
 import { Analyzer } from "./analyzer";
 import { Generator } from "./generator";
 import { UsageContext, getArticleForNoun } from "../horatio/wordlists/nouns";
+import { sortAdjectivesByCategory } from "../horatio/wordlists/adjectives";
 
 type Characters = Record<string, string>;
 
@@ -640,17 +641,30 @@ export class Yorick {
       this.buildPositiveAdjective(),
     );
 
+    // Sort adjectives by their relational category
+    const adjectiveStrings = adjectives.map((adj) => adj.sequence);
+    const sortedAdjectiveStrings = sortAdjectivesByCategory(adjectiveStrings);
+    const sortedAdjectives = sortedAdjectiveStrings.map(
+      (adjStr) => new Ast.PositiveAdjective(adjStr),
+    );
+
     // Use the noun database to determine the correct article
-    const firstWord =
-      adjectives.length > 0 ? adjectives[0]!.sequence : noun.sequence;
+    const firstWord = sortedAdjectives[0]
+      ? sortedAdjectives[0].sequence
+      : noun.sequence;
     const article = getArticleForNoun(
       noun.sequence,
       context || UsageContext.ASSIGNMENT,
-      adjectives.length > 0,
+      sortedAdjectives.length > 0,
       firstWord,
     );
 
-    return new Ast.PositiveConstantValue(noun, adjectives, article, context);
+    return new Ast.PositiveConstantValue(
+      noun,
+      sortedAdjectives,
+      article,
+      context,
+    );
   }
 
   buildNegativeConstantValue(
@@ -662,17 +676,30 @@ export class Yorick {
       this.buildNegativeAdjective(),
     );
 
+    // Sort adjectives by their relational category
+    const adjectiveStrings = adjectives.map((adj) => adj.sequence);
+    const sortedAdjectiveStrings = sortAdjectivesByCategory(adjectiveStrings);
+    const sortedAdjectives = sortedAdjectiveStrings.map(
+      (adjStr) => new Ast.NegativeAdjective(adjStr),
+    );
+
     // Use the noun database to determine the correct article
-    const firstWord =
-      adjectives.length > 0 ? adjectives[0]!.sequence : noun.sequence;
+    const firstWord = sortedAdjectives[0]
+      ? sortedAdjectives[0].sequence
+      : noun.sequence;
     const article = getArticleForNoun(
       noun.sequence,
       context || UsageContext.ASSIGNMENT,
-      adjectives.length > 0,
+      sortedAdjectives.length > 0,
       firstWord,
     );
 
-    return new Ast.NegativeConstantValue(noun, adjectives, article, context);
+    return new Ast.NegativeConstantValue(
+      noun,
+      sortedAdjectives,
+      article,
+      context,
+    );
   }
 
   buildZeroValue() {
