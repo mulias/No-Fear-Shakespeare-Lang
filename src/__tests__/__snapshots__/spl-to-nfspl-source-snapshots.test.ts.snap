@@ -1,0 +1,212 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Comprehensive Example File Snapshots SPL to NFSPL Transpilation Snapshots should transpile hi.spl to NFSPL: hi.spl-to-nfspl 1`] = `
+"## title: A New Beginning
+## var hamlet: a literary/storage device
+## var juliet: an orator
+## description: The Only Act
+Act1 {
+  ## description: The Prince's Speech
+  Scene1 {
+    stage(hamlet, juliet)
+
+    juliet {
+      @you.set(64 + 8)
+      @you.print_char
+    }
+
+    juliet {
+      @you.set(@you + 1)
+      @you.print_char
+      @you.set(8 + 2)
+      @you.print_char
+    }
+
+    unstage_all
+  }
+}"
+`;
+
+exports[`Comprehensive Example File Snapshots SPL to NFSPL Transpilation Snapshots should transpile primes.spl to NFSPL: primes.spl-to-nfspl 1`] = `
+"## title: Prime Number Computation in Copenhagen
+## var romeo: a young man of Verona
+## var juliet: a young woman
+## var hamlet: a temporary variable from Denmark
+## var the_ghost: a limiting factor (and by a remarkable coincidence also Hamlet's father)
+## description: Interview with the other side
+Act1 {
+  ## description: At the last hour before dawn
+  Scene1 {
+    stage(the_ghost, juliet)
+
+    the_ghost {
+      @you.set(8)
+      @you.set(square(@you) - 2)
+      @you.print_char
+    }
+
+    juliet {
+      @you.read_int
+    }
+
+    unstage(the_ghost)
+
+    stage(romeo)
+
+    juliet {
+      @you.set(2)
+    }
+  }
+}
+## description: Determining divisibility
+Act2 {
+  ## description: A private conversation
+  Scene1 {
+    juliet {
+      test_gt(@you, the_ghost)
+    }
+
+    romeo {
+      if_true(goto(Scene5))
+    }
+
+    unstage(romeo)
+
+    stage(hamlet)
+
+    juliet {
+      @you.set(square_root(romeo))
+    }
+
+    hamlet {
+      @you.set(2)
+    }
+  }
+
+  ## description: Questions and the consequences thereof
+  Scene2 {
+    juliet {
+      test_gt(juliet, @you)
+    }
+
+    hamlet {
+      if_true(goto(Scene3))
+    }
+
+    juliet {
+      test_eq(romeo % juliet, 0)
+    }
+
+    hamlet {
+      if_true(goto(Scene4))
+      @you.set(@you + 1)
+    }
+
+    juliet {
+      goto(Scene2)
+    }
+  }
+
+  ## description: {romeo} must die
+  Scene3 {
+    unstage(hamlet)
+
+    stage(romeo)
+
+    juliet {
+      @you.print_int
+    }
+
+    unstage(juliet)
+
+    stage(hamlet)
+
+    romeo {
+      @you.set(0 - -8 + -2)
+      @you.print_char
+    }
+
+    unstage(romeo)
+
+    stage(juliet)
+  }
+
+  ## description: One small dog at a time
+  Scene4 {
+    unstage(hamlet)
+
+    stage(romeo)
+
+    juliet {
+      @you.set(@you + 1)
+      goto(Scene1)
+    }
+  }
+
+  ## description: Fin
+  Scene5 {
+    unstage_all
+  }
+}"
+`;
+
+exports[`Comprehensive Example File Snapshots SPL to NFSPL Transpilation Snapshots should transpile reverse.spl to NFSPL: reverse.spl-to-nfspl 1`] = `
+"## title: Outputting Input Reversedly
+## var othello: a stacky man
+## var lady_macbeth: who pushes him around till he pops
+## description: The one and only
+Act1 {
+  ## description: In the beginning, there was nothing
+  Scene1 {
+    stage(othello, lady_macbeth)
+
+    othello {
+      @you.set(0)
+    }
+  }
+
+  ## description: Pushing to the very end
+  Scene2 {
+    lady_macbeth {
+      @you.read_char
+      @you.push_self
+    }
+
+    othello {
+      @you.set(@you + 1)
+      test_eq(othello, -1)
+    }
+
+    lady_macbeth {
+      if_false(goto(Scene2))
+      @you.pop
+    }
+
+    othello {
+      @you.set(@you - 1)
+    }
+  }
+
+  ## description: Once you pop, you can't stop
+  Scene3 {
+    lady_macbeth {
+      @you.pop
+      @you.print_char
+    }
+
+    othello {
+      @you.set(@you + -1)
+      test_gt(@you, 0)
+    }
+
+    lady_macbeth {
+      if_true(goto(Scene3))
+    }
+  }
+
+  ## description: The end
+  Scene4 {
+    unstage_all
+  }
+}"
+`;

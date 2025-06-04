@@ -1,0 +1,45 @@
+## title: {stack} and {count} Output The Input Reversedly
+## var stack: a stacky gentleperson
+## var count: who counts the memories of {stack}
+
+## description: The one and only
+Main {
+  ## description: In the beginning, there was nothing
+  Init {
+    stage(stack, count)
+    stack { @you.set(0) }
+  }
+
+  ## description: Pushing to {stack}
+  GetInput {
+    count {
+      @you.read_char
+      test_eq(stack, 0)
+      if_false(@you.push_self)
+    }
+    stack {
+      if_false(@you.set(@you + 1))
+    }
+    count {
+      if_false(goto(GetInput))
+    }
+  }
+
+  ## description: Counting of {count}
+  PrintReversed {
+    count {
+      @you.pop
+      @you.print_char
+    }
+    stack {
+      @you.set(@you - 1)
+      test_gt(@you, 0)
+    }
+    count { if_true(goto(PrintReversed)) }
+  }
+
+  ## description: The end
+  End {
+    unstage_all
+  }
+}

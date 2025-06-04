@@ -1,0 +1,111 @@
+## title: To Fizz, Perchance To Buzz
+## declare {n}, a counter of loops
+## declare {out}, a poet and orator
+
+Main {
+  Start {
+    stage(n, out)
+
+    out {
+      @you.set(0)
+    }
+  }
+
+  Loop {
+    out { @you.set(@you + 1) }
+
+    out {
+      test_gt(@you, 100)
+      if_true(goto(End))
+    }
+
+    out {
+      test_eq(@you % 15, 0)
+      if_true(goto(Fizzbuzz))
+    }
+
+    out {
+      test_eq(@you % 3, 0)
+      if_true(goto(Fizz))
+    }
+
+    out {
+      test_eq(@you % 5, 0)
+      if_true(goto(Buzz))
+    }
+
+    n {
+      @you.set(n)
+      @you.print_int
+      @you.set(10)
+      @you.print_char
+      goto(Loop)
+    }
+  }
+
+  Fizzbuzz {
+    n {
+      @you.set('f')
+      @you.print_char
+      @you.set('i')
+      @you.print_char
+      @you.set('z')
+      @you.print_char
+      @you.set('z')
+      @you.print_char
+      @you.set('b')
+      @you.print_char
+      @you.set('u')
+      @you.print_char
+      @you.set('z')
+      @you.print_char
+      @you.set('z')
+      @you.print_char
+
+      @you.set(10)
+      @you.print_char
+
+      goto(Loop)
+    }
+  }
+
+  Fizz {
+    n {
+      @you.set('f')
+      @you.print_char
+      @you.set('i')
+      @you.print_char
+      @you.set('z')
+      @you.print_char
+      @you.set('z')
+      @you.print_char
+
+      @you.set(10)
+      @you.print_char
+
+      goto(Loop)
+    }
+  }
+
+  Buzz {
+    n {
+      @you.set('b')
+      @you.print_char
+      @you.set('u')
+      @you.print_char
+      @you.set('z')
+      @you.print_char
+      @you.set('z')
+      @you.print_char
+
+      @you.set(10)
+      @you.print_char
+
+      goto(Loop)
+    }
+  }
+
+  End {
+    unstage_all
+  }
+}

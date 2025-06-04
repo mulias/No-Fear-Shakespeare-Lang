@@ -1,0 +1,190 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Comprehensive Example File Snapshots NFSPL to SPL Transpilation Snapshots should transpile fizzbuzz.nfspl to SPL: fizzbuzz.nfspl-to-spl 1`] = `
+"To Fizz, Perchance To Buzz.
+
+John of Gaunt, the n variable.
+Rosalind, the out variable.
+
+                    Act I: Main.
+
+                    Scene I: Start.
+
+[Enter John of Gaunt and Rosalind]
+
+Rosalind:
+     You are nothing.
+
+                    Scene II: Loop.
+
+Rosalind:
+     Thou art the sum of yourself and happiness.
+
+Rosalind:
+     Is thou nicer than the sum of the sum of a pretty healthy happiness and
+    cunning cute good proud white Lord and a beautiful cunning lovely noble
+    warm reddest pony? If so, We shall return to scene VI.
+
+Rosalind:
+     Is the remainder of the quotient between thee and the sum of the sum of
+    the sum of Heaven and a trustworthy plum and a sweet golden joy and a
+    handsome proud golden happiness as sweetest as nothing? If so, we must
+    proceed to scene III.
+
+Rosalind:
+     Is the remainder of the quotient between thyself and the sum of Lord and a
+    golden nose as bold as nothing? If so, Let us return to scene IV.
+
+Rosalind:
+     Is the remainder of the quotient between thyself and the sum of a nose and
+    a smooth white hero as warm as nothing? If so, let us proceed to scene V.
+
+John of Gaunt:
+     You are John of Gaunt. Open thy heart! You are the sum of a white hamster
+    and handsome mighty healthy Lord. Speak thy mind! Let us proceed to scene
+    II.
+
+                    Scene III: Fizzbuzz.
+
+John of Gaunt:
+     You are the sum of the sum of the sum of a lovely pony and sunny sunny
+    King and a brave rich healthy white embroidered pony and a brave delicious
+    fair lovely prompt sweet kingdom. Speak thine mind! Thou art the sum of the
+    sum of the sum of Heaven and a beautiful noble sweetest joy and a delicious
+    fine honest smooth embroidered hero and a delicious gentle good lovely
+    trustworthy reddest happiness. Speak thy mind! Thou art the sum of the sum
+    of the sum of the sum of a loving hamster and a blossoming warm warm
+    happiness and a mighty mighty white rural happiness and a cunning lovely
+    noble blossoming smooth summer's day and the handsome peaceful sweet
+    blossoming reddest white sky. Speak thy mind! Thou art the sum of the sum
+    of the sum of the sum of a charming happiness and good reddest rural King
+    and an amazing delicious noble sunny pony and a beautiful charming cute
+    noble reddest happiness and a brave noble proud blossoming smooth
+    embroidered hamster. Speak thine mind! Thou art the sum of the sum of a
+    delicious hero and an amazing charming loving pretty rural town and a
+    cunning happy proud healthy warm golden pony. Speak thine mind! You are the
+    sum of the sum of the sum of the sum of a kingdom and a prompt reddest
+    kingdom and a delicious good happy sweetest angel and a gentle handsome
+    happy pretty sweet rose and a cunning good happy loving blossoming smooth
+    purse. Speak thine mind! You are the sum of the sum of the sum of the sum
+    of a gentle cat and a brave gentle sweetest town and a beautiful delicious
+    fair noble pony and a mighty noble sunny reddest embroidered angel and a
+    cunning happy lovely loving clearest embroidered plum. Speak thy mind! Thou
+    art the sum of the sum of the sum of the sum of loving Heaven and the cute
+    sweetest warm sky and a loving warm warm golden joy and cunning delicious
+    proud sweet golden Lord and a beautiful brave cunning cute rich healthy
+    happiness. Speak thine mind! Thou art the sum of a cunning hero and a
+    mighty pretty warm rose. Speak thine mind! Let us return to scene II.
+
+                    Scene IV: Fizz.
+
+John of Gaunt:
+     You are the sum of the sum of the sum of a sweetest hero and a cute fine
+    pony and a happy loving trustworthy clearest white flower and amazing
+    cunning fine happy prompt trustworthy King. Speak thy mind! Thou art the
+    sum of the sum of the sum of a hero and a charming cunning gentle summer's
+    day and a brave good noble pretty blossoming plum and brave gentle gentle
+    noble peaceful rich Heaven. Speak thine mind! You are the sum of the sum of
+    the sum of the sum of a lovely joy and noble rich trustworthy Lord and a
+    bold delicious gentle rich happiness and a bold charming cute happy
+    clearest happiness and bold fine happy honest lovely warm Heaven. Speak thy
+    mind! Thou art the sum of the sum of the sum of the sum of a trustworthy
+    kingdom and a bold handsome white cat and an amazing bold proud golden joy
+    and a bold delicious rich blossoming golden cat and beautiful happy noble
+    blossoming golden golden King. Speak thine mind! Thou art the sum of a warm
+    kingdom and a lovely blossoming sunny nose. Speak thine mind! We must
+    proceed to scene II.
+
+                    Scene V: Buzz.
+
+John of Gaunt:
+     You are the sum of the sum of a sunny plum and an amazing fine sweetest
+    trustworthy smooth plum and a brave lovely blossoming blossoming warm white
+    hero. Speak your mind! You are the sum of the sum of the sum of the sum of
+    a town and prompt rich King and a charming loving trustworthy clearest pony
+    and a beautiful handsome sweet smooth embroidered hero and a beautiful cute
+    trustworthy clearest golden embroidered town. Speak your mind! Thou art the
+    sum of the sum of the sum of the sum of the peaceful King and cunning cute
+    loving Heaven and a fine pretty sweet warm happiness and a brave delicious
+    fine reddest white flower and a bold gentle handsome noble smooth golden
+    cat. Speak thine mind! Thou art the sum of the sum of the sum of the sum of
+    white Heaven and a honest sweet sunny cat and a cunning mighty noble rich
+    summer's day and a honest honest pretty sweetest warm summer's day and an
+    amazing brave cunning handsome sweetest trustworthy cat. Speak thine mind!
+    Thou art the sum of a rich angel and a cunning mighty sweet joy. Speak thy
+    mind! We shall return to scene II.
+
+                    Scene VI: End.
+
+[Exeunt]"
+`;
+
+exports[`Comprehensive Example File Snapshots NFSPL to SPL Transpilation Snapshots should transpile hi.nfspl to SPL: hi.nfspl-to-spl 1`] = `
+"A Simple Greeting.
+
+Thaisa, the a variable.
+Lychorida, the b variable.
+
+                    Act I: Main.
+
+                    Scene I: Print hi.
+
+[Enter Thaisa and Lychorida]
+
+Lychorida:
+     You are the sum of a beautiful bold rural summer's day and a beautiful
+    handsome rich blossoming clearest warm summer's day. Speak thine mind!
+
+Lychorida:
+     Thou art the sum of thee and a summer's day. Speak your mind!
+
+Lychorida:
+     Thou art the sum of the cute sky and a delicious proud blossoming summer's
+    day. Speak thy mind!
+
+[Exeunt]"
+`;
+
+exports[`Comprehensive Example File Snapshots NFSPL to SPL Transpilation Snapshots should transpile reverse.nfspl to SPL: reverse.nfspl-to-spl 1`] = `
+"Alonso and Andromache Output The Input Reversedly.
+
+Alonso, a stacky gentleperson.
+Andromache, who counts the memories of Alonso.
+
+                    Act I: The one and only.
+
+                    Scene I: In the beginning, there was nothing.
+
+[Enter Alonso and Andromache]
+
+Alonso:
+     Thou art nothing.
+
+                    Scene II: Pushing to Alonso.
+
+Andromache:
+     Open your mind! Are you as blossoming as nothing? If not, Remember
+    yourself.
+
+Alonso:
+     If not, You are the sum of thee and a pony.
+
+Andromache:
+     If not, we shall return to scene II.
+
+                    Scene III: Counting of Andromache.
+
+Andromache:
+     Recall your stinking small cousin! Speak your mind!
+
+Alonso:
+     You are the difference between yourself and King. Is thee friendlier than
+    nothing?
+
+Andromache:
+     If so, Let us proceed to scene III.
+
+                    Scene IV: The end.
+
+[Exeunt]"
+`;

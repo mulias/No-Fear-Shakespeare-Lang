@@ -1,0 +1,24 @@
+## title: A Simple Greeting
+
+Main {
+  PrintHi {
+    stage(a, b)
+
+    b {
+      @you.set(72)
+      @you.print_char
+    }
+
+    b {
+      @you.set(@you + 1)
+      @you.print_char
+    }
+
+    b {
+      @you.set(10)
+      @you.print_char
+    }
+
+    unstage_all
+  }
+}
