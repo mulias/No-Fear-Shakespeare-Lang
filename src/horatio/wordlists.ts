@@ -20,13 +20,15 @@ import { imperatives, to, proceed } from "./wordlists/imperatives";
 import { as, not, than, if_so, if_not, and } from "./wordlists/misc";
 import { negative_adjectives } from "./wordlists/negative_adjectives";
 import { negative_comparatives } from "./wordlists/negative_comparatives";
-import { negative_nouns } from "./wordlists/negative_nouns";
 import { neutral_adjectives } from "./wordlists/neutral_adjectives";
-import { neutral_nouns } from "./wordlists/neutral_nouns";
+import {
+  negative_nouns,
+  neutral_nouns,
+  positive_nouns,
+} from "./wordlists/nouns";
 import { nothing } from "./wordlists/nothing";
 import { positive_adjectives } from "./wordlists/positive_adjectives";
 import { positive_comparatives } from "./wordlists/positive_comparatives";
-import { positive_nouns } from "./wordlists/positive_nouns";
 import { roman_numerals } from "./wordlists/roman_numerals";
 import { second_person } from "./wordlists/second_person";
 import { second_person_possessive } from "./wordlists/second_person_possessive";

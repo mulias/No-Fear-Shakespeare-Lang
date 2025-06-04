@@ -6,9 +6,11 @@ export enum UsageContext {
 }
 
 export type ArticleType = "a" | "an" | "the" | "none" | "required";
+export type Disposition = "positive" | "negative" | "neutral";
 
 export type NounProperties = {
   word: string;
+  disposition: Disposition;
   articleUsage: {
     standalone: ArticleType; // "You are [article] [noun]"
     inArithmetic: ArticleType; // "sum of [article] [noun]"
@@ -33,6 +35,7 @@ export const nounDatabase: Map<string, NounProperties> = new Map([
     "Heaven",
     {
       word: "Heaven",
+      disposition: "positive",
       articleUsage: {
         standalone: "none",
         inArithmetic: "none",
@@ -48,6 +51,7 @@ export const nounDatabase: Map<string, NounProperties> = new Map([
     "King",
     {
       word: "King",
+      disposition: "positive",
       articleUsage: {
         standalone: "the",
         inArithmetic: "none",
@@ -61,6 +65,7 @@ export const nounDatabase: Map<string, NounProperties> = new Map([
     "Lord",
     {
       word: "Lord",
+      disposition: "positive",
       articleUsage: {
         standalone: "the",
         inArithmetic: "none",
@@ -76,6 +81,7 @@ export const nounDatabase: Map<string, NounProperties> = new Map([
     "happiness",
     {
       word: "happiness",
+      disposition: "positive",
       articleUsage: {
         standalone: "none",
         inArithmetic: "none",
@@ -89,6 +95,7 @@ export const nounDatabase: Map<string, NounProperties> = new Map([
     "joy",
     {
       word: "joy",
+      disposition: "positive",
       articleUsage: {
         standalone: "none",
         inArithmetic: "none",
@@ -104,6 +111,7 @@ export const nounDatabase: Map<string, NounProperties> = new Map([
     "angel",
     {
       word: "angel",
+      disposition: "positive",
       articleUsage: {
         standalone: getArticle("angel"),
         inArithmetic: getArticle("angel"),
@@ -117,6 +125,7 @@ export const nounDatabase: Map<string, NounProperties> = new Map([
     "flower",
     {
       word: "flower",
+      disposition: "positive",
       articleUsage: {
         standalone: "a",
         inArithmetic: "a",
@@ -130,6 +139,7 @@ export const nounDatabase: Map<string, NounProperties> = new Map([
     "plum",
     {
       word: "plum",
+      disposition: "positive",
       articleUsage: {
         standalone: "a",
         inArithmetic: "a",
@@ -143,6 +153,7 @@ export const nounDatabase: Map<string, NounProperties> = new Map([
     "summer's day",
     {
       word: "summer's day",
+      disposition: "positive",
       articleUsage: {
         standalone: "a",
         inArithmetic: "a",
@@ -156,6 +167,7 @@ export const nounDatabase: Map<string, NounProperties> = new Map([
     "hero",
     {
       word: "hero",
+      disposition: "positive",
       articleUsage: {
         standalone: "a",
         inArithmetic: "a",
@@ -169,6 +181,7 @@ export const nounDatabase: Map<string, NounProperties> = new Map([
     "rose",
     {
       word: "rose",
+      disposition: "positive",
       articleUsage: {
         standalone: "a",
         inArithmetic: "a",
@@ -182,6 +195,7 @@ export const nounDatabase: Map<string, NounProperties> = new Map([
     "kingdom",
     {
       word: "kingdom",
+      disposition: "positive",
       articleUsage: {
         standalone: "a",
         inArithmetic: "a",
@@ -195,6 +209,7 @@ export const nounDatabase: Map<string, NounProperties> = new Map([
     "pony",
     {
       word: "pony",
+      disposition: "positive",
       articleUsage: {
         standalone: "a",
         inArithmetic: "a",
@@ -208,6 +223,7 @@ export const nounDatabase: Map<string, NounProperties> = new Map([
     "cat",
     {
       word: "cat",
+      disposition: "positive",
       articleUsage: {
         standalone: "a",
         inArithmetic: "a",
@@ -221,6 +237,7 @@ export const nounDatabase: Map<string, NounProperties> = new Map([
     "town",
     {
       word: "town",
+      disposition: "positive",
       articleUsage: {
         standalone: "a",
         inArithmetic: "a",
@@ -234,6 +251,7 @@ export const nounDatabase: Map<string, NounProperties> = new Map([
     "purse",
     {
       word: "purse",
+      disposition: "positive",
       articleUsage: {
         standalone: "a",
         inArithmetic: "a",
@@ -247,6 +265,7 @@ export const nounDatabase: Map<string, NounProperties> = new Map([
     "sky",
     {
       word: "sky",
+      disposition: "positive",
       articleUsage: {
         standalone: "the",
         inArithmetic: "the",
@@ -260,6 +279,7 @@ export const nounDatabase: Map<string, NounProperties> = new Map([
     "hamster",
     {
       word: "hamster",
+      disposition: "positive",
       articleUsage: {
         standalone: "a",
         inArithmetic: "a",
@@ -273,6 +293,7 @@ export const nounDatabase: Map<string, NounProperties> = new Map([
     "nose",
     {
       word: "nose",
+      disposition: "positive",
       articleUsage: {
         standalone: "a",
         inArithmetic: "a",
@@ -288,6 +309,7 @@ export const nounDatabase: Map<string, NounProperties> = new Map([
     "Hell",
     {
       word: "Hell",
+      disposition: "negative",
       articleUsage: {
         standalone: "none",
         inArithmetic: "none",
@@ -301,6 +323,7 @@ export const nounDatabase: Map<string, NounProperties> = new Map([
     "Microsoft",
     {
       word: "Microsoft",
+      disposition: "negative",
       articleUsage: {
         standalone: "none",
         inArithmetic: "none",
@@ -316,6 +339,7 @@ export const nounDatabase: Map<string, NounProperties> = new Map([
     "death",
     {
       word: "death",
+      disposition: "negative",
       articleUsage: {
         standalone: "none",
         inArithmetic: "none",
@@ -329,6 +353,7 @@ export const nounDatabase: Map<string, NounProperties> = new Map([
     "hate",
     {
       word: "hate",
+      disposition: "negative",
       articleUsage: {
         standalone: "none",
         inArithmetic: "none",
@@ -342,6 +367,7 @@ export const nounDatabase: Map<string, NounProperties> = new Map([
     "war",
     {
       word: "war",
+      disposition: "negative",
       articleUsage: {
         standalone: "none",
         inArithmetic: "none",
@@ -355,6 +381,7 @@ export const nounDatabase: Map<string, NounProperties> = new Map([
     "plague",
     {
       word: "plague",
+      disposition: "negative",
       articleUsage: {
         standalone: "a",
         inArithmetic: "a",
@@ -368,6 +395,7 @@ export const nounDatabase: Map<string, NounProperties> = new Map([
     "famine",
     {
       word: "famine",
+      disposition: "negative",
       articleUsage: {
         standalone: "a",
         inArithmetic: "none",
@@ -381,6 +409,7 @@ export const nounDatabase: Map<string, NounProperties> = new Map([
     "starvation",
     {
       word: "starvation",
+      disposition: "negative",
       articleUsage: {
         standalone: "none",
         inArithmetic: "none",
@@ -394,6 +423,7 @@ export const nounDatabase: Map<string, NounProperties> = new Map([
     "curse",
     {
       word: "curse",
+      disposition: "negative",
       articleUsage: {
         standalone: "a",
         inArithmetic: "a",
@@ -407,6 +437,7 @@ export const nounDatabase: Map<string, NounProperties> = new Map([
     "lie",
     {
       word: "lie",
+      disposition: "negative",
       articleUsage: {
         standalone: "a",
         inArithmetic: "a",
@@ -422,6 +453,7 @@ export const nounDatabase: Map<string, NounProperties> = new Map([
     "bastard",
     {
       word: "bastard",
+      disposition: "negative",
       articleUsage: {
         standalone: "a",
         inArithmetic: "a",
@@ -435,6 +467,7 @@ export const nounDatabase: Map<string, NounProperties> = new Map([
     "beggar",
     {
       word: "beggar",
+      disposition: "negative",
       articleUsage: {
         standalone: "a",
         inArithmetic: "a",
@@ -448,6 +481,7 @@ export const nounDatabase: Map<string, NounProperties> = new Map([
     "blister",
     {
       word: "blister",
+      disposition: "negative",
       articleUsage: {
         standalone: "a",
         inArithmetic: "a",
@@ -461,6 +495,7 @@ export const nounDatabase: Map<string, NounProperties> = new Map([
     "codpiece",
     {
       word: "codpiece",
+      disposition: "negative",
       articleUsage: {
         standalone: "a",
         inArithmetic: "a",
@@ -474,6 +509,7 @@ export const nounDatabase: Map<string, NounProperties> = new Map([
     "coward",
     {
       word: "coward",
+      disposition: "negative",
       articleUsage: {
         standalone: "a",
         inArithmetic: "a",
@@ -487,6 +523,7 @@ export const nounDatabase: Map<string, NounProperties> = new Map([
     "devil",
     {
       word: "devil",
+      disposition: "negative",
       articleUsage: {
         standalone: "the",
         inArithmetic: "the",
@@ -500,6 +537,7 @@ export const nounDatabase: Map<string, NounProperties> = new Map([
     "draught",
     {
       word: "draught",
+      disposition: "negative",
       articleUsage: {
         standalone: "a",
         inArithmetic: "a",
@@ -513,6 +551,7 @@ export const nounDatabase: Map<string, NounProperties> = new Map([
     "flirt-gill",
     {
       word: "flirt-gill",
+      disposition: "negative",
       articleUsage: {
         standalone: "a",
         inArithmetic: "a",
@@ -526,6 +565,7 @@ export const nounDatabase: Map<string, NounProperties> = new Map([
     "goat",
     {
       word: "goat",
+      disposition: "negative",
       articleUsage: {
         standalone: "a",
         inArithmetic: "a",
@@ -539,6 +579,7 @@ export const nounDatabase: Map<string, NounProperties> = new Map([
     "hog",
     {
       word: "hog",
+      disposition: "negative",
       articleUsage: {
         standalone: "a",
         inArithmetic: "a",
@@ -552,6 +593,7 @@ export const nounDatabase: Map<string, NounProperties> = new Map([
     "hound",
     {
       word: "hound",
+      disposition: "negative",
       articleUsage: {
         standalone: "a",
         inArithmetic: "a",
@@ -565,6 +607,7 @@ export const nounDatabase: Map<string, NounProperties> = new Map([
     "leech",
     {
       word: "leech",
+      disposition: "negative",
       articleUsage: {
         standalone: "a",
         inArithmetic: "a",
@@ -578,6 +621,7 @@ export const nounDatabase: Map<string, NounProperties> = new Map([
     "pig",
     {
       word: "pig",
+      disposition: "negative",
       articleUsage: {
         standalone: "a",
         inArithmetic: "a",
@@ -591,6 +635,7 @@ export const nounDatabase: Map<string, NounProperties> = new Map([
     "toad",
     {
       word: "toad",
+      disposition: "negative",
       articleUsage: {
         standalone: "a",
         inArithmetic: "a",
@@ -604,6 +649,7 @@ export const nounDatabase: Map<string, NounProperties> = new Map([
     "wolf",
     {
       word: "wolf",
+      disposition: "negative",
       articleUsage: {
         standalone: "a",
         inArithmetic: "a",
@@ -619,6 +665,7 @@ export const nounDatabase: Map<string, NounProperties> = new Map([
     "animal",
     {
       word: "animal",
+      disposition: "neutral",
       articleUsage: {
         standalone: getArticle("animal"),
         inArithmetic: getArticle("animal"),
@@ -632,6 +679,7 @@ export const nounDatabase: Map<string, NounProperties> = new Map([
     "aunt",
     {
       word: "aunt",
+      disposition: "neutral",
       articleUsage: {
         standalone: getArticle("aunt"),
         inArithmetic: getArticle("aunt"),
@@ -645,6 +693,7 @@ export const nounDatabase: Map<string, NounProperties> = new Map([
     "brother",
     {
       word: "brother",
+      disposition: "neutral",
       articleUsage: {
         standalone: "a",
         inArithmetic: "a",
@@ -658,6 +707,7 @@ export const nounDatabase: Map<string, NounProperties> = new Map([
     "chihuahua",
     {
       word: "chihuahua",
+      disposition: "neutral",
       articleUsage: {
         standalone: "a",
         inArithmetic: "a",
@@ -671,6 +721,7 @@ export const nounDatabase: Map<string, NounProperties> = new Map([
     "cousin",
     {
       word: "cousin",
+      disposition: "neutral",
       articleUsage: {
         standalone: "a",
         inArithmetic: "a",
@@ -684,6 +735,7 @@ export const nounDatabase: Map<string, NounProperties> = new Map([
     "cow",
     {
       word: "cow",
+      disposition: "neutral",
       articleUsage: {
         standalone: "a",
         inArithmetic: "a",
@@ -697,6 +749,7 @@ export const nounDatabase: Map<string, NounProperties> = new Map([
     "daughter",
     {
       word: "daughter",
+      disposition: "neutral",
       articleUsage: {
         standalone: "a",
         inArithmetic: "a",
@@ -710,6 +763,7 @@ export const nounDatabase: Map<string, NounProperties> = new Map([
     "dog",
     {
       word: "dog",
+      disposition: "neutral",
       articleUsage: {
         standalone: "a",
         inArithmetic: "a",
@@ -723,6 +777,7 @@ export const nounDatabase: Map<string, NounProperties> = new Map([
     "door",
     {
       word: "door",
+      disposition: "neutral",
       articleUsage: {
         standalone: "a",
         inArithmetic: "a",
@@ -736,6 +791,7 @@ export const nounDatabase: Map<string, NounProperties> = new Map([
     "face",
     {
       word: "face",
+      disposition: "neutral",
       articleUsage: {
         standalone: "a",
         inArithmetic: "a",
@@ -749,6 +805,7 @@ export const nounDatabase: Map<string, NounProperties> = new Map([
     "father",
     {
       word: "father",
+      disposition: "neutral",
       articleUsage: {
         standalone: "a",
         inArithmetic: "a",
@@ -762,6 +819,7 @@ export const nounDatabase: Map<string, NounProperties> = new Map([
     "fellow",
     {
       word: "fellow",
+      disposition: "neutral",
       articleUsage: {
         standalone: "a",
         inArithmetic: "a",
@@ -775,6 +833,7 @@ export const nounDatabase: Map<string, NounProperties> = new Map([
     "granddaughter",
     {
       word: "granddaughter",
+      disposition: "neutral",
       articleUsage: {
         standalone: "a",
         inArithmetic: "a",
@@ -788,6 +847,7 @@ export const nounDatabase: Map<string, NounProperties> = new Map([
     "grandfather",
     {
       word: "grandfather",
+      disposition: "neutral",
       articleUsage: {
         standalone: "a",
         inArithmetic: "a",
@@ -801,6 +861,7 @@ export const nounDatabase: Map<string, NounProperties> = new Map([
     "grandmother",
     {
       word: "grandmother",
+      disposition: "neutral",
       articleUsage: {
         standalone: "a",
         inArithmetic: "a",
@@ -814,6 +875,7 @@ export const nounDatabase: Map<string, NounProperties> = new Map([
     "grandson",
     {
       word: "grandson",
+      disposition: "neutral",
       articleUsage: {
         standalone: "a",
         inArithmetic: "a",
@@ -827,6 +889,7 @@ export const nounDatabase: Map<string, NounProperties> = new Map([
     "hair",
     {
       word: "hair",
+      disposition: "neutral",
       articleUsage: {
         standalone: "none",
         inArithmetic: "none",
@@ -840,6 +903,7 @@ export const nounDatabase: Map<string, NounProperties> = new Map([
     "horse",
     {
       word: "horse",
+      disposition: "neutral",
       articleUsage: {
         standalone: "a",
         inArithmetic: "a",
@@ -853,6 +917,7 @@ export const nounDatabase: Map<string, NounProperties> = new Map([
     "lamp",
     {
       word: "lamp",
+      disposition: "neutral",
       articleUsage: {
         standalone: "a",
         inArithmetic: "a",
@@ -866,6 +931,7 @@ export const nounDatabase: Map<string, NounProperties> = new Map([
     "lantern",
     {
       word: "lantern",
+      disposition: "neutral",
       articleUsage: {
         standalone: "a",
         inArithmetic: "a",
@@ -879,6 +945,7 @@ export const nounDatabase: Map<string, NounProperties> = new Map([
     "mistletoe",
     {
       word: "mistletoe",
+      disposition: "neutral",
       articleUsage: {
         standalone: "none",
         inArithmetic: "none",
@@ -892,6 +959,7 @@ export const nounDatabase: Map<string, NounProperties> = new Map([
     "moon",
     {
       word: "moon",
+      disposition: "neutral",
       articleUsage: {
         standalone: "the",
         inArithmetic: "the",
@@ -905,6 +973,7 @@ export const nounDatabase: Map<string, NounProperties> = new Map([
     "morning",
     {
       word: "morning",
+      disposition: "neutral",
       articleUsage: {
         standalone: "the",
         inArithmetic: "the",
@@ -918,6 +987,7 @@ export const nounDatabase: Map<string, NounProperties> = new Map([
     "mother",
     {
       word: "mother",
+      disposition: "neutral",
       articleUsage: {
         standalone: "a",
         inArithmetic: "a",
@@ -931,6 +1001,7 @@ export const nounDatabase: Map<string, NounProperties> = new Map([
     "nephew",
     {
       word: "nephew",
+      disposition: "neutral",
       articleUsage: {
         standalone: "a",
         inArithmetic: "a",
@@ -944,6 +1015,7 @@ export const nounDatabase: Map<string, NounProperties> = new Map([
     "niece",
     {
       word: "niece",
+      disposition: "neutral",
       articleUsage: {
         standalone: "a",
         inArithmetic: "a",
@@ -957,6 +1029,7 @@ export const nounDatabase: Map<string, NounProperties> = new Map([
     "road",
     {
       word: "road",
+      disposition: "neutral",
       articleUsage: {
         standalone: "a",
         inArithmetic: "a",
@@ -970,6 +1043,7 @@ export const nounDatabase: Map<string, NounProperties> = new Map([
     "roman",
     {
       word: "roman",
+      disposition: "neutral",
       articleUsage: {
         standalone: "a",
         inArithmetic: "a",
@@ -983,6 +1057,7 @@ export const nounDatabase: Map<string, NounProperties> = new Map([
     "sister",
     {
       word: "sister",
+      disposition: "neutral",
       articleUsage: {
         standalone: "a",
         inArithmetic: "a",
@@ -996,6 +1071,7 @@ export const nounDatabase: Map<string, NounProperties> = new Map([
     "son",
     {
       word: "son",
+      disposition: "neutral",
       articleUsage: {
         standalone: "a",
         inArithmetic: "a",
@@ -1009,6 +1085,7 @@ export const nounDatabase: Map<string, NounProperties> = new Map([
     "squirrel",
     {
       word: "squirrel",
+      disposition: "neutral",
       articleUsage: {
         standalone: "a",
         inArithmetic: "a",
@@ -1022,6 +1099,7 @@ export const nounDatabase: Map<string, NounProperties> = new Map([
     "stone wall",
     {
       word: "stone wall",
+      disposition: "neutral",
       articleUsage: {
         standalone: "a",
         inArithmetic: "a",
@@ -1035,6 +1113,7 @@ export const nounDatabase: Map<string, NounProperties> = new Map([
     "thing",
     {
       word: "thing",
+      disposition: "neutral",
       articleUsage: {
         standalone: "a",
         inArithmetic: "a",
@@ -1048,6 +1127,7 @@ export const nounDatabase: Map<string, NounProperties> = new Map([
     "tree",
     {
       word: "tree",
+      disposition: "neutral",
       articleUsage: {
         standalone: "a",
         inArithmetic: "a",
@@ -1061,6 +1141,7 @@ export const nounDatabase: Map<string, NounProperties> = new Map([
     "uncle",
     {
       word: "uncle",
+      disposition: "neutral",
       articleUsage: {
         standalone: getArticle("uncle"),
         inArithmetic: getArticle("uncle"),
@@ -1074,6 +1155,7 @@ export const nounDatabase: Map<string, NounProperties> = new Map([
     "wind",
     {
       word: "wind",
+      disposition: "neutral",
       articleUsage: {
         standalone: "the",
         inArithmetic: "the",
@@ -1084,6 +1166,19 @@ export const nounDatabase: Map<string, NounProperties> = new Map([
     },
   ],
 ]);
+
+// Generate noun lists by filtering by disposition
+export const positive_nouns = Array.from(nounDatabase.entries())
+  .filter(([_, props]) => props.disposition === "positive")
+  .map(([noun, _]) => noun);
+
+export const negative_nouns = Array.from(nounDatabase.entries())
+  .filter(([_, props]) => props.disposition === "negative")
+  .map(([noun, _]) => noun);
+
+export const neutral_nouns = Array.from(nounDatabase.entries())
+  .filter(([_, props]) => props.disposition === "neutral")
+  .map(([noun, _]) => noun);
 
 // Export helper function to get article for a given noun and context
 export function getArticleForNoun(

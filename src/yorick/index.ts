@@ -2,7 +2,7 @@ import * as OpheliaAst from "../ophelia/ast";
 import * as Ast from "../horatio/ast";
 import { Analyzer } from "./analyzer";
 import { Generator } from "./generator";
-import { UsageContext, getArticleForNoun } from "../horatio/nounDatabase";
+import { UsageContext, getArticleForNoun } from "../horatio/wordlists/nouns";
 
 type Characters = Record<string, string>;
 

@@ -162,14 +162,25 @@ export default class Formatter {
   visitQuestionSentence(question: Ast.QuestionSentence) {
     const prefix = question.prefix;
     const comparison = question.comparison.visit(this);
-    const v2 = question.value2.visit(this);
+    let v2 = question.value2.visit(this);
+
+    // Add "the" before arithmetic operations in comparisons
+    if (question.value2.constructor.name === "ArithmeticOperationValue") {
+      v2 = `the ${v2}`;
+    }
 
     // For BE_COMPARATIVE (like "Am I"), prefix already includes the subject
     if (question.value1.constructor.name === "BeComparative") {
       return `${prefix} ${comparison} ${v2}`;
     } else {
       // For "Is" questions, we need to include the value1 after the prefix
-      const v1 = question.value1.visit(this);
+      let v1 = question.value1.visit(this);
+
+      // Add "the" before arithmetic operations in comparisons
+      if (question.value1.constructor.name === "ArithmeticOperationValue") {
+        v1 = `the ${v1}`;
+      }
+
       return `${prefix} ${v1} ${comparison} ${v2}`;
     }
   }
