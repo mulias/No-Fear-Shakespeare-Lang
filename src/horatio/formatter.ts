@@ -117,18 +117,11 @@ export default class Formatter {
     const text = line.sentences
       .map((sentence) => {
         const sentenceText = sentence.visit(this);
-        // Questions get question marks, commands get exclamation marks, everything else gets periods
+        // Determine punctuation based on sentence type and exclaimed field
         let punctuation = ".";
         if (sentence.constructor.name === "QuestionSentence") {
           punctuation = "?";
-        } else if (
-          sentence.constructor.name === "IntegerOutputSentence" ||
-          sentence.constructor.name === "CharOutputSentence" ||
-          sentence.constructor.name === "IntegerInputSentence" ||
-          sentence.constructor.name === "CharInputSentence" ||
-          sentence.constructor.name === "RememberSentence" ||
-          sentence.constructor.name === "RecallSentence"
-        ) {
+        } else if ("exclaimed" in sentence && sentence.exclaimed) {
           punctuation = "!";
         }
         return sentenceText + punctuation;

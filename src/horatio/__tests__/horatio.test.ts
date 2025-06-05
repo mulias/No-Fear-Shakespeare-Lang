@@ -169,7 +169,7 @@ describe("Horatio Compiler", () => {
         [Enter Romeo and Juliet]
 
         Romeo:
-          You are the sum of a cat and a dog.
+          You are as good as the sum of a cat and a dog.
           Speak your mind!
           Remember me.
           Are you better than nothing?
@@ -204,11 +204,11 @@ describe("Horatio Compiler", () => {
         [Enter Romeo and Juliet]
 
         Romeo:
-          You are the sum of a cat and a dog.
-          You are the difference between yourself and a cat.
-          You are the product of a flower and the square of a tree.
-          You are the quotient between yourself and a cat.
-          You are the remainder of the quotient between yourself and a cat.
+          You are as good as the sum of a cat and a dog.
+          You are as good as the difference between yourself and a cat.
+          You are as good as the product of a flower and the square of a tree.
+          You are as good as the quotient between yourself and a cat.
+          You are as good as the remainder of the quotient between yourself and a cat.
 
         [Exeunt]
       `;
@@ -743,7 +743,7 @@ describe("Horatio Compiler", () => {
         [Enter Hamlet]
 
         Romeo:
-          You are nothing!
+          You are as good as nothing!
 
         [Exeunt]
       `;
@@ -853,7 +853,7 @@ describe("Horatio Compiler", () => {
         [Enter Romeo and Juliet]
 
         Romeo:
-          You are the sum of a cat and a cat.
+          You are as good as the sum of a cat and a cat.
           You are as good as the difference between thyself and a cat.
           Open your heart!
 
@@ -1459,7 +1459,7 @@ describe("Horatio Compiler", () => {
         [Enter Romeo and Juliet]
 
         Romeo:
-          You are a cat!
+          You are as good as a cat!
 
         [Enter Hamlet]
         [Exeunt]
@@ -1491,7 +1491,7 @@ describe("Horatio Compiler", () => {
         [Enter Romeo and Juliet]
 
         Romeo:
-          You are a cat!
+          You are as good as a cat!
 
         [Exeunt]
 
@@ -1520,16 +1520,16 @@ describe("Horatio Compiler", () => {
         [Enter Romeo and Juliet]
 
         Romeo:
-          You are nothing!
-          You are the sum of a big big big big big big big big big big big big big big big big cat and yourself.
-          You are the sum of a big big big big big big big big big big big big big big big cat and yourself.
-          You are the sum of a big big big big big big big big big big big big big big cat and yourself.
-          You are the sum of a big big big big big big big big big big big big big cat and yourself.
-          You are the sum of a big big big big big big big big big big big big cat and yourself.
-          You are the sum of a big big big big big big big big big big cat and yourself.
-          You are the sum of a big big big big big big big big big cat and yourself.
-          You are the sum of a big big big cat and yourself.
-          You are the sum of a big cat and yourself.
+          You are as good as nothing!
+          You are as good as the sum of a big big big big big big big big big big big big big big big big cat and yourself.
+          You are as good as the sum of a big big big big big big big big big big big big big big big cat and yourself.
+          You are as good as the sum of a big big big big big big big big big big big big big big cat and yourself.
+          You are as good as the sum of a big big big big big big big big big big big big big cat and yourself.
+          You are as good as the sum of a big big big big big big big big big big big big cat and yourself.
+          You are as good as the sum of a big big big big big big big big big big cat and yourself.
+          You are as good as the sum of a big big big big big big big big big cat and yourself.
+          You are as good as the sum of a big big big cat and yourself.
+          You are as good as the sum of a big cat and yourself.
 
           Speak your mind!
 
@@ -1563,7 +1563,7 @@ describe("Horatio Compiler", () => {
         [Enter Romeo and Juliet]
 
         Romeo:
-          You are the product of a big big big big big big big big big big big big big big big big big big big big big big big big big big big big big big cat and a big big big big big big big big big big big big big big big big big big big big big big big big big big big big big big cat.
+          You are as good as the product of a big big big big big big big big big big big big big big big big big big big big big big big big big big big big big big cat and a big big big big big big big big big big big big big big big big big big big big big big big big big big big big big big cat.
           Open your heart!
 
         [Exeunt]
@@ -1589,7 +1589,7 @@ describe("Horatio Compiler", () => {
         [Enter Romeo and Juliet]
 
         Romeo:
-          You are the sum of.
+          You are as good as the sum of.
 
         [Exeunt]
       `;
@@ -1611,7 +1611,7 @@ describe("Horatio Compiler", () => {
         [Enter Romeo and Juliet]
 
         Romeo:
-          You are the sum of a cat and.
+          You are as good as the sum of a cat and.
 
         [Exeunt]
       `;
@@ -1633,7 +1633,7 @@ describe("Horatio Compiler", () => {
         [Enter Romeo and Juliet]
 
         Romeo:
-          You are the square root of a pig!
+          You are as good as the square root of a pig!
           Open your heart!
 
         [Exeunt]
@@ -1658,7 +1658,7 @@ describe("Horatio Compiler", () => {
         [Enter Romeo and Juliet]
 
         Romeo:
-          You are the cube of a big big big big big big big big big big cat!
+          You are as good as the cube of a big big big big big big big big big big cat!
           Open your heart!
 
         [Exeunt]
@@ -1753,7 +1753,7 @@ describe("Horatio Compiler", () => {
 
         Romeo:
           Listen to your heart!
-          You are the sum of yourself and a cat.
+          You are as good as the sum of yourself and a cat.
           Open your heart!
 
         [Exeunt]
@@ -1808,7 +1808,7 @@ describe("Horatio Compiler", () => {
           Listen to your heart!
           Remember yourself.
           Listen to your heart!
-          You are the sum of yourself and the sum of yourself and a cat.
+          You are as good as the sum of yourself and the sum of yourself and a cat.
           Open your heart!
           Recall your past!
           Open your heart!
@@ -1844,13 +1844,13 @@ describe("Horatio Compiler", () => {
         [Enter Romeo and Juliet]
 
         Romeo:
-          You are nothing.
+          You are as good as nothing.
           Let us proceed to scene II.
 
         Scene II: Middle.
 
         Romeo:
-          You are the sum of yourself and a cat.
+          You are as good as the sum of yourself and a cat.
           Are you as good as the sum of a cat and a cat?
           If not, let us return to scene II.
           Let us proceed to scene III.
@@ -1906,11 +1906,11 @@ describe("Horatio Compiler", () => {
         [Enter Romeo and Juliet]
 
         Romeo:
-          You are a cat.
+          You are as good as a cat.
           Are you as good as a cat?
           If so, open your heart!
 
-          You are nothing.
+          You are as good as nothing.
           Are you as bad as nothing?
           If so, open your heart!
 
@@ -1936,7 +1936,7 @@ describe("Horatio Compiler", () => {
         [Enter Romeo and Juliet]
 
         Romeo:
-          You are the product of a big big big big big big big big big big big big big big big cat and a big big big big big big big big big big big big big big big cat.
+          You are as good as the product of a big big big big big big big big big big big big big big big cat and a big big big big big big big big big big big big big big big cat.
           Are you better than nothing?
           If so, open your heart!
 
@@ -1962,7 +1962,7 @@ describe("Horatio Compiler", () => {
         [Enter Romeo and Juliet]
 
         Romeo:
-          You are a cat.
+          You are as good as a cat.
           Are you not as good as a cat?
           If so, you are nothing.
           If not, you are a big cat.
@@ -1999,15 +1999,15 @@ describe("Horatio Compiler", () => {
         [Enter Romeo and Juliet]
 
         Romeo:
-          You are a big big big big big big cat.
+          You are as good as a big big big big big big cat.
           Remember yourself.
-          You are the sum of a cat and a cat.
+          You are as good as the sum of a cat and a cat.
           Remember yourself.
           I am the sum of a cat and the sum of a cat and a cat.
           Remember me.
 
         Juliet:
-          You are a big big big big big cat.
+          You are as good as a big big big big big cat.
 
         Romeo:
           Remember me.
@@ -2107,8 +2107,8 @@ describe("Horatio Compiler", () => {
         [Enter Romeo and Juliet]
 
         Romeo:
-          You are nothing.
-          You are the remainder of the quotient between a cat and yourself!
+          You are as good as nothing.
+          You are as good as the remainder of the quotient between a cat and yourself!
 
         [Exeunt]
       `;
@@ -2131,7 +2131,7 @@ describe("Horatio Compiler", () => {
 
         Romeo:
           Open your heart!
-          You are the sum of yourself and a cat.
+          You are as good as the sum of yourself and a cat.
           Open your heart!
 
         [Exeunt]
@@ -2165,7 +2165,7 @@ describe("Horatio Compiler", () => {
         [Enter Romeo and Juliet]
 
         Romeo:
-          You are the sum of a big big cat and a cat.
+          You are as good as the sum of a big big cat and a cat.
           Remember yourself.
           I am a big big big cat.
           Remember me.
@@ -2210,13 +2210,13 @@ describe("Horatio Compiler", () => {
 
         [Enter Hamlet and Juliet]
 
-        Juliet: Thou art the sum of an amazing healthy honest noble peaceful
+        Juliet: Thou art as good as the sum of an amazing healthy honest noble peaceful
                 fine Lord and a lovely sweet golden summer's day. Speak your
                 mind!
 
-        Juliet: Thou art the sum of thyself and a King. Speak your mind!
+        Juliet: Thou art as good as the sum of thyself and a King. Speak your mind!
 
-                Thou art the sum of an amazing healthy honest hamster and a golden
+                Thou art as good as the sum of an amazing healthy honest hamster and a golden
                 nose. Speak your mind!
 
         [Exeunt]
@@ -2242,12 +2242,12 @@ describe("Horatio Compiler", () => {
         [Enter Romeo and Juliet]
 
         Romeo:
-          You are nothing.
+          You are as good as nothing.
 
         Scene II: Loop.
 
         Romeo:
-          You are the sum of yourself and a cat.
+          You are as good as the sum of yourself and a cat.
           Open your heart!
           Are you as good as the sum of a cat and the sum of a cat and a cat?
           If not, let us return to scene II.
@@ -2286,7 +2286,7 @@ describe("Horatio Compiler", () => {
         [Enter Romeo and Juliet]
 
         Romeo:
-          You are a pig!
+          You are as bad as a pig!
           Open your heart!
 
         [Exeunt]
@@ -2311,8 +2311,8 @@ describe("Horatio Compiler", () => {
         [Enter Romeo and Juliet]
 
         Romeo:
-          You are nothing!
-          You are the quotient between a cat and yourself!
+          You are as good as nothing!
+          You are as good as the quotient between a cat and yourself!
 
         [Exeunt]
       `;
@@ -2334,7 +2334,7 @@ describe("Horatio Compiler", () => {
         [Enter Romeo and Juliet]
 
         Romeo:
-          You are a cat!
+          You are as good as a cat!
           Are you better than nothing?
           Are you as good as a cat?
           If so, open your heart!
@@ -2395,7 +2395,7 @@ describe("Horatio Compiler", () => {
                       new Ast.Be("You are"),
                       new Ast.ArithmeticOperationValue(
                         new Ast.ArithmeticOperator("product of"),
-                        new Ast.CharacterValue(new Ast.Character("Romeo")),
+                        new Ast.PronounValue(new Ast.FirstPersonPronoun("me")),
                         new Ast.PositiveConstantValue(
                           new Ast.PositiveNoun("flower"),
                           [
@@ -2406,6 +2406,7 @@ describe("Horatio Compiler", () => {
                         ),
                       ),
                       new Ast.Character("Romeo"),
+                      new Ast.PositiveAdjective("good"), // Add comparative for "as good as"
                     ),
                     new Ast.IntegerOutputSentence(
                       "Open your heart",
@@ -2422,7 +2423,7 @@ describe("Horatio Compiler", () => {
       const compiler = Horatio.fromAst(ast, io);
       compiler.run();
 
-      expect(io.output).toEqual(["8"]); // 1 * 8
+      expect(io.output).toEqual(["0"]); // me starts at 0, so 0 * 8 = 0
     });
   });
 });

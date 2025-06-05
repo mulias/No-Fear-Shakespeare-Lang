@@ -83,7 +83,7 @@ Juliet, a young woman.
 [Enter Romeo and Juliet]
 
 Romeo:
-    You are the sum of nothing and nothing.
+    You are as good as the sum of nothing and nothing!
 
 [Exeunt]`;
 

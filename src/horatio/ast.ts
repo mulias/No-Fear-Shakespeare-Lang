@@ -191,17 +191,20 @@ export class AssignmentSentence {
   value: Value;
   subject?: Character;
   comparative?: Adjective;
+  exclaimed?: boolean;
 
   constructor(
     be: Be,
     value: Value,
     subject?: Character,
     comparative?: Adjective,
+    exclaimed?: boolean,
   ) {
     this.be = be;
     this.value = value;
     this.subject = subject;
     this.comparative = comparative;
+    this.exclaimed = exclaimed;
   }
 
   visit(visitor: any, arg?: any): any {
@@ -250,11 +253,18 @@ export class GotoSentence {
   sequence: string; // Store the original source text like "Let us return to Scene" or "let us proceed to scene"
   part: "act" | "scene";
   numeral: Numeral;
+  exclaimed?: boolean;
 
-  constructor(sequence: string, part: "act" | "scene", numeral: Numeral) {
+  constructor(
+    sequence: string,
+    part: "act" | "scene",
+    numeral: Numeral,
+    exclaimed?: boolean,
+  ) {
     this.sequence = sequence;
     this.part = part;
     this.numeral = numeral;
+    this.exclaimed = exclaimed;
   }
 
   visit(visitor: any, arg?: any): any {
@@ -265,10 +275,12 @@ export class GotoSentence {
 export class IntegerInputSentence {
   sequence: string;
   subject?: Character;
+  exclaimed?: boolean;
 
-  constructor(sequence: string, subject?: Character) {
+  constructor(sequence: string, subject?: Character, exclaimed?: boolean) {
     this.sequence = sequence;
     this.subject = subject;
+    this.exclaimed = exclaimed;
   }
 
   visit(visitor: any, arg?: any): any {
@@ -279,10 +291,12 @@ export class IntegerInputSentence {
 export class CharInputSentence {
   sequence: string;
   subject?: Character;
+  exclaimed?: boolean;
 
-  constructor(sequence: string, subject?: Character) {
+  constructor(sequence: string, subject?: Character, exclaimed?: boolean) {
     this.sequence = sequence;
     this.subject = subject;
+    this.exclaimed = exclaimed;
   }
 
   visit(visitor: any, arg?: any): any {
@@ -293,10 +307,12 @@ export class CharInputSentence {
 export class IntegerOutputSentence {
   sequence: string;
   subject?: Character;
+  exclaimed?: boolean;
 
-  constructor(sequence: string, subject?: Character) {
+  constructor(sequence: string, subject?: Character, exclaimed?: boolean) {
     this.sequence = sequence;
     this.subject = subject;
+    this.exclaimed = exclaimed;
   }
 
   visit(visitor: any, arg?: any): any {
@@ -307,10 +323,12 @@ export class IntegerOutputSentence {
 export class CharOutputSentence {
   sequence: string;
   subject?: Character;
+  exclaimed?: boolean;
 
-  constructor(sequence: string, subject?: Character) {
+  constructor(sequence: string, subject?: Character, exclaimed?: boolean) {
     this.sequence = sequence;
     this.subject = subject;
+    this.exclaimed = exclaimed;
   }
 
   visit(visitor: any, arg?: any): any {
@@ -321,10 +339,12 @@ export class CharOutputSentence {
 export class RememberSentence {
   pronoun: Pronoun;
   subject?: Character;
+  exclaimed?: boolean;
 
-  constructor(pronoun: Pronoun, subject?: Character) {
+  constructor(pronoun: Pronoun, subject?: Character, exclaimed?: boolean) {
     this.pronoun = pronoun;
     this.subject = subject;
+    this.exclaimed = exclaimed;
   }
 
   visit(visitor: any, arg?: any): any {
@@ -335,10 +355,12 @@ export class RememberSentence {
 export class RecallSentence {
   comment: Comment;
   subject?: Character;
+  exclaimed?: boolean;
 
-  constructor(comment: Comment, subject?: Character) {
+  constructor(comment: Comment, subject?: Character, exclaimed?: boolean) {
     this.comment = comment;
     this.subject = subject;
+    this.exclaimed = exclaimed;
   }
 
   visit(visitor: any, arg?: any): any {

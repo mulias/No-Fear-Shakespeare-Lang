@@ -95,4 +95,8 @@ export class Generator {
   randomIndex(elems: unknown[]): number {
     return Math.floor(this.rand.next() * elems.length);
   }
+
+  randomPercent(): number {
+    return this.rand.next();
+  }
 }

@@ -230,30 +230,36 @@ export class Yorick {
     const adjective1 = this.gen.randomAdjective();
     const adjective2 = this.gen.randomAdjective();
     const noun = this.gen.randomNoun();
+    const exclaimed = this.gen.randomPercent() < 0.15;
     return new Ast.RecallSentence(
       this.buildComment(`${adjective1} ${adjective2} ${noun}`),
       // No subject means it acts on @you
       undefined,
+      exclaimed,
     );
   }
 
   buildCharOutputSentence(
     printChar: OpheliaAst.PrintChar,
   ): Ast.CharOutputSentence {
+    const exclaimed = this.gen.randomPercent() < 0.15;
     return new Ast.CharOutputSentence(
       this.gen.random("output_char"),
       // No subject means it acts on @you
       undefined,
+      exclaimed,
     );
   }
 
   buildIntegerOutputSentence(
     printInt: OpheliaAst.PrintInt,
   ): Ast.IntegerOutputSentence {
+    const exclaimed = this.gen.randomPercent() < 0.15;
     return new Ast.IntegerOutputSentence(
       this.gen.random("output_integer"),
       // No subject means it acts on @you
       undefined,
+      exclaimed,
     );
   }
 
@@ -262,9 +268,11 @@ export class Yorick {
     const reflexivePronoun = new Ast.SecondPersonPronoun(
       this.gen.random("second_person_reflexive"),
     );
+    const exclaimed = this.gen.randomPercent() < 0.15;
     return new Ast.RememberSentence(
       reflexivePronoun,
       undefined, // No character needed
+      exclaimed,
     );
   }
 
@@ -272,9 +280,11 @@ export class Yorick {
     push: OpheliaAst.PushMe,
     speakerVarId: OpheliaAst.VarId,
   ): Ast.RememberSentence {
+    const exclaimed = this.gen.randomPercent() < 0.15;
     return new Ast.RememberSentence(
       this.buildFirstPersonPronoun(), // "me"
       this.buildCharacter(speakerVarId), // The speaker
+      exclaimed,
     );
   }
 
@@ -282,10 +292,54 @@ export class Yorick {
     set: OpheliaAst.Set,
     speakerVarId: OpheliaAst.VarId,
   ): Ast.AssignmentSentence {
+    const value = set.value;
+
+    // For all other values, build the value first to check its type
+    const builtValue = this.buildValue(
+      value,
+      UsageContext.ASSIGNMENT,
+      speakerVarId,
+    );
+
+    // Use direct assignment only for simple non-zero integer constants that don't become arithmetic
+    if (
+      value.type === "int" &&
+      value.value !== 0 &&
+      !(builtValue instanceof Ast.ArithmeticOperationValue)
+    ) {
+      const constantValue = this.buildValue(
+        value,
+        UsageContext.DIRECT_ASSIGNMENT,
+        speakerVarId,
+      );
+
+      const exclaimed = this.gen.randomPercent() < 0.15;
+      return new Ast.AssignmentSentence(
+        new Ast.Be("You"), // Just "You" for direct assignments
+        constantValue,
+        undefined, // no subject
+        undefined, // no comparative - direct assignment
+        exclaimed,
+      );
+    }
+
+    // For zero, pronouns, variables, and expressions: use comparative form
+    // "You are as [adjective] as [value]!" or "Thou art as [adjective] as [value]!"
+    const be = this.buildBe("be_second_person");
+    const adjective = this.buildPositiveAdjective();
+    const comparativeValue = this.buildValue(
+      value,
+      UsageContext.ASSIGNMENT,
+      speakerVarId,
+    );
+    const exclaimed = this.gen.randomPercent() < 0.15;
+
     return new Ast.AssignmentSentence(
-      this.buildBe("be_second_person"), // Always acts on @you
-      this.buildValue(set.value, UsageContext.ASSIGNMENT),
-      undefined, // No explicit character needed, it's always @you
+      be,
+      comparativeValue,
+      undefined, // no subject - always acts on @you
+      adjective, // comparative adjective for "as [adj] as" form
+      exclaimed,
     );
   }
 
@@ -307,7 +361,8 @@ export class Yorick {
     // Construct the full source text
     const sourceText = `${imperative} ${returnWord} ${toWord} ${partWord} ${numeral.sequence}`;
 
-    return new Ast.GotoSentence(sourceText, part.type, numeral);
+    const exclaimed = this.gen.randomPercent() < 0.15;
+    return new Ast.GotoSentence(sourceText, part.type, numeral, exclaimed);
   }
 
   buildResponseSentence(
@@ -333,10 +388,18 @@ export class Yorick {
       value1 = beComparative;
     } else {
       prefix = "Is";
-      value1 = this.buildValue(test.left, UsageContext.COMPARISON);
+      value1 = this.buildValue(
+        test.left,
+        UsageContext.COMPARISON,
+        speakerVarId,
+      );
     }
 
-    const value2 = this.buildValue(test.right, UsageContext.COMPARISON);
+    const value2 = this.buildValue(
+      test.right,
+      UsageContext.COMPARISON,
+      speakerVarId,
+    );
     const comparison = this.buildComparison(test);
     return new Ast.QuestionSentence(prefix, value1, comparison, value2);
   }
@@ -344,6 +407,7 @@ export class Yorick {
   buildValue(
     expression: OpheliaAst.Expression,
     context?: UsageContext,
+    speakerVarId?: OpheliaAst.VarId,
   ): Ast.Value {
     switch (expression.type) {
       case "arithmetic":
@@ -355,18 +419,22 @@ export class Yorick {
         ) {
           return new Ast.UnaryOperationValue(
             new Ast.UnaryOperator("twice"),
-            this.buildValue(expression.right, context),
+            this.buildValue(expression.right, context, speakerVarId),
           );
         }
-        return this.buildArithmeticOperationValue(expression, context);
+        return this.buildArithmeticOperationValue(
+          expression,
+          context,
+          speakerVarId,
+        );
       case "unary":
-        return this.buildUnaryOperationValue(expression, context);
+        return this.buildUnaryOperationValue(expression, context, speakerVarId);
       case "char":
         return this.buildCharConstantValue(expression, context);
       case "int":
         return this.buildIntConstantValue(expression, context);
       case "var":
-        return this.builCharacterValue(expression);
+        return this.buildVariableValue(expression, speakerVarId);
       case "you":
         return new Ast.PronounValue(
           new Ast.SecondPersonPronoun(
@@ -390,18 +458,22 @@ export class Yorick {
   }
 
   buildCharInputSentence(readChar: OpheliaAst.ReadChar): Ast.CharInputSentence {
+    const exclaimed = this.gen.randomPercent() < 0.15;
     return new Ast.CharInputSentence(
       this.gen.random("input_char"),
       undefined, // Always acts on @you
+      exclaimed,
     );
   }
 
   buildIntegerInputSentence(
     readInt: OpheliaAst.ReadInt,
   ): Ast.IntegerInputSentence {
+    const exclaimed = this.gen.randomPercent() < 0.15;
     return new Ast.IntegerInputSentence(
       this.gen.random("input_integer"),
       undefined, // Always acts on @you
+      exclaimed,
     );
   }
 
@@ -505,21 +577,31 @@ export class Yorick {
   buildArithmeticOperationValue(
     arithmetic: OpheliaAst.Arithmetic,
     context?: UsageContext,
+    speakerVarId?: OpheliaAst.VarId,
   ): Ast.ArithmeticOperationValue {
     return new Ast.ArithmeticOperationValue(
       this.buildArithmeticOperator(arithmetic.op),
-      this.buildValue(arithmetic.left, UsageContext.ARITHMETIC_OPERAND),
-      this.buildValue(arithmetic.right, UsageContext.ARITHMETIC_OPERAND),
+      this.buildValue(
+        arithmetic.left,
+        UsageContext.ARITHMETIC_OPERAND,
+        speakerVarId,
+      ),
+      this.buildValue(
+        arithmetic.right,
+        UsageContext.ARITHMETIC_OPERAND,
+        speakerVarId,
+      ),
     );
   }
 
   buildUnaryOperationValue(
     unary: OpheliaAst.Unary,
     context?: UsageContext,
+    speakerVarId?: OpheliaAst.VarId,
   ): Ast.UnaryOperationValue {
     return new Ast.UnaryOperationValue(
       this.buildUnaryOperator(unary.op),
-      this.buildValue(unary.operand, context),
+      this.buildValue(unary.operand, context, speakerVarId),
     );
   }
 
@@ -708,6 +790,25 @@ export class Yorick {
 
   builCharacterValue(v: OpheliaAst.Var) {
     return new Ast.CharacterValue(this.buildCharacter(v.id));
+  }
+
+  buildVariableValue(
+    v: OpheliaAst.Var,
+    speakerVarId?: OpheliaAst.VarId,
+  ): Ast.Value {
+    // Convert variables to appropriate pronouns based on speaker context
+    if (v.id === "@you") {
+      // @you (addressee) becomes second person reflexive pronoun
+      return new Ast.PronounValue(
+        new Ast.SecondPersonPronoun(this.gen.random("second_person_reflexive")),
+      );
+    } else if (speakerVarId && v.id === speakerVarId) {
+      // If the variable is the speaker, use first person pronoun
+      return new Ast.PronounValue(this.buildFirstPersonPronoun());
+    } else {
+      // For other variables, use character references
+      return new Ast.CharacterValue(this.buildCharacter(v.id));
+    }
   }
 
   characterName(varId: OpheliaAst.VarId): string {

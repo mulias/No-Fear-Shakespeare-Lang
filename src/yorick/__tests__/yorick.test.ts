@@ -1042,7 +1042,7 @@ describe("Yorick Transpiler", () => {
       const value = sentence.value as Ast.ArithmeticOperationValue;
       expect(value).toBeInstanceOf(Ast.ArithmeticOperationValue);
       expect(value.operator.sequence).toMatch(/sum|add/i);
-      expect(value.value_1).toBeInstanceOf(Ast.CharacterValue);
+      expect(value.value_1).toBeInstanceOf(Ast.PronounValue);
       expect(value.value_2).toBeTruthy();
     });
   });

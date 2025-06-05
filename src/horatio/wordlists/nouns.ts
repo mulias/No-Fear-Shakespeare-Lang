@@ -1,5 +1,6 @@
 export enum UsageContext {
   ASSIGNMENT = "assignment", // "You are X"
+  DIRECT_ASSIGNMENT = "direct", // "You X!" (no article)
   ARITHMETIC_OPERAND = "arithmetic", // "sum of X and Y"
   COMPARISON = "comparison", // "as good as X"
   WITH_ADJECTIVES = "with_adj", // "pretty little X"
@@ -54,7 +55,7 @@ export const nounDatabase: Map<string, NounProperties> = new Map([
       disposition: "positive",
       articleUsage: {
         standalone: "the",
-        inArithmetic: "none",
+        inArithmetic: "the",
         withAdjectives: "the",
       },
       nounType: "title",
@@ -68,7 +69,7 @@ export const nounDatabase: Map<string, NounProperties> = new Map([
       disposition: "positive",
       articleUsage: {
         standalone: "the",
-        inArithmetic: "none",
+        inArithmetic: "the",
         withAdjectives: "the",
       },
       nounType: "title",
@@ -1191,6 +1192,9 @@ export function getArticleForNoun(
 
   if (!nounInfo) {
     // Default behavior for unknown nouns
+    if (context === UsageContext.DIRECT_ASSIGNMENT) {
+      return undefined; // No article for direct assignments
+    }
     return hasAdjectives || context === UsageContext.ASSIGNMENT
       ? getArticle(firstWord || noun)
       : undefined;
@@ -1210,6 +1214,8 @@ export function getArticleForNoun(
     case UsageContext.WITH_ADJECTIVES:
       articleType = nounInfo.articleUsage.withAdjectives;
       break;
+    case UsageContext.DIRECT_ASSIGNMENT:
+      return undefined; // Never use articles in direct assignments
     case UsageContext.ASSIGNMENT:
     case UsageContext.COMPARISON:
     default:

@@ -266,10 +266,10 @@ describe("Horatio Semantics", () => {
       expect(result).toBeUndefined();
     });
 
-    it("should return character value for visitCharacterValue", () => {
+    it("should return pronoun value for visitPronounValue", () => {
       const semantics = new Semantics();
-      const charValue = new Ast.CharacterValue(new Ast.Character("Romeo"));
-      const result = semantics.visitCharacterValue(charValue, {
+      const pronValue = new Ast.PronounValue(new Ast.FirstPersonPronoun("me"));
+      const result = semantics.visitPronounValue(pronValue, {
         character: "Juliet",
       });
       expect(result).toBeNull();
@@ -310,7 +310,7 @@ describe("Horatio Semantics", () => {
         [Enter Romeo and Juliet]
 
         Romeo:
-          You are nothing!
+          You are as good as nothing!
 
         [Exeunt]
       `;

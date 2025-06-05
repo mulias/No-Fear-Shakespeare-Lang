@@ -23,7 +23,7 @@ describe("Horatio Formatter", () => {
           Speak your mind!
 
         Juliet:
-          You are the sum of a cat and a dog.
+          You are as good as the sum of a cat and a dog!
           Remember me.
 
         [Exeunt]
@@ -77,7 +77,7 @@ describe("Horatio Formatter", () => {
         [Enter Romeo and Juliet]
 
         Romeo:
-          You are nothing!
+          You are as good as nothing!
           You are as pretty as a flower!
 
         Juliet:
@@ -107,7 +107,7 @@ describe("Horatio Formatter", () => {
         [Enter Juliet]
 
         Juliet:
-          You are the sum of a cat and a dog.
+          You are as good as the sum of a cat and a dog!
 
         [Exeunt]
       `;
@@ -142,10 +142,10 @@ describe("Horatio Formatter", () => {
         [Enter Romeo and Juliet]
 
         Romeo:
-          You are nothing!
+          You are as good as nothing!
           You pretty little warm thing!
-          You are the sum of a cat and a dog.
-          You are the square of yourself.
+          You are as good as the sum of a cat and a dog!
+          You are as good as the square of yourself!
           Are you better than nothing?
           If so, let us proceed to scene II.
           If not, let us return to scene I.
@@ -196,7 +196,7 @@ describe("Horatio Formatter", () => {
         [Enter Romeo and Juliet]
 
         Romeo:
-          You are the sum of the difference between a cat and a dog and the product of a tree and a flower.
+          You are as good as the sum of the difference between a cat and a dog and the product of a tree and a flower!
           You are as lovely as the quotient between the square of a rose and the cube of a flower.
           Are you not as good as the remainder of the quotient between yourself and me?
 
@@ -228,7 +228,7 @@ describe("Horatio Formatter", () => {
         [Enter Juliet and Hamlet]
 
         Romeo:
-          You are nothing!
+          You are as good as nothing!
 
         [Exit Romeo]
         [Exit Juliet]
@@ -273,7 +273,7 @@ describe("Horatio Formatter", () => {
         [Enter Romeo]
 
         Romeo:
-          You are nothing!
+          You are as good as nothing!
 
         [Exeunt]
       `;
@@ -303,9 +303,9 @@ describe("Horatio Formatter", () => {
 
         Romeo:
           You pretty little warm thing!
-          You are a pretty little warm thing!
+          You are as pretty as a pretty little warm thing!
           You nothing!
-          You are nothing!
+          You are as good as nothing!
           You as pretty as a rose!
           You are as pretty as a rose!
 
@@ -374,7 +374,7 @@ describe("Horatio Formatter", () => {
         [Enter Romeo and Juliet]
 
         Romeo:
-          You are nothing!
+          You are as good as nothing!
           Are you better than nothing?
           Speak your mind.
 
@@ -386,7 +386,7 @@ describe("Horatio Formatter", () => {
       const generated = prettyPrint(ast);
 
       // The pretty printer combines sentences on one line
-      expect(generated).toContain("You are nothing");
+      expect(generated).toContain("You are as good as nothing");
       expect(generated).toContain("Are you better than nothing");
       expect(generated).toContain("Speak your mind");
     });

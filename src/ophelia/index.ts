@@ -1064,8 +1064,10 @@ export class Ophelia {
 
       case "negate": {
         const expr = this.buildExpression(node.prefixed);
-        if (expr) {
-          // Convert -x to 0 - x
+        if (expr && expr.type === "int") {
+          return { ...expr, value: expr.value * -1 };
+        } else if (expr) {
+          // Convert `-x` to `0 - x` when x is not a concrete number
           return {
             type: "arithmetic",
             left: { type: "int", value: 0 },

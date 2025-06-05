@@ -105,11 +105,15 @@ Within a dialogue block, the following statements are available:
 
 Values can be expressions using binary operators:
 
-- `+` (addition) - "the sum of X and Y"
-- `-` (subtraction) - "the difference between X and Y"
-- `*` (multiplication) - "the product of X and Y"
-- `/` (division) - "the quotient between X and Y"
-- `%` (modulo) - "the remainder of the quotient between X and Y"
+- `X + Y` (addition) - "the sum of X and Y"
+- `X - Y` (subtraction) - "the difference between X and Y"
+- `X * Y` (multiplication) - "the product of X and Y"
+- `X / Y` (division) - "the quotient between X and Y"
+- `X % Y` (modulo) - "the remainder of the quotient between X and Y"
+
+The negation prefix operator:
+
+- `-X` - "the difference between nothing and X"
 
 And unary functions:
 

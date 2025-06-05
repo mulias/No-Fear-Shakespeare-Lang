@@ -18,10 +18,10 @@ describe("Horatio Parser", () => {
 
         Romeo:
           You pretty little warm thing!
-          You are a pretty little warm thing!
-          Thou art a pretty little warm thing!
+          You are as pretty as a pretty little warm thing!
+          Thou art as pretty as a pretty little warm thing!
           You nothing!
-          You are nothing!
+          You are as good as nothing!
 
         [Exeunt]
       `;
@@ -44,17 +44,19 @@ describe("Horatio Parser", () => {
       expect(assignment1.be.sequence).toBe("You");
       expect(assignment1.value).toBeInstanceOf(Ast.PositiveConstantValue);
 
-      // Test "You are a pretty little warm thing!"
+      // Test "You are as pretty as a pretty little warm thing!"
       expect(sentences[1]).toBeInstanceOf(Ast.AssignmentSentence);
       const assignment2 = sentences[1] as Ast.AssignmentSentence;
       expect(assignment2.be.sequence).toBe("You are");
       expect(assignment2.value).toBeInstanceOf(Ast.PositiveConstantValue);
 
-      // Test "Thou art a pretty little warm thing!"
+      // Test "Thou art as pretty as a pretty little warm thing!"
       expect(sentences[2]).toBeInstanceOf(Ast.AssignmentSentence);
       const assignment3 = sentences[2] as Ast.AssignmentSentence;
       expect(assignment3.be.sequence).toBe("Thou art");
       expect(assignment3.value).toBeInstanceOf(Ast.PositiveConstantValue);
+      expect(assignment3.comparative).toBeInstanceOf(Ast.PositiveAdjective);
+      expect(assignment3.comparative?.sequence).toBe("pretty");
 
       // Test "You nothing!"
       expect(sentences[3]).toBeInstanceOf(Ast.AssignmentSentence);
@@ -62,7 +64,7 @@ describe("Horatio Parser", () => {
       expect(assignment4.be.sequence).toBe("You");
       expect(assignment4.value).toBeInstanceOf(Ast.ZeroValue);
 
-      // Test "You are nothing!"
+      // Test "You are as good as nothing!"
       expect(sentences[4]).toBeInstanceOf(Ast.AssignmentSentence);
       const assignment5 = sentences[4] as Ast.AssignmentSentence;
       expect(assignment5.be.sequence).toBe("You are");
@@ -82,7 +84,7 @@ describe("Horatio Parser", () => {
         [Enter Romeo and Juliet]
 
         Romeo:
-          You are the sum of you and a cat.
+          You are as good as the sum of you and a cat!
           Remember you.
 
         [Exeunt]
@@ -131,11 +133,11 @@ describe("Horatio Parser", () => {
         [Enter Romeo and Juliet]
 
         Romeo:
-          You are the square of you.
-          You are the sum of you and you.
+          You are as good as the square of you!
+          You are as good as the sum of you and you!
           I am the difference between you and me.
           Remember you.
-          You are the product of a cat and you.
+          You are as good as the product of a cat and you!
           You are as lovely as the sum of you and a rose.
 
         [Exeunt]
@@ -307,9 +309,9 @@ describe("Horatio Parser", () => {
 
         Romeo:
           I am a cat.
-          You are a cat.
-          You a cat.
-          Thou art a cat.
+          You are as good as a cat!
+          You cat!
+          Thou art as good as a cat!
 
         [Exeunt]
       `;
@@ -435,7 +437,7 @@ describe("Horatio Parser", () => {
         [Enter Romeo and Juliet]
 
         Romeo:
-          You are a tree.
+          You are as good as a tree.
 
         [Exeunt]
       `;
@@ -468,7 +470,7 @@ describe("Horatio Parser", () => {
         [Enter Romeo and Juliet]
 
         Romeo:
-          You are a devil.
+          You are as bad as a devil.
 
         [Exeunt]
       `;

@@ -435,6 +435,13 @@ export default class Parser {
       case Token.BE:
       case Token.YOU:
         sentence = this.parseAssignment();
+        // Check for exclamation point before accepting punctuation
+        if (
+          this.isToken(this.currentToken) &&
+          this.currentToken.kind === Token.EXCLAMATION_POINT
+        ) {
+          (sentence as AST.AssignmentSentence).exclaimed = true;
+        }
         this.acceptIf(Token.isStatementPunctuation);
         break;
 
@@ -446,28 +453,71 @@ export default class Parser {
 
       case Token.IMPERATIVE:
         sentence = this.parseGoto();
+        // Check for exclamation point before accepting punctuation
+        if (
+          this.isToken(this.currentToken) &&
+          this.currentToken.kind === Token.EXCLAMATION_POINT
+        ) {
+          (sentence as AST.GotoSentence).exclaimed = true;
+        }
         this.acceptIf(Token.isStatementPunctuation);
         break;
 
       case Token.INPUT_INTEGER:
       case Token.INPUT_CHAR:
         sentence = this.parseInput();
+        // Check for exclamation point before accepting punctuation
+        if (
+          this.isToken(this.currentToken) &&
+          this.currentToken.kind === Token.EXCLAMATION_POINT
+        ) {
+          if (sentence instanceof AST.IntegerInputSentence) {
+            sentence.exclaimed = true;
+          } else if (sentence instanceof AST.CharInputSentence) {
+            sentence.exclaimed = true;
+          }
+        }
         this.acceptIf(Token.isStatementPunctuation);
         break;
 
       case Token.OUTPUT_INTEGER:
       case Token.OUTPUT_CHAR:
         sentence = this.parseOutput();
+        // Check for exclamation point before accepting punctuation
+        if (
+          this.isToken(this.currentToken) &&
+          this.currentToken.kind === Token.EXCLAMATION_POINT
+        ) {
+          if (sentence instanceof AST.IntegerOutputSentence) {
+            sentence.exclaimed = true;
+          } else if (sentence instanceof AST.CharOutputSentence) {
+            sentence.exclaimed = true;
+          }
+        }
         this.acceptIf(Token.isStatementPunctuation);
         break;
 
       case Token.REMEMBER:
         sentence = this.parseRemember();
+        // Check for exclamation point before accepting punctuation
+        if (
+          this.isToken(this.currentToken) &&
+          this.currentToken.kind === Token.EXCLAMATION_POINT
+        ) {
+          (sentence as AST.RememberSentence).exclaimed = true;
+        }
         this.acceptIf(Token.isStatementPunctuation);
         break;
 
       case Token.RECALL:
         sentence = this.parseRecall();
+        // Check for exclamation point before accepting punctuation
+        if (
+          this.isToken(this.currentToken) &&
+          this.currentToken.kind === Token.EXCLAMATION_POINT
+        ) {
+          (sentence as AST.RecallSentence).exclaimed = true;
+        }
         this.acceptIf(Token.isStatementPunctuation);
         break;
 
@@ -494,14 +544,37 @@ export default class Parser {
     let be = this.parseBe();
     if (!be) throw this.unexpectedTokenError();
     let comparative: AST.Adjective | undefined;
-    if (
+
+    // If the assignment starts with "You are", it MUST be followed by "as [adj] as"
+    if (be.sequence === "You are" || be.sequence === "Thou art") {
+      // "You are" must be followed by "as [adjective] as [value]"
+      if (
+        !this.isToken(this.currentToken) ||
+        this.currentToken.kind !== Token.AS
+      ) {
+        throw new Error(
+          `Syntax Error - Invalid assignment form. "${
+            be.sequence
+          }" must be followed by "as [adjective] as [value]". Got: ${
+            this.isToken(this.currentToken)
+              ? this.currentToken.sequence
+              : this.currentToken
+          }`,
+        );
+      }
+      this.acceptIt();
+      comparative = this.parseAdjective();
+      this.accept(Token.AS);
+    } else if (
       this.isToken(this.currentToken) &&
       this.currentToken.kind === Token.AS
     ) {
+      // Other forms of "be" can optionally have "as [adj] as"
       this.acceptIt();
       comparative = this.parseAdjective();
       this.accept(Token.AS);
     }
+
     let value = this.parseValue();
     return new AST.AssignmentSentence(be, value, undefined, comparative);
   }
@@ -561,9 +634,8 @@ export default class Parser {
         break;
 
       case Token.CHARACTER:
-        value = new AST.CharacterValue(
-          new AST.Character(this.currentToken.sequence),
-        );
+        const character = new AST.Character(this.currentToken.sequence);
+        value = new AST.CharacterValue(character);
         this.acceptIt();
         break;
 
