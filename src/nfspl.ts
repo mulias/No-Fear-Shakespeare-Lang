@@ -16,19 +16,19 @@ import type { IO } from "./horatio/types";
 const USAGE = `Usage: nfspl <command> [options] <file>
 
 Commands:
-  execute, exec, run               Execute an NFSPL or SPL file
-  transpile, translate, trans      Translate between NFSPL and SPL
-  format, fmt                      Format an NFSPL or SPL file
+  perform, execute, exec           Execute an NFSPL or SPL file
+  translate, transpile, trans      Convert between NFSPL and SPL syntax
+  compose, format, fmt             Format an NFSPL or SPL file
 
 Options:
   -o, --output <file>   Output file (for transpile/format commands)
   -h, --help            Show this help message
 
 Examples:
-  nfspl run program.nfspl
-  nfspl exec program.spl
-  nfspl transpile program.nfspl -o output.spl
-  nfspl transpile program.spl -o output.nfspl
+  nfspl exec program.nfspl
+  nfspl perform program.spl
+  nfspl translate program.nfspl -o program.spl
+  nfspl transpile program.spl
   nfspl format program.spl
 `;
 
@@ -225,9 +225,9 @@ async function main() {
 
   try {
     switch (command) {
+      case "perform":
       case "execute":
-      case "exec":
-      case "run": {
+      case "exec": {
         if (fileType === "nfspl") {
           await executeNfspl(inputFile);
         } else {
@@ -236,8 +236,8 @@ async function main() {
         break;
       }
 
-      case "transpile":
       case "translate":
+      case "transpile":
       case "trans": {
         let result: string;
 
@@ -256,6 +256,7 @@ async function main() {
         break;
       }
 
+      case "compose":
       case "format":
       case "fmt": {
         let result: string;
