@@ -187,18 +187,18 @@ Program {
   "declarations": [
     Declaration {
       "character": Character {
-        "sequence": "Andromache",
+        "sequence": "Luciana",
       },
       "comment": Comment {
-        "sequence": "the n variable",
+        "sequence": "a counter of loops",
       },
     },
     Declaration {
       "character": Character {
-        "sequence": "King Lear",
+        "sequence": "John of Gaunt",
       },
       "comment": Comment {
-        "sequence": "the out variable",
+        "sequence": "a poet and orator",
       },
     },
   ],
@@ -223,10 +223,10 @@ Program {
               Enter {
                 "characters": [
                   Character {
-                    "sequence": "Andromache",
+                    "sequence": "Luciana",
                   },
                   Character {
-                    "sequence": "King Lear",
+                    "sequence": "John of Gaunt",
                   },
                 ],
               },
@@ -234,15 +234,15 @@ Program {
                 "lines": [
                   Line {
                     "character": Character {
-                      "sequence": "King Lear",
+                      "sequence": "John of Gaunt",
                     },
                     "sentences": [
                       AssignmentSentence {
                         "be": Be {
-                          "sequence": "You are",
+                          "sequence": "Thou art",
                         },
                         "comparative": PositiveAdjective {
-                          "sequence": "clearest",
+                          "sequence": "trustworthy",
                         },
                         "exclaimed": false,
                         "subject": undefined,
@@ -270,7 +270,7 @@ Program {
                 "lines": [
                   Line {
                     "character": Character {
-                      "sequence": "King Lear",
+                      "sequence": "John of Gaunt",
                     },
                     "sentences": [
                       AssignmentSentence {
@@ -278,7 +278,7 @@ Program {
                           "sequence": "You are",
                         },
                         "comparative": PositiveAdjective {
-                          "sequence": "good",
+                          "sequence": "sweet",
                         },
                         "exclaimed": false,
                         "subject": undefined,
@@ -288,7 +288,7 @@ Program {
                           },
                           "value_1": PronounValue {
                             "pronoun": SecondPersonPronoun {
-                              "sequence": "thou",
+                              "sequence": "thee",
                             },
                           },
                           "value_2": PositiveConstantValue {
@@ -309,13 +309,13 @@ Program {
                 "lines": [
                   Line {
                     "character": Character {
-                      "sequence": "King Lear",
+                      "sequence": "John of Gaunt",
                     },
                     "sentences": [
                       QuestionSentence {
                         "comparison": GreaterThanComparison {
                           "comparative": PositiveComparative {
-                            "sequence": "jollier",
+                            "sequence": "bigger",
                           },
                         },
                         "prefix": "Is",
@@ -335,68 +335,68 @@ Program {
                             "value_1": PositiveConstantValue {
                               "adjectives": [
                                 PositiveAdjective {
-                                  "sequence": "gentle",
+                                  "sequence": "pretty",
                                 },
                                 PositiveAdjective {
-                                  "sequence": "noble",
+                                  "sequence": "blossoming",
                                 },
                               ],
-                              "article": "a",
+                              "article": "the",
                               "context": "comparison",
                               "noun": PositiveNoun {
-                                "sequence": "kingdom",
+                                "sequence": "King",
                               },
                             },
                             "value_2": PositiveConstantValue {
                               "adjectives": [
                                 PositiveAdjective {
-                                  "sequence": "beautiful",
+                                  "sequence": "cute",
                                 },
                                 PositiveAdjective {
-                                  "sequence": "bold",
+                                  "sequence": "lovely",
                                 },
                                 PositiveAdjective {
-                                  "sequence": "peaceful",
-                                },
-                                PositiveAdjective {
-                                  "sequence": "prompt",
+                                  "sequence": "noble",
                                 },
                                 PositiveAdjective {
                                   "sequence": "warm",
+                                },
+                                PositiveAdjective {
+                                  "sequence": "rural",
                                 },
                               ],
                               "article": "a",
                               "context": "arithmetic",
                               "noun": PositiveNoun {
-                                "sequence": "plum",
+                                "sequence": "joy",
                               },
                             },
                           },
                           "value_2": PositiveConstantValue {
                             "adjectives": [
                               PositiveAdjective {
-                                "sequence": "amazing",
+                                "sequence": "gentle",
                               },
                               PositiveAdjective {
-                                "sequence": "delicious",
+                                "sequence": "mighty",
                               },
                               PositiveAdjective {
-                                "sequence": "lovely",
+                                "sequence": "mighty",
                               },
                               PositiveAdjective {
-                                "sequence": "loving",
+                                "sequence": "rich",
                               },
                               PositiveAdjective {
-                                "sequence": "prompt",
+                                "sequence": "sweet",
                               },
                               PositiveAdjective {
-                                "sequence": "warm",
+                                "sequence": "trustworthy",
                               },
                             ],
-                            "article": "the",
+                            "article": "a",
                             "context": "arithmetic",
                             "noun": PositiveNoun {
-                              "sequence": "King",
+                              "sequence": "cat",
                             },
                           },
                         },
@@ -409,7 +409,7 @@ Program {
                             "sequence": "VI",
                           },
                           "part": "scene",
-                          "sequence": "let us proceed to scene VI",
+                          "sequence": "We shall return to scene VI",
                         },
                       },
                     ],
@@ -420,13 +420,13 @@ Program {
                 "lines": [
                   Line {
                     "character": Character {
-                      "sequence": "King Lear",
+                      "sequence": "John of Gaunt",
                     },
                     "sentences": [
                       QuestionSentence {
                         "comparison": EqualToComparison {
                           "adjective": PositiveAdjective {
-                            "sequence": "clearest",
+                            "sequence": "rich",
                           },
                         },
                         "prefix": "Is",
@@ -436,7 +436,7 @@ Program {
                           },
                           "value_1": PronounValue {
                             "pronoun": SecondPersonPronoun {
-                              "sequence": "thou",
+                              "sequence": "yourself",
                             },
                           },
                           "value_2": ArithmeticOperationValue {
@@ -453,38 +453,38 @@ Program {
                                 },
                                 "value_1": PositiveConstantValue {
                                   "adjectives": [],
-                                  "article": "a",
+                                  "article": "the",
                                   "context": "arithmetic",
                                   "noun": PositiveNoun {
-                                    "sequence": "kingdom",
+                                    "sequence": "King",
                                   },
                                 },
                                 "value_2": PositiveConstantValue {
                                   "adjectives": [
                                     PositiveAdjective {
-                                      "sequence": "prompt",
+                                      "sequence": "good",
                                     },
                                   ],
                                   "article": "a",
                                   "context": "arithmetic",
                                   "noun": PositiveNoun {
-                                    "sequence": "happiness",
+                                    "sequence": "angel",
                                   },
                                 },
                               },
                               "value_2": PositiveConstantValue {
                                 "adjectives": [
                                   PositiveAdjective {
-                                    "sequence": "fine",
+                                    "sequence": "good",
                                   },
                                   PositiveAdjective {
-                                    "sequence": "rich",
+                                    "sequence": "embroidered",
                                   },
                                 ],
-                                "article": "the",
+                                "article": "a",
                                 "context": "arithmetic",
                                 "noun": PositiveNoun {
-                                  "sequence": "Lord",
+                                  "sequence": "flower",
                                 },
                               },
                             },
@@ -494,16 +494,16 @@ Program {
                                   "sequence": "fair",
                                 },
                                 PositiveAdjective {
-                                  "sequence": "gentle",
+                                  "sequence": "prompt",
                                 },
                                 PositiveAdjective {
-                                  "sequence": "mighty",
+                                  "sequence": "sweetest",
                                 },
                               ],
-                              "article": "a",
+                              "article": "the",
                               "context": "arithmetic",
                               "noun": PositiveNoun {
-                                "sequence": "purse",
+                                "sequence": "Lord",
                               },
                             },
                           },
@@ -520,7 +520,7 @@ Program {
                             "sequence": "III",
                           },
                           "part": "scene",
-                          "sequence": "we must proceed to scene III",
+                          "sequence": "Let us proceed to scene III",
                         },
                       },
                     ],
@@ -531,13 +531,13 @@ Program {
                 "lines": [
                   Line {
                     "character": Character {
-                      "sequence": "King Lear",
+                      "sequence": "John of Gaunt",
                     },
                     "sentences": [
                       QuestionSentence {
                         "comparison": EqualToComparison {
                           "adjective": PositiveAdjective {
-                            "sequence": "sweet",
+                            "sequence": "mighty",
                           },
                         },
                         "prefix": "Is",
@@ -559,19 +559,19 @@ Program {
                               "article": "a",
                               "context": "arithmetic",
                               "noun": PositiveNoun {
-                                "sequence": "flower",
+                                "sequence": "cat",
                               },
                             },
                             "value_2": PositiveConstantValue {
                               "adjectives": [
                                 PositiveAdjective {
-                                  "sequence": "white",
+                                  "sequence": "amazing",
                                 },
                               ],
-                              "article": undefined,
+                              "article": "an",
                               "context": "arithmetic",
                               "noun": PositiveNoun {
-                                "sequence": "Heaven",
+                                "sequence": "hamster",
                               },
                             },
                           },
@@ -583,12 +583,12 @@ Program {
                       ResponseSentence {
                         "runIf": true,
                         "sentence": GotoSentence {
-                          "exclaimed": true,
+                          "exclaimed": false,
                           "numeral": Numeral {
                             "sequence": "IV",
                           },
                           "part": "scene",
-                          "sequence": "let us return to scene IV",
+                          "sequence": "we must proceed to scene IV",
                         },
                       },
                     ],
@@ -599,13 +599,13 @@ Program {
                 "lines": [
                   Line {
                     "character": Character {
-                      "sequence": "King Lear",
+                      "sequence": "John of Gaunt",
                     },
                     "sentences": [
                       QuestionSentence {
                         "comparison": EqualToComparison {
                           "adjective": PositiveAdjective {
-                            "sequence": "white",
+                            "sequence": "sunny",
                           },
                         },
                         "prefix": "Is",
@@ -624,25 +624,25 @@ Program {
                             },
                             "value_1": PositiveConstantValue {
                               "adjectives": [],
-                              "article": "a",
+                              "article": undefined,
                               "context": "arithmetic",
                               "noun": PositiveNoun {
-                                "sequence": "hamster",
+                                "sequence": "joy",
                               },
                             },
                             "value_2": PositiveConstantValue {
                               "adjectives": [
                                 PositiveAdjective {
-                                  "sequence": "mighty",
+                                  "sequence": "warm",
                                 },
                                 PositiveAdjective {
-                                  "sequence": "sweet",
+                                  "sequence": "rural",
                                 },
                               ],
                               "article": "a",
                               "context": "arithmetic",
                               "noun": PositiveNoun {
-                                "sequence": "hero",
+                                "sequence": "angel",
                               },
                             },
                           },
@@ -659,7 +659,7 @@ Program {
                             "sequence": "V",
                           },
                           "part": "scene",
-                          "sequence": "Let us proceed to scene V",
+                          "sequence": "We shall proceed to scene V",
                         },
                       },
                     ],
@@ -670,15 +670,15 @@ Program {
                 "lines": [
                   Line {
                     "character": Character {
-                      "sequence": "Andromache",
+                      "sequence": "Luciana",
                     },
                     "sentences": [
                       AssignmentSentence {
                         "be": Be {
-                          "sequence": "Thou art",
+                          "sequence": "You are",
                         },
                         "comparative": PositiveAdjective {
-                          "sequence": "lovely",
+                          "sequence": "fine",
                         },
                         "exclaimed": false,
                         "subject": undefined,
@@ -690,7 +690,7 @@ Program {
                       },
                       IntegerOutputSentence {
                         "exclaimed": false,
-                        "sequence": "Open thine heart",
+                        "sequence": "Open thy heart",
                         "subject": undefined,
                       },
                       AssignmentSentence {
@@ -698,9 +698,9 @@ Program {
                           "sequence": "You are",
                         },
                         "comparative": PositiveAdjective {
-                          "sequence": "peaceful",
+                          "sequence": "rich",
                         },
-                        "exclaimed": false,
+                        "exclaimed": true,
                         "subject": undefined,
                         "value": ArithmeticOperationValue {
                           "operator": ArithmeticOperator {
@@ -709,47 +709,47 @@ Program {
                           "value_1": PositiveConstantValue {
                             "adjectives": [
                               PositiveAdjective {
-                                "sequence": "beautiful",
+                                "sequence": "trustworthy",
                               },
                             ],
                             "article": "a",
                             "context": "assignment",
                             "noun": PositiveNoun {
-                              "sequence": "happiness",
+                              "sequence": "purse",
                             },
                           },
                           "value_2": PositiveConstantValue {
                             "adjectives": [
                               PositiveAdjective {
-                                "sequence": "handsome",
+                                "sequence": "charming",
                               },
                               PositiveAdjective {
-                                "sequence": "healthy",
+                                "sequence": "blossoming",
                               },
                               PositiveAdjective {
-                                "sequence": "rural",
+                                "sequence": "embroidered",
                               },
                             ],
                             "article": "a",
                             "context": "arithmetic",
                             "noun": PositiveNoun {
-                              "sequence": "angel",
+                              "sequence": "kingdom",
                             },
                           },
                         },
                       },
                       CharOutputSentence {
                         "exclaimed": false,
-                        "sequence": "Speak thy mind",
+                        "sequence": "Speak your mind",
                         "subject": undefined,
                       },
                       GotoSentence {
-                        "exclaimed": true,
+                        "exclaimed": false,
                         "numeral": Numeral {
                           "sequence": "II",
                         },
                         "part": "scene",
-                        "sequence": "Let us return to scene II",
+                        "sequence": "we shall proceed to scene II",
                       },
                     ],
                   },
@@ -771,7 +771,7 @@ Program {
                 "lines": [
                   Line {
                     "character": Character {
-                      "sequence": "Andromache",
+                      "sequence": "Luciana",
                     },
                     "sentences": [
                       AssignmentSentence {
@@ -779,7 +779,7 @@ Program {
                           "sequence": "You are",
                         },
                         "comparative": PositiveAdjective {
-                          "sequence": "warm",
+                          "sequence": "cute",
                         },
                         "exclaimed": false,
                         "subject": undefined,
@@ -798,81 +798,81 @@ Program {
                               "value_1": PositiveConstantValue {
                                 "adjectives": [
                                   PositiveAdjective {
-                                    "sequence": "honest",
+                                    "sequence": "peaceful",
                                   },
                                 ],
                                 "article": "a",
                                 "context": "assignment",
                                 "noun": PositiveNoun {
-                                  "sequence": "nose",
+                                  "sequence": "purse",
                                 },
                               },
                               "value_2": PositiveConstantValue {
                                 "adjectives": [
                                   PositiveAdjective {
-                                    "sequence": "handsome",
+                                    "sequence": "delicious",
                                   },
                                   PositiveAdjective {
-                                    "sequence": "peaceful",
+                                    "sequence": "healthy",
                                   },
                                 ],
                                 "article": "a",
                                 "context": "arithmetic",
                                 "noun": PositiveNoun {
-                                  "sequence": "angel",
+                                  "sequence": "pony",
                                 },
                               },
                             },
                             "value_2": PositiveConstantValue {
                               "adjectives": [
                                 PositiveAdjective {
-                                  "sequence": "brave",
+                                  "sequence": "bold",
                                 },
                                 PositiveAdjective {
-                                  "sequence": "delicious",
+                                  "sequence": "gentle",
                                 },
                                 PositiveAdjective {
-                                  "sequence": "honest",
+                                  "sequence": "happy",
                                 },
                                 PositiveAdjective {
-                                  "sequence": "noble",
+                                  "sequence": "loving",
                                 },
                                 PositiveAdjective {
-                                  "sequence": "embroidered",
+                                  "sequence": "trustworthy",
                                 },
                               ],
                               "article": "a",
                               "context": "arithmetic",
                               "noun": PositiveNoun {
-                                "sequence": "kingdom",
+                                "sequence": "pony",
                               },
                             },
                           },
                           "value_2": PositiveConstantValue {
                             "adjectives": [
                               PositiveAdjective {
-                                "sequence": "brave",
+                                "sequence": "fair",
                               },
                               PositiveAdjective {
-                                "sequence": "cunning",
+                                "sequence": "fair",
                               },
                               PositiveAdjective {
-                                "sequence": "noble",
+                                "sequence": "pretty",
                               },
                               PositiveAdjective {
-                                "sequence": "noble",
+                                "sequence": "proud",
                               },
                               PositiveAdjective {
-                                "sequence": "sweet",
+                                "sequence": "golden",
                               },
                               PositiveAdjective {
-                                "sequence": "white",
+                                "sequence": "rural",
                               },
                             ],
                             "article": "a",
                             "context": "arithmetic",
                             "noun": PositiveNoun {
-                              "sequence": "summer's day",
+                              "sequence": "kingdom",
                             },
                           },
                         },
@@ -884,10 +884,10 @@ Program {
                       },
                       AssignmentSentence {
                         "be": Be {
-                          "sequence": "Thou art",
+                          "sequence": "You are",
                         },
                         "comparative": PositiveAdjective {
-                          "sequence": "smooth",
+                          "sequence": "white",
                         },
                         "exclaimed": false,
                         "subject": undefined,
@@ -905,63 +905,197 @@ Program {
                               },
                               "value_1": PositiveConstantValue {
                                 "adjectives": [],
-                                "article": undefined,
+                                "article": "a",
                                 "context": "assignment",
                                 "noun": PositiveNoun {
-                                  "sequence": "Heaven",
+                                  "sequence": "plum",
                                 },
                               },
                               "value_2": PositiveConstantValue {
                                 "adjectives": [
                                   PositiveAdjective {
-                                    "sequence": "handsome",
+                                    "sequence": "amazing",
+                                  },
+                                  PositiveAdjective {
+                                    "sequence": "charming",
                                   },
                                   PositiveAdjective {
                                     "sequence": "honest",
                                   },
-                                  PositiveAdjective {
-                                    "sequence": "peaceful",
-                                  },
                                 ],
-                                "article": "a",
+                                "article": "an",
                                 "context": "arithmetic",
                                 "noun": PositiveNoun {
-                                  "sequence": "nose",
+                                  "sequence": "hamster",
                                 },
                               },
                             },
                             "value_2": PositiveConstantValue {
                               "adjectives": [
                                 PositiveAdjective {
-                                  "sequence": "delicious",
+                                  "sequence": "rich",
                                 },
                                 PositiveAdjective {
-                                  "sequence": "noble",
+                                  "sequence": "rich",
                                 },
                                 PositiveAdjective {
                                   "sequence": "sweet",
                                 },
                                 PositiveAdjective {
-                                  "sequence": "clearest",
+                                  "sequence": "warm",
                                 },
                                 PositiveAdjective {
-                                  "sequence": "reddest",
+                                  "sequence": "white",
                                 },
                               ],
-                              "article": undefined,
+                              "article": "the",
                               "context": "arithmetic",
                               "noun": PositiveNoun {
-                                "sequence": "Heaven",
+                                "sequence": "King",
                               },
                             },
                           },
                           "value_2": PositiveConstantValue {
                             "adjectives": [
                               PositiveAdjective {
+                                "sequence": "charming",
+                              },
+                              PositiveAdjective {
+                                "sequence": "cute",
+                              },
+                              PositiveAdjective {
                                 "sequence": "fair",
                               },
                               PositiveAdjective {
-                                "sequence": "handsome",
+                                "sequence": "fine",
+                              },
+                              PositiveAdjective {
+                                "sequence": "pretty",
+                              },
+                              PositiveAdjective {
+                                "sequence": "trustworthy",
+                              },
+                            ],
+                            "article": "a",
+                            "context": "arithmetic",
+                            "noun": PositiveNoun {
+                              "sequence": "cat",
+                            },
+                          },
+                        },
+                      },
+                      CharOutputSentence {
+                        "exclaimed": true,
+                        "sequence": "Speak thy mind",
+                        "subject": undefined,
+                      },
+                      AssignmentSentence {
+                        "be": Be {
+                          "sequence": "You are",
+                        },
+                        "comparative": PositiveAdjective {
+                          "sequence": "reddest",
+                        },
+                        "exclaimed": false,
+                        "subject": undefined,
+                        "value": ArithmeticOperationValue {
+                          "operator": ArithmeticOperator {
+                            "sequence": "sum of",
+                          },
+                          "value_1": ArithmeticOperationValue {
+                            "operator": ArithmeticOperator {
+                              "sequence": "sum of",
+                            },
+                            "value_1": ArithmeticOperationValue {
+                              "operator": ArithmeticOperator {
+                                "sequence": "sum of",
+                              },
+                              "value_1": ArithmeticOperationValue {
+                                "operator": ArithmeticOperator {
+                                  "sequence": "sum of",
+                                },
+                                "value_1": PositiveConstantValue {
+                                  "adjectives": [
+                                    PositiveAdjective {
+                                      "sequence": "reddest",
+                                    },
+                                  ],
+                                  "article": "a",
+                                  "context": "assignment",
+                                  "noun": PositiveNoun {
+                                    "sequence": "town",
+                                  },
+                                },
+                                "value_2": PositiveConstantValue {
+                                  "adjectives": [
+                                    PositiveAdjective {
+                                      "sequence": "brave",
+                                    },
+                                    PositiveAdjective {
+                                      "sequence": "golden",
+                                    },
+                                    PositiveAdjective {
+                                      "sequence": "golden",
+                                    },
+                                  ],
+                                  "article": "a",
+                                  "context": "arithmetic",
+                                  "noun": PositiveNoun {
+                                    "sequence": "nose",
+                                  },
+                                },
+                              },
+                              "value_2": PositiveConstantValue {
+                                "adjectives": [
+                                  PositiveAdjective {
+                                    "sequence": "mighty",
+                                  },
+                                  PositiveAdjective {
+                                    "sequence": "noble",
+                                  },
+                                  PositiveAdjective {
+                                    "sequence": "healthy",
+                                  },
+                                  PositiveAdjective {
+                                    "sequence": "white",
+                                  },
+                                ],
+                                "article": "a",
+                                "context": "arithmetic",
+                                "noun": PositiveNoun {
+                                  "sequence": "town",
+                                },
+                              },
+                            },
+                            "value_2": PositiveConstantValue {
+                              "adjectives": [
+                                PositiveAdjective {
+                                  "sequence": "beautiful",
+                                },
+                                PositiveAdjective {
+                                  "sequence": "bold",
+                                },
+                                PositiveAdjective {
+                                  "sequence": "gentle",
+                                },
+                                PositiveAdjective {
+                                  "sequence": "handsome",
+                                },
+                                PositiveAdjective {
+                                  "sequence": "peaceful",
+                                },
+                              ],
+                              "article": "a",
+                              "context": "arithmetic",
+                              "noun": PositiveNoun {
+                                "sequence": "angel",
+                              },
+                            },
+                          },
+                          "value_2": PositiveConstantValue {
+                            "adjectives": [
+                              PositiveAdjective {
+                                "sequence": "brave",
                               },
                               PositiveAdjective {
                                 "sequence": "noble",
@@ -973,20 +1107,248 @@ Program {
                                 "sequence": "healthy",
                               },
                               PositiveAdjective {
-                                "sequence": "white",
+                                "sequence": "smooth",
+                              },
+                              PositiveAdjective {
+                                "sequence": "sunny",
                               },
                             ],
                             "article": "a",
                             "context": "arithmetic",
                             "noun": PositiveNoun {
-                              "sequence": "plum",
+                              "sequence": "happiness",
                             },
                           },
                         },
                       },
                       CharOutputSentence {
                         "exclaimed": false,
-                        "sequence": "Speak thy mind",
+                        "sequence": "Speak thine mind",
+                        "subject": undefined,
+                      },
+                      AssignmentSentence {
+                        "be": Be {
+                          "sequence": "You are",
+                        },
+                        "comparative": PositiveAdjective {
+                          "sequence": "sunny",
+                        },
+                        "exclaimed": false,
+                        "subject": undefined,
+                        "value": ArithmeticOperationValue {
+                          "operator": ArithmeticOperator {
+                            "sequence": "sum of",
+                          },
+                          "value_1": ArithmeticOperationValue {
+                            "operator": ArithmeticOperator {
+                              "sequence": "sum of",
+                            },
+                            "value_1": ArithmeticOperationValue {
+                              "operator": ArithmeticOperator {
+                                "sequence": "sum of",
+                              },
+                              "value_1": ArithmeticOperationValue {
+                                "operator": ArithmeticOperator {
+                                  "sequence": "sum of",
+                                },
+                                "value_1": PositiveConstantValue {
+                                  "adjectives": [
+                                    PositiveAdjective {
+                                      "sequence": "peaceful",
+                                    },
+                                  ],
+                                  "article": "a",
+                                  "context": "assignment",
+                                  "noun": PositiveNoun {
+                                    "sequence": "flower",
+                                  },
+                                },
+                                "value_2": PositiveConstantValue {
+                                  "adjectives": [
+                                    PositiveAdjective {
+                                      "sequence": "fair",
+                                    },
+                                    PositiveAdjective {
+                                      "sequence": "handsome",
+                                    },
+                                    PositiveAdjective {
+                                      "sequence": "embroidered",
+                                    },
+                                  ],
+                                  "article": "a",
+                                  "context": "arithmetic",
+                                  "noun": PositiveNoun {
+                                    "sequence": "cat",
+                                  },
+                                },
+                              },
+                              "value_2": PositiveConstantValue {
+                                "adjectives": [
+                                  PositiveAdjective {
+                                    "sequence": "happy",
+                                  },
+                                  PositiveAdjective {
+                                    "sequence": "noble",
+                                  },
+                                  PositiveAdjective {
+                                    "sequence": "golden",
+                                  },
+                                  PositiveAdjective {
+                                    "sequence": "white",
+                                  },
+                                ],
+                                "article": "a",
+                                "context": "arithmetic",
+                                "noun": PositiveNoun {
+                                  "sequence": "flower",
+                                },
+                              },
+                            },
+                            "value_2": PositiveConstantValue {
+                              "adjectives": [
+                                PositiveAdjective {
+                                  "sequence": "amazing",
+                                },
+                                PositiveAdjective {
+                                  "sequence": "delicious",
+                                },
+                                PositiveAdjective {
+                                  "sequence": "mighty",
+                                },
+                                PositiveAdjective {
+                                  "sequence": "noble",
+                                },
+                                PositiveAdjective {
+                                  "sequence": "healthy",
+                                },
+                              ],
+                              "article": "the",
+                              "context": "arithmetic",
+                              "noun": PositiveNoun {
+                                "sequence": "King",
+                              },
+                            },
+                          },
+                          "value_2": PositiveConstantValue {
+                            "adjectives": [
+                              PositiveAdjective {
+                                "sequence": "gentle",
+                              },
+                              PositiveAdjective {
+                                "sequence": "mighty",
+                              },
+                              PositiveAdjective {
+                                "sequence": "mighty",
+                              },
+                              PositiveAdjective {
+                                "sequence": "prompt",
+                              },
+                              PositiveAdjective {
+                                "sequence": "smooth",
+                              },
+                              PositiveAdjective {
+                                "sequence": "white",
+                              },
+                            ],
+                            "article": "the",
+                            "context": "arithmetic",
+                            "noun": PositiveNoun {
+                              "sequence": "King",
+                            },
+                          },
+                        },
+                      },
+                      CharOutputSentence {
+                        "exclaimed": false,
+                        "sequence": "Speak thine mind",
+                        "subject": undefined,
+                      },
+                      AssignmentSentence {
+                        "be": Be {
+                          "sequence": "Thou art",
+                        },
+                        "comparative": PositiveAdjective {
+                          "sequence": "peaceful",
+                        },
+                        "exclaimed": false,
+                        "subject": undefined,
+                        "value": ArithmeticOperationValue {
+                          "operator": ArithmeticOperator {
+                            "sequence": "sum of",
+                          },
+                          "value_1": ArithmeticOperationValue {
+                            "operator": ArithmeticOperator {
+                              "sequence": "sum of",
+                            },
+                            "value_1": PositiveConstantValue {
+                              "adjectives": [
+                                PositiveAdjective {
+                                  "sequence": "mighty",
+                                },
+                              ],
+                              "article": "a",
+                              "context": "assignment",
+                              "noun": PositiveNoun {
+                                "sequence": "hamster",
+                              },
+                            },
+                            "value_2": PositiveConstantValue {
+                              "adjectives": [
+                                PositiveAdjective {
+                                  "sequence": "brave",
+                                },
+                                PositiveAdjective {
+                                  "sequence": "fine",
+                                },
+                                PositiveAdjective {
+                                  "sequence": "handsome",
+                                },
+                                PositiveAdjective {
+                                  "sequence": "happy",
+                                },
+                                PositiveAdjective {
+                                  "sequence": "golden",
+                                },
+                              ],
+                              "article": "the",
+                              "context": "arithmetic",
+                              "noun": PositiveNoun {
+                                "sequence": "sky",
+                              },
+                            },
+                          },
+                          "value_2": PositiveConstantValue {
+                            "adjectives": [
+                              PositiveAdjective {
+                                "sequence": "beautiful",
+                              },
+                              PositiveAdjective {
+                                "sequence": "fair",
+                              },
+                              PositiveAdjective {
+                                "sequence": "handsome",
+                              },
+                              PositiveAdjective {
+                                "sequence": "handsome",
+                              },
+                              PositiveAdjective {
+                                "sequence": "mighty",
+                              },
+                              PositiveAdjective {
+                                "sequence": "trustworthy",
+                              },
+                            ],
+                            "article": "a",
+                            "context": "arithmetic",
+                            "noun": PositiveNoun {
+                              "sequence": "flower",
+                            },
+                          },
+                        },
+                      },
+                      CharOutputSentence {
+                        "exclaimed": false,
+                        "sequence": "Speak your mind",
                         "subject": undefined,
                       },
                       AssignmentSentence {
@@ -1015,96 +1377,86 @@ Program {
                                   "sequence": "sum of",
                                 },
                                 "value_1": PositiveConstantValue {
-                                  "adjectives": [
-                                    PositiveAdjective {
-                                      "sequence": "beautiful",
-                                    },
-                                  ],
+                                  "adjectives": [],
                                   "article": "a",
                                   "context": "assignment",
                                   "noun": PositiveNoun {
-                                    "sequence": "summer's day",
+                                    "sequence": "hamster",
                                   },
                                 },
                                 "value_2": PositiveConstantValue {
                                   "adjectives": [
                                     PositiveAdjective {
-                                      "sequence": "good",
+                                      "sequence": "loving",
                                     },
                                     PositiveAdjective {
-                                      "sequence": "golden",
-                                    },
-                                    PositiveAdjective {
-                                      "sequence": "white",
+                                      "sequence": "mighty",
                                     },
                                   ],
                                   "article": "a",
                                   "context": "arithmetic",
                                   "noun": PositiveNoun {
-                                    "sequence": "purse",
+                                    "sequence": "summer's day",
                                   },
                                 },
                               },
                               "value_2": PositiveConstantValue {
                                 "adjectives": [
                                   PositiveAdjective {
-                                    "sequence": "beautiful",
+                                    "sequence": "cute",
                                   },
                                   PositiveAdjective {
-                                    "sequence": "fair",
+                                    "sequence": "sweet",
                                   },
                                   PositiveAdjective {
-                                    "sequence": "lovely",
+                                    "sequence": "warm",
                                   },
                                   PositiveAdjective {
-                                    "sequence": "prompt",
+                                    "sequence": "embroidered",
                                   },
                                 ],
                                 "article": "a",
                                 "context": "arithmetic",
                                 "noun": PositiveNoun {
-                                  "sequence": "hero",
+                                  "sequence": "kingdom",
                                 },
                               },
                             },
                             "value_2": PositiveConstantValue {
                               "adjectives": [
                                 PositiveAdjective {
-                                  "sequence": "bold",
+                                  "sequence": "beautiful",
                                 },
                                 PositiveAdjective {
-                                  "sequence": "cute",
+                                  "sequence": "brave",
                                 },
                                 PositiveAdjective {
-                                  "sequence": "happy",
+                                  "sequence": "good",
                                 },
                                 PositiveAdjective {
-                                  "sequence": "proud",
+                                  "sequence": "mighty",
                                 },
                                 PositiveAdjective {
-                                  "sequence": "reddest",
+                                  "sequence": "noble",
                                 },
                               ],
-                              "article": "the",
+                              "article": "a",
                               "context": "arithmetic",
                               "noun": PositiveNoun {
-                                "sequence": "sky",
+                                "sequence": "nose",
                               },
                             },
                           },
                           "value_2": PositiveConstantValue {
                             "adjectives": [
                               PositiveAdjective {
-                                "sequence": "amazing",
+                                "sequence": "fair",
                               },
                               PositiveAdjective {
-                                "sequence": "cunning",
+                                "sequence": "fine",
                               },
                               PositiveAdjective {
-                                "sequence": "good",
-                              },
-                              PositiveAdjective {
-                                "sequence": "smooth",
+                                "sequence": "warm",
                               },
                               PositiveAdjective {
                                 "sequence": "reddest",
@@ -1112,26 +1464,29 @@ Program {
                               PositiveAdjective {
                                 "sequence": "white",
                               },
+                              PositiveAdjective {
+                                "sequence": "rural",
+                              },
                             ],
                             "article": "the",
                             "context": "arithmetic",
                             "noun": PositiveNoun {
-                              "sequence": "King",
+                              "sequence": "sky",
                             },
                           },
                         },
                       },
                       CharOutputSentence {
                         "exclaimed": false,
-                        "sequence": "Speak thine mind",
+                        "sequence": "Speak your mind",
                         "subject": undefined,
                       },
                       AssignmentSentence {
                         "be": Be {
-                          "sequence": "You are",
+                          "sequence": "Thou art",
                         },
                         "comparative": PositiveAdjective {
-                          "sequence": "embroidered",
+                          "sequence": "gentle",
                         },
                         "exclaimed": false,
                         "subject": undefined,
@@ -1154,22 +1509,22 @@ Program {
                                 "value_1": PositiveConstantValue {
                                   "adjectives": [
                                     PositiveAdjective {
-                                      "sequence": "brave",
+                                      "sequence": "rural",
                                     },
                                   ],
                                   "article": "a",
                                   "context": "assignment",
                                   "noun": PositiveNoun {
-                                    "sequence": "summer's day",
+                                    "sequence": "kingdom",
                                   },
                                 },
                                 "value_2": PositiveConstantValue {
                                   "adjectives": [
                                     PositiveAdjective {
-                                      "sequence": "gentle",
+                                      "sequence": "beautiful",
                                     },
                                     PositiveAdjective {
-                                      "sequence": "trustworthy",
+                                      "sequence": "sweetest",
                                     },
                                     PositiveAdjective {
                                       "sequence": "sunny",
@@ -1178,99 +1533,99 @@ Program {
                                   "article": "a",
                                   "context": "arithmetic",
                                   "noun": PositiveNoun {
-                                    "sequence": "happiness",
+                                    "sequence": "joy",
                                   },
                                 },
                               },
                               "value_2": PositiveConstantValue {
                                 "adjectives": [
                                   PositiveAdjective {
-                                    "sequence": "blossoming",
+                                    "sequence": "brave",
                                   },
                                   PositiveAdjective {
-                                    "sequence": "blossoming",
+                                    "sequence": "mighty",
                                   },
                                   PositiveAdjective {
-                                    "sequence": "warm",
+                                    "sequence": "rural",
                                   },
                                   PositiveAdjective {
-                                    "sequence": "white",
+                                    "sequence": "embroidered",
                                   },
                                 ],
                                 "article": "a",
                                 "context": "arithmetic",
                                 "noun": PositiveNoun {
-                                  "sequence": "summer's day",
+                                  "sequence": "nose",
                                 },
                               },
                             },
                             "value_2": PositiveConstantValue {
                               "adjectives": [
                                 PositiveAdjective {
-                                  "sequence": "cute",
+                                  "sequence": "brave",
                                 },
                                 PositiveAdjective {
-                                  "sequence": "good",
+                                  "sequence": "happy",
                                 },
                                 PositiveAdjective {
-                                  "sequence": "lovely",
+                                  "sequence": "happy",
                                 },
                                 PositiveAdjective {
-                                  "sequence": "proud",
+                                  "sequence": "clearest",
                                 },
                                 PositiveAdjective {
-                                  "sequence": "proud",
+                                  "sequence": "white",
                                 },
                               ],
-                              "article": "a",
+                              "article": "the",
                               "context": "arithmetic",
                               "noun": PositiveNoun {
-                                "sequence": "angel",
+                                "sequence": "King",
                               },
                             },
                           },
                           "value_2": PositiveConstantValue {
                             "adjectives": [
                               PositiveAdjective {
-                                "sequence": "fine",
+                                "sequence": "amazing",
                               },
                               PositiveAdjective {
-                                "sequence": "proud",
+                                "sequence": "charming",
                               },
                               PositiveAdjective {
-                                "sequence": "sweetest",
+                                "sequence": "charming",
                               },
                               PositiveAdjective {
-                                "sequence": "sweetest",
+                                "sequence": "cute",
                               },
                               PositiveAdjective {
-                                "sequence": "clearest",
+                                "sequence": "happy",
                               },
                               PositiveAdjective {
-                                "sequence": "clearest",
+                                "sequence": "prompt",
                               },
                             ],
-                            "article": "a",
+                            "article": "an",
                             "context": "arithmetic",
                             "noun": PositiveNoun {
-                              "sequence": "flower",
+                              "sequence": "pony",
                             },
                           },
                         },
                       },
                       CharOutputSentence {
-                        "exclaimed": false,
-                        "sequence": "Speak your mind",
+                        "exclaimed": true,
+                        "sequence": "Speak thine mind",
                         "subject": undefined,
                       },
                       AssignmentSentence {
                         "be": Be {
-                          "sequence": "You are",
+                          "sequence": "Thou art",
                         },
                         "comparative": PositiveAdjective {
-                          "sequence": "sweetest",
+                          "sequence": "noble",
                         },
-                        "exclaimed": true,
+                        "exclaimed": false,
                         "subject": undefined,
                         "value": ArithmeticOperationValue {
                           "operator": ArithmeticOperator {
@@ -1280,62 +1635,300 @@ Program {
                             "operator": ArithmeticOperator {
                               "sequence": "sum of",
                             },
-                            "value_1": PositiveConstantValue {
-                              "adjectives": [
-                                PositiveAdjective {
-                                  "sequence": "warm",
+                            "value_1": ArithmeticOperationValue {
+                              "operator": ArithmeticOperator {
+                                "sequence": "sum of",
+                              },
+                              "value_1": ArithmeticOperationValue {
+                                "operator": ArithmeticOperator {
+                                  "sequence": "sum of",
                                 },
-                              ],
-                              "article": "a",
-                              "context": "assignment",
-                              "noun": PositiveNoun {
-                                "sequence": "nose",
+                                "value_1": PositiveConstantValue {
+                                  "adjectives": [
+                                    PositiveAdjective {
+                                      "sequence": "prompt",
+                                    },
+                                  ],
+                                  "article": "the",
+                                  "context": "assignment",
+                                  "noun": PositiveNoun {
+                                    "sequence": "Lord",
+                                  },
+                                },
+                                "value_2": PositiveConstantValue {
+                                  "adjectives": [
+                                    PositiveAdjective {
+                                      "sequence": "prompt",
+                                    },
+                                    PositiveAdjective {
+                                      "sequence": "sweetest",
+                                    },
+                                    PositiveAdjective {
+                                      "sequence": "sunny",
+                                    },
+                                  ],
+                                  "article": "a",
+                                  "context": "arithmetic",
+                                  "noun": PositiveNoun {
+                                    "sequence": "hamster",
+                                  },
+                                },
+                              },
+                              "value_2": PositiveConstantValue {
+                                "adjectives": [
+                                  PositiveAdjective {
+                                    "sequence": "good",
+                                  },
+                                  PositiveAdjective {
+                                    "sequence": "prompt",
+                                  },
+                                  PositiveAdjective {
+                                    "sequence": "healthy",
+                                  },
+                                  PositiveAdjective {
+                                    "sequence": "embroidered",
+                                  },
+                                ],
+                                "article": "a",
+                                "context": "arithmetic",
+                                "noun": PositiveNoun {
+                                  "sequence": "pony",
+                                },
                               },
                             },
                             "value_2": PositiveConstantValue {
                               "adjectives": [
                                 PositiveAdjective {
-                                  "sequence": "amazing",
-                                },
-                                PositiveAdjective {
                                   "sequence": "delicious",
                                 },
                                 PositiveAdjective {
-                                  "sequence": "fine",
+                                  "sequence": "honest",
                                 },
                                 PositiveAdjective {
-                                  "sequence": "rich",
+                                  "sequence": "lovely",
                                 },
                                 PositiveAdjective {
-                                  "sequence": "warm",
+                                  "sequence": "noble",
+                                },
+                                PositiveAdjective {
+                                  "sequence": "sunny",
                                 },
                               ],
-                              "article": undefined,
+                              "article": "the",
                               "context": "arithmetic",
                               "noun": PositiveNoun {
-                                "sequence": "Heaven",
+                                "sequence": "King",
                               },
                             },
                           },
                           "value_2": PositiveConstantValue {
                             "adjectives": [
                               PositiveAdjective {
-                                "sequence": "bold",
+                                "sequence": "beautiful",
                               },
+                              PositiveAdjective {
+                                "sequence": "delicious",
+                              },
+                              PositiveAdjective {
+                                "sequence": "delicious",
+                              },
+                              PositiveAdjective {
+                                "sequence": "peaceful",
+                              },
+                              PositiveAdjective {
+                                "sequence": "smooth",
+                              },
+                              PositiveAdjective {
+                                "sequence": "reddest",
+                              },
+                            ],
+                            "article": "the",
+                            "context": "arithmetic",
+                            "noun": PositiveNoun {
+                              "sequence": "sky",
+                            },
+                          },
+                        },
+                      },
+                      CharOutputSentence {
+                        "exclaimed": false,
+                        "sequence": "Speak thy mind",
+                        "subject": undefined,
+                      },
+                      AssignmentSentence {
+                        "be": Be {
+                          "sequence": "You are",
+                        },
+                        "comparative": PositiveAdjective {
+                          "sequence": "reddest",
+                        },
+                        "exclaimed": false,
+                        "subject": undefined,
+                        "value": ArithmeticOperationValue {
+                          "operator": ArithmeticOperator {
+                            "sequence": "sum of",
+                          },
+                          "value_1": PositiveConstantValue {
+                            "adjectives": [
+                              PositiveAdjective {
+                                "sequence": "clearest",
+                              },
+                            ],
+                            "article": "the",
+                            "context": "assignment",
+                            "noun": PositiveNoun {
+                              "sequence": "King",
+                            },
+                          },
+                          "value_2": PositiveConstantValue {
+                            "adjectives": [
+                              PositiveAdjective {
+                                "sequence": "charming",
+                              },
+                              PositiveAdjective {
+                                "sequence": "delicious",
+                              },
+                              PositiveAdjective {
+                                "sequence": "loving",
+                              },
+                            ],
+                            "article": "a",
+                            "context": "arithmetic",
+                            "noun": PositiveNoun {
+                              "sequence": "summer's day",
+                            },
+                          },
+                        },
+                      },
+                      CharOutputSentence {
+                        "exclaimed": false,
+                        "sequence": "Speak thy mind",
+                        "subject": undefined,
+                      },
+                      GotoSentence {
+                        "exclaimed": false,
+                        "numeral": Numeral {
+                          "sequence": "II",
+                        },
+                        "part": "scene",
+                        "sequence": "Let us return to scene II",
+                      },
+                    ],
+                  },
+                ],
+              },
+            ],
+          },
+        },
+        Subpart {
+          "comment": Comment {
+            "sequence": "Fizz",
+          },
+          "numeral": Numeral {
+            "sequence": "IV",
+          },
+          "stage": Stage {
+            "directions": [
+              Dialogue {
+                "lines": [
+                  Line {
+                    "character": Character {
+                      "sequence": "Luciana",
+                    },
+                    "sentences": [
+                      AssignmentSentence {
+                        "be": Be {
+                          "sequence": "Thou art",
+                        },
+                        "comparative": PositiveAdjective {
+                          "sequence": "pretty",
+                        },
+                        "exclaimed": false,
+                        "subject": undefined,
+                        "value": ArithmeticOperationValue {
+                          "operator": ArithmeticOperator {
+                            "sequence": "sum of",
+                          },
+                          "value_1": ArithmeticOperationValue {
+                            "operator": ArithmeticOperator {
+                              "sequence": "sum of",
+                            },
+                            "value_1": ArithmeticOperationValue {
+                              "operator": ArithmeticOperator {
+                                "sequence": "sum of",
+                              },
+                              "value_1": PositiveConstantValue {
+                                "adjectives": [
+                                  PositiveAdjective {
+                                    "sequence": "handsome",
+                                  },
+                                ],
+                                "article": "the",
+                                "context": "assignment",
+                                "noun": PositiveNoun {
+                                  "sequence": "King",
+                                },
+                              },
+                              "value_2": PositiveConstantValue {
+                                "adjectives": [
+                                  PositiveAdjective {
+                                    "sequence": "sweet",
+                                  },
+                                  PositiveAdjective {
+                                    "sequence": "sunny",
+                                  },
+                                ],
+                                "article": "the",
+                                "context": "arithmetic",
+                                "noun": PositiveNoun {
+                                  "sequence": "Lord",
+                                },
+                              },
+                            },
+                            "value_2": PositiveConstantValue {
+                              "adjectives": [
+                                PositiveAdjective {
+                                  "sequence": "brave",
+                                },
+                                PositiveAdjective {
+                                  "sequence": "lovely",
+                                },
+                                PositiveAdjective {
+                                  "sequence": "proud",
+                                },
+                                PositiveAdjective {
+                                  "sequence": "warm",
+                                },
+                                PositiveAdjective {
+                                  "sequence": "reddest",
+                                },
+                              ],
+                              "article": "a",
+                              "context": "arithmetic",
+                              "noun": PositiveNoun {
+                                "sequence": "nose",
+                              },
+                            },
+                          },
+                          "value_2": PositiveConstantValue {
+                            "adjectives": [
                               PositiveAdjective {
                                 "sequence": "brave",
                               },
                               PositiveAdjective {
-                                "sequence": "good",
+                                "sequence": "cute",
                               },
                               PositiveAdjective {
-                                "sequence": "pretty",
+                                "sequence": "fine",
                               },
                               PositiveAdjective {
-                                "sequence": "rural",
+                                "sequence": "lovely",
                               },
                               PositiveAdjective {
-                                "sequence": "embroidered",
+                                "sequence": "sweet",
+                              },
+                              PositiveAdjective {
+                                "sequence": "sweetest",
                               },
                             ],
                             "article": "a",
@@ -1348,6 +1941,250 @@ Program {
                       },
                       CharOutputSentence {
                         "exclaimed": false,
+                        "sequence": "Speak your mind",
+                        "subject": undefined,
+                      },
+                      AssignmentSentence {
+                        "be": Be {
+                          "sequence": "Thou art",
+                        },
+                        "comparative": PositiveAdjective {
+                          "sequence": "gentle",
+                        },
+                        "exclaimed": false,
+                        "subject": undefined,
+                        "value": ArithmeticOperationValue {
+                          "operator": ArithmeticOperator {
+                            "sequence": "sum of",
+                          },
+                          "value_1": ArithmeticOperationValue {
+                            "operator": ArithmeticOperator {
+                              "sequence": "sum of",
+                            },
+                            "value_1": ArithmeticOperationValue {
+                              "operator": ArithmeticOperator {
+                                "sequence": "sum of",
+                              },
+                              "value_1": PositiveConstantValue {
+                                "adjectives": [],
+                                "article": "an",
+                                "context": "assignment",
+                                "noun": PositiveNoun {
+                                  "sequence": "angel",
+                                },
+                              },
+                              "value_2": PositiveConstantValue {
+                                "adjectives": [
+                                  PositiveAdjective {
+                                    "sequence": "delicious",
+                                  },
+                                  PositiveAdjective {
+                                    "sequence": "trustworthy",
+                                  },
+                                  PositiveAdjective {
+                                    "sequence": "warm",
+                                  },
+                                ],
+                                "article": "a",
+                                "context": "arithmetic",
+                                "noun": PositiveNoun {
+                                  "sequence": "nose",
+                                },
+                              },
+                            },
+                            "value_2": PositiveConstantValue {
+                              "adjectives": [
+                                PositiveAdjective {
+                                  "sequence": "bold",
+                                },
+                                PositiveAdjective {
+                                  "sequence": "fair",
+                                },
+                                PositiveAdjective {
+                                  "sequence": "noble",
+                                },
+                                PositiveAdjective {
+                                  "sequence": "sunny",
+                                },
+                                PositiveAdjective {
+                                  "sequence": "golden",
+                                },
+                              ],
+                              "article": "a",
+                              "context": "arithmetic",
+                              "noun": PositiveNoun {
+                                "sequence": "plum",
+                              },
+                            },
+                          },
+                          "value_2": PositiveConstantValue {
+                            "adjectives": [
+                              PositiveAdjective {
+                                "sequence": "charming",
+                              },
+                              PositiveAdjective {
+                                "sequence": "handsome",
+                              },
+                              PositiveAdjective {
+                                "sequence": "honest",
+                              },
+                              PositiveAdjective {
+                                "sequence": "mighty",
+                              },
+                              PositiveAdjective {
+                                "sequence": "clearest",
+                              },
+                              PositiveAdjective {
+                                "sequence": "white",
+                              },
+                            ],
+                            "article": "a",
+                            "context": "arithmetic",
+                            "noun": PositiveNoun {
+                              "sequence": "cat",
+                            },
+                          },
+                        },
+                      },
+                      CharOutputSentence {
+                        "exclaimed": false,
+                        "sequence": "Speak thy mind",
+                        "subject": undefined,
+                      },
+                      AssignmentSentence {
+                        "be": Be {
+                          "sequence": "Thou art",
+                        },
+                        "comparative": PositiveAdjective {
+                          "sequence": "peaceful",
+                        },
+                        "exclaimed": false,
+                        "subject": undefined,
+                        "value": ArithmeticOperationValue {
+                          "operator": ArithmeticOperator {
+                            "sequence": "sum of",
+                          },
+                          "value_1": ArithmeticOperationValue {
+                            "operator": ArithmeticOperator {
+                              "sequence": "sum of",
+                            },
+                            "value_1": ArithmeticOperationValue {
+                              "operator": ArithmeticOperator {
+                                "sequence": "sum of",
+                              },
+                              "value_1": ArithmeticOperationValue {
+                                "operator": ArithmeticOperator {
+                                  "sequence": "sum of",
+                                },
+                                "value_1": PositiveConstantValue {
+                                  "adjectives": [
+                                    PositiveAdjective {
+                                      "sequence": "healthy",
+                                    },
+                                  ],
+                                  "article": "a",
+                                  "context": "assignment",
+                                  "noun": PositiveNoun {
+                                    "sequence": "pony",
+                                  },
+                                },
+                                "value_2": PositiveConstantValue {
+                                  "adjectives": [
+                                    PositiveAdjective {
+                                      "sequence": "brave",
+                                    },
+                                    PositiveAdjective {
+                                      "sequence": "cunning",
+                                    },
+                                    PositiveAdjective {
+                                      "sequence": "blossoming",
+                                    },
+                                  ],
+                                  "article": "a",
+                                  "context": "arithmetic",
+                                  "noun": PositiveNoun {
+                                    "sequence": "hamster",
+                                  },
+                                },
+                              },
+                              "value_2": PositiveConstantValue {
+                                "adjectives": [
+                                  PositiveAdjective {
+                                    "sequence": "cunning",
+                                  },
+                                  PositiveAdjective {
+                                    "sequence": "fair",
+                                  },
+                                  PositiveAdjective {
+                                    "sequence": "lovely",
+                                  },
+                                  PositiveAdjective {
+                                    "sequence": "reddest",
+                                  },
+                                ],
+                                "article": "a",
+                                "context": "arithmetic",
+                                "noun": PositiveNoun {
+                                  "sequence": "angel",
+                                },
+                              },
+                            },
+                            "value_2": PositiveConstantValue {
+                              "adjectives": [
+                                PositiveAdjective {
+                                  "sequence": "delicious",
+                                },
+                                PositiveAdjective {
+                                  "sequence": "delicious",
+                                },
+                                PositiveAdjective {
+                                  "sequence": "loving",
+                                },
+                                PositiveAdjective {
+                                  "sequence": "prompt",
+                                },
+                                PositiveAdjective {
+                                  "sequence": "sunny",
+                                },
+                              ],
+                              "article": "the",
+                              "context": "arithmetic",
+                              "noun": PositiveNoun {
+                                "sequence": "Lord",
+                              },
+                            },
+                          },
+                          "value_2": PositiveConstantValue {
+                            "adjectives": [
+                              PositiveAdjective {
+                                "sequence": "handsome",
+                              },
+                              PositiveAdjective {
+                                "sequence": "trustworthy",
+                              },
+                              PositiveAdjective {
+                                "sequence": "healthy",
+                              },
+                              PositiveAdjective {
+                                "sequence": "smooth",
+                              },
+                              PositiveAdjective {
+                                "sequence": "warm",
+                              },
+                              PositiveAdjective {
+                                "sequence": "golden",
+                              },
+                            ],
+                            "article": "the",
+                            "context": "arithmetic",
+                            "noun": PositiveNoun {
+                              "sequence": "Lord",
+                            },
+                          },
+                        },
+                      },
+                      CharOutputSentence {
+                        "exclaimed": true,
                         "sequence": "Speak thine mind",
                         "subject": undefined,
                       },
@@ -1356,7 +2193,313 @@ Program {
                           "sequence": "Thou art",
                         },
                         "comparative": PositiveAdjective {
-                          "sequence": "smooth",
+                          "sequence": "bold",
+                        },
+                        "exclaimed": false,
+                        "subject": undefined,
+                        "value": ArithmeticOperationValue {
+                          "operator": ArithmeticOperator {
+                            "sequence": "sum of",
+                          },
+                          "value_1": ArithmeticOperationValue {
+                            "operator": ArithmeticOperator {
+                              "sequence": "sum of",
+                            },
+                            "value_1": ArithmeticOperationValue {
+                              "operator": ArithmeticOperator {
+                                "sequence": "sum of",
+                              },
+                              "value_1": ArithmeticOperationValue {
+                                "operator": ArithmeticOperator {
+                                  "sequence": "sum of",
+                                },
+                                "value_1": PositiveConstantValue {
+                                  "adjectives": [
+                                    PositiveAdjective {
+                                      "sequence": "sweetest",
+                                    },
+                                  ],
+                                  "article": "a",
+                                  "context": "assignment",
+                                  "noun": PositiveNoun {
+                                    "sequence": "rose",
+                                  },
+                                },
+                                "value_2": PositiveConstantValue {
+                                  "adjectives": [
+                                    PositiveAdjective {
+                                      "sequence": "cunning",
+                                    },
+                                    PositiveAdjective {
+                                      "sequence": "cunning",
+                                    },
+                                    PositiveAdjective {
+                                      "sequence": "handsome",
+                                    },
+                                  ],
+                                  "article": "a",
+                                  "context": "arithmetic",
+                                  "noun": PositiveNoun {
+                                    "sequence": "hero",
+                                  },
+                                },
+                              },
+                              "value_2": PositiveConstantValue {
+                                "adjectives": [
+                                  PositiveAdjective {
+                                    "sequence": "fair",
+                                  },
+                                  PositiveAdjective {
+                                    "sequence": "lovely",
+                                  },
+                                  PositiveAdjective {
+                                    "sequence": "sweet",
+                                  },
+                                  PositiveAdjective {
+                                    "sequence": "reddest",
+                                  },
+                                ],
+                                "article": "a",
+                                "context": "arithmetic",
+                                "noun": PositiveNoun {
+                                  "sequence": "pony",
+                                },
+                              },
+                            },
+                            "value_2": PositiveConstantValue {
+                              "adjectives": [
+                                PositiveAdjective {
+                                  "sequence": "handsome",
+                                },
+                                PositiveAdjective {
+                                  "sequence": "lovely",
+                                },
+                                PositiveAdjective {
+                                  "sequence": "blossoming",
+                                },
+                                PositiveAdjective {
+                                  "sequence": "white",
+                                },
+                                PositiveAdjective {
+                                  "sequence": "white",
+                                },
+                              ],
+                              "article": "a",
+                              "context": "arithmetic",
+                              "noun": PositiveNoun {
+                                "sequence": "happiness",
+                              },
+                            },
+                          },
+                          "value_2": PositiveConstantValue {
+                            "adjectives": [
+                              PositiveAdjective {
+                                "sequence": "brave",
+                              },
+                              PositiveAdjective {
+                                "sequence": "cunning",
+                              },
+                              PositiveAdjective {
+                                "sequence": "handsome",
+                              },
+                              PositiveAdjective {
+                                "sequence": "peaceful",
+                              },
+                              PositiveAdjective {
+                                "sequence": "rich",
+                              },
+                              PositiveAdjective {
+                                "sequence": "sweet",
+                              },
+                            ],
+                            "article": "the",
+                            "context": "arithmetic",
+                            "noun": PositiveNoun {
+                              "sequence": "sky",
+                            },
+                          },
+                        },
+                      },
+                      CharOutputSentence {
+                        "exclaimed": true,
+                        "sequence": "Speak your mind",
+                        "subject": undefined,
+                      },
+                      AssignmentSentence {
+                        "be": Be {
+                          "sequence": "Thou art",
+                        },
+                        "comparative": PositiveAdjective {
+                          "sequence": "rural",
+                        },
+                        "exclaimed": false,
+                        "subject": undefined,
+                        "value": ArithmeticOperationValue {
+                          "operator": ArithmeticOperator {
+                            "sequence": "sum of",
+                          },
+                          "value_1": PositiveConstantValue {
+                            "adjectives": [
+                              PositiveAdjective {
+                                "sequence": "blossoming",
+                              },
+                            ],
+                            "article": "the",
+                            "context": "assignment",
+                            "noun": PositiveNoun {
+                              "sequence": "Lord",
+                            },
+                          },
+                          "value_2": PositiveConstantValue {
+                            "adjectives": [
+                              PositiveAdjective {
+                                "sequence": "gentle",
+                              },
+                              PositiveAdjective {
+                                "sequence": "good",
+                              },
+                              PositiveAdjective {
+                                "sequence": "blossoming",
+                              },
+                            ],
+                            "article": "a",
+                            "context": "arithmetic",
+                            "noun": PositiveNoun {
+                              "sequence": "joy",
+                            },
+                          },
+                        },
+                      },
+                      CharOutputSentence {
+                        "exclaimed": false,
+                        "sequence": "Speak thy mind",
+                        "subject": undefined,
+                      },
+                      GotoSentence {
+                        "exclaimed": true,
+                        "numeral": Numeral {
+                          "sequence": "II",
+                        },
+                        "part": "scene",
+                        "sequence": "let us return to scene II",
+                      },
+                    ],
+                  },
+                ],
+              },
+            ],
+          },
+        },
+        Subpart {
+          "comment": Comment {
+            "sequence": "Buzz",
+          },
+          "numeral": Numeral {
+            "sequence": "V",
+          },
+          "stage": Stage {
+            "directions": [
+              Dialogue {
+                "lines": [
+                  Line {
+                    "character": Character {
+                      "sequence": "Luciana",
+                    },
+                    "sentences": [
+                      AssignmentSentence {
+                        "be": Be {
+                          "sequence": "You are",
+                        },
+                        "comparative": PositiveAdjective {
+                          "sequence": "handsome",
+                        },
+                        "exclaimed": false,
+                        "subject": undefined,
+                        "value": ArithmeticOperationValue {
+                          "operator": ArithmeticOperator {
+                            "sequence": "sum of",
+                          },
+                          "value_1": ArithmeticOperationValue {
+                            "operator": ArithmeticOperator {
+                              "sequence": "sum of",
+                            },
+                            "value_1": PositiveConstantValue {
+                              "adjectives": [
+                                PositiveAdjective {
+                                  "sequence": "rural",
+                                },
+                              ],
+                              "article": "a",
+                              "context": "assignment",
+                              "noun": PositiveNoun {
+                                "sequence": "plum",
+                              },
+                            },
+                            "value_2": PositiveConstantValue {
+                              "adjectives": [
+                                PositiveAdjective {
+                                  "sequence": "delicious",
+                                },
+                                PositiveAdjective {
+                                  "sequence": "good",
+                                },
+                                PositiveAdjective {
+                                  "sequence": "peaceful",
+                                },
+                                PositiveAdjective {
+                                  "sequence": "sweetest",
+                                },
+                                PositiveAdjective {
+                                  "sequence": "rural",
+                                },
+                              ],
+                              "article": "a",
+                              "context": "arithmetic",
+                              "noun": PositiveNoun {
+                                "sequence": "hamster",
+                              },
+                            },
+                          },
+                          "value_2": PositiveConstantValue {
+                            "adjectives": [
+                              PositiveAdjective {
+                                "sequence": "gentle",
+                              },
+                              PositiveAdjective {
+                                "sequence": "good",
+                              },
+                              PositiveAdjective {
+                                "sequence": "loving",
+                              },
+                              PositiveAdjective {
+                                "sequence": "proud",
+                              },
+                              PositiveAdjective {
+                                "sequence": "smooth",
+                              },
+                              PositiveAdjective {
+                                "sequence": "white",
+                              },
+                            ],
+                            "article": undefined,
+                            "context": "arithmetic",
+                            "noun": PositiveNoun {
+                              "sequence": "Heaven",
+                            },
+                          },
+                        },
+                      },
+                      CharOutputSentence {
+                        "exclaimed": false,
+                        "sequence": "Speak thine mind",
+                        "subject": undefined,
+                      },
+                      AssignmentSentence {
+                        "be": Be {
+                          "sequence": "You are",
+                        },
+                        "comparative": PositiveAdjective {
+                          "sequence": "rural",
                         },
                         "exclaimed": false,
                         "subject": undefined,
@@ -1378,47 +2521,47 @@ Program {
                                 },
                                 "value_1": PositiveConstantValue {
                                   "adjectives": [],
-                                  "article": "a",
+                                  "article": undefined,
                                   "context": "assignment",
                                   "noun": PositiveNoun {
-                                    "sequence": "pony",
+                                    "sequence": "Heaven",
                                   },
                                 },
                                 "value_2": PositiveConstantValue {
                                   "adjectives": [
                                     PositiveAdjective {
-                                      "sequence": "bold",
+                                      "sequence": "cunning",
                                     },
                                     PositiveAdjective {
-                                      "sequence": "fine",
+                                      "sequence": "golden",
                                     },
                                   ],
                                   "article": "a",
                                   "context": "arithmetic",
                                   "noun": PositiveNoun {
-                                    "sequence": "hero",
+                                    "sequence": "joy",
                                   },
                                 },
                               },
                               "value_2": PositiveConstantValue {
                                 "adjectives": [
                                   PositiveAdjective {
-                                    "sequence": "loving",
+                                    "sequence": "delicious",
                                   },
                                   PositiveAdjective {
-                                    "sequence": "pretty",
+                                    "sequence": "noble",
                                   },
                                   PositiveAdjective {
-                                    "sequence": "rich",
+                                    "sequence": "sunny",
                                   },
                                   PositiveAdjective {
-                                    "sequence": "blossoming",
+                                    "sequence": "reddest",
                                   },
                                 ],
                                 "article": "a",
                                 "context": "arithmetic",
                                 "noun": PositiveNoun {
-                                  "sequence": "rose",
+                                  "sequence": "happiness",
                                 },
                               },
                             },
@@ -1428,194 +2571,57 @@ Program {
                                   "sequence": "amazing",
                                 },
                                 PositiveAdjective {
-                                  "sequence": "gentle",
+                                  "sequence": "fair",
                                 },
                                 PositiveAdjective {
-                                  "sequence": "handsome",
-                                },
-                                PositiveAdjective {
-                                  "sequence": "peaceful",
+                                  "sequence": "fine",
                                 },
                                 PositiveAdjective {
                                   "sequence": "sweetest",
                                 },
+                                PositiveAdjective {
+                                  "sequence": "warm",
+                                },
                               ],
-                              "article": "an",
+                              "article": "the",
                               "context": "arithmetic",
                               "noun": PositiveNoun {
-                                "sequence": "purse",
+                                "sequence": "sky",
                               },
                             },
                           },
                           "value_2": PositiveConstantValue {
                             "adjectives": [
                               PositiveAdjective {
-                                "sequence": "brave",
-                              },
-                              PositiveAdjective {
-                                "sequence": "cunning",
-                              },
-                              PositiveAdjective {
-                                "sequence": "rich",
-                              },
-                              PositiveAdjective {
-                                "sequence": "sweet",
-                              },
-                              PositiveAdjective {
-                                "sequence": "sweet",
-                              },
-                              PositiveAdjective {
-                                "sequence": "rural",
-                              },
-                            ],
-                            "article": "a",
-                            "context": "arithmetic",
-                            "noun": PositiveNoun {
-                              "sequence": "hamster",
-                            },
-                          },
-                        },
-                      },
-                      CharOutputSentence {
-                        "exclaimed": true,
-                        "sequence": "Speak thy mind",
-                        "subject": undefined,
-                      },
-                      AssignmentSentence {
-                        "be": Be {
-                          "sequence": "You are",
-                        },
-                        "comparative": PositiveAdjective {
-                          "sequence": "trustworthy",
-                        },
-                        "exclaimed": false,
-                        "subject": undefined,
-                        "value": ArithmeticOperationValue {
-                          "operator": ArithmeticOperator {
-                            "sequence": "sum of",
-                          },
-                          "value_1": ArithmeticOperationValue {
-                            "operator": ArithmeticOperator {
-                              "sequence": "sum of",
-                            },
-                            "value_1": ArithmeticOperationValue {
-                              "operator": ArithmeticOperator {
-                                "sequence": "sum of",
-                              },
-                              "value_1": ArithmeticOperationValue {
-                                "operator": ArithmeticOperator {
-                                  "sequence": "sum of",
-                                },
-                                "value_1": PositiveConstantValue {
-                                  "adjectives": [
-                                    PositiveAdjective {
-                                      "sequence": "bold",
-                                    },
-                                  ],
-                                  "article": "the",
-                                  "context": "assignment",
-                                  "noun": PositiveNoun {
-                                    "sequence": "sky",
-                                  },
-                                },
-                                "value_2": PositiveConstantValue {
-                                  "adjectives": [
-                                    PositiveAdjective {
-                                      "sequence": "honest",
-                                    },
-                                    PositiveAdjective {
-                                      "sequence": "warm",
-                                    },
-                                    PositiveAdjective {
-                                      "sequence": "reddest",
-                                    },
-                                  ],
-                                  "article": "a",
-                                  "context": "arithmetic",
-                                  "noun": PositiveNoun {
-                                    "sequence": "pony",
-                                  },
-                                },
-                              },
-                              "value_2": PositiveConstantValue {
-                                "adjectives": [
-                                  PositiveAdjective {
-                                    "sequence": "beautiful",
-                                  },
-                                  PositiveAdjective {
-                                    "sequence": "gentle",
-                                  },
-                                  PositiveAdjective {
-                                    "sequence": "honest",
-                                  },
-                                  PositiveAdjective {
-                                    "sequence": "warm",
-                                  },
-                                ],
-                                "article": "a",
-                                "context": "arithmetic",
-                                "noun": PositiveNoun {
-                                  "sequence": "town",
-                                },
-                              },
-                            },
-                            "value_2": PositiveConstantValue {
-                              "adjectives": [
-                                PositiveAdjective {
-                                  "sequence": "cute",
-                                },
-                                PositiveAdjective {
-                                  "sequence": "honest",
-                                },
-                                PositiveAdjective {
-                                  "sequence": "noble",
-                                },
-                                PositiveAdjective {
-                                  "sequence": "pretty",
-                                },
-                                PositiveAdjective {
-                                  "sequence": "white",
-                                },
-                              ],
-                              "article": "a",
-                              "context": "arithmetic",
-                              "noun": PositiveNoun {
-                                "sequence": "angel",
-                              },
-                            },
-                          },
-                          "value_2": PositiveConstantValue {
-                            "adjectives": [
-                              PositiveAdjective {
-                                "sequence": "happy",
+                                "sequence": "honest",
                               },
                               PositiveAdjective {
                                 "sequence": "mighty",
                               },
                               PositiveAdjective {
-                                "sequence": "peaceful",
+                                "sequence": "prompt",
                               },
                               PositiveAdjective {
-                                "sequence": "proud",
+                                "sequence": "sweet",
                               },
                               PositiveAdjective {
-                                "sequence": "rich",
+                                "sequence": "blossoming",
                               },
                               PositiveAdjective {
-                                "sequence": "warm",
+                                "sequence": "reddest",
                               },
                             ],
-                            "article": "the",
+                            "article": "a",
                             "context": "arithmetic",
                             "noun": PositiveNoun {
-                              "sequence": "sky",
+                              "sequence": "town",
                             },
                           },
                         },
                       },
                       CharOutputSentence {
                         "exclaimed": false,
-                        "sequence": "Speak thy mind",
+                        "sequence": "Speak thine mind",
                         "subject": undefined,
                       },
                       AssignmentSentence {
@@ -1646,502 +2652,69 @@ Program {
                                 "value_1": PositiveConstantValue {
                                   "adjectives": [
                                     PositiveAdjective {
-                                      "sequence": "smooth",
+                                      "sequence": "pretty",
                                     },
                                   ],
                                   "article": "a",
                                   "context": "assignment",
                                   "noun": PositiveNoun {
-                                    "sequence": "kingdom",
+                                    "sequence": "happiness",
                                   },
                                 },
                                 "value_2": PositiveConstantValue {
                                   "adjectives": [
-                                    PositiveAdjective {
-                                      "sequence": "honest",
-                                    },
-                                    PositiveAdjective {
-                                      "sequence": "prompt",
-                                    },
                                     PositiveAdjective {
                                       "sequence": "proud",
                                     },
+                                    PositiveAdjective {
+                                      "sequence": "clearest",
+                                    },
+                                    PositiveAdjective {
+                                      "sequence": "white",
+                                    },
                                   ],
-                                  "article": "a",
+                                  "article": "the",
                                   "context": "arithmetic",
                                   "noun": PositiveNoun {
-                                    "sequence": "hamster",
+                                    "sequence": "Lord",
                                   },
                                 },
                               },
                               "value_2": PositiveConstantValue {
                                 "adjectives": [
                                   PositiveAdjective {
-                                    "sequence": "beautiful",
+                                    "sequence": "charming",
                                   },
                                   PositiveAdjective {
-                                    "sequence": "loving",
+                                    "sequence": "gentle",
                                   },
                                   PositiveAdjective {
-                                    "sequence": "sweet",
+                                    "sequence": "handsome",
                                   },
                                   PositiveAdjective {
-                                    "sequence": "clearest",
+                                    "sequence": "peaceful",
                                   },
                                 ],
-                                "article": "a",
+                                "article": "the",
                                 "context": "arithmetic",
                                 "noun": PositiveNoun {
-                                  "sequence": "hero",
+                                  "sequence": "Lord",
                                 },
                               },
                             },
                             "value_2": PositiveConstantValue {
                               "adjectives": [
                                 PositiveAdjective {
-                                  "sequence": "bold",
+                                  "sequence": "beautiful",
                                 },
                                 PositiveAdjective {
-                                  "sequence": "handsome",
+                                  "sequence": "gentle",
                                 },
                                 PositiveAdjective {
                                   "sequence": "peaceful",
-                                },
-                                PositiveAdjective {
-                                  "sequence": "pretty",
                                 },
                                 PositiveAdjective {
                                   "sequence": "warm",
-                                },
-                              ],
-                              "article": "a",
-                              "context": "arithmetic",
-                              "noun": PositiveNoun {
-                                "sequence": "rose",
-                              },
-                            },
-                          },
-                          "value_2": PositiveConstantValue {
-                            "adjectives": [
-                              PositiveAdjective {
-                                "sequence": "delicious",
-                              },
-                              PositiveAdjective {
-                                "sequence": "gentle",
-                              },
-                              PositiveAdjective {
-                                "sequence": "mighty",
-                              },
-                              PositiveAdjective {
-                                "sequence": "noble",
-                              },
-                              PositiveAdjective {
-                                "sequence": "sweet",
-                              },
-                              PositiveAdjective {
-                                "sequence": "sunny",
-                              },
-                            ],
-                            "article": "a",
-                            "context": "arithmetic",
-                            "noun": PositiveNoun {
-                              "sequence": "hero",
-                            },
-                          },
-                        },
-                      },
-                      CharOutputSentence {
-                        "exclaimed": false,
-                        "sequence": "Speak thy mind",
-                        "subject": undefined,
-                      },
-                      AssignmentSentence {
-                        "be": Be {
-                          "sequence": "Thou art",
-                        },
-                        "comparative": PositiveAdjective {
-                          "sequence": "honest",
-                        },
-                        "exclaimed": false,
-                        "subject": undefined,
-                        "value": ArithmeticOperationValue {
-                          "operator": ArithmeticOperator {
-                            "sequence": "sum of",
-                          },
-                          "value_1": PositiveConstantValue {
-                            "adjectives": [
-                              PositiveAdjective {
-                                "sequence": "honest",
-                              },
-                            ],
-                            "article": "a",
-                            "context": "assignment",
-                            "noun": PositiveNoun {
-                              "sequence": "joy",
-                            },
-                          },
-                          "value_2": PositiveConstantValue {
-                            "adjectives": [
-                              PositiveAdjective {
-                                "sequence": "pretty",
-                              },
-                              PositiveAdjective {
-                                "sequence": "golden",
-                              },
-                              PositiveAdjective {
-                                "sequence": "white",
-                              },
-                            ],
-                            "article": "a",
-                            "context": "arithmetic",
-                            "noun": PositiveNoun {
-                              "sequence": "flower",
-                            },
-                          },
-                        },
-                      },
-                      CharOutputSentence {
-                        "exclaimed": false,
-                        "sequence": "Speak thine mind",
-                        "subject": undefined,
-                      },
-                      GotoSentence {
-                        "exclaimed": false,
-                        "numeral": Numeral {
-                          "sequence": "II",
-                        },
-                        "part": "scene",
-                        "sequence": "We must proceed to scene II",
-                      },
-                    ],
-                  },
-                ],
-              },
-            ],
-          },
-        },
-        Subpart {
-          "comment": Comment {
-            "sequence": "Fizz",
-          },
-          "numeral": Numeral {
-            "sequence": "IV",
-          },
-          "stage": Stage {
-            "directions": [
-              Dialogue {
-                "lines": [
-                  Line {
-                    "character": Character {
-                      "sequence": "Andromache",
-                    },
-                    "sentences": [
-                      AssignmentSentence {
-                        "be": Be {
-                          "sequence": "You are",
-                        },
-                        "comparative": PositiveAdjective {
-                          "sequence": "sweet",
-                        },
-                        "exclaimed": true,
-                        "subject": undefined,
-                        "value": ArithmeticOperationValue {
-                          "operator": ArithmeticOperator {
-                            "sequence": "sum of",
-                          },
-                          "value_1": ArithmeticOperationValue {
-                            "operator": ArithmeticOperator {
-                              "sequence": "sum of",
-                            },
-                            "value_1": ArithmeticOperationValue {
-                              "operator": ArithmeticOperator {
-                                "sequence": "sum of",
-                              },
-                              "value_1": PositiveConstantValue {
-                                "adjectives": [
-                                  PositiveAdjective {
-                                    "sequence": "honest",
-                                  },
-                                ],
-                                "article": undefined,
-                                "context": "assignment",
-                                "noun": PositiveNoun {
-                                  "sequence": "Heaven",
-                                },
-                              },
-                              "value_2": PositiveConstantValue {
-                                "adjectives": [
-                                  PositiveAdjective {
-                                    "sequence": "proud",
-                                  },
-                                  PositiveAdjective {
-                                    "sequence": "sweetest",
-                                  },
-                                ],
-                                "article": "a",
-                                "context": "arithmetic",
-                                "noun": PositiveNoun {
-                                  "sequence": "nose",
-                                },
-                              },
-                            },
-                            "value_2": PositiveConstantValue {
-                              "adjectives": [
-                                PositiveAdjective {
-                                  "sequence": "charming",
-                                },
-                                PositiveAdjective {
-                                  "sequence": "cunning",
-                                },
-                                PositiveAdjective {
-                                  "sequence": "handsome",
-                                },
-                                PositiveAdjective {
-                                  "sequence": "peaceful",
-                                },
-                                PositiveAdjective {
-                                  "sequence": "clearest",
-                                },
-                              ],
-                              "article": "a",
-                              "context": "arithmetic",
-                              "noun": PositiveNoun {
-                                "sequence": "flower",
-                              },
-                            },
-                          },
-                          "value_2": PositiveConstantValue {
-                            "adjectives": [
-                              PositiveAdjective {
-                                "sequence": "amazing",
-                              },
-                              PositiveAdjective {
-                                "sequence": "delicious",
-                              },
-                              PositiveAdjective {
-                                "sequence": "delicious",
-                              },
-                              PositiveAdjective {
-                                "sequence": "loving",
-                              },
-                              PositiveAdjective {
-                                "sequence": "peaceful",
-                              },
-                              PositiveAdjective {
-                                "sequence": "prompt",
-                              },
-                            ],
-                            "article": undefined,
-                            "context": "arithmetic",
-                            "noun": PositiveNoun {
-                              "sequence": "Heaven",
-                            },
-                          },
-                        },
-                      },
-                      CharOutputSentence {
-                        "exclaimed": false,
-                        "sequence": "Speak your mind",
-                        "subject": undefined,
-                      },
-                      AssignmentSentence {
-                        "be": Be {
-                          "sequence": "Thou art",
-                        },
-                        "comparative": PositiveAdjective {
-                          "sequence": "fine",
-                        },
-                        "exclaimed": false,
-                        "subject": undefined,
-                        "value": ArithmeticOperationValue {
-                          "operator": ArithmeticOperator {
-                            "sequence": "sum of",
-                          },
-                          "value_1": ArithmeticOperationValue {
-                            "operator": ArithmeticOperator {
-                              "sequence": "sum of",
-                            },
-                            "value_1": ArithmeticOperationValue {
-                              "operator": ArithmeticOperator {
-                                "sequence": "sum of",
-                              },
-                              "value_1": PositiveConstantValue {
-                                "adjectives": [],
-                                "article": undefined,
-                                "context": "assignment",
-                                "noun": PositiveNoun {
-                                  "sequence": "happiness",
-                                },
-                              },
-                              "value_2": PositiveConstantValue {
-                                "adjectives": [
-                                  PositiveAdjective {
-                                    "sequence": "lovely",
-                                  },
-                                  PositiveAdjective {
-                                    "sequence": "sweetest",
-                                  },
-                                  PositiveAdjective {
-                                    "sequence": "embroidered",
-                                  },
-                                ],
-                                "article": "a",
-                                "context": "arithmetic",
-                                "noun": PositiveNoun {
-                                  "sequence": "hamster",
-                                },
-                              },
-                            },
-                            "value_2": PositiveConstantValue {
-                              "adjectives": [
-                                PositiveAdjective {
-                                  "sequence": "handsome",
-                                },
-                                PositiveAdjective {
-                                  "sequence": "honest",
-                                },
-                                PositiveAdjective {
-                                  "sequence": "pretty",
-                                },
-                                PositiveAdjective {
-                                  "sequence": "prompt",
-                                },
-                                PositiveAdjective {
-                                  "sequence": "reddest",
-                                },
-                              ],
-                              "article": "a",
-                              "context": "arithmetic",
-                              "noun": PositiveNoun {
-                                "sequence": "hamster",
-                              },
-                            },
-                          },
-                          "value_2": PositiveConstantValue {
-                            "adjectives": [
-                              PositiveAdjective {
-                                "sequence": "cunning",
-                              },
-                              PositiveAdjective {
-                                "sequence": "fair",
-                              },
-                              PositiveAdjective {
-                                "sequence": "handsome",
-                              },
-                              PositiveAdjective {
-                                "sequence": "smooth",
-                              },
-                              PositiveAdjective {
-                                "sequence": "reddest",
-                              },
-                              PositiveAdjective {
-                                "sequence": "embroidered",
-                              },
-                            ],
-                            "article": "a",
-                            "context": "arithmetic",
-                            "noun": PositiveNoun {
-                              "sequence": "pony",
-                            },
-                          },
-                        },
-                      },
-                      CharOutputSentence {
-                        "exclaimed": false,
-                        "sequence": "Speak thine mind",
-                        "subject": undefined,
-                      },
-                      AssignmentSentence {
-                        "be": Be {
-                          "sequence": "Thou art",
-                        },
-                        "comparative": PositiveAdjective {
-                          "sequence": "cunning",
-                        },
-                        "exclaimed": false,
-                        "subject": undefined,
-                        "value": ArithmeticOperationValue {
-                          "operator": ArithmeticOperator {
-                            "sequence": "sum of",
-                          },
-                          "value_1": ArithmeticOperationValue {
-                            "operator": ArithmeticOperator {
-                              "sequence": "sum of",
-                            },
-                            "value_1": ArithmeticOperationValue {
-                              "operator": ArithmeticOperator {
-                                "sequence": "sum of",
-                              },
-                              "value_1": ArithmeticOperationValue {
-                                "operator": ArithmeticOperator {
-                                  "sequence": "sum of",
-                                },
-                                "value_1": PositiveConstantValue {
-                                  "adjectives": [
-                                    PositiveAdjective {
-                                      "sequence": "delicious",
-                                    },
-                                  ],
-                                  "article": "a",
-                                  "context": "assignment",
-                                  "noun": PositiveNoun {
-                                    "sequence": "purse",
-                                  },
-                                },
-                                "value_2": PositiveConstantValue {
-                                  "adjectives": [
-                                    PositiveAdjective {
-                                      "sequence": "peaceful",
-                                    },
-                                    PositiveAdjective {
-                                      "sequence": "sweetest",
-                                    },
-                                    PositiveAdjective {
-                                      "sequence": "trustworthy",
-                                    },
-                                  ],
-                                  "article": "a",
-                                  "context": "arithmetic",
-                                  "noun": PositiveNoun {
-                                    "sequence": "town",
-                                  },
-                                },
-                              },
-                              "value_2": PositiveConstantValue {
-                                "adjectives": [
-                                  PositiveAdjective {
-                                    "sequence": "brave",
-                                  },
-                                  PositiveAdjective {
-                                    "sequence": "cunning",
-                                  },
-                                  PositiveAdjective {
-                                    "sequence": "honest",
-                                  },
-                                  PositiveAdjective {
-                                    "sequence": "pretty",
-                                  },
-                                ],
-                                "article": "a",
-                                "context": "arithmetic",
-                                "noun": PositiveNoun {
-                                  "sequence": "angel",
-                                },
-                              },
-                            },
-                            "value_2": PositiveConstantValue {
-                              "adjectives": [
-                                PositiveAdjective {
-                                  "sequence": "brave",
-                                },
-                                PositiveAdjective {
-                                  "sequence": "noble",
-                                },
-                                PositiveAdjective {
-                                  "sequence": "pretty",
-                                },
-                                PositiveAdjective {
-                                  "sequence": "trustworthy",
                                 },
                                 PositiveAdjective {
                                   "sequence": "rural",
@@ -2150,166 +2723,29 @@ Program {
                               "article": "a",
                               "context": "arithmetic",
                               "noun": PositiveNoun {
-                                "sequence": "summer's day",
+                                "sequence": "hero",
                               },
                             },
                           },
                           "value_2": PositiveConstantValue {
                             "adjectives": [
                               PositiveAdjective {
-                                "sequence": "charming",
+                                "sequence": "beautiful",
+                              },
+                              PositiveAdjective {
+                                "sequence": "bold",
                               },
                               PositiveAdjective {
                                 "sequence": "cunning",
                               },
                               PositiveAdjective {
-                                "sequence": "cunning",
+                                "sequence": "delicious",
                               },
                               PositiveAdjective {
                                 "sequence": "noble",
                               },
                               PositiveAdjective {
-                                "sequence": "smooth",
-                              },
-                              PositiveAdjective {
-                                "sequence": "white",
-                              },
-                            ],
-                            "article": "a",
-                            "context": "arithmetic",
-                            "noun": PositiveNoun {
-                              "sequence": "kingdom",
-                            },
-                          },
-                        },
-                      },
-                      CharOutputSentence {
-                        "exclaimed": true,
-                        "sequence": "Speak your mind",
-                        "subject": undefined,
-                      },
-                      AssignmentSentence {
-                        "be": Be {
-                          "sequence": "You are",
-                        },
-                        "comparative": PositiveAdjective {
-                          "sequence": "reddest",
-                        },
-                        "exclaimed": false,
-                        "subject": undefined,
-                        "value": ArithmeticOperationValue {
-                          "operator": ArithmeticOperator {
-                            "sequence": "sum of",
-                          },
-                          "value_1": ArithmeticOperationValue {
-                            "operator": ArithmeticOperator {
-                              "sequence": "sum of",
-                            },
-                            "value_1": ArithmeticOperationValue {
-                              "operator": ArithmeticOperator {
-                                "sequence": "sum of",
-                              },
-                              "value_1": ArithmeticOperationValue {
-                                "operator": ArithmeticOperator {
-                                  "sequence": "sum of",
-                                },
-                                "value_1": PositiveConstantValue {
-                                  "adjectives": [
-                                    PositiveAdjective {
-                                      "sequence": "peaceful",
-                                    },
-                                  ],
-                                  "article": "the",
-                                  "context": "assignment",
-                                  "noun": PositiveNoun {
-                                    "sequence": "King",
-                                  },
-                                },
-                                "value_2": PositiveConstantValue {
-                                  "adjectives": [
-                                    PositiveAdjective {
-                                      "sequence": "good",
-                                    },
-                                    PositiveAdjective {
-                                      "sequence": "handsome",
-                                    },
-                                    PositiveAdjective {
-                                      "sequence": "rich",
-                                    },
-                                  ],
-                                  "article": "a",
-                                  "context": "arithmetic",
-                                  "noun": PositiveNoun {
-                                    "sequence": "summer's day",
-                                  },
-                                },
-                              },
-                              "value_2": PositiveConstantValue {
-                                "adjectives": [
-                                  PositiveAdjective {
-                                    "sequence": "handsome",
-                                  },
-                                  PositiveAdjective {
-                                    "sequence": "loving",
-                                  },
-                                  PositiveAdjective {
-                                    "sequence": "noble",
-                                  },
-                                  PositiveAdjective {
-                                    "sequence": "clearest",
-                                  },
-                                ],
-                                "article": "a",
-                                "context": "arithmetic",
-                                "noun": PositiveNoun {
-                                  "sequence": "town",
-                                },
-                              },
-                            },
-                            "value_2": PositiveConstantValue {
-                              "adjectives": [
-                                PositiveAdjective {
-                                  "sequence": "honest",
-                                },
-                                PositiveAdjective {
-                                  "sequence": "mighty",
-                                },
-                                PositiveAdjective {
-                                  "sequence": "prompt",
-                                },
-                                PositiveAdjective {
-                                  "sequence": "sweetest",
-                                },
-                                PositiveAdjective {
-                                  "sequence": "embroidered",
-                                },
-                              ],
-                              "article": "the",
-                              "context": "arithmetic",
-                              "noun": PositiveNoun {
-                                "sequence": "Lord",
-                              },
-                            },
-                          },
-                          "value_2": PositiveConstantValue {
-                            "adjectives": [
-                              PositiveAdjective {
-                                "sequence": "cute",
-                              },
-                              PositiveAdjective {
-                                "sequence": "honest",
-                              },
-                              PositiveAdjective {
-                                "sequence": "lovely",
-                              },
-                              PositiveAdjective {
-                                "sequence": "pretty",
-                              },
-                              PositiveAdjective {
-                                "sequence": "prompt",
-                              },
-                              PositiveAdjective {
-                                "sequence": "sweetest",
+                                "sequence": "rural",
                               },
                             ],
                             "article": "a",
@@ -2322,175 +2758,6 @@ Program {
                       },
                       CharOutputSentence {
                         "exclaimed": false,
-                        "sequence": "Speak thine mind",
-                        "subject": undefined,
-                      },
-                      AssignmentSentence {
-                        "be": Be {
-                          "sequence": "Thou art",
-                        },
-                        "comparative": PositiveAdjective {
-                          "sequence": "rich",
-                        },
-                        "exclaimed": false,
-                        "subject": undefined,
-                        "value": ArithmeticOperationValue {
-                          "operator": ArithmeticOperator {
-                            "sequence": "sum of",
-                          },
-                          "value_1": PositiveConstantValue {
-                            "adjectives": [
-                              PositiveAdjective {
-                                "sequence": "sweetest",
-                              },
-                            ],
-                            "article": "a",
-                            "context": "assignment",
-                            "noun": PositiveNoun {
-                              "sequence": "happiness",
-                            },
-                          },
-                          "value_2": PositiveConstantValue {
-                            "adjectives": [
-                              PositiveAdjective {
-                                "sequence": "beautiful",
-                              },
-                              PositiveAdjective {
-                                "sequence": "delicious",
-                              },
-                              PositiveAdjective {
-                                "sequence": "prompt",
-                              },
-                            ],
-                            "article": "the",
-                            "context": "arithmetic",
-                            "noun": PositiveNoun {
-                              "sequence": "sky",
-                            },
-                          },
-                        },
-                      },
-                      CharOutputSentence {
-                        "exclaimed": true,
-                        "sequence": "Speak thy mind",
-                        "subject": undefined,
-                      },
-                      GotoSentence {
-                        "exclaimed": false,
-                        "numeral": Numeral {
-                          "sequence": "II",
-                        },
-                        "part": "scene",
-                        "sequence": "We must return to scene II",
-                      },
-                    ],
-                  },
-                ],
-              },
-            ],
-          },
-        },
-        Subpart {
-          "comment": Comment {
-            "sequence": "Buzz",
-          },
-          "numeral": Numeral {
-            "sequence": "V",
-          },
-          "stage": Stage {
-            "directions": [
-              Dialogue {
-                "lines": [
-                  Line {
-                    "character": Character {
-                      "sequence": "Andromache",
-                    },
-                    "sentences": [
-                      AssignmentSentence {
-                        "be": Be {
-                          "sequence": "Thou art",
-                        },
-                        "comparative": PositiveAdjective {
-                          "sequence": "white",
-                        },
-                        "exclaimed": false,
-                        "subject": undefined,
-                        "value": ArithmeticOperationValue {
-                          "operator": ArithmeticOperator {
-                            "sequence": "sum of",
-                          },
-                          "value_1": ArithmeticOperationValue {
-                            "operator": ArithmeticOperator {
-                              "sequence": "sum of",
-                            },
-                            "value_1": PositiveConstantValue {
-                              "adjectives": [
-                                PositiveAdjective {
-                                  "sequence": "noble",
-                                },
-                              ],
-                              "article": undefined,
-                              "context": "assignment",
-                              "noun": PositiveNoun {
-                                "sequence": "Heaven",
-                              },
-                            },
-                            "value_2": PositiveConstantValue {
-                              "adjectives": [
-                                PositiveAdjective {
-                                  "sequence": "amazing",
-                                },
-                                PositiveAdjective {
-                                  "sequence": "cute",
-                                },
-                                PositiveAdjective {
-                                  "sequence": "handsome",
-                                },
-                                PositiveAdjective {
-                                  "sequence": "loving",
-                                },
-                                PositiveAdjective {
-                                  "sequence": "reddest",
-                                },
-                              ],
-                              "article": "an",
-                              "context": "arithmetic",
-                              "noun": PositiveNoun {
-                                "sequence": "hamster",
-                              },
-                            },
-                          },
-                          "value_2": PositiveConstantValue {
-                            "adjectives": [
-                              PositiveAdjective {
-                                "sequence": "beautiful",
-                              },
-                              PositiveAdjective {
-                                "sequence": "charming",
-                              },
-                              PositiveAdjective {
-                                "sequence": "cunning",
-                              },
-                              PositiveAdjective {
-                                "sequence": "cunning",
-                              },
-                              PositiveAdjective {
-                                "sequence": "loving",
-                              },
-                              PositiveAdjective {
-                                "sequence": "clearest",
-                              },
-                            ],
-                            "article": "a",
-                            "context": "arithmetic",
-                            "noun": PositiveNoun {
-                              "sequence": "happiness",
-                            },
-                          },
-                        },
-                      },
-                      CharOutputSentence {
-                        "exclaimed": false,
                         "sequence": "Speak thy mind",
                         "subject": undefined,
                       },
@@ -2499,7 +2766,7 @@ Program {
                           "sequence": "Thou art",
                         },
                         "comparative": PositiveAdjective {
-                          "sequence": "sweet",
+                          "sequence": "embroidered",
                         },
                         "exclaimed": false,
                         "subject": undefined,
@@ -2520,139 +2787,9 @@ Program {
                                   "sequence": "sum of",
                                 },
                                 "value_1": PositiveConstantValue {
-                                  "adjectives": [],
-                                  "article": "a",
-                                  "context": "assignment",
-                                  "noun": PositiveNoun {
-                                    "sequence": "hero",
-                                  },
-                                },
-                                "value_2": PositiveConstantValue {
                                   "adjectives": [
                                     PositiveAdjective {
                                       "sequence": "cunning",
-                                    },
-                                    PositiveAdjective {
-                                      "sequence": "reddest",
-                                    },
-                                  ],
-                                  "article": "the",
-                                  "context": "arithmetic",
-                                  "noun": PositiveNoun {
-                                    "sequence": "sky",
-                                  },
-                                },
-                              },
-                              "value_2": PositiveConstantValue {
-                                "adjectives": [
-                                  PositiveAdjective {
-                                    "sequence": "cute",
-                                  },
-                                  PositiveAdjective {
-                                    "sequence": "honest",
-                                  },
-                                  PositiveAdjective {
-                                    "sequence": "trustworthy",
-                                  },
-                                  PositiveAdjective {
-                                    "sequence": "smooth",
-                                  },
-                                ],
-                                "article": "a",
-                                "context": "arithmetic",
-                                "noun": PositiveNoun {
-                                  "sequence": "happiness",
-                                },
-                              },
-                            },
-                            "value_2": PositiveConstantValue {
-                              "adjectives": [
-                                PositiveAdjective {
-                                  "sequence": "cute",
-                                },
-                                PositiveAdjective {
-                                  "sequence": "fair",
-                                },
-                                PositiveAdjective {
-                                  "sequence": "blossoming",
-                                },
-                                PositiveAdjective {
-                                  "sequence": "healthy",
-                                },
-                                PositiveAdjective {
-                                  "sequence": "sunny",
-                                },
-                              ],
-                              "article": "a",
-                              "context": "arithmetic",
-                              "noun": PositiveNoun {
-                                "sequence": "cat",
-                              },
-                            },
-                          },
-                          "value_2": PositiveConstantValue {
-                            "adjectives": [
-                              PositiveAdjective {
-                                "sequence": "fair",
-                              },
-                              PositiveAdjective {
-                                "sequence": "proud",
-                              },
-                              PositiveAdjective {
-                                "sequence": "sweetest",
-                              },
-                              PositiveAdjective {
-                                "sequence": "trustworthy",
-                              },
-                              PositiveAdjective {
-                                "sequence": "healthy",
-                              },
-                              PositiveAdjective {
-                                "sequence": "healthy",
-                              },
-                            ],
-                            "article": "a",
-                            "context": "arithmetic",
-                            "noun": PositiveNoun {
-                              "sequence": "summer's day",
-                            },
-                          },
-                        },
-                      },
-                      CharOutputSentence {
-                        "exclaimed": false,
-                        "sequence": "Speak your mind",
-                        "subject": undefined,
-                      },
-                      AssignmentSentence {
-                        "be": Be {
-                          "sequence": "Thou art",
-                        },
-                        "comparative": PositiveAdjective {
-                          "sequence": "reddest",
-                        },
-                        "exclaimed": false,
-                        "subject": undefined,
-                        "value": ArithmeticOperationValue {
-                          "operator": ArithmeticOperator {
-                            "sequence": "sum of",
-                          },
-                          "value_1": ArithmeticOperationValue {
-                            "operator": ArithmeticOperator {
-                              "sequence": "sum of",
-                            },
-                            "value_1": ArithmeticOperationValue {
-                              "operator": ArithmeticOperator {
-                                "sequence": "sum of",
-                              },
-                              "value_1": ArithmeticOperationValue {
-                                "operator": ArithmeticOperator {
-                                  "sequence": "sum of",
-                                },
-                                "value_1": PositiveConstantValue {
-                                  "adjectives": [
-                                    PositiveAdjective {
-                                      "sequence": "reddest",
                                     },
                                   ],
                                   "article": "the",
@@ -2664,19 +2801,19 @@ Program {
                                 "value_2": PositiveConstantValue {
                                   "adjectives": [
                                     PositiveAdjective {
-                                      "sequence": "cute",
+                                      "sequence": "cunning",
                                     },
                                     PositiveAdjective {
-                                      "sequence": "fine",
+                                      "sequence": "prompt",
                                     },
                                     PositiveAdjective {
-                                      "sequence": "peaceful",
+                                      "sequence": "reddest",
                                     },
                                   ],
                                   "article": "a",
                                   "context": "arithmetic",
                                   "noun": PositiveNoun {
-                                    "sequence": "happiness",
+                                    "sequence": "rose",
                                   },
                                 },
                               },
@@ -2686,150 +2823,13 @@ Program {
                                     "sequence": "beautiful",
                                   },
                                   PositiveAdjective {
-                                    "sequence": "fine",
+                                    "sequence": "beautiful",
+                                  },
+                                  PositiveAdjective {
+                                    "sequence": "prompt",
                                   },
                                   PositiveAdjective {
                                     "sequence": "trustworthy",
-                                  },
-                                  PositiveAdjective {
-                                    "sequence": "warm",
-                                  },
-                                ],
-                                "article": "a",
-                                "context": "arithmetic",
-                                "noun": PositiveNoun {
-                                  "sequence": "flower",
-                                },
-                              },
-                            },
-                            "value_2": PositiveConstantValue {
-                              "adjectives": [
-                                PositiveAdjective {
-                                  "sequence": "bold",
-                                },
-                                PositiveAdjective {
-                                  "sequence": "bold",
-                                },
-                                PositiveAdjective {
-                                  "sequence": "cunning",
-                                },
-                                PositiveAdjective {
-                                  "sequence": "pretty",
-                                },
-                                PositiveAdjective {
-                                  "sequence": "blossoming",
-                                },
-                              ],
-                              "article": "a",
-                              "context": "arithmetic",
-                              "noun": PositiveNoun {
-                                "sequence": "rose",
-                              },
-                            },
-                          },
-                          "value_2": PositiveConstantValue {
-                            "adjectives": [
-                              PositiveAdjective {
-                                "sequence": "charming",
-                              },
-                              PositiveAdjective {
-                                "sequence": "loving",
-                              },
-                              PositiveAdjective {
-                                "sequence": "peaceful",
-                              },
-                              PositiveAdjective {
-                                "sequence": "pretty",
-                              },
-                              PositiveAdjective {
-                                "sequence": "sweetest",
-                              },
-                              PositiveAdjective {
-                                "sequence": "trustworthy",
-                              },
-                            ],
-                            "article": "a",
-                            "context": "arithmetic",
-                            "noun": PositiveNoun {
-                              "sequence": "joy",
-                            },
-                          },
-                        },
-                      },
-                      CharOutputSentence {
-                        "exclaimed": false,
-                        "sequence": "Speak thine mind",
-                        "subject": undefined,
-                      },
-                      AssignmentSentence {
-                        "be": Be {
-                          "sequence": "Thou art",
-                        },
-                        "comparative": PositiveAdjective {
-                          "sequence": "rural",
-                        },
-                        "exclaimed": false,
-                        "subject": undefined,
-                        "value": ArithmeticOperationValue {
-                          "operator": ArithmeticOperator {
-                            "sequence": "sum of",
-                          },
-                          "value_1": ArithmeticOperationValue {
-                            "operator": ArithmeticOperator {
-                              "sequence": "sum of",
-                            },
-                            "value_1": ArithmeticOperationValue {
-                              "operator": ArithmeticOperator {
-                                "sequence": "sum of",
-                              },
-                              "value_1": ArithmeticOperationValue {
-                                "operator": ArithmeticOperator {
-                                  "sequence": "sum of",
-                                },
-                                "value_1": PositiveConstantValue {
-                                  "adjectives": [
-                                    PositiveAdjective {
-                                      "sequence": "mighty",
-                                    },
-                                  ],
-                                  "article": "a",
-                                  "context": "assignment",
-                                  "noun": PositiveNoun {
-                                    "sequence": "angel",
-                                  },
-                                },
-                                "value_2": PositiveConstantValue {
-                                  "adjectives": [
-                                    PositiveAdjective {
-                                      "sequence": "mighty",
-                                    },
-                                    PositiveAdjective {
-                                      "sequence": "peaceful",
-                                    },
-                                    PositiveAdjective {
-                                      "sequence": "rural",
-                                    },
-                                  ],
-                                  "article": undefined,
-                                  "context": "arithmetic",
-                                  "noun": PositiveNoun {
-                                    "sequence": "Heaven",
-                                  },
-                                },
-                              },
-                              "value_2": PositiveConstantValue {
-                                "adjectives": [
-                                  PositiveAdjective {
-                                    "sequence": "charming",
-                                  },
-                                  PositiveAdjective {
-                                    "sequence": "delicious",
-                                  },
-                                  PositiveAdjective {
-                                    "sequence": "fine",
-                                  },
-                                  PositiveAdjective {
-                                    "sequence": "mighty",
                                   },
                                 ],
                                 "article": "a",
@@ -2842,68 +2842,68 @@ Program {
                             "value_2": PositiveConstantValue {
                               "adjectives": [
                                 PositiveAdjective {
-                                  "sequence": "beautiful",
+                                  "sequence": "delicious",
                                 },
                                 PositiveAdjective {
-                                  "sequence": "cunning",
+                                  "sequence": "loving",
                                 },
                                 PositiveAdjective {
-                                  "sequence": "cunning",
+                                  "sequence": "sunny",
                                 },
                                 PositiveAdjective {
-                                  "sequence": "peaceful",
+                                  "sequence": "reddest",
                                 },
                                 PositiveAdjective {
-                                  "sequence": "warm",
+                                  "sequence": "rural",
                                 },
                               ],
                               "article": "a",
                               "context": "arithmetic",
                               "noun": PositiveNoun {
-                                "sequence": "pony",
+                                "sequence": "nose",
                               },
                             },
                           },
                           "value_2": PositiveConstantValue {
                             "adjectives": [
                               PositiveAdjective {
-                                "sequence": "brave",
+                                "sequence": "gentle",
                               },
                               PositiveAdjective {
-                                "sequence": "loving",
+                                "sequence": "noble",
                               },
                               PositiveAdjective {
-                                "sequence": "mighty",
+                                "sequence": "peaceful",
                               },
                               PositiveAdjective {
-                                "sequence": "clearest",
+                                "sequence": "proud",
                               },
                               PositiveAdjective {
-                                "sequence": "golden",
+                                "sequence": "sweetest",
                               },
                               PositiveAdjective {
-                                "sequence": "embroidered",
+                                "sequence": "white",
                               },
                             ],
-                            "article": "a",
+                            "article": "the",
                             "context": "arithmetic",
                             "noun": PositiveNoun {
-                              "sequence": "happiness",
+                              "sequence": "King",
                             },
                           },
                         },
                       },
                       CharOutputSentence {
                         "exclaimed": false,
-                        "sequence": "Speak thine mind",
+                        "sequence": "Speak your mind",
                         "subject": undefined,
                       },
                       AssignmentSentence {
                         "be": Be {
-                          "sequence": "Thou art",
+                          "sequence": "You are",
                         },
                         "comparative": PositiveAdjective {
-                          "sequence": "pretty",
+                          "sequence": "sweetest",
                         },
                         "exclaimed": false,
                         "subject": undefined,
@@ -2914,31 +2914,31 @@ Program {
                           "value_1": PositiveConstantValue {
                             "adjectives": [
                               PositiveAdjective {
-                                "sequence": "honest",
+                                "sequence": "rural",
                               },
                             ],
-                            "article": "the",
+                            "article": "a",
                             "context": "assignment",
                             "noun": PositiveNoun {
-                              "sequence": "Lord",
+                              "sequence": "summer's day",
                             },
                           },
                           "value_2": PositiveConstantValue {
                             "adjectives": [
                               PositiveAdjective {
-                                "sequence": "fair",
+                                "sequence": "beautiful",
                               },
                               PositiveAdjective {
-                                "sequence": "gentle",
+                                "sequence": "cunning",
                               },
                               PositiveAdjective {
-                                "sequence": "sweet",
+                                "sequence": "cunning",
                               },
                             ],
-                            "article": "a",
+                            "article": "the",
                             "context": "arithmetic",
                             "noun": PositiveNoun {
-                              "sequence": "pony",
+                              "sequence": "Lord",
                             },
                           },
                         },
@@ -2949,12 +2949,12 @@ Program {
                         "subject": undefined,
                       },
                       GotoSentence {
-                        "exclaimed": false,
+                        "exclaimed": true,
                         "numeral": Numeral {
                           "sequence": "II",
                         },
                         "part": "scene",
-                        "sequence": "let us proceed to scene II",
+                        "sequence": "We must return to scene II",
                       },
                     ],
                   },
