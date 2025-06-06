@@ -1,5 +1,102 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Comprehensive Example File Snapshots SPL to NFSPL Transpilation Snapshots should transpile do_not_adieu.spl to NFSPL: do_not_adieu.spl-to-nfspl 1`] = `
+"## title: Do Not Adieu, a play in two acts
+## var romeo: a young man with a remarkable patience
+## var juliet: a likewise young woman of remarkable grace
+## var ophelia: a remarkable woman much in dispute with Hamlet
+## var hamlet: the flatterer of Andersen Insulting A/S
+## description: {hamlet}'s insults and flattery
+Act1 {
+  ## description: The insulting of {romeo}
+  Scene1 {
+    stage(hamlet, romeo)
+
+    hamlet {
+      @you.set(-64)
+      @you.set(8 - @you)
+      @you.print_char
+      @you.set(-128 + 32)
+      @you.set(4 + 1 - @you)
+      @you.print_char
+      @you.set(@you + 8 - 1)
+      @you.print_char
+      @you.print_char
+    }
+
+    unstage(romeo)
+  }
+
+  ## description: The praising of {juliet}
+  Scene2 {
+    stage(juliet)
+
+    hamlet {
+      @you.set(romeo + 1 + 2)
+      @you.print_char
+    }
+
+    unstage(juliet)
+  }
+
+  ## description: The praising of {ophelia}
+  Scene3 {
+    stage(ophelia)
+
+    hamlet {
+      @you.set(romeo - square(8))
+      @you.print_char
+      @you.set(4 * 8)
+      @you.print_char
+      @you.set(8 * (1 + 2))
+      @you.set(juliet - @you)
+      @you.print_char
+    }
+
+    unstage(ophelia, hamlet)
+  }
+}
+## description: Behind {hamlet}'s back
+Act2 {
+  ## description: {romeo} and {juliet}'s conversation
+  Scene1 {
+    stage(romeo, juliet)
+
+    romeo {
+      @you.print_char
+      @you.set(@you + 4 - 1)
+      @you.print_char
+    }
+
+    juliet {
+      @you.print_char
+      @you.set(hamlet)
+      @you.set(square(2 - -4) - cube(-4))
+      @you.print_char
+    }
+
+    unstage(romeo)
+  }
+
+  ## description: {juliet} and {ophelia}'s conversation
+  Scene2 {
+    stage(ophelia)
+
+    juliet {
+      @you.set(romeo / (4 + -1))
+      @you.print_char
+    }
+
+    ophelia {
+      @you.set(romeo / 2 * (1 - -4))
+      @you.print_char
+    }
+
+    unstage_all
+  }
+}"
+`;
+
 exports[`Comprehensive Example File Snapshots SPL to NFSPL Transpilation Snapshots should transpile enter-multiple.spl to NFSPL: enter-multiple.spl-to-nfspl 1`] = `
 "## title: The Test of Multiple Enter
 ## var romeo: a young man
@@ -244,6 +341,84 @@ Act1 {
 
   ## description: The end
   Scene4 {
+    unstage_all
+  }
+}"
+`;
+
+exports[`Comprehensive Example File Snapshots SPL to NFSPL Transpilation Snapshots should transpile truth.spl to NFSPL: truth.spl-to-nfspl 1`] = `
+"## title: The Fibonacci Calculations, a play in two acts that needs some improvement
+## var romeo: one of the Fibonacci numbers and the previous one
+## var juliet: the second Fibonacci number
+## var ophelia: the loop and variable controller
+## var macbeth: the king utilized as a space and as the end of the loop
+## description: The Fibonacci Calculation
+Act1 {
+  ## description: The Initialization of a Helpful Variable
+  Scene1 {
+    stage(ophelia, macbeth)
+
+    ophelia {
+      @you.set(32)
+    }
+
+    unstage(macbeth)
+
+    stage(romeo)
+
+    ophelia {
+      @you.print_int
+      @you.set(1)
+    }
+
+    unstage(romeo)
+
+    stage(macbeth)
+
+    ophelia {
+      @you.print_char
+    }
+  }
+
+  ## description: The Start of the Loop
+  Scene2 {
+    unstage(macbeth)
+
+    stage(juliet)
+
+    ophelia {
+      @you.set(@you + romeo)
+      @you.print_int
+    }
+
+    unstage(juliet)
+
+    stage(romeo)
+
+    ophelia {
+      @you.set(juliet - @you)
+    }
+
+    unstage(romeo)
+
+    stage(macbeth)
+
+    ophelia {
+      @you.print_char
+    }
+
+    macbeth {
+      @you.set(@you + 1)
+    }
+
+    ophelia {
+      test_not_gt(ophelia, @you)
+    }
+
+    macbeth {
+      if_true(goto(Scene2))
+    }
+
     unstage_all
   }
 }"

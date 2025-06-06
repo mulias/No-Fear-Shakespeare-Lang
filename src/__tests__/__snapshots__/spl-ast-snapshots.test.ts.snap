@@ -1,5 +1,1033 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Comprehensive Example File Snapshots SPL AST Snapshots should parse do_not_adieu.spl to Horatio AST: do_not_adieu.spl-horatio-ast 1`] = `
+Program {
+  "comment": Comment {
+    "sequence": "Do Not Adieu, a play in two acts",
+  },
+  "declarations": [
+    Declaration {
+      "character": Character {
+        "sequence": "Romeo",
+      },
+      "comment": Comment {
+        "sequence": "a young man with a remarkable patience",
+      },
+    },
+    Declaration {
+      "character": Character {
+        "sequence": "Juliet",
+      },
+      "comment": Comment {
+        "sequence": "a likewise young woman of remarkable grace",
+      },
+    },
+    Declaration {
+      "character": Character {
+        "sequence": "Ophelia",
+      },
+      "comment": Comment {
+        "sequence": "a remarkable woman much in dispute with Hamlet",
+      },
+    },
+    Declaration {
+      "character": Character {
+        "sequence": "Hamlet",
+      },
+      "comment": Comment {
+        "sequence": "the flatterer of Andersen Insulting A/S",
+      },
+    },
+  ],
+  "parts": [
+    Part {
+      "comment": Comment {
+        "sequence": "Hamlet's insults and flattery",
+      },
+      "numeral": Numeral {
+        "sequence": "I",
+      },
+      "subparts": [
+        Subpart {
+          "comment": Comment {
+            "sequence": "The insulting of Romeo",
+          },
+          "numeral": Numeral {
+            "sequence": "I",
+          },
+          "stage": Stage {
+            "directions": [
+              Enter {
+                "characters": [
+                  Character {
+                    "sequence": "Hamlet",
+                  },
+                  Character {
+                    "sequence": "Romeo",
+                  },
+                ],
+              },
+              Dialogue {
+                "lines": [
+                  Line {
+                    "character": Character {
+                      "sequence": "Hamlet",
+                    },
+                    "sentences": [
+                      AssignmentSentence {
+                        "be": Be {
+                          "sequence": "You",
+                        },
+                        "comparative": undefined,
+                        "exclaimed": true,
+                        "subject": undefined,
+                        "value": NegativeConstantValue {
+                          "adjectives": [
+                            NeutralAdjective {
+                              "sequence": "lying",
+                            },
+                            NeutralAdjective {
+                              "sequence": "stupid",
+                            },
+                            NeutralAdjective {
+                              "sequence": "fatherless",
+                            },
+                            NeutralAdjective {
+                              "sequence": "big",
+                            },
+                            NeutralAdjective {
+                              "sequence": "smelly",
+                            },
+                            NeutralAdjective {
+                              "sequence": "half-witted",
+                            },
+                          ],
+                          "article": undefined,
+                          "context": undefined,
+                          "noun": NegativeNoun {
+                            "sequence": "coward",
+                          },
+                        },
+                      },
+                      AssignmentSentence {
+                        "be": Be {
+                          "sequence": "You are",
+                        },
+                        "comparative": NegativeAdjective {
+                          "sequence": "stupid",
+                        },
+                        "exclaimed": true,
+                        "subject": undefined,
+                        "value": ArithmeticOperationValue {
+                          "operator": ArithmeticOperator {
+                            "sequence": "difference between",
+                          },
+                          "value_1": PositiveConstantValue {
+                            "adjectives": [
+                              PositiveAdjective {
+                                "sequence": "handsome",
+                              },
+                              PositiveAdjective {
+                                "sequence": "rich",
+                              },
+                              PositiveAdjective {
+                                "sequence": "brave",
+                              },
+                            ],
+                            "article": "a",
+                            "context": undefined,
+                            "noun": PositiveNoun {
+                              "sequence": "hero",
+                            },
+                          },
+                          "value_2": PronounValue {
+                            "pronoun": SecondPersonPronoun {
+                              "sequence": "thyself",
+                            },
+                          },
+                        },
+                      },
+                      CharOutputSentence {
+                        "exclaimed": true,
+                        "sequence": "Speak your mind",
+                        "subject": undefined,
+                      },
+                      AssignmentSentence {
+                        "be": Be {
+                          "sequence": "You are",
+                        },
+                        "comparative": PositiveAdjective {
+                          "sequence": "brave",
+                        },
+                        "exclaimed": undefined,
+                        "subject": undefined,
+                        "value": ArithmeticOperationValue {
+                          "operator": ArithmeticOperator {
+                            "sequence": "sum of",
+                          },
+                          "value_1": NegativeConstantValue {
+                            "adjectives": [
+                              NeutralAdjective {
+                                "sequence": "fat",
+                              },
+                              NeutralAdjective {
+                                "sequence": "little",
+                              },
+                              NeutralAdjective {
+                                "sequence": "stuffed",
+                              },
+                              NeutralAdjective {
+                                "sequence": "misused",
+                              },
+                              NeutralAdjective {
+                                "sequence": "dusty",
+                              },
+                              NeutralAdjective {
+                                "sequence": "old",
+                              },
+                              NeutralAdjective {
+                                "sequence": "rotten",
+                              },
+                            ],
+                            "article": undefined,
+                            "context": undefined,
+                            "noun": NegativeNoun {
+                              "sequence": "codpiece",
+                            },
+                          },
+                          "value_2": PositiveConstantValue {
+                            "adjectives": [
+                              PositiveAdjective {
+                                "sequence": "beautiful",
+                              },
+                              PositiveAdjective {
+                                "sequence": "fair",
+                              },
+                              PositiveAdjective {
+                                "sequence": "warm",
+                              },
+                              PositiveAdjective {
+                                "sequence": "peaceful",
+                              },
+                              PositiveAdjective {
+                                "sequence": "sunny",
+                              },
+                            ],
+                            "article": "a",
+                            "context": undefined,
+                            "noun": PositiveNoun {
+                              "sequence": "summer's day",
+                            },
+                          },
+                        },
+                      },
+                      AssignmentSentence {
+                        "be": Be {
+                          "sequence": "You are",
+                        },
+                        "comparative": PositiveAdjective {
+                          "sequence": "healthy",
+                        },
+                        "exclaimed": true,
+                        "subject": undefined,
+                        "value": ArithmeticOperationValue {
+                          "operator": ArithmeticOperator {
+                            "sequence": "difference between",
+                          },
+                          "value_1": ArithmeticOperationValue {
+                            "operator": ArithmeticOperator {
+                              "sequence": "sum of",
+                            },
+                            "value_1": PositiveConstantValue {
+                              "adjectives": [
+                                PositiveAdjective {
+                                  "sequence": "sweetest",
+                                },
+                                PositiveAdjective {
+                                  "sequence": "reddest",
+                                },
+                              ],
+                              "article": "the",
+                              "context": undefined,
+                              "noun": PositiveNoun {
+                                "sequence": "rose",
+                              },
+                            },
+                            "value_2": PositiveConstantValue {
+                              "adjectives": [],
+                              "article": undefined,
+                              "context": undefined,
+                              "noun": NeutralNoun {
+                                "sequence": "father",
+                              },
+                            },
+                          },
+                          "value_2": PronounValue {
+                            "pronoun": SecondPersonPronoun {
+                              "sequence": "yourself",
+                            },
+                          },
+                        },
+                      },
+                      CharOutputSentence {
+                        "exclaimed": true,
+                        "sequence": "Speak your mind",
+                        "subject": undefined,
+                      },
+                      AssignmentSentence {
+                        "be": Be {
+                          "sequence": "You are",
+                        },
+                        "comparative": NegativeAdjective {
+                          "sequence": "cowardly",
+                        },
+                        "exclaimed": undefined,
+                        "subject": undefined,
+                        "value": ArithmeticOperationValue {
+                          "operator": ArithmeticOperator {
+                            "sequence": "sum of",
+                          },
+                          "value_1": PronounValue {
+                            "pronoun": SecondPersonPronoun {
+                              "sequence": "yourself",
+                            },
+                          },
+                          "value_2": ArithmeticOperationValue {
+                            "operator": ArithmeticOperator {
+                              "sequence": "difference between",
+                            },
+                            "value_1": PositiveConstantValue {
+                              "adjectives": [
+                                NeutralAdjective {
+                                  "sequence": "big",
+                                },
+                                PositiveAdjective {
+                                  "sequence": "mighty",
+                                },
+                                PositiveAdjective {
+                                  "sequence": "proud",
+                                },
+                              ],
+                              "article": "a",
+                              "context": undefined,
+                              "noun": PositiveNoun {
+                                "sequence": "kingdom",
+                              },
+                            },
+                            "value_2": PositiveConstantValue {
+                              "adjectives": [],
+                              "article": "a",
+                              "context": undefined,
+                              "noun": NeutralNoun {
+                                "sequence": "horse",
+                              },
+                            },
+                          },
+                        },
+                      },
+                      CharOutputSentence {
+                        "exclaimed": undefined,
+                        "sequence": "Speak your mind",
+                        "subject": undefined,
+                      },
+                      CharOutputSentence {
+                        "exclaimed": true,
+                        "sequence": "Speak your mind",
+                        "subject": undefined,
+                      },
+                    ],
+                  },
+                ],
+              },
+              Exit {
+                "character": Character {
+                  "sequence": "Romeo",
+                },
+              },
+            ],
+          },
+        },
+        Subpart {
+          "comment": Comment {
+            "sequence": "The praising of Juliet",
+          },
+          "numeral": Numeral {
+            "sequence": "II",
+          },
+          "stage": Stage {
+            "directions": [
+              Enter {
+                "characters": [
+                  Character {
+                    "sequence": "Juliet",
+                  },
+                ],
+              },
+              Dialogue {
+                "lines": [
+                  Line {
+                    "character": Character {
+                      "sequence": "Hamlet",
+                    },
+                    "sentences": [
+                      AssignmentSentence {
+                        "be": Be {
+                          "sequence": "Thou art",
+                        },
+                        "comparative": PositiveAdjective {
+                          "sequence": "sweet",
+                        },
+                        "exclaimed": true,
+                        "subject": undefined,
+                        "value": ArithmeticOperationValue {
+                          "operator": ArithmeticOperator {
+                            "sequence": "sum of",
+                          },
+                          "value_1": ArithmeticOperationValue {
+                            "operator": ArithmeticOperator {
+                              "sequence": "sum of",
+                            },
+                            "value_1": CharacterValue {
+                              "character": Character {
+                                "sequence": "Romeo",
+                              },
+                            },
+                            "value_2": PositiveConstantValue {
+                              "adjectives": [],
+                              "article": undefined,
+                              "context": undefined,
+                              "noun": NeutralNoun {
+                                "sequence": "horse",
+                              },
+                            },
+                          },
+                          "value_2": PositiveConstantValue {
+                            "adjectives": [
+                              NeutralAdjective {
+                                "sequence": "black",
+                              },
+                            ],
+                            "article": undefined,
+                            "context": undefined,
+                            "noun": PositiveNoun {
+                              "sequence": "cat",
+                            },
+                          },
+                        },
+                      },
+                      CharOutputSentence {
+                        "exclaimed": true,
+                        "sequence": "Speak thy mind",
+                        "subject": undefined,
+                      },
+                    ],
+                  },
+                ],
+              },
+              Exit {
+                "character": Character {
+                  "sequence": "Juliet",
+                },
+              },
+            ],
+          },
+        },
+        Subpart {
+          "comment": Comment {
+            "sequence": "The praising of Ophelia",
+          },
+          "numeral": Numeral {
+            "sequence": "III",
+          },
+          "stage": Stage {
+            "directions": [
+              Enter {
+                "characters": [
+                  Character {
+                    "sequence": "Ophelia",
+                  },
+                ],
+              },
+              Dialogue {
+                "lines": [
+                  Line {
+                    "character": Character {
+                      "sequence": "Hamlet",
+                    },
+                    "sentences": [
+                      AssignmentSentence {
+                        "be": Be {
+                          "sequence": "Thou art",
+                        },
+                        "comparative": PositiveAdjective {
+                          "sequence": "beautiful",
+                        },
+                        "exclaimed": undefined,
+                        "subject": undefined,
+                        "value": ArithmeticOperationValue {
+                          "operator": ArithmeticOperator {
+                            "sequence": "difference between",
+                          },
+                          "value_1": CharacterValue {
+                            "character": Character {
+                              "sequence": "Romeo",
+                            },
+                          },
+                          "value_2": UnaryOperationValue {
+                            "operator": UnaryOperator {
+                              "sequence": "square of",
+                            },
+                            "value": PositiveConstantValue {
+                              "adjectives": [
+                                NeutralAdjective {
+                                  "sequence": "huge",
+                                },
+                                NeutralAdjective {
+                                  "sequence": "green",
+                                },
+                                PositiveAdjective {
+                                  "sequence": "peaceful",
+                                },
+                              ],
+                              "article": "a",
+                              "context": undefined,
+                              "noun": NeutralNoun {
+                                "sequence": "tree",
+                              },
+                            },
+                          },
+                        },
+                      },
+                      CharOutputSentence {
+                        "exclaimed": true,
+                        "sequence": "Speak thy mind",
+                        "subject": undefined,
+                      },
+                      AssignmentSentence {
+                        "be": Be {
+                          "sequence": "Thou art",
+                        },
+                        "comparative": PositiveAdjective {
+                          "sequence": "lovely",
+                        },
+                        "exclaimed": undefined,
+                        "subject": undefined,
+                        "value": ArithmeticOperationValue {
+                          "operator": ArithmeticOperator {
+                            "sequence": "product of",
+                          },
+                          "value_1": PositiveConstantValue {
+                            "adjectives": [
+                              NeutralAdjective {
+                                "sequence": "large",
+                              },
+                              PositiveAdjective {
+                                "sequence": "rural",
+                              },
+                            ],
+                            "article": "a",
+                            "context": undefined,
+                            "noun": PositiveNoun {
+                              "sequence": "town",
+                            },
+                          },
+                          "value_2": PositiveConstantValue {
+                            "adjectives": [
+                              PositiveAdjective {
+                                "sequence": "amazing",
+                              },
+                              NeutralAdjective {
+                                "sequence": "bottomless",
+                              },
+                              PositiveAdjective {
+                                "sequence": "embroidered",
+                              },
+                            ],
+                            "article": undefined,
+                            "context": undefined,
+                            "noun": PositiveNoun {
+                              "sequence": "purse",
+                            },
+                          },
+                        },
+                      },
+                      CharOutputSentence {
+                        "exclaimed": true,
+                        "sequence": "Speak thy mind",
+                        "subject": undefined,
+                      },
+                      AssignmentSentence {
+                        "be": Be {
+                          "sequence": "Thou art",
+                        },
+                        "comparative": PositiveAdjective {
+                          "sequence": "loving",
+                        },
+                        "exclaimed": undefined,
+                        "subject": undefined,
+                        "value": ArithmeticOperationValue {
+                          "operator": ArithmeticOperator {
+                            "sequence": "product of",
+                          },
+                          "value_1": PositiveConstantValue {
+                            "adjectives": [
+                              NeutralAdjective {
+                                "sequence": "bluest",
+                              },
+                              PositiveAdjective {
+                                "sequence": "clearest",
+                              },
+                              PositiveAdjective {
+                                "sequence": "sweetest",
+                              },
+                            ],
+                            "article": "the",
+                            "context": undefined,
+                            "noun": PositiveNoun {
+                              "sequence": "sky",
+                            },
+                          },
+                          "value_2": ArithmeticOperationValue {
+                            "operator": ArithmeticOperator {
+                              "sequence": "sum of",
+                            },
+                            "value_1": PositiveConstantValue {
+                              "adjectives": [],
+                              "article": "a",
+                              "context": undefined,
+                              "noun": NeutralNoun {
+                                "sequence": "squirrel",
+                              },
+                            },
+                            "value_2": PositiveConstantValue {
+                              "adjectives": [
+                                PositiveAdjective {
+                                  "sequence": "white",
+                                },
+                              ],
+                              "article": "a",
+                              "context": undefined,
+                              "noun": NeutralNoun {
+                                "sequence": "horse",
+                              },
+                            },
+                          },
+                        },
+                      },
+                      AssignmentSentence {
+                        "be": Be {
+                          "sequence": "Thou art",
+                        },
+                        "comparative": PositiveAdjective {
+                          "sequence": "beautiful",
+                        },
+                        "exclaimed": undefined,
+                        "subject": undefined,
+                        "value": ArithmeticOperationValue {
+                          "operator": ArithmeticOperator {
+                            "sequence": "difference between",
+                          },
+                          "value_1": CharacterValue {
+                            "character": Character {
+                              "sequence": "Juliet",
+                            },
+                          },
+                          "value_2": PronounValue {
+                            "pronoun": SecondPersonPronoun {
+                              "sequence": "thyself",
+                            },
+                          },
+                        },
+                      },
+                      CharOutputSentence {
+                        "exclaimed": true,
+                        "sequence": "Speak thy mind",
+                        "subject": undefined,
+                      },
+                    ],
+                  },
+                ],
+              },
+              Exeunt {
+                "characters": [
+                  Character {
+                    "sequence": "Ophelia",
+                  },
+                  Character {
+                    "sequence": "Hamlet",
+                  },
+                ],
+              },
+            ],
+          },
+        },
+      ],
+    },
+    Part {
+      "comment": Comment {
+        "sequence": "Behind Hamlet's back",
+      },
+      "numeral": Numeral {
+        "sequence": "II",
+      },
+      "subparts": [
+        Subpart {
+          "comment": Comment {
+            "sequence": "Romeo and Juliet's conversation",
+          },
+          "numeral": Numeral {
+            "sequence": "I",
+          },
+          "stage": Stage {
+            "directions": [
+              Enter {
+                "characters": [
+                  Character {
+                    "sequence": "Romeo",
+                  },
+                  Character {
+                    "sequence": "Juliet",
+                  },
+                ],
+              },
+              Dialogue {
+                "lines": [
+                  Line {
+                    "character": Character {
+                      "sequence": "Romeo",
+                    },
+                    "sentences": [
+                      CharOutputSentence {
+                        "exclaimed": undefined,
+                        "sequence": "Speak your mind",
+                        "subject": undefined,
+                      },
+                      AssignmentSentence {
+                        "be": Be {
+                          "sequence": "You are",
+                        },
+                        "comparative": NegativeAdjective {
+                          "sequence": "worried",
+                        },
+                        "exclaimed": undefined,
+                        "subject": undefined,
+                        "value": ArithmeticOperationValue {
+                          "operator": ArithmeticOperator {
+                            "sequence": "sum of",
+                          },
+                          "value_1": PronounValue {
+                            "pronoun": SecondPersonPronoun {
+                              "sequence": "yourself",
+                            },
+                          },
+                          "value_2": ArithmeticOperationValue {
+                            "operator": ArithmeticOperator {
+                              "sequence": "difference between",
+                            },
+                            "value_1": PositiveConstantValue {
+                              "adjectives": [
+                                NeutralAdjective {
+                                  "sequence": "small",
+                                },
+                                PositiveAdjective {
+                                  "sequence": "smooth",
+                                },
+                              ],
+                              "article": undefined,
+                              "context": undefined,
+                              "noun": PositiveNoun {
+                                "sequence": "hamster",
+                              },
+                            },
+                            "value_2": PositiveConstantValue {
+                              "adjectives": [],
+                              "article": undefined,
+                              "context": undefined,
+                              "noun": PositiveNoun {
+                                "sequence": "nose",
+                              },
+                            },
+                          },
+                        },
+                      },
+                      CharOutputSentence {
+                        "exclaimed": true,
+                        "sequence": "Speak your mind",
+                        "subject": undefined,
+                      },
+                    ],
+                  },
+                  Line {
+                    "character": Character {
+                      "sequence": "Juliet",
+                    },
+                    "sentences": [
+                      CharOutputSentence {
+                        "exclaimed": true,
+                        "sequence": "Speak YOUR mind",
+                        "subject": undefined,
+                      },
+                      AssignmentSentence {
+                        "be": Be {
+                          "sequence": "You are",
+                        },
+                        "comparative": NegativeAdjective {
+                          "sequence": "bad",
+                        },
+                        "exclaimed": true,
+                        "subject": undefined,
+                        "value": CharacterValue {
+                          "character": Character {
+                            "sequence": "Hamlet",
+                          },
+                        },
+                      },
+                      AssignmentSentence {
+                        "be": Be {
+                          "sequence": "You are",
+                        },
+                        "comparative": NeutralAdjective {
+                          "sequence": "small",
+                        },
+                        "exclaimed": undefined,
+                        "subject": undefined,
+                        "value": ArithmeticOperationValue {
+                          "operator": ArithmeticOperator {
+                            "sequence": "difference between",
+                          },
+                          "value_1": UnaryOperationValue {
+                            "operator": UnaryOperator {
+                              "sequence": "square of",
+                            },
+                            "value": ArithmeticOperationValue {
+                              "operator": ArithmeticOperator {
+                                "sequence": "difference between",
+                              },
+                              "value_1": PositiveConstantValue {
+                                "adjectives": [
+                                  NeutralAdjective {
+                                    "sequence": "little",
+                                  },
+                                ],
+                                "article": undefined,
+                                "context": undefined,
+                                "noun": PositiveNoun {
+                                  "sequence": "pony",
+                                },
+                              },
+                              "value_2": NegativeConstantValue {
+                                "adjectives": [
+                                  NeutralAdjective {
+                                    "sequence": "big",
+                                  },
+                                  NeutralAdjective {
+                                    "sequence": "hairy",
+                                  },
+                                ],
+                                "article": undefined,
+                                "context": undefined,
+                                "noun": NegativeNoun {
+                                  "sequence": "hound",
+                                },
+                              },
+                            },
+                          },
+                          "value_2": UnaryOperationValue {
+                            "operator": UnaryOperator {
+                              "sequence": "cube of",
+                            },
+                            "value": NegativeConstantValue {
+                              "adjectives": [
+                                NeutralAdjective {
+                                  "sequence": "sorry",
+                                },
+                                NeutralAdjective {
+                                  "sequence": "little",
+                                },
+                              ],
+                              "article": undefined,
+                              "context": undefined,
+                              "noun": NegativeNoun {
+                                "sequence": "codpiece",
+                              },
+                            },
+                          },
+                        },
+                      },
+                      CharOutputSentence {
+                        "exclaimed": true,
+                        "sequence": "Speak your mind",
+                        "subject": undefined,
+                      },
+                    ],
+                  },
+                ],
+              },
+              Exit {
+                "character": Character {
+                  "sequence": "Romeo",
+                },
+              },
+            ],
+          },
+        },
+        Subpart {
+          "comment": Comment {
+            "sequence": "Juliet and Ophelia's conversation",
+          },
+          "numeral": Numeral {
+            "sequence": "II",
+          },
+          "stage": Stage {
+            "directions": [
+              Enter {
+                "characters": [
+                  Character {
+                    "sequence": "Ophelia",
+                  },
+                ],
+              },
+              Dialogue {
+                "lines": [
+                  Line {
+                    "character": Character {
+                      "sequence": "Juliet",
+                    },
+                    "sentences": [
+                      AssignmentSentence {
+                        "be": Be {
+                          "sequence": "Thou art",
+                        },
+                        "comparative": PositiveAdjective {
+                          "sequence": "good",
+                        },
+                        "exclaimed": undefined,
+                        "subject": undefined,
+                        "value": ArithmeticOperationValue {
+                          "operator": ArithmeticOperator {
+                            "sequence": "quotient between",
+                          },
+                          "value_1": CharacterValue {
+                            "character": Character {
+                              "sequence": "Romeo",
+                            },
+                          },
+                          "value_2": ArithmeticOperationValue {
+                            "operator": ArithmeticOperator {
+                              "sequence": "sum of",
+                            },
+                            "value_1": PositiveConstantValue {
+                              "adjectives": [
+                                NeutralAdjective {
+                                  "sequence": "small",
+                                },
+                                NeutralAdjective {
+                                  "sequence": "furry",
+                                },
+                              ],
+                              "article": "a",
+                              "context": undefined,
+                              "noun": NeutralNoun {
+                                "sequence": "animal",
+                              },
+                            },
+                            "value_2": NegativeConstantValue {
+                              "adjectives": [],
+                              "article": "a",
+                              "context": undefined,
+                              "noun": NegativeNoun {
+                                "sequence": "leech",
+                              },
+                            },
+                          },
+                        },
+                      },
+                      CharOutputSentence {
+                        "exclaimed": true,
+                        "sequence": "Speak your mind",
+                        "subject": undefined,
+                      },
+                    ],
+                  },
+                  Line {
+                    "character": Character {
+                      "sequence": "Ophelia",
+                    },
+                    "sentences": [
+                      AssignmentSentence {
+                        "be": Be {
+                          "sequence": "Thou art",
+                        },
+                        "comparative": NegativeAdjective {
+                          "sequence": "disgusting",
+                        },
+                        "exclaimed": true,
+                        "subject": undefined,
+                        "value": ArithmeticOperationValue {
+                          "operator": ArithmeticOperator {
+                            "sequence": "quotient between",
+                          },
+                          "value_1": CharacterValue {
+                            "character": Character {
+                              "sequence": "Romeo",
+                            },
+                          },
+                          "value_2": UnaryOperationValue {
+                            "operator": UnaryOperator {
+                              "sequence": "twice",
+                            },
+                            "value": ArithmeticOperationValue {
+                              "operator": ArithmeticOperator {
+                                "sequence": "difference between",
+                              },
+                              "value_1": PositiveConstantValue {
+                                "adjectives": [],
+                                "article": "a",
+                                "context": undefined,
+                                "noun": NeutralNoun {
+                                  "sequence": "mistletoe",
+                                },
+                              },
+                              "value_2": NegativeConstantValue {
+                                "adjectives": [
+                                  NeutralAdjective {
+                                    "sequence": "oozing",
+                                  },
+                                  NeutralAdjective {
+                                    "sequence": "infected",
+                                  },
+                                ],
+                                "article": "an",
+                                "context": undefined,
+                                "noun": NegativeNoun {
+                                  "sequence": "blister",
+                                },
+                              },
+                            },
+                          },
+                        },
+                      },
+                      CharOutputSentence {
+                        "exclaimed": true,
+                        "sequence": "Speak your mind",
+                        "subject": undefined,
+                      },
+                    ],
+                  },
+                ],
+              },
+              Exeunt {
+                "characters": [],
+              },
+            ],
+          },
+        },
+      ],
+    },
+  ],
+}
+`;
+
 exports[`Comprehensive Example File Snapshots SPL AST Snapshots should parse enter-multiple.spl to Horatio AST: enter-multiple.spl-horatio-ast 1`] = `
 Program {
   "comment": Comment {
@@ -1467,6 +2495,421 @@ Program {
           },
           "stage": Stage {
             "directions": [
+              Exeunt {
+                "characters": [],
+              },
+            ],
+          },
+        },
+      ],
+    },
+  ],
+}
+`;
+
+exports[`Comprehensive Example File Snapshots SPL AST Snapshots should parse truth.spl to Horatio AST: truth.spl-horatio-ast 1`] = `
+Program {
+  "comment": Comment {
+    "sequence": "The Fibonacci Calculations, a play in two acts that needs some improvement",
+  },
+  "declarations": [
+    Declaration {
+      "character": Character {
+        "sequence": "Romeo",
+      },
+      "comment": Comment {
+        "sequence": "one of the Fibonacci numbers and the previous one",
+      },
+    },
+    Declaration {
+      "character": Character {
+        "sequence": "Juliet",
+      },
+      "comment": Comment {
+        "sequence": "the second Fibonacci number",
+      },
+    },
+    Declaration {
+      "character": Character {
+        "sequence": "Ophelia",
+      },
+      "comment": Comment {
+        "sequence": "the loop and variable controller",
+      },
+    },
+    Declaration {
+      "character": Character {
+        "sequence": "Macbeth",
+      },
+      "comment": Comment {
+        "sequence": "the king utilized as a space and as the end of the loop",
+      },
+    },
+  ],
+  "parts": [
+    Part {
+      "comment": Comment {
+        "sequence": "The Fibonacci Calculation",
+      },
+      "numeral": Numeral {
+        "sequence": "I",
+      },
+      "subparts": [
+        Subpart {
+          "comment": Comment {
+            "sequence": "The Initialization of a Helpful Variable",
+          },
+          "numeral": Numeral {
+            "sequence": "I",
+          },
+          "stage": Stage {
+            "directions": [
+              Enter {
+                "characters": [
+                  Character {
+                    "sequence": "Ophelia",
+                  },
+                  Character {
+                    "sequence": "Macbeth",
+                  },
+                ],
+              },
+              Dialogue {
+                "lines": [
+                  Line {
+                    "character": Character {
+                      "sequence": "Ophelia",
+                    },
+                    "sentences": [
+                      AssignmentSentence {
+                        "be": Be {
+                          "sequence": "Thou art",
+                        },
+                        "comparative": PositiveAdjective {
+                          "sequence": "pretty",
+                        },
+                        "exclaimed": true,
+                        "subject": undefined,
+                        "value": PositiveConstantValue {
+                          "adjectives": [
+                            PositiveAdjective {
+                              "sequence": "beautiful",
+                            },
+                            PositiveAdjective {
+                              "sequence": "fair",
+                            },
+                            PositiveAdjective {
+                              "sequence": "peaceful",
+                            },
+                            PositiveAdjective {
+                              "sequence": "sunny",
+                            },
+                            PositiveAdjective {
+                              "sequence": "warm",
+                            },
+                          ],
+                          "article": "a",
+                          "context": undefined,
+                          "noun": PositiveNoun {
+                            "sequence": "summer's day",
+                          },
+                        },
+                      },
+                    ],
+                  },
+                ],
+              },
+              Exit {
+                "character": Character {
+                  "sequence": "Macbeth",
+                },
+              },
+              Enter {
+                "characters": [
+                  Character {
+                    "sequence": "Romeo",
+                  },
+                ],
+              },
+              Dialogue {
+                "lines": [
+                  Line {
+                    "character": Character {
+                      "sequence": "Ophelia",
+                    },
+                    "sentences": [
+                      IntegerOutputSentence {
+                        "exclaimed": true,
+                        "sequence": "Open your heart",
+                        "subject": undefined,
+                      },
+                      AssignmentSentence {
+                        "be": Be {
+                          "sequence": "You",
+                        },
+                        "comparative": undefined,
+                        "exclaimed": undefined,
+                        "subject": undefined,
+                        "value": PositiveConstantValue {
+                          "adjectives": [],
+                          "article": undefined,
+                          "context": undefined,
+                          "noun": NeutralNoun {
+                            "sequence": "animal",
+                          },
+                        },
+                      },
+                    ],
+                  },
+                ],
+              },
+              Exit {
+                "character": Character {
+                  "sequence": "Romeo",
+                },
+              },
+              Enter {
+                "characters": [
+                  Character {
+                    "sequence": "Macbeth",
+                  },
+                ],
+              },
+              Dialogue {
+                "lines": [
+                  Line {
+                    "character": Character {
+                      "sequence": "Ophelia",
+                    },
+                    "sentences": [
+                      CharOutputSentence {
+                        "exclaimed": true,
+                        "sequence": "Speak your mind",
+                        "subject": undefined,
+                      },
+                    ],
+                  },
+                ],
+              },
+            ],
+          },
+        },
+        Subpart {
+          "comment": Comment {
+            "sequence": "The Start of the Loop",
+          },
+          "numeral": Numeral {
+            "sequence": "II",
+          },
+          "stage": Stage {
+            "directions": [
+              Exit {
+                "character": Character {
+                  "sequence": "Macbeth",
+                },
+              },
+              Enter {
+                "characters": [
+                  Character {
+                    "sequence": "Juliet",
+                  },
+                ],
+              },
+              Dialogue {
+                "lines": [
+                  Line {
+                    "character": Character {
+                      "sequence": "Ophelia",
+                    },
+                    "sentences": [
+                      AssignmentSentence {
+                        "be": Be {
+                          "sequence": "Thou art",
+                        },
+                        "comparative": PositiveAdjective {
+                          "sequence": "pretty",
+                        },
+                        "exclaimed": true,
+                        "subject": undefined,
+                        "value": ArithmeticOperationValue {
+                          "operator": ArithmeticOperator {
+                            "sequence": "sum of",
+                          },
+                          "value_1": PronounValue {
+                            "pronoun": SecondPersonPronoun {
+                              "sequence": "yourself",
+                            },
+                          },
+                          "value_2": CharacterValue {
+                            "character": Character {
+                              "sequence": "Romeo",
+                            },
+                          },
+                        },
+                      },
+                      IntegerOutputSentence {
+                        "exclaimed": true,
+                        "sequence": "Open your heart",
+                        "subject": undefined,
+                      },
+                    ],
+                  },
+                ],
+              },
+              Exit {
+                "character": Character {
+                  "sequence": "Juliet",
+                },
+              },
+              Enter {
+                "characters": [
+                  Character {
+                    "sequence": "Romeo",
+                  },
+                ],
+              },
+              Dialogue {
+                "lines": [
+                  Line {
+                    "character": Character {
+                      "sequence": "Ophelia",
+                    },
+                    "sentences": [
+                      AssignmentSentence {
+                        "be": Be {
+                          "sequence": "Thou art",
+                        },
+                        "comparative": PositiveAdjective {
+                          "sequence": "brave",
+                        },
+                        "exclaimed": true,
+                        "subject": undefined,
+                        "value": ArithmeticOperationValue {
+                          "operator": ArithmeticOperator {
+                            "sequence": "difference between",
+                          },
+                          "value_1": CharacterValue {
+                            "character": Character {
+                              "sequence": "Juliet",
+                            },
+                          },
+                          "value_2": PronounValue {
+                            "pronoun": SecondPersonPronoun {
+                              "sequence": "thyself",
+                            },
+                          },
+                        },
+                      },
+                    ],
+                  },
+                ],
+              },
+              Exit {
+                "character": Character {
+                  "sequence": "Romeo",
+                },
+              },
+              Enter {
+                "characters": [
+                  Character {
+                    "sequence": "Macbeth",
+                  },
+                ],
+              },
+              Dialogue {
+                "lines": [
+                  Line {
+                    "character": Character {
+                      "sequence": "Ophelia",
+                    },
+                    "sentences": [
+                      CharOutputSentence {
+                        "exclaimed": true,
+                        "sequence": "Speak your mind",
+                        "subject": undefined,
+                      },
+                    ],
+                  },
+                  Line {
+                    "character": Character {
+                      "sequence": "Macbeth",
+                    },
+                    "sentences": [
+                      AssignmentSentence {
+                        "be": Be {
+                          "sequence": "Thou art",
+                        },
+                        "comparative": PositiveAdjective {
+                          "sequence": "pretty",
+                        },
+                        "exclaimed": true,
+                        "subject": undefined,
+                        "value": ArithmeticOperationValue {
+                          "operator": ArithmeticOperator {
+                            "sequence": "sum of",
+                          },
+                          "value_1": PronounValue {
+                            "pronoun": SecondPersonPronoun {
+                              "sequence": "thyself",
+                            },
+                          },
+                          "value_2": PositiveConstantValue {
+                            "adjectives": [],
+                            "article": "a",
+                            "context": undefined,
+                            "noun": NeutralNoun {
+                              "sequence": "horse",
+                            },
+                          },
+                        },
+                      },
+                    ],
+                  },
+                  Line {
+                    "character": Character {
+                      "sequence": "Ophelia",
+                    },
+                    "sentences": [
+                      QuestionSentence {
+                        "comparison": InverseComparison {
+                          "comparison": GreaterThanComparison {
+                            "comparative": PositiveComparative {
+                              "sequence": "better",
+                            },
+                          },
+                        },
+                        "prefix": "Am I",
+                        "value1": BeComparative {
+                          "sequence": "Am I",
+                        },
+                        "value2": PronounValue {
+                          "pronoun": SecondPersonPronoun {
+                            "sequence": "yourself",
+                          },
+                        },
+                      },
+                    ],
+                  },
+                  Line {
+                    "character": Character {
+                      "sequence": "Macbeth",
+                    },
+                    "sentences": [
+                      ResponseSentence {
+                        "runIf": true,
+                        "sentence": GotoSentence {
+                          "exclaimed": undefined,
+                          "numeral": Numeral {
+                            "sequence": "II",
+                          },
+                          "part": "scene",
+                          "sequence": "let us proceed to scene II",
+                        },
+                      },
+                    ],
+                  },
+                ],
+              },
               Exeunt {
                 "characters": [],
               },
