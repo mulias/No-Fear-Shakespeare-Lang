@@ -55,7 +55,26 @@ class PrettyPrinter {
       parts.push(`## var ${varName}: ${this.printTemplateString(description)}`);
     }
 
-    parts.push(...program.items.map((item) => this.printProgramItem(item)));
+    if (program.items.length > 0) {
+      // Add empty line before first act if there are var declarations or title
+      if (program.title || program.varDeclarations.size > 0) {
+        parts.push("");
+      }
+
+      // Join acts with double newlines (extra spacing between acts)
+      let isFirstAct = true;
+      for (const programItem of program.items) {
+        if (programItem.type === "act") {
+          if (!isFirstAct) {
+            parts.push("");
+          }
+          isFirstAct = false;
+        }
+
+        const printedItem = this.printProgramItem(programItem);
+        parts.push(printedItem);
+      }
+    }
 
     return parts.join("\n");
   }

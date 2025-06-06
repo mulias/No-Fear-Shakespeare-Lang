@@ -864,6 +864,7 @@ describe("Ophelia Pretty Printer", () => {
 
       const result = prettyPrint(ast);
       expect(result).toBe(`## title: My Awesome Program
+
 Main {
   Start {
   }
@@ -933,6 +934,7 @@ Main {
 
       const result = prettyPrint(ast);
       expect(result).toBe(`## title: FizzBuzz Implementation
+
 Main {
   Start {
     stage(n, out)

@@ -6,6 +6,7 @@ exports[`Comprehensive Example File Snapshots SPL to NFSPL Transpilation Snapsho
 ## var juliet: a likewise young woman of remarkable grace
 ## var ophelia: a remarkable woman much in dispute with Hamlet
 ## var hamlet: the flatterer of Andersen Insulting A/S
+
 ## description: {hamlet}'s insults and flattery
 Act1 {
   ## description: The insulting of {romeo}
@@ -56,6 +57,7 @@ Act1 {
     unstage(ophelia, hamlet)
   }
 }
+
 ## description: Behind {hamlet}'s back
 Act2 {
   ## description: {romeo} and {juliet}'s conversation
@@ -103,6 +105,7 @@ exports[`Comprehensive Example File Snapshots SPL to NFSPL Transpilation Snapsho
 ## var juliet: a lady
 ## var mercutio: a friend
 ## var benvolio: another friend
+
 ## description: Testing multiple enters
 Act1 {
   ## description: Single enter
@@ -139,6 +142,7 @@ exports[`Comprehensive Example File Snapshots SPL to NFSPL Transpilation Snapsho
 "## title: A New Beginning
 ## var hamlet: a literary/storage device
 ## var juliet: an orator
+
 ## description: The Only Act
 Act1 {
   ## description: The Prince's Speech
@@ -168,6 +172,7 @@ exports[`Comprehensive Example File Snapshots SPL to NFSPL Transpilation Snapsho
 ## var juliet: a young woman
 ## var hamlet: a temporary variable from Denmark
 ## var the_ghost: a limiting factor (and by a remarkable coincidence also Hamlet's father)
+
 ## description: Interview with the other side
 Act1 {
   ## description: At the last hour before dawn
@@ -193,6 +198,7 @@ Act1 {
     }
   }
 }
+
 ## description: Determining divisibility
 Act2 {
   ## description: A private conversation
@@ -289,6 +295,7 @@ exports[`Comprehensive Example File Snapshots SPL to NFSPL Transpilation Snapsho
 "## title: Outputting Input Reversedly
 ## var othello: a stacky man
 ## var lady_macbeth: who pushes him around till he pops
+
 ## description: The one and only
 Act1 {
   ## description: In the beginning, there was nothing
@@ -352,6 +359,7 @@ exports[`Comprehensive Example File Snapshots SPL to NFSPL Transpilation Snapsho
 ## var juliet: the second Fibonacci number
 ## var ophelia: the loop and variable controller
 ## var macbeth: the king utilized as a space and as the end of the loop
+
 ## description: The Fibonacci Calculation
 Act1 {
   ## description: The Initialization of a Helpful Variable

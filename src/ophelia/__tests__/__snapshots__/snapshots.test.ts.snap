@@ -534,6 +534,7 @@ exports[`NFSPL Round-trip Snapshots language features should round-trip multiple
     unstage_all
   }
 }
+
 Act2 {
   Scene1 {
     stage(e, f)
