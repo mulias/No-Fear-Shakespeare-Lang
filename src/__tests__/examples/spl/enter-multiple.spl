@@ -1,0 +1,24 @@
+The Test of Multiple Enter.
+
+Romeo, a young man.
+Juliet, a lady.
+Mercutio, a friend.
+Benvolio, another friend.
+
+Act I: Testing multiple enters.
+
+Scene I: Single enter.
+[Enter Romeo]
+[Exit Romeo]
+
+Scene II: Two characters enter.
+[Enter Romeo and Juliet]
+[Exeunt Romeo and Juliet]
+
+Scene III: Three characters enter.
+[Enter Romeo, Juliet and Mercutio]
+[Exeunt Romeo, Juliet and Mercutio]
+
+Scene IV: Four characters enter.
+[Enter Romeo, Juliet, Mercutio and Benvolio]
+[Exeunt]

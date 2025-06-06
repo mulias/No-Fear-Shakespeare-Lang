@@ -58,7 +58,7 @@ Before you can operate on variables they must be staged, which activates them
 within the global state of the program.
 
 - `stage(var1)` or `stage(var1, var2)` - Activate one or two variables
-- `unstage(var1)` or `unstage(var1, var2)` - Deactive variables
+- `unstage(var1, var2, ..., varN)` - Deactivate variables
 - `unstage_all` - unstage all variables
 
 Any number of variables can be active at a time, but there needs two be exactly

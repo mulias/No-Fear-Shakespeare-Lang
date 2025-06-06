@@ -147,12 +147,24 @@ export class Yorick {
   buildStage(directions: OpheliaAst.Direction[]): Ast.Stage {
     // Filter out comments - Yorick ignores them
     const nonCommentDirections = directions.filter((d) => d.type !== "comment");
-    return new Ast.Stage(
-      nonCommentDirections.map((d) => this.buildDirection(d)),
-    );
+    const stageDirections: (Ast.Dialogue | Ast.Presence)[] = [];
+
+    for (const direction of nonCommentDirections) {
+      const result = this.buildDirection(direction);
+      if (Array.isArray(result)) {
+        // Handle multiple Enter directives
+        stageDirections.push(...result);
+      } else {
+        stageDirections.push(result);
+      }
+    }
+
+    return new Ast.Stage(stageDirections);
   }
 
-  buildDirection(direction: OpheliaAst.Direction): Ast.Dialogue | Ast.Presence {
+  buildDirection(
+    direction: OpheliaAst.Direction,
+  ): Ast.Dialogue | Ast.Presence | Ast.Enter[] {
     switch (direction.type) {
       case "dialogue":
         return this.buildDialogue(direction);
@@ -448,13 +460,15 @@ export class Yorick {
   }
 
   buildEnter(stage: OpheliaAst.Stage): Ast.Enter {
-    const char1 = this.buildCharacter(stage.varId1);
-    if (stage.varId2) {
-      const char2 = this.buildCharacter(stage.varId2);
-      return new Ast.Enter(char1, char2);
-    } else {
-      return new Ast.Enter(char1);
+    const { varIds } = stage;
+
+    if (varIds.length === 0) {
+      throw new Error("Stage must have at least one character");
     }
+
+    // Build all characters
+    const characters = varIds.map((varId) => this.buildCharacter(varId));
+    return new Ast.Enter(characters);
   }
 
   buildCharInputSentence(readChar: OpheliaAst.ReadChar): Ast.CharInputSentence {
@@ -478,12 +492,19 @@ export class Yorick {
   }
 
   buildExit(unstage: OpheliaAst.Unstage): Ast.Exit | Ast.Exeunt {
-    const char1 = this.buildCharacter(unstage.varId1);
-    const char2 = unstage.varId2 ? this.buildCharacter(unstage.varId2) : null;
-    if (char2) {
-      return new Ast.Exeunt(char1, char2);
-    } else {
+    const { varIds } = unstage;
+
+    if (varIds.length === 0) {
+      throw new Error("Unstage must have at least one character");
+    }
+
+    if (varIds.length === 1) {
+      const char1 = this.buildCharacter(varIds[0]!);
       return new Ast.Exit(char1);
+    } else {
+      // 2 or more characters
+      const characters = varIds.map((varId) => this.buildCharacter(varId));
+      return new Ast.Exeunt(characters);
     }
   }
 

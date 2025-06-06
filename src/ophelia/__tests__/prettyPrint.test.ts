@@ -81,8 +81,7 @@ describe("Ophelia Pretty Printer", () => {
                 directions: [
                   {
                     type: "stage",
-                    varId1: "a",
-                    varId2: null,
+                    varIds: ["a"],
                   },
                 ],
               },
@@ -114,8 +113,7 @@ describe("Ophelia Pretty Printer", () => {
                 directions: [
                   {
                     type: "stage",
-                    varId1: "a",
-                    varId2: "b",
+                    varIds: ["a", "b"],
                   },
                 ],
               },
@@ -147,8 +145,7 @@ describe("Ophelia Pretty Printer", () => {
                 directions: [
                   {
                     type: "unstage",
-                    varId1: "a",
-                    varId2: "b",
+                    varIds: ["a", "b"],
                   },
                   {
                     type: "unstage_all",
@@ -231,8 +228,7 @@ describe("Ophelia Pretty Printer", () => {
                 directions: [
                   {
                     type: "stage",
-                    varId1: "a",
-                    varId2: "b",
+                    varIds: ["a", "b"],
                   },
                   {
                     type: "dialogue",
@@ -680,8 +676,7 @@ describe("Ophelia Pretty Printer", () => {
                 directions: [
                   {
                     type: "stage",
-                    varId1: "a",
-                    varId2: "b",
+                    varIds: ["a", "b"],
                   },
                   {
                     type: "dialogue",
@@ -759,8 +754,7 @@ describe("Ophelia Pretty Printer", () => {
                 directions: [
                   {
                     type: "stage",
-                    varId1: "n",
-                    varId2: "out",
+                    varIds: ["n", "out"],
                   },
                   {
                     type: "dialogue",
@@ -918,8 +912,7 @@ Main {
                 directions: [
                   {
                     type: "stage",
-                    varId1: "n",
-                    varId2: "out",
+                    varIds: ["n", "out"],
                   },
                   {
                     type: "dialogue",

@@ -191,29 +191,26 @@ export default class Semantics {
    * Enter
    */
   visitEnter(presence: AST.Enter, arg: any) {
-    if (!presence.character_1 && !presence.character_2) {
+    if (!presence.characters || presence.characters.length === 0) {
       throw new Error("Semantic Error - No characters entering.");
     }
 
-    let c1 = presence.character_1.visit(this, {
-      declared: true,
-      on_stage: false,
-    });
-    this.toggleStage(c1.sequence);
+    const enteredCharacters = new Set<string>();
 
-    if (presence.character_2) {
-      let c2 = presence.character_2.visit(this, {
+    for (const character of presence.characters) {
+      const c = character.visit(this, {
         declared: true,
         on_stage: false,
       });
 
-      if (c1.sequence === c2.sequence) {
+      if (enteredCharacters.has(c.sequence)) {
         throw new Error(
           "Semantic Error - Same character entering twice in same statement.",
         );
       }
 
-      this.toggleStage(c2.sequence);
+      enteredCharacters.add(c.sequence);
+      this.toggleStage(c.sequence);
     }
 
     return null;
@@ -241,28 +238,33 @@ export default class Semantics {
     // x Only 1 character exeunting
     // x characters are the same
 
-    if (presence.character_1 ? !presence.character_2 : presence.character_2) {
-      throw new Error(
-        "Semantic Error - Either 2 or no characters can be defined, not one.",
-      );
-    }
-
-    if (presence.character_1 && presence.character_2) {
-      let c1 = presence.character_1.visit(this, {
-        declared: true,
-        on_stage: true,
-      });
-      let c2 = presence.character_2.visit(this, {
-        declared: true,
-        on_stage: true,
-      });
-
-      if (c1.sequence === c2.sequence) {
-        throw new Error("Semantic Error - Characters are the same.");
+    if (presence.characters.length > 0) {
+      // Check if only 1 character - this is an error per spec
+      if (presence.characters.length === 1) {
+        throw new Error(
+          "Semantic Error - Either 2 or more characters, or no characters can be defined, not one.",
+        );
       }
 
-      this.toggleStage(c1.sequence);
-      this.toggleStage(c2.sequence);
+      // Handle multiple characters
+      const checkedCharacters = presence.characters.map((char) =>
+        char.visit(this, {
+          declared: true,
+          on_stage: true,
+        }),
+      );
+
+      // Check for duplicates
+      const names = checkedCharacters.map((c) => c.sequence);
+      const uniqueNames = new Set(names);
+      if (names.length !== uniqueNames.size) {
+        throw new Error(
+          "Semantic Error - Duplicate characters in exeunt list.",
+        );
+      }
+
+      // Remove all characters from stage
+      names.forEach((name) => this.toggleStage(name));
     } else {
       this.exeuntStage();
     }

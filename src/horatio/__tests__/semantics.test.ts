@@ -194,10 +194,10 @@ describe("Horatio Semantics", () => {
       const semantics = new Semantics();
       semantics.characters = { Romeo: false };
       semantics.declared = (char: string) => char === "Romeo";
-      const enter = new Ast.Enter(
+      const enter = new Ast.Enter([
         new Ast.Character("Romeo"),
         new Ast.Character("Romeo"),
-      );
+      ]);
       expect(() => semantics.visitEnter(enter, null)).toThrow(
         "Semantic Error - Same character entering twice in same statement.",
       );
@@ -207,12 +207,12 @@ describe("Horatio Semantics", () => {
       const semantics = new Semantics();
       semantics.characters = { Romeo: true };
       semantics.declared = (char: string) => char === "Romeo";
-      const exeunt = new Ast.Exeunt(
+      const exeunt = new Ast.Exeunt([
         new Ast.Character("Romeo"),
         new Ast.Character("Romeo"),
-      );
+      ]);
       expect(() => semantics.visitExeunt(exeunt, null)).toThrow(
-        "Semantic Error - Characters are the same.",
+        "Semantic Error - Duplicate characters in exeunt list.",
       );
     });
 
@@ -554,10 +554,10 @@ describe("Horatio Semantics", () => {
       semantics.characters = { Romeo: true, Juliet: true, Hamlet: true };
       semantics.declared = (char: string) =>
         ["Romeo", "Juliet", "Hamlet"].includes(char);
-      const exeunt = new Ast.Exeunt(
+      const exeunt = new Ast.Exeunt([
         new Ast.Character("Romeo"),
         new Ast.Character("Juliet"),
-      );
+      ]);
 
       semantics.visitExeunt(exeunt, null);
 
@@ -569,15 +569,15 @@ describe("Horatio Semantics", () => {
     it("should handle exeunt with only one character defined", () => {
       const semantics = new Semantics();
       semantics.characters = { Romeo: true };
-      const exeunt = new Ast.Exeunt(new Ast.Character("Romeo"));
+      const exeunt = new Ast.Exeunt([new Ast.Character("Romeo")]);
 
       expect(() => semantics.visitExeunt(exeunt, null)).toThrow(
-        "Semantic Error - Either 2 or no characters can be defined, not one.",
+        "Semantic Error - Either 2 or more characters, or no characters can be defined, not one.",
       );
 
-      const exeunt2 = new Ast.Exeunt(undefined, new Ast.Character("Romeo"));
+      const exeunt2 = new Ast.Exeunt([new Ast.Character("Romeo")]);
       expect(() => semantics.visitExeunt(exeunt2, null)).toThrow(
-        "Semantic Error - Either 2 or no characters can be defined, not one.",
+        "Semantic Error - Either 2 or more characters, or no characters can be defined, not one.",
       );
     });
 

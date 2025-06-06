@@ -78,14 +78,14 @@ export default class Formatter {
   }
 
   visitEnter(presence: Ast.Enter) {
-    const name1 = presence.character_1.visit(this);
-
-    if (presence.character_2) {
-      const name2 = presence.character_2.visit(this);
-
-      return `[Enter ${name1} and ${name2}]`;
+    if (presence.characters.length === 1) {
+      const name = presence.characters[0]?.visit(this) || "";
+      return `[Enter ${name}]`;
     } else {
-      return `[Enter ${name1}]`;
+      const names = presence.characters.map((c) => c.visit(this));
+      const allButLast = names.slice(0, -1).join(", ");
+      const last = names[names.length - 1] || "";
+      return `[Enter ${allButLast} and ${last}]`;
     }
   }
 
@@ -96,11 +96,11 @@ export default class Formatter {
   }
 
   visitExeunt(presence: Ast.Exeunt) {
-    if (presence.character_1 && presence.character_2) {
-      const name1 = presence.character_1.visit(this);
-      const name2 = presence.character_2.visit(this);
-
-      return `[Exeunt ${name1} and ${name2}]`;
+    if (presence.characters.length > 0) {
+      const names = presence.characters.map((c) => c.visit(this));
+      const allButLast = names.slice(0, -1).join(", ");
+      const last = names[names.length - 1];
+      return `[Exeunt ${allButLast} and ${last}]`;
     } else {
       return "[Exeunt]";
     }

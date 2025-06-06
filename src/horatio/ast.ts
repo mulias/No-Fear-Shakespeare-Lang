@@ -121,12 +121,10 @@ export class Stage {
 }
 
 export class Enter {
-  character_1: Character;
-  character_2: Character | null;
+  characters: Character[];
 
-  constructor(character_1: Character, character_2?: Character) {
-    this.character_1 = character_1;
-    this.character_2 = character_2 || null;
+  constructor(characters: Character[]) {
+    this.characters = characters;
   }
 
   visit(visitor: any, arg?: any): any {
@@ -147,12 +145,10 @@ export class Exit {
 }
 
 export class Exeunt {
-  character_1: Character | null;
-  character_2: Character | null;
+  characters: Character[];
 
-  constructor(character_1?: Character, character_2?: Character) {
-    this.character_1 = character_1 || null;
-    this.character_2 = character_2 || null;
+  constructor(characters: Character[] = []) {
+    this.characters = characters;
   }
 
   visit(visitor: any, arg?: any): any {

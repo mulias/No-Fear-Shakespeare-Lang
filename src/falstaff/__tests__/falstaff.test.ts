@@ -123,7 +123,7 @@ describe("Falstaff", () => {
         new HoratioAst.Numeral("I"),
         new HoratioAst.Comment("Test scene."),
         new HoratioAst.Stage([
-          new HoratioAst.Enter(romeo, juliet),
+          new HoratioAst.Enter([romeo, juliet]),
           new HoratioAst.Exeunt(), // No parameters means everyone exits
         ]),
       );
@@ -187,7 +187,7 @@ describe("Falstaff", () => {
         new HoratioAst.Numeral("I"),
         new HoratioAst.Comment("Test scene."),
         new HoratioAst.Stage([
-          new HoratioAst.Enter(romeo, juliet),
+          new HoratioAst.Enter([romeo, juliet]),
           dialogue,
           new HoratioAst.Exeunt(),
         ]),
@@ -345,7 +345,7 @@ describe("Falstaff", () => {
         new HoratioAst.Numeral("I"),
         new HoratioAst.Comment("The Prince's Speech."),
         new HoratioAst.Stage([
-          new HoratioAst.Enter(hamlet, juliet),
+          new HoratioAst.Enter([hamlet, juliet]),
           dialogue,
           new HoratioAst.Exeunt(),
         ]),

@@ -22,11 +22,7 @@ describe("Yorick Transpiler", () => {
                     type: "comment",
                     content: "This comment should be ignored",
                   },
-                  {
-                    type: "stage",
-                    varId1: "a",
-                    varId2: "b",
-                  },
+                  { type: "stage", varIds: ["a", "b"] },
                   {
                     type: "comment",
                     content: "Another comment to ignore",
@@ -110,13 +106,7 @@ describe("Yorick Transpiler", () => {
               {
                 type: "scene",
                 sceneId: "Start",
-                directions: [
-                  {
-                    type: "stage",
-                    varId1: "a",
-                    varId2: "b",
-                  },
-                ],
+                directions: [{ type: "stage", varIds: ["a", "b"] }],
               },
             ],
           },
@@ -148,8 +138,7 @@ describe("Yorick Transpiler", () => {
                 directions: [
                   {
                     type: "stage",
-                    varId1: "hero",
-                    varId2: null,
+                    varIds: ["hero"],
                   },
                 ],
               },
@@ -262,8 +251,7 @@ describe("Yorick Transpiler", () => {
                 directions: [
                   {
                     type: "stage",
-                    varId1: "a",
-                    varId2: null,
+                    varIds: ["a"],
                   },
                 ],
               },
@@ -302,13 +290,7 @@ describe("Yorick Transpiler", () => {
               {
                 type: "scene",
                 sceneId: "Start",
-                directions: [
-                  {
-                    type: "stage",
-                    varId1: "a",
-                    varId2: "b",
-                  },
-                ],
+                directions: [{ type: "stage", varIds: ["a", "b"] }],
               },
             ],
           },
@@ -432,8 +414,7 @@ describe("Yorick Transpiler", () => {
                 directions: [
                   {
                     type: "stage",
-                    varId1: "romeo",
-                    varId2: null,
+                    varIds: ["romeo"],
                   },
                 ],
               },
@@ -450,7 +431,8 @@ describe("Yorick Transpiler", () => {
 
       const enter = stage?.directions[0] as Ast.Enter;
       expect(enter).toBeInstanceOf(Ast.Enter);
-      expect(enter.character_1).toBeInstanceOf(Ast.Character);
+      expect(enter.characters).toHaveLength(1);
+      expect(enter.characters[0]).toBeInstanceOf(Ast.Character);
     });
 
     it("should convert stage with two characters", () => {
@@ -468,8 +450,7 @@ describe("Yorick Transpiler", () => {
                 directions: [
                   {
                     type: "stage",
-                    varId1: "romeo",
-                    varId2: "juliet",
+                    varIds: ["romeo", "juliet"],
                   },
                 ],
               },
@@ -482,8 +463,9 @@ describe("Yorick Transpiler", () => {
       const ast = yorick.run();
 
       const enter = ast.parts[0]?.subparts[0]?.stage.directions[0] as Ast.Enter;
-      expect(enter.character_1).toBeInstanceOf(Ast.Character);
-      expect(enter.character_2).toBeInstanceOf(Ast.Character);
+      expect(enter.characters).toHaveLength(2);
+      expect(enter.characters[0]).toBeInstanceOf(Ast.Character);
+      expect(enter.characters[1]).toBeInstanceOf(Ast.Character);
     });
 
     it("should convert unstage to exit", () => {
@@ -499,8 +481,8 @@ describe("Yorick Transpiler", () => {
                 type: "scene",
                 sceneId: "Start",
                 directions: [
-                  { type: "stage", varId1: "a", varId2: null },
-                  { type: "unstage", varId1: "a", varId2: null },
+                  { type: "stage", varIds: ["a"] },
+                  { type: "unstage", varIds: ["a"] },
                 ],
               },
             ],
@@ -532,7 +514,7 @@ describe("Yorick Transpiler", () => {
                 type: "scene",
                 sceneId: "Start",
                 directions: [
-                  { type: "stage", varId1: "a", varId2: "b" },
+                  { type: "stage", varIds: ["a", "b"] },
                   { type: "unstage_all" },
                 ],
               },
@@ -547,8 +529,7 @@ describe("Yorick Transpiler", () => {
       const events = ast.parts[0]?.subparts[0]?.stage.directions || [];
       const exeunt = events[1] as Ast.Exeunt;
       expect(exeunt).toBeInstanceOf(Ast.Exeunt);
-      expect(exeunt.character_1).toBeNull();
-      expect(exeunt.character_2).toBeNull();
+      expect(exeunt.characters).toHaveLength(0);
     });
   });
 
@@ -566,7 +547,7 @@ describe("Yorick Transpiler", () => {
                 type: "scene",
                 sceneId: "Start",
                 directions: [
-                  { type: "stage", varId1: "speaker", varId2: "listener" },
+                  { type: "stage", varIds: ["speaker", "listener"] },
                   {
                     type: "dialogue",
                     speakerVarId: "speaker",
@@ -602,7 +583,7 @@ describe("Yorick Transpiler", () => {
                 type: "scene",
                 sceneId: "Start",
                 directions: [
-                  { type: "stage", varId1: "a", varId2: "b" },
+                  { type: "stage", varIds: ["a", "b"] },
                   {
                     type: "dialogue",
                     speakerVarId: "a",
@@ -646,7 +627,7 @@ describe("Yorick Transpiler", () => {
                 type: "scene",
                 sceneId: "Start",
                 directions: [
-                  { type: "stage", varId1: "a", varId2: "b" },
+                  { type: "stage", varIds: ["a", "b"] },
                   {
                     type: "dialogue",
                     speakerVarId: "a",
@@ -688,7 +669,7 @@ describe("Yorick Transpiler", () => {
                 type: "scene",
                 sceneId: "Start",
                 directions: [
-                  { type: "stage", varId1: "a", varId2: null },
+                  { type: "stage", varIds: ["a"] },
                   {
                     type: "dialogue",
                     speakerVarId: "a",
@@ -736,7 +717,7 @@ describe("Yorick Transpiler", () => {
                 type: "scene",
                 sceneId: "Start",
                 directions: [
-                  { type: "stage", varId1: "a", varId2: "b" },
+                  { type: "stage", varIds: ["a", "b"] },
                   {
                     type: "dialogue",
                     speakerVarId: "a",
@@ -780,7 +761,7 @@ describe("Yorick Transpiler", () => {
                 type: "scene",
                 sceneId: "Start",
                 directions: [
-                  { type: "stage", varId1: "a", varId2: null },
+                  { type: "stage", varIds: ["a"] },
                   {
                     type: "dialogue",
                     speakerVarId: "a",
@@ -833,7 +814,7 @@ describe("Yorick Transpiler", () => {
                 type: "scene",
                 sceneId: "Start",
                 directions: [
-                  { type: "stage", varId1: "a", varId2: "b" },
+                  { type: "stage", varIds: ["a", "b"] },
                   {
                     type: "dialogue",
                     speakerVarId: "a",
@@ -879,7 +860,7 @@ describe("Yorick Transpiler", () => {
                 type: "scene",
                 sceneId: "Start",
                 directions: [
-                  { type: "stage", varId1: "a", varId2: "b" },
+                  { type: "stage", varIds: ["a", "b"] },
                   {
                     type: "dialogue",
                     speakerVarId: "a",
@@ -922,7 +903,7 @@ describe("Yorick Transpiler", () => {
                 type: "scene",
                 sceneId: "Start",
                 directions: [
-                  { type: "stage", varId1: "a", varId2: "b" },
+                  { type: "stage", varIds: ["a", "b"] },
                   {
                     type: "dialogue",
                     speakerVarId: "a",
@@ -966,7 +947,7 @@ describe("Yorick Transpiler", () => {
                 type: "scene",
                 sceneId: "Start",
                 directions: [
-                  { type: "stage", varId1: "a", varId2: "b" },
+                  { type: "stage", varIds: ["a", "b"] },
                   {
                     type: "dialogue",
                     speakerVarId: "a",
@@ -1009,7 +990,7 @@ describe("Yorick Transpiler", () => {
                 type: "scene",
                 sceneId: "Start",
                 directions: [
-                  { type: "stage", varId1: "a", varId2: "b" },
+                  { type: "stage", varIds: ["a", "b"] },
                   {
                     type: "dialogue",
                     speakerVarId: "a",
@@ -1061,7 +1042,7 @@ describe("Yorick Transpiler", () => {
                 type: "scene",
                 sceneId: "Start",
                 directions: [
-                  { type: "stage", varId1: "a", varId2: "b" },
+                  { type: "stage", varIds: ["a", "b"] },
                   {
                     type: "dialogue",
                     speakerVarId: "a",
@@ -1102,7 +1083,7 @@ describe("Yorick Transpiler", () => {
                 type: "scene",
                 sceneId: "Start",
                 directions: [
-                  { type: "stage", varId1: "a", varId2: "b" },
+                  { type: "stage", varIds: ["a", "b"] },
                   {
                     type: "dialogue",
                     speakerVarId: "a",
@@ -1144,7 +1125,7 @@ describe("Yorick Transpiler", () => {
                 type: "scene",
                 sceneId: "Start",
                 directions: [
-                  { type: "stage", varId1: "a", varId2: "b" },
+                  { type: "stage", varIds: ["a", "b"] },
                   {
                     type: "dialogue",
                     speakerVarId: "a",
@@ -1187,7 +1168,7 @@ describe("Yorick Transpiler", () => {
                 type: "scene",
                 sceneId: "Start",
                 directions: [
-                  { type: "stage", varId1: "a", varId2: "b" },
+                  { type: "stage", varIds: ["a", "b"] },
                   {
                     type: "dialogue",
                     speakerVarId: "a",
@@ -1228,7 +1209,7 @@ describe("Yorick Transpiler", () => {
                 type: "scene",
                 sceneId: "Start",
                 directions: [
-                  { type: "stage", varId1: "a", varId2: "b" },
+                  { type: "stage", varIds: ["a", "b"] },
                   {
                     type: "dialogue",
                     speakerVarId: "a",
@@ -1282,7 +1263,7 @@ describe("Yorick Transpiler", () => {
                   type: "scene",
                   sceneId: "Start",
                   directions: [
-                    { type: "stage", varId1: "a", varId2: "b" },
+                    { type: "stage", varIds: ["a", "b"] },
                     {
                       type: "dialogue",
                       speakerVarId: "a",
@@ -1327,7 +1308,7 @@ describe("Yorick Transpiler", () => {
                 type: "scene",
                 sceneId: "Start",
                 directions: [
-                  { type: "stage", varId1: "a", varId2: null },
+                  { type: "stage", varIds: ["a"] },
                   {
                     type: "dialogue",
                     speakerVarId: "a",
@@ -1364,8 +1345,8 @@ describe("Yorick Transpiler", () => {
                 type: "scene",
                 sceneId: "Start",
                 directions: [
-                  { type: "stage", varId1: "a", varId2: "b" },
-                  { type: "stage", varId1: "c", varId2: null },
+                  { type: "stage", varIds: ["a", "b"] },
+                  { type: "stage", varIds: ["c"] },
                 ],
               },
             ],
@@ -1436,8 +1417,7 @@ describe("Yorick Transpiler", () => {
                 directions: [
                   {
                     type: "stage",
-                    varId1: "stack",
-                    varId2: "count",
+                    varIds: ["stack", "count"],
                   },
                   {
                     type: "dialogue",
@@ -1490,8 +1470,7 @@ describe("Yorick Transpiler", () => {
                 directions: [
                   {
                     type: "stage",
-                    varId1: "stack",
-                    varId2: "undeclared",
+                    varIds: ["stack", "undeclared"],
                   },
                   {
                     type: "dialogue",
@@ -1542,8 +1521,7 @@ describe("Yorick Transpiler", () => {
                 directions: [
                   {
                     type: "stage",
-                    varId1: "a",
-                    varId2: "b",
+                    varIds: ["a", "b"],
                   },
                   {
                     type: "dialogue",
@@ -1619,8 +1597,7 @@ describe("Yorick Transpiler", () => {
                 directions: [
                   {
                     type: "stage",
-                    varId1: "hero",
-                    varId2: "villain",
+                    varIds: ["hero", "villain"],
                   },
                 ],
               },
@@ -1685,8 +1662,7 @@ describe("Yorick Transpiler", () => {
                 directions: [
                   {
                     type: "stage",
-                    varId1: "hero",
-                    varId2: "sidekick",
+                    varIds: ["hero", "sidekick"],
                   },
                 ],
               },
@@ -1742,8 +1718,7 @@ describe("Yorick Transpiler", () => {
                 directions: [
                   {
                     type: "stage",
-                    varId1: "protagonist",
-                    varId2: null,
+                    varIds: ["protagonist"],
                   },
                 ],
               },
@@ -1792,8 +1767,7 @@ describe("Yorick Transpiler", () => {
                 directions: [
                   {
                     type: "stage",
-                    varId1: "player1",
-                    varId2: "player2",
+                    varIds: ["player1", "player2"],
                   },
                 ],
               },
@@ -1872,8 +1846,7 @@ describe("Yorick Transpiler", () => {
                 directions: [
                   {
                     type: "stage",
-                    varId1: "name",
-                    varId2: null,
+                    varIds: ["name"],
                   },
                 ],
               },

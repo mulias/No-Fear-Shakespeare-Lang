@@ -97,14 +97,9 @@ export default class Generator {
       };
     };
 
-    const c1 = presence.character_1.sequence;
-
-    this.program.addCommand(arg.act, arg.scene, createCommand(c1));
-
-    if (presence.character_2) {
-      const c2 = presence.character_2.sequence;
-
-      this.program.addCommand(arg.act, arg.scene, createCommand(c2));
+    for (const character of presence.characters) {
+      const c = character.sequence;
+      this.program.addCommand(arg.act, arg.scene, createCommand(c));
     }
 
     return null;

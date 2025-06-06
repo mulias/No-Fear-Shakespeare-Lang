@@ -149,7 +149,7 @@ describe("Horatio Compiler", () => {
       expect(events).toHaveLength(4);
 
       expect(events[0]).toBeInstanceOf(Ast.Enter);
-      expect((events[0] as Ast.Enter).character_1.sequence).toBe("Romeo");
+      expect((events[0] as Ast.Enter).characters[0]?.sequence).toBe("Romeo");
 
       expect(events[1]).toBeInstanceOf(Ast.Enter);
       expect(events[2]).toBeInstanceOf(Ast.Exit);
@@ -628,10 +628,10 @@ describe("Horatio Compiler", () => {
               new Ast.Numeral("I"),
               new Ast.Comment("Scene 1"),
               new Ast.Stage([
-                new Ast.Enter(
+                new Ast.Enter([
                   new Ast.Character("Romeo"),
                   new Ast.Character("Juliet"),
-                ),
+                ]),
                 new Ast.Dialogue([
                   new Ast.Line(new Ast.Character("Romeo"), [
                     new Ast.AssignmentSentence(
@@ -667,10 +667,10 @@ describe("Horatio Compiler", () => {
               new Ast.Numeral("I"),
               new Ast.Comment("Scene 1"),
               new Ast.Stage([
-                new Ast.Enter(
+                new Ast.Enter([
                   new Ast.Character("Romeo"),
                   new Ast.Character("Juliet"),
-                ), // Juliet not declared
+                ]), // Juliet not declared
                 new Ast.Exeunt(),
               ]),
             ),
@@ -702,7 +702,7 @@ describe("Horatio Compiler", () => {
               new Ast.Numeral("I"),
               new Ast.Comment("Scene 1"),
               new Ast.Stage([
-                new Ast.Enter(new Ast.Character("Romeo")),
+                new Ast.Enter([new Ast.Character("Romeo")]),
                 new Ast.Dialogue([
                   new Ast.Line(new Ast.Character("Romeo"), [
                     new Ast.AssignmentSentence(
@@ -769,7 +769,7 @@ describe("Horatio Compiler", () => {
               new Ast.Numeral("I"),
               new Ast.Comment("Scene 1"),
               new Ast.Stage([
-                new Ast.Enter(new Ast.Character("Romeo")),
+                new Ast.Enter([new Ast.Character("Romeo")]),
                 new Ast.Dialogue([
                   new Ast.Line(new Ast.Character("Romeo"), [
                     new Ast.GotoSentence(
@@ -804,7 +804,7 @@ describe("Horatio Compiler", () => {
               new Ast.Numeral("I"),
               new Ast.Comment("Scene 1"),
               new Ast.Stage([
-                new Ast.Enter(new Ast.Character("Romeo")),
+                new Ast.Enter([new Ast.Character("Romeo")]),
                 new Ast.Dialogue([
                   new Ast.Line(new Ast.Character("Romeo"), [
                     new Ast.GotoSentence(
@@ -820,7 +820,7 @@ describe("Horatio Compiler", () => {
               new Ast.Numeral("II"),
               new Ast.Comment("Scene 2"),
               new Ast.Stage([
-                new Ast.Enter(new Ast.Character("Romeo")),
+                new Ast.Enter([new Ast.Character("Romeo")]),
                 new Ast.Dialogue([
                   new Ast.Line(new Ast.Character("Romeo"), [
                     new Ast.AssignmentSentence(
@@ -925,12 +925,12 @@ describe("Horatio Compiler", () => {
               new Ast.Numeral("I"),
               new Ast.Comment("Scene 1"),
               new Ast.Stage([
-                new Ast.Enter(
+                new Ast.Enter([
                   new Ast.Character("Romeo"),
                   new Ast.Character("Juliet"),
-                ),
+                ]),
                 new Ast.Exit(new Ast.Character("Romeo")),
-                new Ast.Enter(new Ast.Character("Hamlet")),
+                new Ast.Enter([new Ast.Character("Hamlet")]),
                 new Ast.Dialogue([
                   new Ast.Line(new Ast.Character("Hamlet"), [
                     new Ast.AssignmentSentence(
@@ -977,10 +977,10 @@ describe("Horatio Compiler", () => {
               new Ast.Numeral("I"),
               new Ast.Comment("Scene 1"),
               new Ast.Stage([
-                new Ast.Enter(
+                new Ast.Enter([
                   new Ast.Character("Romeo"),
                   new Ast.Character("Juliet"),
-                ),
+                ]),
                 new Ast.Dialogue([
                   new Ast.Line(new Ast.Character("Romeo"), [
                     new Ast.AssignmentSentence(
@@ -1029,10 +1029,10 @@ describe("Horatio Compiler", () => {
               new Ast.Numeral("I"),
               new Ast.Comment("Scene 1"),
               new Ast.Stage([
-                new Ast.Enter(
+                new Ast.Enter([
                   new Ast.Character("Romeo"),
                   new Ast.Character("Juliet"),
-                ),
+                ]),
                 new Ast.Dialogue([
                   new Ast.Line(new Ast.Character("Romeo"), [
                     new Ast.AssignmentSentence(
@@ -1091,10 +1091,10 @@ describe("Horatio Compiler", () => {
               new Ast.Numeral("I"),
               new Ast.Comment("Scene 1"),
               new Ast.Stage([
-                new Ast.Enter(
+                new Ast.Enter([
                   new Ast.Character("Romeo"),
                   new Ast.Character("Juliet"),
-                ),
+                ]),
                 new Ast.Dialogue([
                   new Ast.Line(new Ast.Character("Romeo"), [
                     new Ast.AssignmentSentence(
@@ -1154,10 +1154,10 @@ describe("Horatio Compiler", () => {
               new Ast.Numeral("I"),
               new Ast.Comment("Scene 1"),
               new Ast.Stage([
-                new Ast.Enter(
+                new Ast.Enter([
                   new Ast.Character("Romeo"),
                   new Ast.Character("Juliet"),
-                ),
+                ]),
                 new Ast.Dialogue([
                   new Ast.Line(new Ast.Character("Romeo"), [
                     new Ast.AssignmentSentence(
@@ -1225,10 +1225,10 @@ describe("Horatio Compiler", () => {
               new Ast.Numeral("I"),
               new Ast.Comment("Scene 1"),
               new Ast.Stage([
-                new Ast.Enter(
+                new Ast.Enter([
                   new Ast.Character("Romeo"),
                   new Ast.Character("Juliet"),
-                ),
+                ]),
                 new Ast.Dialogue([
                   new Ast.Line(new Ast.Character("Romeo"), [
                     new Ast.AssignmentSentence(
@@ -1326,10 +1326,10 @@ describe("Horatio Compiler", () => {
               new Ast.Numeral("I"),
               new Ast.Comment("Scene 1"),
               new Ast.Stage([
-                new Ast.Enter(
+                new Ast.Enter([
                   new Ast.Character("Romeo"),
                   new Ast.Character("Juliet"),
-                ),
+                ]),
                 new Ast.Dialogue([
                   new Ast.Line(new Ast.Character("Romeo"), [
                     new Ast.AssignmentSentence(
@@ -2375,10 +2375,10 @@ describe("Horatio Compiler", () => {
               new Ast.Numeral("I"),
               new Ast.Comment("Print Numbers"),
               new Ast.Stage([
-                new Ast.Enter(
+                new Ast.Enter([
                   new Ast.Character("Romeo"),
                   new Ast.Character("Juliet"),
-                ),
+                ]),
                 new Ast.Dialogue([
                   new Ast.Line(new Ast.Character("Romeo"), [
                     new Ast.AssignmentSentence(

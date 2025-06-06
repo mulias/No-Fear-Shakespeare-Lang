@@ -1,5 +1,184 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Comprehensive Example File Snapshots SPL AST Snapshots should parse enter-multiple.spl to Horatio AST: enter-multiple.spl-horatio-ast 1`] = `
+Program {
+  "comment": Comment {
+    "sequence": "The Test of Multiple Enter",
+  },
+  "declarations": [
+    Declaration {
+      "character": Character {
+        "sequence": "Romeo",
+      },
+      "comment": Comment {
+        "sequence": "a young man",
+      },
+    },
+    Declaration {
+      "character": Character {
+        "sequence": "Juliet",
+      },
+      "comment": Comment {
+        "sequence": "a lady",
+      },
+    },
+    Declaration {
+      "character": Character {
+        "sequence": "Mercutio",
+      },
+      "comment": Comment {
+        "sequence": "a friend",
+      },
+    },
+    Declaration {
+      "character": Character {
+        "sequence": "Benvolio",
+      },
+      "comment": Comment {
+        "sequence": "another friend",
+      },
+    },
+  ],
+  "parts": [
+    Part {
+      "comment": Comment {
+        "sequence": "Testing multiple enters",
+      },
+      "numeral": Numeral {
+        "sequence": "I",
+      },
+      "subparts": [
+        Subpart {
+          "comment": Comment {
+            "sequence": "Single enter",
+          },
+          "numeral": Numeral {
+            "sequence": "I",
+          },
+          "stage": Stage {
+            "directions": [
+              Enter {
+                "characters": [
+                  Character {
+                    "sequence": "Romeo",
+                  },
+                ],
+              },
+              Exit {
+                "character": Character {
+                  "sequence": "Romeo",
+                },
+              },
+            ],
+          },
+        },
+        Subpart {
+          "comment": Comment {
+            "sequence": "Two characters enter",
+          },
+          "numeral": Numeral {
+            "sequence": "II",
+          },
+          "stage": Stage {
+            "directions": [
+              Enter {
+                "characters": [
+                  Character {
+                    "sequence": "Romeo",
+                  },
+                  Character {
+                    "sequence": "Juliet",
+                  },
+                ],
+              },
+              Exeunt {
+                "characters": [
+                  Character {
+                    "sequence": "Romeo",
+                  },
+                  Character {
+                    "sequence": "Juliet",
+                  },
+                ],
+              },
+            ],
+          },
+        },
+        Subpart {
+          "comment": Comment {
+            "sequence": "Three characters enter",
+          },
+          "numeral": Numeral {
+            "sequence": "III",
+          },
+          "stage": Stage {
+            "directions": [
+              Enter {
+                "characters": [
+                  Character {
+                    "sequence": "Romeo",
+                  },
+                  Character {
+                    "sequence": "Juliet",
+                  },
+                  Character {
+                    "sequence": "Mercutio",
+                  },
+                ],
+              },
+              Exeunt {
+                "characters": [
+                  Character {
+                    "sequence": "Romeo",
+                  },
+                  Character {
+                    "sequence": "Juliet",
+                  },
+                  Character {
+                    "sequence": "Mercutio",
+                  },
+                ],
+              },
+            ],
+          },
+        },
+        Subpart {
+          "comment": Comment {
+            "sequence": "Four characters enter",
+          },
+          "numeral": Numeral {
+            "sequence": "IV",
+          },
+          "stage": Stage {
+            "directions": [
+              Enter {
+                "characters": [
+                  Character {
+                    "sequence": "Romeo",
+                  },
+                  Character {
+                    "sequence": "Juliet",
+                  },
+                  Character {
+                    "sequence": "Mercutio",
+                  },
+                  Character {
+                    "sequence": "Benvolio",
+                  },
+                ],
+              },
+              Exeunt {
+                "characters": [],
+              },
+            ],
+          },
+        },
+      ],
+    },
+  ],
+}
+`;
+
 exports[`Comprehensive Example File Snapshots SPL AST Snapshots should parse hi.spl to Horatio AST: hi.spl-horatio-ast 1`] = `
 Program {
   "comment": Comment {
@@ -42,12 +221,14 @@ Program {
           "stage": Stage {
             "directions": [
               Enter {
-                "character_1": Character {
-                  "sequence": "Hamlet",
-                },
-                "character_2": Character {
-                  "sequence": "Juliet",
-                },
+                "characters": [
+                  Character {
+                    "sequence": "Hamlet",
+                  },
+                  Character {
+                    "sequence": "Juliet",
+                  },
+                ],
               },
               Dialogue {
                 "lines": [
@@ -216,8 +397,7 @@ Program {
                 ],
               },
               Exeunt {
-                "character_1": null,
-                "character_2": null,
+                "characters": [],
               },
             ],
           },
@@ -286,12 +466,14 @@ Program {
           "stage": Stage {
             "directions": [
               Enter {
-                "character_1": Character {
-                  "sequence": "The Ghost",
-                },
-                "character_2": Character {
-                  "sequence": "Juliet",
-                },
+                "characters": [
+                  Character {
+                    "sequence": "The Ghost",
+                  },
+                  Character {
+                    "sequence": "Juliet",
+                  },
+                ],
               },
               Dialogue {
                 "lines": [
@@ -390,10 +572,11 @@ Program {
                 },
               },
               Enter {
-                "character_1": Character {
-                  "sequence": "Romeo",
-                },
-                "character_2": null,
+                "characters": [
+                  Character {
+                    "sequence": "Romeo",
+                  },
+                ],
               },
               Dialogue {
                 "lines": [
@@ -501,10 +684,11 @@ Program {
                 },
               },
               Enter {
-                "character_1": Character {
-                  "sequence": "Hamlet",
-                },
-                "character_2": null,
+                "characters": [
+                  Character {
+                    "sequence": "Hamlet",
+                  },
+                ],
               },
               Dialogue {
                 "lines": [
@@ -735,10 +919,11 @@ Program {
                 },
               },
               Enter {
-                "character_1": Character {
-                  "sequence": "Romeo",
-                },
-                "character_2": null,
+                "characters": [
+                  Character {
+                    "sequence": "Romeo",
+                  },
+                ],
               },
               Dialogue {
                 "lines": [
@@ -762,10 +947,11 @@ Program {
                 },
               },
               Enter {
-                "character_1": Character {
-                  "sequence": "Hamlet",
-                },
-                "character_2": null,
+                "characters": [
+                  Character {
+                    "sequence": "Hamlet",
+                  },
+                ],
               },
               Dialogue {
                 "lines": [
@@ -842,10 +1028,11 @@ Program {
                 },
               },
               Enter {
-                "character_1": Character {
-                  "sequence": "Juliet",
-                },
-                "character_2": null,
+                "characters": [
+                  Character {
+                    "sequence": "Juliet",
+                  },
+                ],
               },
             ],
           },
@@ -865,10 +1052,11 @@ Program {
                 },
               },
               Enter {
-                "character_1": Character {
-                  "sequence": "Romeo",
-                },
-                "character_2": null,
+                "characters": [
+                  Character {
+                    "sequence": "Romeo",
+                  },
+                ],
               },
               Dialogue {
                 "lines": [
@@ -930,8 +1118,7 @@ Program {
           "stage": Stage {
             "directions": [
               Exeunt {
-                "character_1": null,
-                "character_2": null,
+                "characters": [],
               },
             ],
           },
@@ -984,12 +1171,14 @@ Program {
           "stage": Stage {
             "directions": [
               Enter {
-                "character_1": Character {
-                  "sequence": "Othello",
-                },
-                "character_2": Character {
-                  "sequence": "Lady Macbeth",
-                },
+                "characters": [
+                  Character {
+                    "sequence": "Othello",
+                  },
+                  Character {
+                    "sequence": "Lady Macbeth",
+                  },
+                ],
               },
               Dialogue {
                 "lines": [
@@ -1279,8 +1468,7 @@ Program {
           "stage": Stage {
             "directions": [
               Exeunt {
-                "character_1": null,
-                "character_2": null,
+                "characters": [],
               },
             ],
           },

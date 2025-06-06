@@ -41,7 +41,7 @@ describe("Falstaff Unary Operators", () => {
         new HoratioAst.Numeral("I"),
         new HoratioAst.Comment("Test scene."),
         new HoratioAst.Stage([
-          new HoratioAst.Enter(romeo, juliet),
+          new HoratioAst.Enter([romeo, juliet]),
           dialogue,
           new HoratioAst.Exeunt(),
         ]),
@@ -105,7 +105,7 @@ describe("Falstaff Unary Operators", () => {
         new HoratioAst.Numeral("I"),
         new HoratioAst.Comment("Test scene."),
         new HoratioAst.Stage([
-          new HoratioAst.Enter(romeo, juliet),
+          new HoratioAst.Enter([romeo, juliet]),
           dialogue,
           new HoratioAst.Exeunt(),
         ]),
@@ -170,7 +170,7 @@ describe("Falstaff Unary Operators", () => {
         new HoratioAst.Numeral("I"),
         new HoratioAst.Comment("Test scene."),
         new HoratioAst.Stage([
-          new HoratioAst.Enter(romeo, juliet),
+          new HoratioAst.Enter([romeo, juliet]),
           dialogue,
           new HoratioAst.Exeunt(),
         ]),
@@ -247,7 +247,7 @@ describe("Falstaff Unary Operators", () => {
         new HoratioAst.Numeral("I"),
         new HoratioAst.Comment("Test scene."),
         new HoratioAst.Stage([
-          new HoratioAst.Enter(romeo, juliet),
+          new HoratioAst.Enter([romeo, juliet]),
           dialogue,
           new HoratioAst.Exeunt(),
         ]),
@@ -315,7 +315,7 @@ describe("Falstaff Unary Operators", () => {
         new HoratioAst.Numeral("I"),
         new HoratioAst.Comment("Test scene."),
         new HoratioAst.Stage([
-          new HoratioAst.Enter(romeo, juliet),
+          new HoratioAst.Enter([romeo, juliet]),
           dialogue,
           new HoratioAst.Exeunt(),
         ]),
@@ -378,7 +378,7 @@ describe("Falstaff Unary Operators", () => {
         new HoratioAst.Numeral("I"),
         new HoratioAst.Comment("Test scene."),
         new HoratioAst.Stage([
-          new HoratioAst.Enter(romeo, juliet),
+          new HoratioAst.Enter([romeo, juliet]),
           dialogue,
           new HoratioAst.Exeunt(),
         ]),
@@ -461,7 +461,7 @@ describe("Falstaff Unary Operators", () => {
         new HoratioAst.Numeral("I"),
         new HoratioAst.Comment("Test scene."),
         new HoratioAst.Stage([
-          new HoratioAst.Enter(romeo, juliet),
+          new HoratioAst.Enter([romeo, juliet]),
           dialogue,
           new HoratioAst.Exeunt(),
         ]),
@@ -538,7 +538,7 @@ describe("Falstaff Unary Operators", () => {
         new HoratioAst.Numeral("I"),
         new HoratioAst.Comment("Test scene."),
         new HoratioAst.Stage([
-          new HoratioAst.Enter(romeo, juliet),
+          new HoratioAst.Enter([romeo, juliet]),
           dialogue,
           new HoratioAst.Exeunt(),
         ]),

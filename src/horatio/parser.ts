@@ -294,22 +294,35 @@ export default class Parser {
         if (!this.isToken(this.currentToken)) {
           throw this.unexpectedTokenError();
         }
-        c1 = new AST.Character(this.currentToken.sequence);
-        c2 = null;
+
+        // Parse character list
+        const enterCharacters: AST.Character[] = [];
+
+        // First character
+        enterCharacters.push(new AST.Character(this.currentToken.sequence));
         this.accept(Token.CHARACTER);
-        if (
+
+        // Parse additional characters separated by commas or 'and'
+        while (
           this.isToken(this.currentToken) &&
-          (this.currentToken.kind === Token.AMPERSAND ||
+          (this.currentToken.kind === Token.COMMA ||
+            this.currentToken.kind === Token.AMPERSAND ||
             this.currentToken.kind === Token.AND)
         ) {
-          this.acceptIt();
-          if (!this.isToken(this.currentToken)) {
+          this.acceptIt(); // consume comma, ampersand or 'and'
+
+          if (
+            !this.isToken(this.currentToken) ||
+            this.currentToken.kind !== Token.CHARACTER
+          ) {
             throw this.unexpectedTokenError();
           }
-          c2 = new AST.Character(this.currentToken.sequence);
-          this.accept(Token.CHARACTER);
+
+          enterCharacters.push(new AST.Character(this.currentToken.sequence));
+          this.acceptIt();
         }
-        ret = new AST.Enter(c1, c2 || undefined);
+
+        ret = new AST.Enter(enterCharacters);
         break;
 
       case Token.EXIT:
@@ -328,15 +341,42 @@ export default class Parser {
           this.isToken(this.currentToken) &&
           this.currentToken.kind === Token.CHARACTER
         ) {
-          c1 = new AST.Character(this.currentToken.sequence);
+          // Parse character list
+          const characters: AST.Character[] = [];
+
+          // First character
+          characters.push(new AST.Character(this.currentToken.sequence));
           this.acceptIt();
-          this.accept(Token.AMPERSAND);
-          if (!this.isToken(this.currentToken)) {
-            throw this.unexpectedTokenError();
+
+          // Parse additional characters separated by commas or 'and'
+          while (
+            this.isToken(this.currentToken) &&
+            (this.currentToken.kind === Token.COMMA ||
+              this.currentToken.kind === Token.AMPERSAND ||
+              this.currentToken.kind === Token.AND)
+          ) {
+            this.acceptIt(); // consume comma, ampersand or 'and'
+
+            if (
+              !this.isToken(this.currentToken) ||
+              this.currentToken.kind !== Token.CHARACTER
+            ) {
+              throw this.unexpectedTokenError();
+            }
+
+            characters.push(new AST.Character(this.currentToken.sequence));
+            this.acceptIt();
           }
-          c2 = new AST.Character(this.currentToken.sequence);
-          this.accept(Token.CHARACTER);
-          ret = new AST.Exeunt(c1, c2);
+
+          // Create Exeunt with appropriate constructor
+          if (characters.length === 1) {
+            // Single character - treat as error
+            throw new Error(
+              "Exeunt requires either no characters or at least two characters",
+            );
+          } else {
+            ret = new AST.Exeunt(characters);
+          }
         } else {
           ret = new AST.Exeunt();
         }

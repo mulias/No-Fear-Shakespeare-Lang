@@ -100,8 +100,7 @@ describe("Ophelia Transformer", () => {
 
       const stage = directions[0] as OpheliaAst.Stage;
       expect(stage.type).toBe("stage");
-      expect(stage.varId1).toBe("a");
-      expect(stage.varId2).toBe("b");
+      expect(stage.varIds).toEqual(["a", "b"]);
 
       const unstageAll = directions[1] as OpheliaAst.UnstageAll;
       expect(unstageAll.type).toBe("unstage_all");
@@ -498,11 +497,7 @@ describe("Ophelia Transformer", () => {
                   {
                     type: "function_call",
                     postfixed: { type: "var", value: "stage" },
-                    value: [
-                      { type: "var", value: "a" },
-                      { type: "var", value: "b" },
-                      { type: "var", value: "c" }, // Too many args
-                    ],
+                    value: [],
                   },
                 ],
               },
@@ -513,7 +508,7 @@ describe("Ophelia Transformer", () => {
 
       const ophelia = new Ophelia(possumAst);
       expect(() => ophelia.run()).toThrow(
-        "Found 1 error:\n  1. stage() expects 1 or 2 arguments",
+        "Found 1 error:\n  1. stage() expects at least 1 argument",
       );
     });
 
@@ -1729,12 +1724,12 @@ describe("Ophelia Transformer", () => {
 Main {
   Start {
     stage(a, b)
-    
+
     a {
       @you.set(42)
       @you.print_int
     }
-    
+
     unstage_all
   }
 }`;

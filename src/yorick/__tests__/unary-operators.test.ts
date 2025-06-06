@@ -42,7 +42,7 @@ describe("Yorick Unary Operators", () => {
                 sceneId: "Scene1",
                 description: undefined,
                 directions: [
-                  { type: "stage", varId1: "x", varId2: "y" },
+                  { type: "stage", varIds: ["x", "y"] },
                   {
                     type: "dialogue",
                     speakerVarId: "x",
@@ -119,7 +119,7 @@ describe("Yorick Unary Operators", () => {
                 sceneId: "Scene1",
                 description: undefined,
                 directions: [
-                  { type: "stage", varId1: "x", varId2: "y" },
+                  { type: "stage", varIds: ["x", "y"] },
                   {
                     type: "dialogue",
                     speakerVarId: "x",
@@ -195,7 +195,7 @@ describe("Yorick Unary Operators", () => {
                 sceneId: "Scene1",
                 description: undefined,
                 directions: [
-                  { type: "stage", varId1: "x", varId2: "y" },
+                  { type: "stage", varIds: ["x", "y"] },
                   {
                     type: "dialogue",
                     speakerVarId: "x",
@@ -271,7 +271,7 @@ describe("Yorick Unary Operators", () => {
                 sceneId: "Scene1",
                 description: undefined,
                 directions: [
-                  { type: "stage", varId1: "x", varId2: "y" },
+                  { type: "stage", varIds: ["x", "y"] },
                   {
                     type: "dialogue",
                     speakerVarId: "y",
@@ -353,7 +353,7 @@ describe("Yorick Unary Operators", () => {
                 sceneId: "Scene1",
                 description: undefined,
                 directions: [
-                  { type: "stage", varId1: "x", varId2: "y" },
+                  { type: "stage", varIds: ["x", "y"] },
                   {
                     type: "dialogue",
                     speakerVarId: "x",
@@ -430,7 +430,7 @@ describe("Yorick Unary Operators", () => {
                 sceneId: "Scene1",
                 description: undefined,
                 directions: [
-                  { type: "stage", varId1: "x", varId2: "y" },
+                  { type: "stage", varIds: ["x", "y"] },
                   {
                     type: "dialogue",
                     speakerVarId: "x",
@@ -511,7 +511,7 @@ describe("Yorick Unary Operators", () => {
                 sceneId: "Scene1",
                 description: undefined,
                 directions: [
-                  { type: "stage", varId1: "x", varId2: "y" },
+                  { type: "stage", varIds: ["x", "y"] },
                   {
                     type: "dialogue",
                     speakerVarId: "x",
@@ -590,7 +590,7 @@ describe("Yorick Unary Operators", () => {
                 sceneId: "Scene1",
                 description: undefined,
                 directions: [
-                  { type: "stage", varId1: "x", varId2: "y" },
+                  { type: "stage", varIds: ["x", "y"] },
                   {
                     type: "dialogue",
                     speakerVarId: "x",

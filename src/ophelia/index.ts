@@ -186,16 +186,12 @@ class PrettyPrinter {
   }
 
   private printStage(stage: Ast.Stage): string {
-    const args = stage.varId2
-      ? `${stage.varId1}, ${stage.varId2}`
-      : stage.varId1;
+    const args = stage.varIds.join(", ");
     return `${this.indent()}stage(${args})`;
   }
 
   private printUnstage(unstage: Ast.Unstage): string {
-    const args = unstage.varId2
-      ? `${unstage.varId1}, ${unstage.varId2}`
-      : unstage.varId1;
+    const args = unstage.varIds.join(", ");
     return `${this.indent()}unstage(${args})`;
   }
 
@@ -781,60 +777,62 @@ export class Ophelia {
   buildStageDirection(
     args: (PossumAst.Node | PossumAst.Malformed)[],
   ): Ast.Stage | undefined {
-    if (args.length === 0 || args.length > 2) {
-      const problemNode = args[0] || { type: "malformed" as const, value: "" };
-      this.addProblem(problemNode, "stage() expects 1 or 2 arguments");
+    if (args.length === 0) {
+      const problemNode = { type: "malformed" as const, value: "" };
+      this.addProblem(problemNode, "stage() expects at least 1 argument");
       return undefined;
     }
 
-    const firstArg = args[0];
-    if (!firstArg) {
-      return undefined;
-    }
+    const varIds: string[] = [];
 
-    const varId1 = this.extractVarId(firstArg);
-    const varId2 =
-      args.length === 2 && args[1] ? this.extractVarId(args[1]) : null;
+    for (const arg of args) {
+      if (!arg) continue;
 
-    if (!varId1) {
-      this.addProblem(firstArg, "stage() arguments must be variables");
-      return undefined;
+      const varId = this.extractVarId(arg);
+      if (!varId) {
+        this.addProblem(arg, "stage() arguments must be variables");
+        return undefined;
+      }
+
+      varIds.push(varId);
     }
 
     return {
       type: "stage",
-      varId1,
-      varId2,
+      varIds,
     };
   }
 
   buildUnstageDirection(
     args: (PossumAst.Node | PossumAst.Malformed)[],
   ): Ast.Unstage | undefined {
-    if (args.length === 0 || args.length > 2) {
-      const problemNode = args[0] || { type: "malformed" as const, value: "" };
-      this.addProblem(problemNode, "unstage() expects 1 or 2 arguments");
+    if (args.length === 0) {
+      const problemNode = { type: "malformed" as const, value: "" };
+      this.addProblem(problemNode, "unstage() expects at least 1 argument");
       return undefined;
     }
 
-    const firstArg = args[0];
-    if (!firstArg) {
-      return undefined;
+    const varIds: string[] = [];
+
+    for (const arg of args) {
+      if (!arg) continue;
+
+      const varId = this.extractVarId(arg);
+      if (!varId) {
+        this.addProblem(arg, "unstage() arguments must be variables");
+        return undefined;
+      }
+
+      varIds.push(varId);
     }
 
-    const varId1 = this.extractVarId(firstArg);
-    const varId2 =
-      args.length === 2 && args[1] ? this.extractVarId(args[1]) : null;
-
-    if (!varId1) {
-      this.addProblem(firstArg, "unstage() arguments must be variables");
+    if (varIds.length === 0) {
       return undefined;
     }
 
     return {
       type: "unstage",
-      varId1,
-      varId2,
+      varIds,
     };
   }
 

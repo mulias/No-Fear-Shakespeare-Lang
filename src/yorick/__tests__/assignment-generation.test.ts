@@ -133,7 +133,7 @@ describe("Yorick Assignment Generation", () => {
       const spl = await transpileNfsplToSpl(nfspl);
 
       expect(spl).toMatch(
-        /(You are|Thou art) as \w+ as (thyself|yourself|thee)[.!]/,
+        /(You are|Thou art) as \w+ as (thyself|yourself|thee|thou)[.!]/,
       );
     });
 

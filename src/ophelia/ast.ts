@@ -113,9 +113,9 @@ export type PushMe = { type: ".push_me" };
 
 export type Pop = { type: ".pop" };
 
-export type Stage = { type: "stage"; varId1: VarId; varId2: VarId | null };
+export type Stage = { type: "stage"; varIds: VarId[] };
 
-export type Unstage = { type: "unstage"; varId1: VarId; varId2: VarId | null };
+export type Unstage = { type: "unstage"; varIds: VarId[] };
 
 export type UnstageAll = { type: "unstage_all" };
 

@@ -221,18 +221,19 @@ export class Reverser {
   }
 
   private convertEnter(enter: HoratioAst.Enter): OpheliaAst.Stage {
-    const char1 =
-      this.characterNameMap.get(enter.character_1.sequence) ||
-      this.convertCharacterName(enter.character_1.sequence);
-    const char2 = enter.character_2
-      ? this.characterNameMap.get(enter.character_2.sequence) ||
-        this.convertCharacterName(enter.character_2.sequence)
-      : null;
+    const varIds: string[] = [];
+
+    // Add all characters
+    for (const character of enter.characters) {
+      varIds.push(
+        this.characterNameMap.get(character.sequence) ||
+          this.convertCharacterName(character.sequence),
+      );
+    }
 
     return {
       type: "stage",
-      varId1: char1,
-      varId2: char2,
+      varIds,
     };
   }
 
@@ -243,32 +244,26 @@ export class Reverser {
 
     return {
       type: "unstage",
-      varId1: character,
-      varId2: null,
+      varIds: [character],
     };
   }
 
   private convertExeunt(
     exeunt: HoratioAst.Exeunt,
   ): OpheliaAst.UnstageAll | OpheliaAst.Unstage {
-    if (!exeunt.character_1 && !exeunt.character_2) {
+    if (exeunt.characters.length === 0) {
       // Everyone exits
       return { type: "unstage_all" };
     } else {
-      // Specific characters exit
-      const char1 = exeunt.character_1
-        ? this.characterNameMap.get(exeunt.character_1.sequence) ||
-          this.convertCharacterName(exeunt.character_1.sequence)
-        : "";
-      const char2 = exeunt.character_2
-        ? this.characterNameMap.get(exeunt.character_2.sequence) ||
-          this.convertCharacterName(exeunt.character_2.sequence)
-        : null;
+      const varIds = exeunt.characters.map(
+        (char) =>
+          this.characterNameMap.get(char.sequence) ||
+          this.convertCharacterName(char.sequence),
+      );
 
       return {
         type: "unstage",
-        varId1: char1,
-        varId2: char2,
+        varIds,
       };
     }
   }
@@ -420,6 +415,7 @@ export class Reverser {
       difference: "-",
       "difference between": "-",
       product: "*",
+      "product of": "*",
       quotient: "/",
       "quotient between": "/",
       remainder: "%",

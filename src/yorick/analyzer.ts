@@ -167,9 +167,10 @@ export class Analyzer {
     }
   }
 
-  checkUnstage({ varId1, varId2 }: OpheliaAst.Unstage, loc: Location): void {
-    this.assertValidUnstage(varId1, loc);
-    if (varId2) this.assertValidUnstage(varId2, loc);
+  checkUnstage({ varIds }: OpheliaAst.Unstage, loc: Location): void {
+    for (const varId of varIds) {
+      this.assertValidUnstage(varId, loc);
+    }
   }
 
   assertValidVarUse(varId: OpheliaAst.VarId, loc: Location): void {
@@ -264,9 +265,8 @@ function allVars(ast: OpheliaAst.Program): Vars {
     scenes.forEach((scene) => {
       scene.directions.forEach((direction) => {
         if (direction.type === "stage") {
-          vars.add(direction.varId1);
-          if (direction.varId2) {
-            vars.add(direction.varId2);
+          for (const varId of direction.varIds) {
+            vars.add(varId);
           }
         }
       });
