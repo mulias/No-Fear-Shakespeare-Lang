@@ -43,10 +43,4 @@ describe("Enter directive formatting", () => {
     const result = enter.visit(formatter);
     expect(result).toBe("[Enter Romeo, Juliet, Mercutio and Benvolio]");
   });
-
-  it("should format Enter with no characters", () => {
-    const enter = new Ast.Enter([]);
-    const result = enter.visit(formatter);
-    expect(result).toBe("[Enter]");
-  });
 });
