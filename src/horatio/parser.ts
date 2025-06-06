@@ -629,9 +629,7 @@ export default class Parser {
         this.currentToken.kind === Token.SECOND_PERSON_POSSESSIVE ||
         this.currentToken.kind === Token.THIRD_PERSON_POSSESSIVE)
     ) {
-      if (this.currentToken.kind === Token.ARTICLE) {
-        article = this.currentToken.sequence;
-      }
+      article = this.currentToken.sequence;
       this.acceptIt();
     }
     if (!this.isToken(this.currentToken)) {

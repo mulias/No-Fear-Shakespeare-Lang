@@ -189,7 +189,7 @@ Program {
                                 "sequence": "rotten",
                               },
                             ],
-                            "article": undefined,
+                            "article": "your",
                             "context": undefined,
                             "noun": NegativeNoun {
                               "sequence": "codpiece",
@@ -255,7 +255,7 @@ Program {
                             },
                             "value_2": PositiveConstantValue {
                               "adjectives": [],
-                              "article": undefined,
+                              "article": "my",
                               "context": undefined,
                               "noun": NeutralNoun {
                                 "sequence": "father",
@@ -394,7 +394,7 @@ Program {
                             },
                             "value_2": PositiveConstantValue {
                               "adjectives": [],
-                              "article": undefined,
+                              "article": "his",
                               "context": undefined,
                               "noun": NeutralNoun {
                                 "sequence": "horse",
@@ -407,7 +407,7 @@ Program {
                                 "sequence": "black",
                               },
                             ],
-                            "article": undefined,
+                            "article": "his",
                             "context": undefined,
                             "noun": PositiveNoun {
                               "sequence": "cat",
@@ -543,7 +543,7 @@ Program {
                                 "sequence": "embroidered",
                               },
                             ],
-                            "article": undefined,
+                            "article": "my",
                             "context": undefined,
                             "noun": PositiveNoun {
                               "sequence": "purse",
@@ -733,7 +733,7 @@ Program {
                                   "sequence": "smooth",
                                 },
                               ],
-                              "article": undefined,
+                              "article": "my",
                               "context": undefined,
                               "noun": PositiveNoun {
                                 "sequence": "hamster",
@@ -741,7 +741,7 @@ Program {
                             },
                             "value_2": PositiveConstantValue {
                               "adjectives": [],
-                              "article": undefined,
+                              "article": "my",
                               "context": undefined,
                               "noun": PositiveNoun {
                                 "sequence": "nose",
@@ -809,7 +809,7 @@ Program {
                                     "sequence": "little",
                                   },
                                 ],
-                                "article": undefined,
+                                "article": "my",
                                 "context": undefined,
                                 "noun": PositiveNoun {
                                   "sequence": "pony",
@@ -824,7 +824,7 @@ Program {
                                     "sequence": "hairy",
                                   },
                                 ],
-                                "article": undefined,
+                                "article": "your",
                                 "context": undefined,
                                 "noun": NegativeNoun {
                                   "sequence": "hound",
@@ -845,7 +845,7 @@ Program {
                                   "sequence": "little",
                                 },
                               ],
-                              "article": undefined,
+                              "article": "your",
                               "context": undefined,
                               "noun": NegativeNoun {
                                 "sequence": "codpiece",
@@ -1565,7 +1565,7 @@ Program {
                                 "sequence": "golden",
                               },
                             ],
-                            "article": undefined,
+                            "article": "your",
                             "context": undefined,
                             "noun": NeutralNoun {
                               "sequence": "hair",
@@ -2113,7 +2113,7 @@ Program {
                           },
                           "value_2": PositiveConstantValue {
                             "adjectives": [],
-                            "article": undefined,
+                            "article": "my",
                             "context": undefined,
                             "noun": NeutralNoun {
                               "sequence": "chihuahua",
