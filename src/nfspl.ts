@@ -197,9 +197,15 @@ async function formatSpl(inputFile: string): Promise<string> {
 }
 
 async function formatNfspl(inputFile: string): Promise<string> {
-  // For now, NFSPL formatting just returns the original source
-  // since we don't have a proper NFSPL formatter yet
-  return await readFile(inputFile);
+  const source = await readFile(inputFile);
+
+  const possum = new Possum(source);
+  const possumAst = await possum.run();
+
+  const ophelia = new Ophelia(possumAst);
+  const opheliaAst = ophelia.run();
+
+  return opheliaPrettyPrint(opheliaAst);
 }
 
 async function transpileSplToNfspl(inputFile: string): Promise<string> {
