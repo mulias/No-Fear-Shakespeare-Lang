@@ -5,9 +5,17 @@ export const prettyPrint = (ast: Ast.Program): string => {
   const formatter = new Formatter();
   const { title, declarations, parts } = ast.visit(formatter);
 
-  return [title, declarations.join("\n"), ...parts.map(prettyPrintPart)].join(
-    "\n\n",
-  );
+  let output = title;
+
+  if (declarations.length > 0) {
+    output += "\n\n" + declarations.join("\n");
+  }
+
+  if (parts.length > 0) {
+    output += "\n\n" + parts.map(prettyPrintPart).join("\n\n");
+  }
+
+  return output;
 };
 
 const prettyPrintPart = ({ heading, subparts }: Part): string => {
@@ -24,7 +32,7 @@ const prettyPrintLine = (line: Line | string): string => {
   if (typeof line === "string") {
     return line;
   } else {
-    return [line.name, indent(wrap(line.text, 76), 4)].join("\n");
+    return [line.name, indent(wrap(line.text, 71), 1)].join("\n");
   }
 };
 
@@ -43,7 +51,9 @@ const wrap = (text: string, maxLength: number): string => {
   let line = "";
 
   words.forEach((word) => {
-    if (line.length + word.length + 1 < maxLength) {
+    if (line === "") {
+      line = word;
+    } else if (line.length + word.length + 1 < maxLength) {
       line = line + " " + word;
     } else {
       lines.push(line);
@@ -51,7 +61,9 @@ const wrap = (text: string, maxLength: number): string => {
     }
   });
 
-  lines.push(line);
+  if (line) {
+    lines.push(line);
+  }
 
   return lines.join("\n");
 };

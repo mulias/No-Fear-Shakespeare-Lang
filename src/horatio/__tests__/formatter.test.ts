@@ -385,10 +385,16 @@ describe("Horatio Formatter", () => {
       const ast = parser.parse();
       const generated = prettyPrint(ast);
 
+      // Helper to normalize whitespace for testing
+      function normalizeWhitespace(text: string): string {
+        return text.split(/\s+/).join(" ").trim();
+      }
+
       // The pretty printer combines sentences on one line
-      expect(generated).toContain("You are as good as nothing");
-      expect(generated).toContain("Are you better than nothing");
-      expect(generated).toContain("Speak your mind");
+      const normalizedGenerated = normalizeWhitespace(generated);
+      expect(normalizedGenerated).toContain("You are as good as nothing!");
+      expect(normalizedGenerated).toContain("Are you better than nothing?");
+      expect(normalizedGenerated).toContain("Speak your mind.");
     });
   });
 });
