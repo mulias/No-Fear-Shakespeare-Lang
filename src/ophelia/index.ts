@@ -420,7 +420,7 @@ export class Ophelia {
     nodes: (PossumAst.Node | PossumAst.Malformed)[],
   ): Ast.ProgramItem[] {
     const items: Ast.ProgramItem[] = [];
-    let pendingDescription: PossumAst.TemplateString | undefined;
+    let pendingDescriptionNode: PossumAst.DocComment | undefined;
 
     for (let i = 0; i < nodes.length; i++) {
       const node = nodes[i];
@@ -432,13 +432,13 @@ export class Ophelia {
         node.value[0].type === "doc_comment_property" &&
         node.value[0].value === "description"
       ) {
-        if (pendingDescription) {
+        if (pendingDescriptionNode) {
           this.addProblem(
             node,
             "Multiple description doc comments found before act. Only one description is allowed.",
           );
         }
-        pendingDescription = node.value[1];
+        pendingDescriptionNode = node;
         continue;
       }
 
@@ -453,17 +453,20 @@ export class Ophelia {
         continue;
       }
 
-      const item = this.buildProgramItem(node, pendingDescription);
+      const item = this.buildProgramItem(
+        node,
+        pendingDescriptionNode?.value[1],
+      );
       if (item) {
         items.push(item);
-        pendingDescription = undefined; // Reset after use
+        pendingDescriptionNode = undefined;
       }
     }
 
     // If there's a pending description with no following act
-    if (pendingDescription) {
+    if (pendingDescriptionNode) {
       this.addProblem(
-        { type: "malformed" as const, value: "" },
+        pendingDescriptionNode,
         "Description doc comment must be followed by an act",
       );
     }
@@ -533,7 +536,7 @@ export class Ophelia {
     nodes: (PossumAst.Node | PossumAst.Malformed)[],
   ): Ast.ActItem[] {
     const items: Ast.ActItem[] = [];
-    let pendingDescription: PossumAst.TemplateString | undefined;
+    let pendingDescriptionNode: PossumAst.DocComment | undefined;
 
     for (let i = 0; i < nodes.length; i++) {
       const node = nodes[i];
@@ -545,13 +548,13 @@ export class Ophelia {
         node.value[0].type === "doc_comment_property" &&
         node.value[0].value === "description"
       ) {
-        if (pendingDescription) {
+        if (pendingDescriptionNode) {
           this.addProblem(
             node,
             "Multiple description doc comments found before scene. Only one description is allowed.",
           );
         }
-        pendingDescription = node.value[1];
+        pendingDescriptionNode = node;
         continue;
       }
 
@@ -566,17 +569,17 @@ export class Ophelia {
         continue;
       }
 
-      const item = this.buildActItem(node, pendingDescription);
+      const item = this.buildActItem(node, pendingDescriptionNode?.value[1]);
       if (item) {
         items.push(item);
-        pendingDescription = undefined; // Reset after use
+        pendingDescriptionNode = undefined;
       }
     }
 
     // If there's a pending description with no following scene
-    if (pendingDescription) {
+    if (pendingDescriptionNode) {
       this.addProblem(
-        { type: "malformed" as const, value: "" },
+        pendingDescriptionNode,
         "Description doc comment must be followed by a scene",
       );
     }
@@ -686,6 +689,11 @@ export class Ophelia {
       node.postfixed.type === "var" &&
       node.postfixed.value === "stage"
     ) {
+      if (node.value.length === 0) {
+        this.addProblem(node, "stage() expects at least 1 argument");
+        return undefined;
+      }
+
       return this.buildStageDirection(node.value);
     }
 
@@ -700,6 +708,11 @@ export class Ophelia {
       node.postfixed.type === "var" &&
       node.postfixed.value === "unstage"
     ) {
+      if (node.value.length === 0) {
+        this.addProblem(node, "unstage() expects at least 1 argument");
+        return undefined;
+      }
+
       return this.buildUnstageDirection(node.value);
     }
 
@@ -777,12 +790,6 @@ export class Ophelia {
   buildStageDirection(
     args: (PossumAst.Node | PossumAst.Malformed)[],
   ): Ast.Stage | undefined {
-    if (args.length === 0) {
-      const problemNode = { type: "malformed" as const, value: "" };
-      this.addProblem(problemNode, "stage() expects at least 1 argument");
-      return undefined;
-    }
-
     const varIds: string[] = [];
 
     for (const arg of args) {
@@ -806,12 +813,6 @@ export class Ophelia {
   buildUnstageDirection(
     args: (PossumAst.Node | PossumAst.Malformed)[],
   ): Ast.Unstage | undefined {
-    if (args.length === 0) {
-      const problemNode = { type: "malformed" as const, value: "" };
-      this.addProblem(problemNode, "unstage() expects at least 1 argument");
-      return undefined;
-    }
-
     const varIds: string[] = [];
 
     for (const arg of args) {
@@ -1127,16 +1128,6 @@ export class Ophelia {
       return node.value;
     }
     return null;
-  }
-
-  createImplicitDialogue(statements: Ast.Statement[]): Ast.Dialogue[] {
-    // When we have statements that need a speaker but none is specified,
-    // we need to report an error
-    this.addProblem(
-      { type: "malformed" as const, value: "" },
-      "Statements must be within a dialogue block (e.g., speaker.{ ... })",
-    );
-    return [];
   }
 
   addProblem(node: PossumAst.Node | PossumAst.Malformed, message: string) {
