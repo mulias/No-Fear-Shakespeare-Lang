@@ -637,11 +637,11 @@ export default class Parser {
     }
     switch (this.currentToken.kind) {
       case Token.UNARY_OPERATOR:
-        value = this.parseUnaryOperation();
+        value = this.parseUnaryOperation(article);
         break;
 
       case Token.ARITHMETIC_OPERATOR:
-        value = this.parseArithmeticOperation();
+        value = this.parseArithmeticOperation(article);
         break;
 
       case Token.POSITIVE_ADJECTIVE:
@@ -685,21 +685,25 @@ export default class Parser {
     return value;
   }
 
-  parseUnaryOperation(): AST.UnaryOperationValue {
+  parseUnaryOperation(article?: string): AST.UnaryOperationValue {
     if (!this.isToken(this.currentToken)) {
       throw this.unexpectedTokenError();
     }
     let operator = new AST.UnaryOperator(this.currentToken.sequence);
     this.accept(Token.UNARY_OPERATOR);
     let value = this.parseValue();
-    return new AST.UnaryOperationValue(operator, value);
+    return new AST.UnaryOperationValue(operator, value, article);
   }
 
-  parseArithmeticOperation(): AST.ArithmeticOperationValue {
+  parseArithmeticOperation(article?: string): AST.ArithmeticOperationValue {
+    // If no article was passed from parseValue, check for one here
+    let localArticle = article;
     if (
+      !localArticle &&
       this.isToken(this.currentToken) &&
       this.currentToken.kind === Token.ARTICLE
     ) {
+      localArticle = this.currentToken.sequence;
       this.acceptIt();
     }
     if (!this.isToken(this.currentToken)) {
@@ -710,7 +714,12 @@ export default class Parser {
     let value_1 = this.parseValue();
     this.accept(Token.AND);
     let value_2 = this.parseValue();
-    return new AST.ArithmeticOperationValue(operator, value_1, value_2);
+    return new AST.ArithmeticOperationValue(
+      operator,
+      value_1,
+      value_2,
+      localArticle,
+    );
   }
 
   parseConstant(article?: string) {

@@ -22,6 +22,8 @@ export type Line = {
 };
 
 export default class Formatter {
+  private context?: "assignment" | "question" | "unary";
+
   visitProgram(program: Ast.Program): Program {
     const title = program.comment.visit(this) + ".";
 
@@ -133,7 +135,11 @@ export default class Formatter {
 
   visitAssignmentSentence(assignment: Ast.AssignmentSentence) {
     const be = assignment.be.visit(this);
+
+    const prevContext = this.context;
+    this.context = "assignment";
     const value = assignment.value.visit(this);
+    this.context = prevContext;
 
     if (assignment.comparative) {
       const adjective = assignment.comparative.visit(this);
@@ -155,7 +161,11 @@ export default class Formatter {
   visitQuestionSentence(question: Ast.QuestionSentence) {
     const prefix = question.prefix;
     const comparison = question.comparison.visit(this);
+
+    const prevContext = this.context;
+    this.context = "question";
     let v2 = question.value2.visit(this);
+    this.context = prevContext;
 
     // Add "the" before arithmetic operations in comparisons
     if (question.value2.constructor.name === "ArithmeticOperationValue") {
@@ -167,7 +177,10 @@ export default class Formatter {
       return `${prefix} ${comparison} ${v2}`;
     } else {
       // For "Is" questions, we need to include the value1 after the prefix
+      const prevContext2 = this.context;
+      this.context = "question";
       let v1 = question.value1.visit(this);
+      this.context = prevContext2;
 
       // Add "the" before arithmetic operations in comparisons
       if (question.value1.constructor.name === "ArithmeticOperationValue") {
@@ -251,8 +264,15 @@ export default class Formatter {
 
   visitUnaryOperationValue(unary: Ast.UnaryOperationValue) {
     let op = unary.operator.visit(this);
-    let value = unary.value.visit(this);
 
+    const prevContext = this.context;
+    this.context = "unary";
+    let value = unary.value.visit(this);
+    this.context = prevContext;
+
+    if (unary.article) {
+      return `${unary.article} ${op} ${value}`;
+    }
     return `${op} ${value}`;
   }
 
@@ -269,7 +289,14 @@ export default class Formatter {
       v2 = `the ${v2}`;
     }
 
-    return `${op} ${v1} and ${v2}`;
+    const result = `${op} ${v1} and ${v2}`;
+
+    // Use stored article in unary context (e.g., "the square of the difference")
+    // but NOT in assignment or question context where "the" is added by those formatters
+    if (arithmetic.article && this.context === "unary") {
+      return `${arithmetic.article} ${result}`;
+    }
+    return result;
   }
 
   visitPronounValue(value: Ast.PronounValue) {

@@ -283,6 +283,7 @@ Program {
                         "exclaimed": false,
                         "subject": undefined,
                         "value": ArithmeticOperationValue {
+                          "article": undefined,
                           "operator": ArithmeticOperator {
                             "sequence": "sum of",
                           },
@@ -325,10 +326,12 @@ Program {
                           },
                         },
                         "value2": ArithmeticOperationValue {
+                          "article": undefined,
                           "operator": ArithmeticOperator {
                             "sequence": "sum of",
                           },
                           "value_1": ArithmeticOperationValue {
+                            "article": undefined,
                             "operator": ArithmeticOperator {
                               "sequence": "sum of",
                             },
@@ -431,6 +434,7 @@ Program {
                         },
                         "prefix": "Is",
                         "value1": ArithmeticOperationValue {
+                          "article": undefined,
                           "operator": ArithmeticOperator {
                             "sequence": "remainder of the quotient between",
                           },
@@ -440,14 +444,17 @@ Program {
                             },
                           },
                           "value_2": ArithmeticOperationValue {
+                            "article": undefined,
                             "operator": ArithmeticOperator {
                               "sequence": "sum of",
                             },
                             "value_1": ArithmeticOperationValue {
+                              "article": undefined,
                               "operator": ArithmeticOperator {
                                 "sequence": "sum of",
                               },
                               "value_1": ArithmeticOperationValue {
+                                "article": undefined,
                                 "operator": ArithmeticOperator {
                                   "sequence": "sum of",
                                 },
@@ -542,6 +549,7 @@ Program {
                         },
                         "prefix": "Is",
                         "value1": ArithmeticOperationValue {
+                          "article": undefined,
                           "operator": ArithmeticOperator {
                             "sequence": "remainder of the quotient between",
                           },
@@ -551,6 +559,7 @@ Program {
                             },
                           },
                           "value_2": ArithmeticOperationValue {
+                            "article": undefined,
                             "operator": ArithmeticOperator {
                               "sequence": "sum of",
                             },
@@ -610,6 +619,7 @@ Program {
                         },
                         "prefix": "Is",
                         "value1": ArithmeticOperationValue {
+                          "article": undefined,
                           "operator": ArithmeticOperator {
                             "sequence": "remainder of the quotient between",
                           },
@@ -619,6 +629,7 @@ Program {
                             },
                           },
                           "value_2": ArithmeticOperationValue {
+                            "article": undefined,
                             "operator": ArithmeticOperator {
                               "sequence": "sum of",
                             },
@@ -703,6 +714,7 @@ Program {
                         "exclaimed": true,
                         "subject": undefined,
                         "value": ArithmeticOperationValue {
+                          "article": undefined,
                           "operator": ArithmeticOperator {
                             "sequence": "sum of",
                           },
@@ -784,14 +796,17 @@ Program {
                         "exclaimed": false,
                         "subject": undefined,
                         "value": ArithmeticOperationValue {
+                          "article": undefined,
                           "operator": ArithmeticOperator {
                             "sequence": "sum of",
                           },
                           "value_1": ArithmeticOperationValue {
+                            "article": undefined,
                             "operator": ArithmeticOperator {
                               "sequence": "sum of",
                             },
                             "value_1": ArithmeticOperationValue {
+                              "article": undefined,
                               "operator": ArithmeticOperator {
                                 "sequence": "sum of",
                               },
@@ -892,14 +907,17 @@ Program {
                         "exclaimed": false,
                         "subject": undefined,
                         "value": ArithmeticOperationValue {
+                          "article": undefined,
                           "operator": ArithmeticOperator {
                             "sequence": "sum of",
                           },
                           "value_1": ArithmeticOperationValue {
+                            "article": undefined,
                             "operator": ArithmeticOperator {
                               "sequence": "sum of",
                             },
                             "value_1": ArithmeticOperationValue {
+                              "article": undefined,
                               "operator": ArithmeticOperator {
                                 "sequence": "sum of",
                               },
@@ -999,18 +1017,22 @@ Program {
                         "exclaimed": false,
                         "subject": undefined,
                         "value": ArithmeticOperationValue {
+                          "article": undefined,
                           "operator": ArithmeticOperator {
                             "sequence": "sum of",
                           },
                           "value_1": ArithmeticOperationValue {
+                            "article": undefined,
                             "operator": ArithmeticOperator {
                               "sequence": "sum of",
                             },
                             "value_1": ArithmeticOperationValue {
+                              "article": undefined,
                               "operator": ArithmeticOperator {
                                 "sequence": "sum of",
                               },
                               "value_1": ArithmeticOperationValue {
+                                "article": undefined,
                                 "operator": ArithmeticOperator {
                                   "sequence": "sum of",
                                 },
@@ -1136,18 +1158,22 @@ Program {
                         "exclaimed": false,
                         "subject": undefined,
                         "value": ArithmeticOperationValue {
+                          "article": undefined,
                           "operator": ArithmeticOperator {
                             "sequence": "sum of",
                           },
                           "value_1": ArithmeticOperationValue {
+                            "article": undefined,
                             "operator": ArithmeticOperator {
                               "sequence": "sum of",
                             },
                             "value_1": ArithmeticOperationValue {
+                              "article": undefined,
                               "operator": ArithmeticOperator {
                                 "sequence": "sum of",
                               },
                               "value_1": ArithmeticOperationValue {
+                                "article": undefined,
                                 "operator": ArithmeticOperator {
                                   "sequence": "sum of",
                                 },
@@ -1273,10 +1299,12 @@ Program {
                         "exclaimed": false,
                         "subject": undefined,
                         "value": ArithmeticOperationValue {
+                          "article": undefined,
                           "operator": ArithmeticOperator {
                             "sequence": "sum of",
                           },
                           "value_1": ArithmeticOperationValue {
+                            "article": undefined,
                             "operator": ArithmeticOperator {
                               "sequence": "sum of",
                             },
@@ -1361,18 +1389,22 @@ Program {
                         "exclaimed": false,
                         "subject": undefined,
                         "value": ArithmeticOperationValue {
+                          "article": undefined,
                           "operator": ArithmeticOperator {
                             "sequence": "sum of",
                           },
                           "value_1": ArithmeticOperationValue {
+                            "article": undefined,
                             "operator": ArithmeticOperator {
                               "sequence": "sum of",
                             },
                             "value_1": ArithmeticOperationValue {
+                              "article": undefined,
                               "operator": ArithmeticOperator {
                                 "sequence": "sum of",
                               },
                               "value_1": ArithmeticOperationValue {
+                                "article": undefined,
                                 "operator": ArithmeticOperator {
                                   "sequence": "sum of",
                                 },
@@ -1491,18 +1523,22 @@ Program {
                         "exclaimed": false,
                         "subject": undefined,
                         "value": ArithmeticOperationValue {
+                          "article": undefined,
                           "operator": ArithmeticOperator {
                             "sequence": "sum of",
                           },
                           "value_1": ArithmeticOperationValue {
+                            "article": undefined,
                             "operator": ArithmeticOperator {
                               "sequence": "sum of",
                             },
                             "value_1": ArithmeticOperationValue {
+                              "article": undefined,
                               "operator": ArithmeticOperator {
                                 "sequence": "sum of",
                               },
                               "value_1": ArithmeticOperationValue {
+                                "article": undefined,
                                 "operator": ArithmeticOperator {
                                   "sequence": "sum of",
                                 },
@@ -1628,18 +1664,22 @@ Program {
                         "exclaimed": false,
                         "subject": undefined,
                         "value": ArithmeticOperationValue {
+                          "article": undefined,
                           "operator": ArithmeticOperator {
                             "sequence": "sum of",
                           },
                           "value_1": ArithmeticOperationValue {
+                            "article": undefined,
                             "operator": ArithmeticOperator {
                               "sequence": "sum of",
                             },
                             "value_1": ArithmeticOperationValue {
+                              "article": undefined,
                               "operator": ArithmeticOperator {
                                 "sequence": "sum of",
                               },
                               "value_1": ArithmeticOperationValue {
+                                "article": undefined,
                                 "operator": ArithmeticOperator {
                                   "sequence": "sum of",
                                 },
@@ -1765,6 +1805,7 @@ Program {
                         "exclaimed": false,
                         "subject": undefined,
                         "value": ArithmeticOperationValue {
+                          "article": undefined,
                           "operator": ArithmeticOperator {
                             "sequence": "sum of",
                           },
@@ -1846,14 +1887,17 @@ Program {
                         "exclaimed": false,
                         "subject": undefined,
                         "value": ArithmeticOperationValue {
+                          "article": undefined,
                           "operator": ArithmeticOperator {
                             "sequence": "sum of",
                           },
                           "value_1": ArithmeticOperationValue {
+                            "article": undefined,
                             "operator": ArithmeticOperator {
                               "sequence": "sum of",
                             },
                             "value_1": ArithmeticOperationValue {
+                              "article": undefined,
                               "operator": ArithmeticOperator {
                                 "sequence": "sum of",
                               },
@@ -1954,14 +1998,17 @@ Program {
                         "exclaimed": false,
                         "subject": undefined,
                         "value": ArithmeticOperationValue {
+                          "article": undefined,
                           "operator": ArithmeticOperator {
                             "sequence": "sum of",
                           },
                           "value_1": ArithmeticOperationValue {
+                            "article": undefined,
                             "operator": ArithmeticOperator {
                               "sequence": "sum of",
                             },
                             "value_1": ArithmeticOperationValue {
+                              "article": undefined,
                               "operator": ArithmeticOperator {
                                 "sequence": "sum of",
                               },
@@ -2061,18 +2108,22 @@ Program {
                         "exclaimed": false,
                         "subject": undefined,
                         "value": ArithmeticOperationValue {
+                          "article": undefined,
                           "operator": ArithmeticOperator {
                             "sequence": "sum of",
                           },
                           "value_1": ArithmeticOperationValue {
+                            "article": undefined,
                             "operator": ArithmeticOperator {
                               "sequence": "sum of",
                             },
                             "value_1": ArithmeticOperationValue {
+                              "article": undefined,
                               "operator": ArithmeticOperator {
                                 "sequence": "sum of",
                               },
                               "value_1": ArithmeticOperationValue {
+                                "article": undefined,
                                 "operator": ArithmeticOperator {
                                   "sequence": "sum of",
                                 },
@@ -2198,18 +2249,22 @@ Program {
                         "exclaimed": false,
                         "subject": undefined,
                         "value": ArithmeticOperationValue {
+                          "article": undefined,
                           "operator": ArithmeticOperator {
                             "sequence": "sum of",
                           },
                           "value_1": ArithmeticOperationValue {
+                            "article": undefined,
                             "operator": ArithmeticOperator {
                               "sequence": "sum of",
                             },
                             "value_1": ArithmeticOperationValue {
+                              "article": undefined,
                               "operator": ArithmeticOperator {
                                 "sequence": "sum of",
                               },
                               "value_1": ArithmeticOperationValue {
+                                "article": undefined,
                                 "operator": ArithmeticOperator {
                                   "sequence": "sum of",
                                 },
@@ -2335,6 +2390,7 @@ Program {
                         "exclaimed": false,
                         "subject": undefined,
                         "value": ArithmeticOperationValue {
+                          "article": undefined,
                           "operator": ArithmeticOperator {
                             "sequence": "sum of",
                           },
@@ -2416,10 +2472,12 @@ Program {
                         "exclaimed": false,
                         "subject": undefined,
                         "value": ArithmeticOperationValue {
+                          "article": undefined,
                           "operator": ArithmeticOperator {
                             "sequence": "sum of",
                           },
                           "value_1": ArithmeticOperationValue {
+                            "article": undefined,
                             "operator": ArithmeticOperator {
                               "sequence": "sum of",
                             },
@@ -2504,18 +2562,22 @@ Program {
                         "exclaimed": false,
                         "subject": undefined,
                         "value": ArithmeticOperationValue {
+                          "article": undefined,
                           "operator": ArithmeticOperator {
                             "sequence": "sum of",
                           },
                           "value_1": ArithmeticOperationValue {
+                            "article": undefined,
                             "operator": ArithmeticOperator {
                               "sequence": "sum of",
                             },
                             "value_1": ArithmeticOperationValue {
+                              "article": undefined,
                               "operator": ArithmeticOperator {
                                 "sequence": "sum of",
                               },
                               "value_1": ArithmeticOperationValue {
+                                "article": undefined,
                                 "operator": ArithmeticOperator {
                                   "sequence": "sum of",
                                 },
@@ -2634,18 +2696,22 @@ Program {
                         "exclaimed": false,
                         "subject": undefined,
                         "value": ArithmeticOperationValue {
+                          "article": undefined,
                           "operator": ArithmeticOperator {
                             "sequence": "sum of",
                           },
                           "value_1": ArithmeticOperationValue {
+                            "article": undefined,
                             "operator": ArithmeticOperator {
                               "sequence": "sum of",
                             },
                             "value_1": ArithmeticOperationValue {
+                              "article": undefined,
                               "operator": ArithmeticOperator {
                                 "sequence": "sum of",
                               },
                               "value_1": ArithmeticOperationValue {
+                                "article": undefined,
                                 "operator": ArithmeticOperator {
                                   "sequence": "sum of",
                                 },
@@ -2771,18 +2837,22 @@ Program {
                         "exclaimed": false,
                         "subject": undefined,
                         "value": ArithmeticOperationValue {
+                          "article": undefined,
                           "operator": ArithmeticOperator {
                             "sequence": "sum of",
                           },
                           "value_1": ArithmeticOperationValue {
+                            "article": undefined,
                             "operator": ArithmeticOperator {
                               "sequence": "sum of",
                             },
                             "value_1": ArithmeticOperationValue {
+                              "article": undefined,
                               "operator": ArithmeticOperator {
                                 "sequence": "sum of",
                               },
                               "value_1": ArithmeticOperationValue {
+                                "article": undefined,
                                 "operator": ArithmeticOperator {
                                   "sequence": "sum of",
                                 },
@@ -2908,6 +2978,7 @@ Program {
                         "exclaimed": false,
                         "subject": undefined,
                         "value": ArithmeticOperationValue {
+                          "article": undefined,
                           "operator": ArithmeticOperator {
                             "sequence": "sum of",
                           },
@@ -3052,6 +3123,7 @@ Program {
                         "exclaimed": false,
                         "subject": undefined,
                         "value": ArithmeticOperationValue {
+                          "article": undefined,
                           "operator": ArithmeticOperator {
                             "sequence": "sum of",
                           },
@@ -3128,6 +3200,7 @@ Program {
                         "exclaimed": false,
                         "subject": undefined,
                         "value": ArithmeticOperationValue {
+                          "article": undefined,
                           "operator": ArithmeticOperator {
                             "sequence": "sum of",
                           },
@@ -3172,6 +3245,7 @@ Program {
                         "exclaimed": true,
                         "subject": undefined,
                         "value": ArithmeticOperationValue {
+                          "article": undefined,
                           "operator": ArithmeticOperator {
                             "sequence": "sum of",
                           },
@@ -3374,6 +3448,7 @@ Program {
                           "exclaimed": false,
                           "subject": undefined,
                           "value": ArithmeticOperationValue {
+                            "article": undefined,
                             "operator": ArithmeticOperator {
                               "sequence": "sum of",
                             },
@@ -3471,6 +3546,7 @@ Program {
                         "exclaimed": false,
                         "subject": undefined,
                         "value": ArithmeticOperationValue {
+                          "article": undefined,
                           "operator": ArithmeticOperator {
                             "sequence": "difference between",
                           },

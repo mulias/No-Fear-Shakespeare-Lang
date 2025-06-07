@@ -425,10 +425,12 @@ export class ZeroValue {
 export class UnaryOperationValue {
   operator: UnaryOperator;
   value: Value;
+  article?: string;
 
-  constructor(operator: UnaryOperator, value: Value) {
+  constructor(operator: UnaryOperator, value: Value, article?: string) {
     this.operator = operator;
     this.value = value;
+    this.article = article;
   }
 
   visit(visitor: any, arg?: any): any {
@@ -440,11 +442,18 @@ export class ArithmeticOperationValue {
   operator: ArithmeticOperator;
   value_1: Value;
   value_2: Value;
+  article?: string;
 
-  constructor(operator: ArithmeticOperator, value_1: Value, value_2: Value) {
+  constructor(
+    operator: ArithmeticOperator,
+    value_1: Value,
+    value_2: Value,
+    article?: string,
+  ) {
     this.operator = operator;
     this.value_1 = value_1;
     this.value_2 = value_2;
+    this.article = article;
   }
 
   visit(visitor: any, arg?: any): any {

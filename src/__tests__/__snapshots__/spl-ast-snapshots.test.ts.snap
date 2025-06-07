@@ -119,6 +119,7 @@ Program {
                         "exclaimed": true,
                         "subject": undefined,
                         "value": ArithmeticOperationValue {
+                          "article": "the",
                           "operator": ArithmeticOperator {
                             "sequence": "difference between",
                           },
@@ -162,6 +163,7 @@ Program {
                         "exclaimed": undefined,
                         "subject": undefined,
                         "value": ArithmeticOperationValue {
+                          "article": "the",
                           "operator": ArithmeticOperator {
                             "sequence": "sum of",
                           },
@@ -231,10 +233,12 @@ Program {
                         "exclaimed": true,
                         "subject": undefined,
                         "value": ArithmeticOperationValue {
+                          "article": "the",
                           "operator": ArithmeticOperator {
                             "sequence": "difference between",
                           },
                           "value_1": ArithmeticOperationValue {
+                            "article": "the",
                             "operator": ArithmeticOperator {
                               "sequence": "sum of",
                             },
@@ -284,6 +288,7 @@ Program {
                         "exclaimed": undefined,
                         "subject": undefined,
                         "value": ArithmeticOperationValue {
+                          "article": "the",
                           "operator": ArithmeticOperator {
                             "sequence": "sum of",
                           },
@@ -293,6 +298,7 @@ Program {
                             },
                           },
                           "value_2": ArithmeticOperationValue {
+                            "article": "the",
                             "operator": ArithmeticOperator {
                               "sequence": "difference between",
                             },
@@ -380,10 +386,12 @@ Program {
                         "exclaimed": true,
                         "subject": undefined,
                         "value": ArithmeticOperationValue {
+                          "article": "the",
                           "operator": ArithmeticOperator {
                             "sequence": "sum of",
                           },
                           "value_1": ArithmeticOperationValue {
+                            "article": "the",
                             "operator": ArithmeticOperator {
                               "sequence": "sum of",
                             },
@@ -465,6 +473,7 @@ Program {
                         "exclaimed": undefined,
                         "subject": undefined,
                         "value": ArithmeticOperationValue {
+                          "article": "the",
                           "operator": ArithmeticOperator {
                             "sequence": "difference between",
                           },
@@ -474,6 +483,7 @@ Program {
                             },
                           },
                           "value_2": UnaryOperationValue {
+                            "article": "the",
                             "operator": UnaryOperator {
                               "sequence": "square of",
                             },
@@ -513,6 +523,7 @@ Program {
                         "exclaimed": undefined,
                         "subject": undefined,
                         "value": ArithmeticOperationValue {
+                          "article": "the",
                           "operator": ArithmeticOperator {
                             "sequence": "product of",
                           },
@@ -566,6 +577,7 @@ Program {
                         "exclaimed": undefined,
                         "subject": undefined,
                         "value": ArithmeticOperationValue {
+                          "article": "the",
                           "operator": ArithmeticOperator {
                             "sequence": "product of",
                           },
@@ -588,6 +600,7 @@ Program {
                             },
                           },
                           "value_2": ArithmeticOperationValue {
+                            "article": "the",
                             "operator": ArithmeticOperator {
                               "sequence": "sum of",
                             },
@@ -624,6 +637,7 @@ Program {
                         "exclaimed": undefined,
                         "subject": undefined,
                         "value": ArithmeticOperationValue {
+                          "article": "the",
                           "operator": ArithmeticOperator {
                             "sequence": "difference between",
                           },
@@ -712,6 +726,7 @@ Program {
                         "exclaimed": undefined,
                         "subject": undefined,
                         "value": ArithmeticOperationValue {
+                          "article": "the",
                           "operator": ArithmeticOperator {
                             "sequence": "sum of",
                           },
@@ -721,6 +736,7 @@ Program {
                             },
                           },
                           "value_2": ArithmeticOperationValue {
+                            "article": "the",
                             "operator": ArithmeticOperator {
                               "sequence": "difference between",
                             },
@@ -792,14 +808,17 @@ Program {
                         "exclaimed": undefined,
                         "subject": undefined,
                         "value": ArithmeticOperationValue {
+                          "article": "the",
                           "operator": ArithmeticOperator {
                             "sequence": "difference between",
                           },
                           "value_1": UnaryOperationValue {
+                            "article": "the",
                             "operator": UnaryOperator {
                               "sequence": "square of",
                             },
                             "value": ArithmeticOperationValue {
+                              "article": "the",
                               "operator": ArithmeticOperator {
                                 "sequence": "difference between",
                               },
@@ -833,6 +852,7 @@ Program {
                             },
                           },
                           "value_2": UnaryOperationValue {
+                            "article": "the",
                             "operator": UnaryOperator {
                               "sequence": "cube of",
                             },
@@ -904,6 +924,7 @@ Program {
                         "exclaimed": undefined,
                         "subject": undefined,
                         "value": ArithmeticOperationValue {
+                          "article": "the",
                           "operator": ArithmeticOperator {
                             "sequence": "quotient between",
                           },
@@ -913,6 +934,7 @@ Program {
                             },
                           },
                           "value_2": ArithmeticOperationValue {
+                            "article": "the",
                             "operator": ArithmeticOperator {
                               "sequence": "sum of",
                             },
@@ -964,6 +986,7 @@ Program {
                         "exclaimed": true,
                         "subject": undefined,
                         "value": ArithmeticOperationValue {
+                          "article": "the",
                           "operator": ArithmeticOperator {
                             "sequence": "quotient between",
                           },
@@ -973,10 +996,12 @@ Program {
                             },
                           },
                           "value_2": UnaryOperationValue {
+                            "article": undefined,
                             "operator": UnaryOperator {
                               "sequence": "twice",
                             },
                             "value": ArithmeticOperationValue {
+                              "article": "the",
                               "operator": ArithmeticOperator {
                                 "sequence": "difference between",
                               },
@@ -1275,6 +1300,7 @@ Program {
                         "exclaimed": undefined,
                         "subject": undefined,
                         "value": ArithmeticOperationValue {
+                          "article": "the",
                           "operator": ArithmeticOperator {
                             "sequence": "sum of",
                           },
@@ -1347,6 +1373,7 @@ Program {
                         "exclaimed": undefined,
                         "subject": undefined,
                         "value": ArithmeticOperationValue {
+                          "article": "the",
                           "operator": ArithmeticOperator {
                             "sequence": "sum of",
                           },
@@ -1380,6 +1407,7 @@ Program {
                         "exclaimed": undefined,
                         "subject": undefined,
                         "value": ArithmeticOperationValue {
+                          "article": "the",
                           "operator": ArithmeticOperator {
                             "sequence": "sum of",
                           },
@@ -1546,10 +1574,12 @@ Program {
                         "exclaimed": undefined,
                         "subject": undefined,
                         "value": ArithmeticOperationValue {
+                          "article": "the",
                           "operator": ArithmeticOperator {
                             "sequence": "difference between",
                           },
                           "value_1": UnaryOperationValue {
+                            "article": "the",
                             "operator": UnaryOperator {
                               "sequence": "square of",
                             },
@@ -1735,6 +1765,7 @@ Program {
                         "exclaimed": true,
                         "subject": undefined,
                         "value": UnaryOperationValue {
+                          "article": "the",
                           "operator": UnaryOperator {
                             "sequence": "square root of",
                           },
@@ -1846,6 +1877,7 @@ Program {
                         },
                         "prefix": "Is",
                         "value1": ArithmeticOperationValue {
+                          "article": "the",
                           "operator": ArithmeticOperator {
                             "sequence": "remainder of the quotient between",
                           },
@@ -1892,6 +1924,7 @@ Program {
                         "exclaimed": undefined,
                         "subject": undefined,
                         "value": ArithmeticOperationValue {
+                          "article": "the",
                           "operator": ArithmeticOperator {
                             "sequence": "sum of",
                           },
@@ -1998,6 +2031,7 @@ Program {
                         "exclaimed": true,
                         "subject": undefined,
                         "value": ArithmeticOperationValue {
+                          "article": "the",
                           "operator": ArithmeticOperator {
                             "sequence": "difference between",
                           },
@@ -2005,6 +2039,7 @@ Program {
                             "sequence": "nothing",
                           },
                           "value_2": ArithmeticOperationValue {
+                            "article": "the",
                             "operator": ArithmeticOperator {
                               "sequence": "sum of",
                             },
@@ -2103,6 +2138,7 @@ Program {
                         "exclaimed": true,
                         "subject": undefined,
                         "value": ArithmeticOperationValue {
+                          "article": "the",
                           "operator": ArithmeticOperator {
                             "sequence": "sum of",
                           },
@@ -2280,6 +2316,7 @@ Program {
                         "exclaimed": undefined,
                         "subject": undefined,
                         "value": ArithmeticOperationValue {
+                          "article": "the",
                           "operator": ArithmeticOperator {
                             "sequence": "sum of",
                           },
@@ -2359,6 +2396,7 @@ Program {
                         "exclaimed": true,
                         "subject": undefined,
                         "value": ArithmeticOperationValue {
+                          "article": "the",
                           "operator": ArithmeticOperator {
                             "sequence": "difference between",
                           },
@@ -2429,6 +2467,7 @@ Program {
                         "exclaimed": true,
                         "subject": undefined,
                         "value": ArithmeticOperationValue {
+                          "article": "the",
                           "operator": ArithmeticOperator {
                             "sequence": "sum of",
                           },
@@ -2732,6 +2771,7 @@ Program {
                         "exclaimed": true,
                         "subject": undefined,
                         "value": ArithmeticOperationValue {
+                          "article": "the",
                           "operator": ArithmeticOperator {
                             "sequence": "sum of",
                           },
@@ -2785,6 +2825,7 @@ Program {
                         "exclaimed": true,
                         "subject": undefined,
                         "value": ArithmeticOperationValue {
+                          "article": "the",
                           "operator": ArithmeticOperator {
                             "sequence": "difference between",
                           },
@@ -2845,6 +2886,7 @@ Program {
                         "exclaimed": true,
                         "subject": undefined,
                         "value": ArithmeticOperationValue {
+                          "article": "the",
                           "operator": ArithmeticOperator {
                             "sequence": "sum of",
                           },

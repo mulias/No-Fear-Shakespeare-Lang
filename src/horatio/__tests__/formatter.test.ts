@@ -396,5 +396,78 @@ describe("Horatio Formatter", () => {
       expect(normalizedGenerated).toContain("Are you better than nothing?");
       expect(normalizedGenerated).toContain("Speak your mind.");
     });
+
+    it("should preserve 'the' before nested arithmetic operations in unary operations", () => {
+      const input = `Test Program.
+
+Romeo, a character.
+Juliet, another character.
+
+Act I: Test.
+
+Scene I: Test nested articles.
+
+[Enter Romeo and Juliet]
+
+Romeo:
+ You are as small as the difference between the square of the difference between my little pony
+ and your big hairy hound and the cube of your sorry little codpiece.
+
+[Exeunt]
+`;
+
+      const parser = new Parser(input);
+      const ast = parser.parse();
+      const formatted = prettyPrint(ast);
+
+      // Helper to normalize whitespace for testing
+      function normalizeWhitespace(text: string): string {
+        return text.split(/\s+/).join(" ").trim();
+      }
+
+      const normalizedFormatted = normalizeWhitespace(formatted);
+
+      // The key issue: "the square of the difference" should have "the" before "difference"
+      expect(normalizedFormatted).toContain("the square of the difference");
+      expect(normalizedFormatted).not.toContain("the square of difference");
+
+      // Also check that "the cube of" is preserved
+      expect(normalizedFormatted).toContain("the cube of your sorry");
+    });
+
+    it("should preserve 'the' in 'twice the difference' constructs", () => {
+      const input = `Test Program.
+
+Romeo, a character.
+Juliet, another character.
+
+Act I: Test.
+
+Scene I: Test twice the difference.
+
+[Enter Romeo and Juliet]
+
+Romeo:
+ You are as disgusting as the quotient between Romeo and twice the
+ difference between a mistletoe and an oozing infected blister.
+
+[Exeunt]
+`;
+
+      const parser = new Parser(input);
+      const ast = parser.parse();
+      const formatted = prettyPrint(ast);
+
+      // Helper to normalize whitespace for testing
+      function normalizeWhitespace(text: string): string {
+        return text.split(/\s+/).join(" ").trim();
+      }
+
+      const normalizedFormatted = normalizeWhitespace(formatted);
+
+      // The key issue: "twice the difference" should preserve "the"
+      expect(normalizedFormatted).toContain("twice the difference");
+      expect(normalizedFormatted).not.toContain("twice difference");
+    });
   });
 });
