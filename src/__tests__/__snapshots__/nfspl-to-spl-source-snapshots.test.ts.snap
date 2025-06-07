@@ -3,34 +3,34 @@
 exports[`Comprehensive Example File Snapshots NFSPL to SPL Transpilation Snapshots should transpile enter-multiple.nfspl to SPL: enter-multiple.nfspl-to-spl 1`] = `
 "The Test of Multiple Enter.
 
-Sebastian, a young man.
-Publius, a lady.
-King John, a friend.
-Cleopatra, another friend.
+The Archbishop of Canterbury, a young man.
+Goneril, a lady.
+Regan, a friend.
+Lady Montague, another friend.
 
                     Act I: Testing multiple enters.
 
                     Scene I: Single enter.
 
-[Enter Sebastian]
+[Enter The Archbishop of Canterbury]
 
-[Exit Sebastian]
+[Exit The Archbishop of Canterbury]
 
                     Scene II: Two characters enter.
 
-[Enter Sebastian and Publius]
+[Enter The Archbishop of Canterbury and Goneril]
 
-[Exeunt Sebastian and Publius]
+[Exeunt The Archbishop of Canterbury and Goneril]
 
                     Scene III: Three characters enter.
 
-[Enter Sebastian, Publius and King John]
+[Enter The Archbishop of Canterbury, Goneril and Regan]
 
-[Exeunt Sebastian, Publius and King John]
+[Exeunt The Archbishop of Canterbury, Goneril and Regan]
 
                     Scene IV: Four characters enter.
 
-[Enter Sebastian, Publius, King John and Cleopatra]
+[Enter The Archbishop of Canterbury, Goneril, Regan and Lady Montague]
 
 [Exeunt]"
 `;
@@ -38,127 +38,127 @@ Cleopatra, another friend.
 exports[`Comprehensive Example File Snapshots NFSPL to SPL Transpilation Snapshots should transpile fizzbuzz.nfspl to SPL: fizzbuzz.nfspl-to-spl 1`] = `
 "To Fizz, Perchance To Buzz.
 
-Luciana, a counter of loops.
-John of Gaunt, a poet and orator.
+Claudio, a counter of loops.
+Julia, a poet and orator.
 
                     Act I: Main.
 
                     Scene I: Start.
 
-[Enter Luciana and John of Gaunt]
+[Enter Claudio and Julia]
 
-John of Gaunt:
- Thou art as trustworthy as nothing.
+Julia:
+ You are as trustworthy as nothing.
 
                     Scene II: Loop.
 
-John of Gaunt:
- You are as sweet as the sum of thee and a nose.
+Julia:
+ Thou art as happy as the sum of thou and a kingdom.
 
-John of Gaunt:
- Is thou bigger than the sum of the sum of the pretty blossoming King
- and a cute lovely noble warm rural joy and a gentle mighty mighty rich
- sweet trustworthy cat? If so, We shall return to scene VI.
+Julia:
+ Is thyself bigger than the sum of the sum of a blossoming clearest
+ hero and the amazing fine pretty sweet embroidered King and a charming
+ gentle loving prompt rich sweetest pony? If so, We must return to
+ scene VI.
 
-John of Gaunt:
- Is the remainder of the quotient between yourself and the sum of the
- sum of the sum of the King and a good angel and a good embroidered
- flower and the fair prompt sweetest Lord as rich as nothing? If so,
- Let us proceed to scene III.
+Julia:
+ Is the remainder of the quotient between thou and the sum of the sum
+ of the sum of a town and the golden sky and a loving mighty happiness
+ and a delicious blossoming smooth joy as fair as nothing? If so, we
+ shall return to scene III.
 
-John of Gaunt:
- Is the remainder of the quotient between thou and the sum of a cat and
- an amazing hamster as mighty as nothing? If so, we must proceed to
+Julia:
+ Is the remainder of the quotient between yourself and the sum of a
+ rose and the sunny King as pretty as nothing? If so, We must return to
  scene IV.
 
-John of Gaunt:
- Is the remainder of the quotient between thee and the sum of joy and a
- warm rural angel as sunny as nothing? If so, We shall proceed to scene
- V.
+Julia:
+ Is the remainder of the quotient between yourself and the sum of joy
+ and brave sweet Heaven as peaceful as nothing? If so, We must proceed
+ to scene V.
 
-Luciana:
- You are as fine as myself. Open thy heart. You are as rich as the sum
- of a trustworthy purse and a charming blossoming embroidered kingdom!
- Speak your mind. we shall proceed to scene II.
+Claudio:
+ Thou art as embroidered as me. Open thy heart. Thou art as charming as
+ the sum of a delicious pony and a peaceful healthy reddest nose. Speak
+ thine mind. We shall proceed to scene II!
 
                     Scene III: Fizzbuzz.
 
-Luciana:
- You are as cute as the sum of the sum of the sum of a peaceful purse
- and a delicious healthy pony and a bold gentle happy loving
- trustworthy pony and a fair fair pretty proud golden rural kingdom.
- Speak thine mind. You are as white as the sum of the sum of the sum of
- a plum and an amazing charming honest hamster and the rich rich sweet
- warm white King and a charming cute fair fine pretty trustworthy cat.
- Speak thy mind! You are as reddest as the sum of the sum of the sum of
- the sum of a reddest town and a brave golden golden nose and a mighty
- noble healthy white town and a beautiful bold gentle handsome peaceful
- angel and a brave noble clearest healthy smooth sunny happiness. Speak
- thine mind. You are as sunny as the sum of the sum of the sum of the
- sum of a peaceful flower and a fair handsome embroidered cat and a
- happy noble golden white flower and the amazing delicious mighty noble
- healthy King and the gentle mighty mighty prompt smooth white King.
- Speak thine mind. Thou art as peaceful as the sum of the sum of a
- mighty hamster and the brave fine handsome happy golden sky and a
- beautiful fair handsome handsome mighty trustworthy flower. Speak your
- mind. You are as rural as the sum of the sum of the sum of the sum of
- a hamster and a loving mighty summer's day and a cute sweet warm
- embroidered kingdom and a beautiful brave good mighty noble nose and
- the fair fine warm reddest white rural sky. Speak your mind. Thou art
- as gentle as the sum of the sum of the sum of the sum of a rural
- kingdom and a beautiful sweetest sunny joy and a brave mighty rural
- embroidered nose and the brave happy happy clearest white King and an
- amazing charming charming cute happy prompt pony. Speak thine mind!
- Thou art as noble as the sum of the sum of the sum of the sum of the
- prompt Lord and a prompt sweetest sunny hamster and a good prompt
- healthy embroidered pony and the delicious honest lovely noble sunny
- King and the beautiful delicious delicious peaceful smooth reddest
- sky. Speak thy mind. You are as reddest as the sum of the clearest
- King and a charming delicious loving summer's day. Speak thy mind. Let
- us return to scene II.
+Claudio:
+ You are as amazing as the sum of the sum of the sum of the sunny sky
+ and a brave loving summer's day and a brave good lovely mighty rural
+ purse and a delicious mighty prompt trustworthy sunny reddest cat!
+ Speak your mind. Thou art as prompt as the sum of the sum of the sum
+ of the Lord and the fair fine mighty Lord and a fine prompt healthy
+ reddest white summer's day and a brave mighty mighty sweetest clearest
+ rural purse. Speak thy mind. Thou art as beautiful as the sum of the
+ sum of the sum of the sum of a smooth angel and a handsome prompt
+ reddest purse and a cute mighty proud warm cat and a cute fair gentle
+ rich white angel and a cute delicious fair sweet embroidered
+ embroidered happiness. Speak your mind! Thou art as loving as the sum
+ of the sum of the sum of the sum of the mighty King and a gentle
+ blossoming reddest joy and a gentle trustworthy sunny white cat and
+ the cunning cute fair sunny warm sky and a beautiful beautiful gentle
+ handsome sweet blossoming cat! Speak thine mind! Thou art as peaceful
+ as the sum of the sum of a brave kingdom and a charming noble sweet
+ trustworthy golden rose and the cunning cute cute delicious fair
+ prompt King. Speak your mind. You are as handsome as the sum of the
+ sum of the sum of the sum of a hero and a beautiful reddest rose and
+ the handsome loving pretty embroidered Lord and a handsome mighty
+ proud clearest reddest cat and a good pretty pretty rich sunny rural
+ plum! Speak thy mind. You are as charming as the sum of the sum of the
+ sum of the sum of a smooth town and a beautiful honest trustworthy
+ nose and a honest lovely trustworthy clearest nose and the amazing
+ fine gentle good proud King and the mighty peaceful pretty trustworthy
+ blossoming warm King! Speak your mind. You are as charming as the sum
+ of the sum of the sum of the sum of a cute cat and the cute happy
+ sweet sky and a charming handsome mighty smooth hamster and an amazing
+ handsome mighty noble sweet summer's day and a happy loving smooth
+ sunny reddest rural plum. Speak your mind. Thou art as bold as the sum
+ of a cunning joy and the charming pretty prompt sky! Speak thy mind.
+ We shall proceed to scene II.
 
                     Scene IV: Fizz.
 
-Luciana:
- Thou art as pretty as the sum of the sum of the sum of the handsome
- King and the sweet sunny Lord and a brave lovely proud warm reddest
- nose and a brave cute fine lovely sweet sweetest kingdom. Speak your
- mind. Thou art as gentle as the sum of the sum of the sum of an angel
- and a delicious trustworthy warm nose and a bold fair noble sunny
- golden plum and a charming handsome honest mighty clearest white cat.
- Speak thy mind. Thou art as peaceful as the sum of the sum of the sum
- of the sum of a healthy pony and a brave cunning blossoming hamster
- and a cunning fair lovely reddest angel and the delicious delicious
- loving prompt sunny Lord and the handsome trustworthy healthy smooth
- warm golden Lord. Speak thine mind! Thou art as bold as the sum of the
- sum of the sum of the sum of a sweetest rose and a cunning cunning
- handsome hero and a fair lovely sweet reddest pony and a handsome
- lovely blossoming white white happiness and the brave cunning handsome
- peaceful rich sweet sky. Speak your mind! Thou art as rural as the sum
- of the blossoming Lord and a gentle good blossoming joy. Speak thy
- mind. let us return to scene II!
+Claudio:
+ Thou art as clearest as the sum of the sum of the sum of the cunning
+ Lord and a mighty trustworthy happiness and the happy peaceful healthy
+ golden white sky and a bold peaceful prompt sweetest sweetest warm
+ joy. Speak thy mind. Thou art as proud as the sum of the sum of the
+ sum of a summer's day and an amazing fair trustworthy angel and
+ cunning happy pretty sweet blossoming Heaven and a charming delicious
+ good handsome loving white cat. Speak your mind. Thou art as clearest
+ as the sum of the sum of the sum of the sum of a white happiness and a
+ good peaceful white town and a honest lovely healthy embroidered hero
+ and a lovely mighty sweet sweetest reddest hamster and the fair pretty
+ sweetest trustworthy healthy sunny Lord. Speak thy mind. You are as
+ trustworthy as the sum of the sum of the sum of the sum of a warm
+ purse and the pretty prompt white King and a noble prompt clearest
+ smooth plum and a bold fair fair healthy white town and a proud smooth
+ sunny warm golden golden kingdom. Speak thine mind. Thou art as
+ delicious as the sum of a trustworthy rose and a cute blossoming
+ reddest summer's day. Speak thine mind. we shall proceed to scene II.
 
                     Scene V: Buzz.
 
-Luciana:
- You are as handsome as the sum of the sum of a rural plum and a
- delicious good peaceful sweetest rural hamster and gentle good loving
- proud smooth white Heaven. Speak thine mind. You are as rural as the
- sum of the sum of the sum of the sum of Heaven and a cunning golden
- joy and a delicious noble sunny reddest happiness and the amazing fair
- fine sweetest warm sky and a honest mighty prompt sweet blossoming
- reddest town. Speak thine mind. You are as charming as the sum of the
- sum of the sum of the sum of a pretty happiness and the proud clearest
- white Lord and the charming gentle handsome peaceful Lord and a
- beautiful gentle peaceful warm rural hero and a beautiful bold cunning
- delicious noble rural rose. Speak thy mind. Thou art as embroidered as
- the sum of the sum of the sum of the sum of the cunning King and a
- cunning prompt reddest rose and a beautiful beautiful prompt
- trustworthy happiness and a delicious loving sunny reddest rural nose
- and the gentle noble peaceful proud sweetest white King. Speak your
- mind. You are as sweetest as the sum of a rural summer's day and the
- beautiful cunning cunning Lord. Speak thy mind. We must return to
- scene II!
+Claudio:
+ You are as reddest as the sum of the sum of a bold summer's day and a
+ gentle handsome rich sunny warm town and the bold happy mighty rich
+ sweet sweet sky. Speak thine mind. Thou art as rich as the sum of the
+ sum of the sum of the sum of a kingdom and a cute fair kingdom and the
+ cunning good honest sweet Lord and the bold happy sweetest sweetest
+ white Lord and the prompt proud warm white white rural sky. Speak thy
+ mind. You are as brave as the sum of the sum of the sum of the sum of
+ proud Heaven and a charming honest sweet pony and a beautiful
+ beautiful fine clearest pony and a loving loving noble sweet white
+ angel and a fair gentle lovely loving blossoming clearest joy. Speak
+ thy mind. Thou art as loving as the sum of the sum of the sum of the
+ sum of a healthy nose and a cunning delicious golden pony and the
+ delicious delicious delicious embroidered sky and a gentle proud proud
+ sweet clearest hero and an amazing beautiful honest prompt sweetest
+ healthy rose. Speak thy mind. You are as gentle as the sum of a loving
+ plum and a beautiful prompt proud kingdom! Speak thy mind. We must
+ proceed to scene II.
 
                     Scene VI: End.
 
@@ -168,68 +168,69 @@ Luciana:
 exports[`Comprehensive Example File Snapshots NFSPL to SPL Transpilation Snapshots should transpile hi.nfspl to SPL: hi.nfspl-to-spl 1`] = `
 "A Simple Greeting.
 
-Lady Macbeth, the a variable.
-Dionyza, the b variable.
+Pompeius, the a variable.
+Friar John, the b variable.
 
                     Act I: Main.
 
                     Scene I: Print hi.
 
-[Enter Lady Macbeth and Dionyza]
+[Enter Pompeius and Friar John]
 
-Dionyza:
- Thou art as white as the sum of the cute fair gentle sky and a cunning
- delicious mighty noble prompt clearest pony. Speak thine mind.
+Friar John:
+ Thou art as smooth as the sum of a lovely rich white hero and the
+ amazing brave delicious trustworthy clearest clearest Lord! Speak thy
+ mind.
 
-Dionyza:
- Thou art as embroidered as the sum of thyself and a kingdom. Speak
- your mind.
+Friar John:
+ Thou art as prompt as the sum of yourself and happiness! Speak thy
+ mind.
 
-Dionyza:
- You are as blossoming as the sum of a cunning purse and a handsome
- prompt rural plum! Speak your mind.
+Friar John:
+ Thou art as sweet as the sum of a rural hamster and a bold pretty
+ proud joy. Speak thy mind.
 
 [Exeunt]"
 `;
 
 exports[`Comprehensive Example File Snapshots NFSPL to SPL Transpilation Snapshots should transpile reverse.nfspl to SPL: reverse.nfspl-to-spl 1`] = `
-"Benedick and Rosalind Output The Input Reversedly.
+"King Lear and The Duke of Venice Output The Input Reversedly.
 
-Benedick, a stacky gentleperson.
-Rosalind, who counts the memories of Benedick.
+King Lear, a stacky gentleperson.
+The Duke of Venice, who counts the memories of King Lear.
 
                     Act I: The one and only.
 
                     Scene I: In the beginning, there was nothing.
 
-[Enter Benedick and Rosalind]
+[Enter King Lear and The Duke of Venice]
 
-Benedick:
- You are as blossoming as nothing.
+King Lear:
+ Thou art as brave as nothing.
 
-                    Scene II: Pushing to Benedick.
+                    Scene II: Pushing to King Lear.
 
-Rosalind:
- Open thine mind. Art thou as embroidered as nothing? If not, Remember
+The Duke of Venice:
+ Open your mind. Art thou as bold as nothing? If not, Remember
  yourself.
 
-Benedick:
- If not, You are as good as the sum of thyself and a flower.
+King Lear:
+ If not, Thou art as pretty as the sum of yourself and a town.
 
-Rosalind:
- If not, We must return to scene II.
+The Duke of Venice:
+ If not, we shall return to scene II.
 
-                    Scene III: Counting of Rosalind.
+                    Scene III: Counting of The Duke of Venice.
 
-Rosalind:
- Recall your rich normal curse. Speak your mind.
+The Duke of Venice:
+ Recall your infected bottomless Heaven. Speak thy mind.
 
-Benedick:
- You are as smooth as the difference between thou and a summer's day.
- Is thee better than nothing?
+King Lear:
+ Thou art as good as the difference between thyself and the King. Is
+ thee nicer than nothing?
 
-Rosalind:
- If so, We must proceed to scene III.
+The Duke of Venice:
+ If so, we shall proceed to scene III.
 
                     Scene IV: The end.
 

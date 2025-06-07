@@ -1,20 +1,29 @@
 input(program)
 
-program = ast.node($"program", maybe_array_sep(node_or_malformed(nl), w))
+program = ast_node($"program", maybe_array_sep(node_or_malformed(nl), w))
+
+ast_node(Type, value) =
+  value -> Value &
+  peek(bool(blank_line, w)) -> FollowedByBlankLine $
+  { "type": Type, "value": Value, "followedByBlankLine": FollowedByBlankLine }
+
+w = maybe_many(whitespace)
+
+blank_line = maybe(spaces) + nl + nl + w
 
 node =
+  surround(doc_comment, w) |
+  surround(comment, w) |
   ast.with_operator_precedence(
     surround(operand, w),
     surround(prefix, w),
     surround(infix, w),
     surround(postfix, w),
-  ) |
-  surround(doc_comment, w) |
-  surround(comment, w)
+  )
 
 node_or_malformed(sync_point) = node | malformed(sync_point)
 
-malformed(sync_point) = ast.node($"malformed", chars_until(sync_point))
+malformed(sync_point) = ast_node($"malformed", chars_until(sync_point))
 
 operand = group | number | character | var
 
@@ -33,14 +42,14 @@ postfix =
   (function_call -> Node $ Ast.Precedence(Node, 6)) |
   (block         -> Node $ Ast.Precedence(Node, 5))
 
-function_call = ast.node(
+function_call = ast_node(
   $"function_call",
   "(" > w >
   maybe_array_sep(node_or_malformed("," | ")" | nl), ",")
   < w < ")"
 )
 
-block = ast.node(
+block = ast_node(
   $"block",
   "{" > w >
   maybe_array_sep(node_or_malformed("}" | nl), w)
@@ -54,37 +63,35 @@ group =
 
 number = invalid_number | integer
 
-integer = ast.node($"int", int)
+integer = ast_node($"int", int)
 
-invalid_number = ast.node($"invalid_number", float)
+invalid_number = ast_node($"invalid_number", float)
 
-character = ast.node($"char", "'" > char < "'")
+character = ast_node($"char", "'" > char < "'")
 
-var = ast.node($"var", var_id)
+var = ast_node($"var", var_id)
 
 var_id = maybe("@") + alpha + maybe(word)
 
-w = maybe_many(whitespace)
-
-doc_comment = "##" > w > ast.node(
+doc_comment = "##" > w > ast_node(
   $"doc_comment",
   tuple2_sep(doc_comment_key, w > ":" < w, template_string)
 )
 
 doc_comment_key = doc_comment_var | doc_comment_property
 
-doc_comment_var = "var" > w > ast.node($"doc_comment_var", var_id)
+doc_comment_var = "var" > w > ast_node($"doc_comment_var", var_id)
 
-doc_comment_property = ast.node($"doc_comment_property", word)
+doc_comment_property = ast_node($"doc_comment_property", word)
 
-comment = "#" > ast.node($"comment", chars_until(nl))
+comment = "#" > ast_node($"comment", chars_until(nl))
 
-template_string = ast.node(
+template_string = ast_node(
   $"template_string",
   array(template_var_segment | template_string_segment),
 )
 
-template_var_segment = ast.node($"template_var_segment", "{" > var_id < "}")
+template_var_segment = ast_node($"template_var_segment", "{" > var_id < "}")
 
 template_string_segment =
-  ast.node($"template_string_segment", chars_until("{" | nl))
+  ast_node($"template_string_segment", chars_until("{" | nl))

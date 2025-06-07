@@ -12,6 +12,7 @@ describe("Possum Parser", () => {
       expect(ast.value[0]).toEqual({
         type: "int",
         value: 42,
+        followedByBlankLine: false,
       });
     });
 
@@ -23,6 +24,7 @@ describe("Possum Parser", () => {
       expect(ast.value[0]).toEqual({
         type: "char",
         value: "a",
+        followedByBlankLine: false,
       });
     });
 
@@ -34,6 +36,7 @@ describe("Possum Parser", () => {
       expect(ast.value[0]).toEqual({
         type: "var",
         value: "foo",
+        followedByBlankLine: false,
       });
     });
   });
@@ -46,8 +49,16 @@ describe("Possum Parser", () => {
       expect(ast.value).toHaveLength(1);
       const expr = ast.value[0] as PossumAst.Infix;
       expect(expr.type).toBe("add");
-      expect(expr.left).toEqual({ type: "int", value: 1 });
-      expect(expr.right).toEqual({ type: "int", value: 2 });
+      expect(expr.left).toEqual({
+        type: "int",
+        value: 1,
+        followedByBlankLine: false,
+      });
+      expect(expr.right).toEqual({
+        type: "int",
+        value: 2,
+        followedByBlankLine: false,
+      });
     });
 
     it("should parse subtraction", async () => {
@@ -90,7 +101,11 @@ describe("Possum Parser", () => {
 
       const expr = ast.value[0] as PossumAst.Postfix;
       expect(expr.type).toBe("function_call");
-      expect(expr.postfixed).toEqual({ type: "var", value: "foo" });
+      expect(expr.postfixed).toEqual({
+        type: "var",
+        value: "foo",
+        followedByBlankLine: false,
+      });
       expect(expr.value).toEqual([]);
     });
 
@@ -100,10 +115,22 @@ describe("Possum Parser", () => {
 
       const expr = ast.value[0] as PossumAst.Postfix;
       expect(expr.type).toBe("function_call");
-      expect(expr.postfixed).toEqual({ type: "var", value: "stage" });
+      expect(expr.postfixed).toEqual({
+        type: "var",
+        value: "stage",
+        followedByBlankLine: false,
+      });
       expect(expr.value).toHaveLength(2);
-      expect(expr.value[0]).toEqual({ type: "var", value: "a" });
-      expect(expr.value[1]).toEqual({ type: "var", value: "b" });
+      expect(expr.value[0]).toEqual({
+        type: "var",
+        value: "a",
+        followedByBlankLine: false,
+      });
+      expect(expr.value[1]).toEqual({
+        type: "var",
+        value: "b",
+        followedByBlankLine: false,
+      });
     });
   });
 
@@ -114,9 +141,17 @@ describe("Possum Parser", () => {
 
       const expr = ast.value[0] as PossumAst.Postfix;
       expect(expr.type).toBe("block");
-      expect(expr.postfixed).toEqual({ type: "var", value: "Main" });
+      expect(expr.postfixed).toEqual({
+        type: "var",
+        value: "Main",
+        followedByBlankLine: false,
+      });
       expect(expr.value).toHaveLength(1);
-      expect(expr.value[0]).toEqual({ type: "int", value: 42 });
+      expect(expr.value[0]).toEqual({
+        type: "int",
+        value: 42,
+        followedByBlankLine: false,
+      });
     });
 
     it("should parse dialogue blocks", async () => {
@@ -125,7 +160,11 @@ describe("Possum Parser", () => {
 
       const expr = ast.value[0] as PossumAst.Postfix;
       expect(expr.type).toBe("block");
-      expect(expr.postfixed).toEqual({ type: "var", value: "a" });
+      expect(expr.postfixed).toEqual({
+        type: "var",
+        value: "a",
+        followedByBlankLine: false,
+      });
       expect(expr.value).toHaveLength(1);
     });
   });
@@ -137,8 +176,16 @@ describe("Possum Parser", () => {
 
       const expr = ast.value[0] as PossumAst.Infix;
       expect(expr.type).toBe("method_access");
-      expect(expr.left).toEqual({ type: "var", value: "a" });
-      expect(expr.right).toEqual({ type: "var", value: "print_char" });
+      expect(expr.left).toEqual({
+        type: "var",
+        value: "a",
+        followedByBlankLine: false,
+      });
+      expect(expr.right).toEqual({
+        type: "var",
+        value: "print_char",
+        followedByBlankLine: false,
+      });
     });
 
     it("should parse chained method calls", async () => {
@@ -147,13 +194,25 @@ describe("Possum Parser", () => {
 
       const expr = ast.value[0] as PossumAst.Infix;
       expect(expr.type).toBe("method_access");
-      expect(expr.left).toEqual({ type: "var", value: "a" });
+      expect(expr.left).toEqual({
+        type: "var",
+        value: "a",
+        followedByBlankLine: false,
+      });
 
       const methodCall = expr.right as PossumAst.Postfix;
       expect(methodCall.type).toBe("function_call");
-      expect(methodCall.postfixed).toEqual({ type: "var", value: "set" });
+      expect(methodCall.postfixed).toEqual({
+        type: "var",
+        value: "set",
+        followedByBlankLine: false,
+      });
       expect(methodCall.value).toHaveLength(1);
-      expect(methodCall.value[0]).toEqual({ type: "int", value: 5 });
+      expect(methodCall.value[0]).toEqual({
+        type: "int",
+        value: 5,
+        followedByBlankLine: false,
+      });
     });
   });
 
@@ -200,11 +259,19 @@ describe("Possum Parser", () => {
 
       const mainBlock = ast.value[0] as PossumAst.Postfix;
       expect(mainBlock.type).toBe("block");
-      expect(mainBlock.postfixed).toEqual({ type: "var", value: "Main" });
+      expect(mainBlock.postfixed).toEqual({
+        type: "var",
+        value: "Main",
+        followedByBlankLine: false,
+      });
 
       const startBlock = mainBlock.value[0] as PossumAst.Postfix;
       expect(startBlock.type).toBe("block");
-      expect(startBlock.postfixed).toEqual({ type: "var", value: "Start" });
+      expect(startBlock.postfixed).toEqual({
+        type: "var",
+        value: "Start",
+        followedByBlankLine: false,
+      });
       expect(startBlock.value).toHaveLength(3); // stage, b {...}, unstage_all
     });
   });
