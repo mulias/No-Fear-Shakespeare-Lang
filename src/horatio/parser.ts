@@ -10,6 +10,7 @@ import * as AST from "./ast";
 export default class Parser {
   tokenizer: Tokenizer;
   currentToken: Token | number | null;
+  skippedWhitespaceToken = false;
 
   constructor(input: string) {
     this.tokenizer = new Tokenizer(input);
@@ -27,17 +28,30 @@ export default class Parser {
     throw this.unexpectedTokenError();
   }
 
+  skipWhitespace(): void {
+    this.skippedWhitespaceToken = false;
+    while (
+      this.isToken(this.currentToken) &&
+      this.currentToken.kind === Token.WHITESPACE
+    ) {
+      this.skippedWhitespaceToken = true;
+      this.currentToken = this.tokenizer.nextToken();
+    }
+  }
+
   /**
    * Accept the current token if it matches an expected kind
    * @param  {number}      expectedKind - The byte value of the expected token
    * @throws {SyntaxError}              - Throws syntax error if current token kind does not match expected token kind.
    */
   accept(expectedKind: number): void {
+    this.skipWhitespace();
     if (
       this.isToken(this.currentToken) &&
       this.currentToken.kind === expectedKind
     ) {
       this.currentToken = this.tokenizer.nextToken();
+      this.skipWhitespace();
     } else {
       throw this.unexpectedTokenError();
     }
@@ -48,11 +62,14 @@ export default class Parser {
    */
   acceptIt(): void {
     this.currentToken = this.tokenizer.nextToken();
+    this.skipWhitespace();
   }
 
   acceptIf(test: (token: Token) => boolean): void {
+    this.skipWhitespace();
     if (this.isToken(this.currentToken) && test(this.currentToken)) {
       this.currentToken = this.tokenizer.nextToken();
+      this.skipWhitespace();
     } else {
       throw this.unexpectedTokenError();
     }
@@ -64,6 +81,7 @@ export default class Parser {
    */
   parse() {
     this.currentToken = this.tokenizer.nextToken();
+    this.skipWhitespace();
     let program = this.parseProgram();
     if (this.currentToken !== -1) {
       if (this.isToken(this.currentToken)) {
@@ -467,103 +485,79 @@ export default class Parser {
   }
 
   parseSentence(): AST.Sentence | undefined {
-    let sentence: AST.Sentence | undefined;
     if (!this.isToken(this.currentToken)) {
       throw this.unexpectedTokenError();
     }
+
+    let sentence: AST.Sentence | undefined;
+    let exclaimed: boolean | undefined;
+    let followedByBlankLine: boolean | undefined;
+
     switch (this.currentToken.kind) {
       case Token.BE:
       case Token.YOU:
         sentence = this.parseAssignment();
-        // Check for exclamation point before accepting punctuation
-        if (
-          this.isToken(this.currentToken) &&
-          this.currentToken.kind === Token.EXCLAMATION_POINT
-        ) {
-          (sentence as AST.AssignmentSentence).exclaimed = true;
-        }
+        exclaimed = this.currentToken.kind === Token.EXCLAMATION_POINT;
         this.acceptIf(Token.isStatementPunctuation);
+        followedByBlankLine = this.skippedWhitespaceToken;
         break;
 
       case Token.BE_COMPARATIVE:
       case Token.Is:
         sentence = this.parseQuestion();
         this.accept(Token.QUESTION_MARK);
+        followedByBlankLine = this.skippedWhitespaceToken;
         break;
 
       case Token.IMPERATIVE:
         sentence = this.parseGoto();
-        // Check for exclamation point before accepting punctuation
-        if (
-          this.isToken(this.currentToken) &&
-          this.currentToken.kind === Token.EXCLAMATION_POINT
-        ) {
-          (sentence as AST.GotoSentence).exclaimed = true;
-        }
+        exclaimed = this.currentToken.kind === Token.EXCLAMATION_POINT;
         this.acceptIf(Token.isStatementPunctuation);
+        followedByBlankLine = this.skippedWhitespaceToken;
         break;
 
       case Token.INPUT_INTEGER:
       case Token.INPUT_CHAR:
         sentence = this.parseInput();
-        // Check for exclamation point before accepting punctuation
-        if (
-          this.isToken(this.currentToken) &&
-          this.currentToken.kind === Token.EXCLAMATION_POINT
-        ) {
-          if (sentence instanceof AST.IntegerInputSentence) {
-            sentence.exclaimed = true;
-          } else if (sentence instanceof AST.CharInputSentence) {
-            sentence.exclaimed = true;
-          }
-        }
+        exclaimed = this.currentToken.kind === Token.EXCLAMATION_POINT;
         this.acceptIf(Token.isStatementPunctuation);
+        followedByBlankLine = this.skippedWhitespaceToken;
         break;
 
       case Token.OUTPUT_INTEGER:
       case Token.OUTPUT_CHAR:
         sentence = this.parseOutput();
-        // Check for exclamation point before accepting punctuation
-        if (
-          this.isToken(this.currentToken) &&
-          this.currentToken.kind === Token.EXCLAMATION_POINT
-        ) {
-          if (sentence instanceof AST.IntegerOutputSentence) {
-            sentence.exclaimed = true;
-          } else if (sentence instanceof AST.CharOutputSentence) {
-            sentence.exclaimed = true;
-          }
-        }
+        exclaimed = this.currentToken.kind === Token.EXCLAMATION_POINT;
         this.acceptIf(Token.isStatementPunctuation);
+        followedByBlankLine = this.skippedWhitespaceToken;
         break;
 
       case Token.REMEMBER:
         sentence = this.parseRemember();
-        // Check for exclamation point before accepting punctuation
-        if (
-          this.isToken(this.currentToken) &&
-          this.currentToken.kind === Token.EXCLAMATION_POINT
-        ) {
-          (sentence as AST.RememberSentence).exclaimed = true;
-        }
+        exclaimed = this.currentToken.kind === Token.EXCLAMATION_POINT;
         this.acceptIf(Token.isStatementPunctuation);
+        followedByBlankLine = this.skippedWhitespaceToken;
         break;
 
       case Token.RECALL:
         sentence = this.parseRecall();
-        // Check for exclamation point before accepting punctuation
-        if (
-          this.isToken(this.currentToken) &&
-          this.currentToken.kind === Token.EXCLAMATION_POINT
-        ) {
-          (sentence as AST.RecallSentence).exclaimed = true;
-        }
+        exclaimed = this.currentToken.kind === Token.EXCLAMATION_POINT;
         this.acceptIf(Token.isStatementPunctuation);
+        followedByBlankLine = this.skippedWhitespaceToken;
         break;
 
       default:
         throw this.unexpectedTokenError();
     }
+
+    if (sentence && "exclaimed" in sentence) {
+      sentence.exclaimed = exclaimed;
+    }
+
+    if (sentence && "followedByBlankLine" in sentence) {
+      sentence.followedByBlankLine = followedByBlankLine;
+    }
+
     return sentence;
   }
 

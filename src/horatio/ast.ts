@@ -188,6 +188,7 @@ export class AssignmentSentence {
   subject?: Character;
   comparative?: Adjective;
   exclaimed?: boolean;
+  followedByBlankLine?: boolean;
 
   constructor(
     be: Be,
@@ -195,12 +196,14 @@ export class AssignmentSentence {
     subject?: Character,
     comparative?: Adjective,
     exclaimed?: boolean,
+    followedByBlankLine?: boolean,
   ) {
     this.be = be;
     this.value = value;
     this.subject = subject;
     this.comparative = comparative;
     this.exclaimed = exclaimed;
+    this.followedByBlankLine = followedByBlankLine;
   }
 
   visit(visitor: any, arg?: any): any {
@@ -213,17 +216,20 @@ export class QuestionSentence {
   value1: BeComparative | Value;
   comparison: Comparison;
   value2: Value;
+  followedByBlankLine?: boolean;
 
   constructor(
     prefix: string,
     value1: BeComparative | Value,
     comparison: Comparison,
     value2: Value,
+    followedByBlankLine?: boolean,
   ) {
     this.prefix = prefix;
     this.value1 = value1;
     this.comparison = comparison;
     this.value2 = value2;
+    this.followedByBlankLine = followedByBlankLine;
   }
 
   visit(visitor: any, arg?: any): any {
@@ -234,10 +240,16 @@ export class QuestionSentence {
 export class ResponseSentence {
   sentence: Sentence;
   runIf: boolean;
+  followedByBlankLine?: boolean;
 
-  constructor(sentence: Sentence, runIf: boolean) {
+  constructor(
+    sentence: Sentence,
+    runIf: boolean,
+    followedByBlankLine?: boolean,
+  ) {
     this.sentence = sentence;
     this.runIf = runIf;
+    this.followedByBlankLine = followedByBlankLine;
   }
 
   visit(visitor: any, arg?: any): any {
@@ -250,17 +262,20 @@ export class GotoSentence {
   part: "act" | "scene";
   numeral: Numeral;
   exclaimed?: boolean;
+  followedByBlankLine?: boolean;
 
   constructor(
     sequence: string,
     part: "act" | "scene",
     numeral: Numeral,
     exclaimed?: boolean,
+    followedByBlankLine?: boolean,
   ) {
     this.sequence = sequence;
     this.part = part;
     this.numeral = numeral;
     this.exclaimed = exclaimed;
+    this.followedByBlankLine = followedByBlankLine;
   }
 
   visit(visitor: any, arg?: any): any {
@@ -272,11 +287,18 @@ export class IntegerInputSentence {
   sequence: string;
   subject?: Character;
   exclaimed?: boolean;
+  followedByBlankLine?: boolean;
 
-  constructor(sequence: string, subject?: Character, exclaimed?: boolean) {
+  constructor(
+    sequence: string,
+    subject?: Character,
+    exclaimed?: boolean,
+    followedByBlankLine?: boolean,
+  ) {
     this.sequence = sequence;
     this.subject = subject;
     this.exclaimed = exclaimed;
+    this.followedByBlankLine = followedByBlankLine;
   }
 
   visit(visitor: any, arg?: any): any {
@@ -288,11 +310,18 @@ export class CharInputSentence {
   sequence: string;
   subject?: Character;
   exclaimed?: boolean;
+  followedByBlankLine?: boolean;
 
-  constructor(sequence: string, subject?: Character, exclaimed?: boolean) {
+  constructor(
+    sequence: string,
+    subject?: Character,
+    exclaimed?: boolean,
+    followedByBlankLine?: boolean,
+  ) {
     this.sequence = sequence;
     this.subject = subject;
     this.exclaimed = exclaimed;
+    this.followedByBlankLine = followedByBlankLine;
   }
 
   visit(visitor: any, arg?: any): any {
@@ -304,11 +333,18 @@ export class IntegerOutputSentence {
   sequence: string;
   subject?: Character;
   exclaimed?: boolean;
+  followedByBlankLine?: boolean;
 
-  constructor(sequence: string, subject?: Character, exclaimed?: boolean) {
+  constructor(
+    sequence: string,
+    subject?: Character,
+    exclaimed?: boolean,
+    followedByBlankLine?: boolean,
+  ) {
     this.sequence = sequence;
     this.subject = subject;
     this.exclaimed = exclaimed;
+    this.followedByBlankLine = followedByBlankLine;
   }
 
   visit(visitor: any, arg?: any): any {
@@ -320,11 +356,18 @@ export class CharOutputSentence {
   sequence: string;
   subject?: Character;
   exclaimed?: boolean;
+  followedByBlankLine?: boolean;
 
-  constructor(sequence: string, subject?: Character, exclaimed?: boolean) {
+  constructor(
+    sequence: string,
+    subject?: Character,
+    exclaimed?: boolean,
+    followedByBlankLine?: boolean,
+  ) {
     this.sequence = sequence;
     this.subject = subject;
     this.exclaimed = exclaimed;
+    this.followedByBlankLine = followedByBlankLine;
   }
 
   visit(visitor: any, arg?: any): any {
@@ -336,11 +379,18 @@ export class RememberSentence {
   pronoun: Pronoun;
   subject?: Character;
   exclaimed?: boolean;
+  followedByBlankLine?: boolean;
 
-  constructor(pronoun: Pronoun, subject?: Character, exclaimed?: boolean) {
+  constructor(
+    pronoun: Pronoun,
+    subject?: Character,
+    exclaimed?: boolean,
+    followedByBlankLine?: boolean,
+  ) {
     this.pronoun = pronoun;
     this.subject = subject;
     this.exclaimed = exclaimed;
+    this.followedByBlankLine = followedByBlankLine;
   }
 
   visit(visitor: any, arg?: any): any {
@@ -352,11 +402,18 @@ export class RecallSentence {
   comment: Comment;
   subject?: Character;
   exclaimed?: boolean;
+  followedByBlankLine?: boolean;
 
-  constructor(comment: Comment, subject?: Character, exclaimed?: boolean) {
+  constructor(
+    comment: Comment,
+    subject?: Character,
+    exclaimed?: boolean,
+    followedByBlankLine?: boolean,
+  ) {
     this.comment = comment;
     this.subject = subject;
     this.exclaimed = exclaimed;
+    this.followedByBlankLine = followedByBlankLine;
   }
 
   visit(visitor: any, arg?: any): any {

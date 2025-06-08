@@ -245,6 +245,7 @@ Program {
                           "sequence": "trustworthy",
                         },
                         "exclaimed": false,
+                        "followedByBlankLine": undefined,
                         "subject": undefined,
                         "value": ZeroValue {
                           "sequence": "nothing",
@@ -281,6 +282,7 @@ Program {
                           "sequence": "happy",
                         },
                         "exclaimed": false,
+                        "followedByBlankLine": undefined,
                         "subject": undefined,
                         "value": ArithmeticOperationValue {
                           "article": undefined,
@@ -319,6 +321,7 @@ Program {
                             "sequence": "bigger",
                           },
                         },
+                        "followedByBlankLine": undefined,
                         "prefix": "Is",
                         "value1": PronounValue {
                           "pronoun": SecondPersonPronoun {
@@ -405,9 +408,11 @@ Program {
                         },
                       },
                       ResponseSentence {
+                        "followedByBlankLine": undefined,
                         "runIf": true,
                         "sentence": GotoSentence {
                           "exclaimed": false,
+                          "followedByBlankLine": undefined,
                           "numeral": Numeral {
                             "sequence": "VI",
                           },
@@ -432,6 +437,7 @@ Program {
                             "sequence": "fair",
                           },
                         },
+                        "followedByBlankLine": undefined,
                         "prefix": "Is",
                         "value1": ArithmeticOperationValue {
                           "article": undefined,
@@ -520,9 +526,11 @@ Program {
                         },
                       },
                       ResponseSentence {
+                        "followedByBlankLine": undefined,
                         "runIf": true,
                         "sentence": GotoSentence {
                           "exclaimed": false,
+                          "followedByBlankLine": undefined,
                           "numeral": Numeral {
                             "sequence": "III",
                           },
@@ -547,6 +555,7 @@ Program {
                             "sequence": "pretty",
                           },
                         },
+                        "followedByBlankLine": undefined,
                         "prefix": "Is",
                         "value1": ArithmeticOperationValue {
                           "article": undefined,
@@ -590,9 +599,11 @@ Program {
                         },
                       },
                       ResponseSentence {
+                        "followedByBlankLine": undefined,
                         "runIf": true,
                         "sentence": GotoSentence {
                           "exclaimed": true,
+                          "followedByBlankLine": undefined,
                           "numeral": Numeral {
                             "sequence": "IV",
                           },
@@ -617,6 +628,7 @@ Program {
                             "sequence": "peaceful",
                           },
                         },
+                        "followedByBlankLine": undefined,
                         "prefix": "Is",
                         "value1": ArithmeticOperationValue {
                           "article": undefined,
@@ -663,9 +675,11 @@ Program {
                         },
                       },
                       ResponseSentence {
+                        "followedByBlankLine": undefined,
                         "runIf": true,
                         "sentence": GotoSentence {
                           "exclaimed": false,
+                          "followedByBlankLine": undefined,
                           "numeral": Numeral {
                             "sequence": "V",
                           },
@@ -692,6 +706,7 @@ Program {
                           "sequence": "embroidered",
                         },
                         "exclaimed": false,
+                        "followedByBlankLine": undefined,
                         "subject": undefined,
                         "value": PronounValue {
                           "pronoun": FirstPersonPronoun {
@@ -701,6 +716,7 @@ Program {
                       },
                       IntegerOutputSentence {
                         "exclaimed": false,
+                        "followedByBlankLine": undefined,
                         "sequence": "Open thy heart",
                         "subject": undefined,
                       },
@@ -712,6 +728,7 @@ Program {
                           "sequence": "charming",
                         },
                         "exclaimed": false,
+                        "followedByBlankLine": undefined,
                         "subject": undefined,
                         "value": ArithmeticOperationValue {
                           "article": undefined,
@@ -752,11 +769,13 @@ Program {
                       },
                       CharOutputSentence {
                         "exclaimed": false,
+                        "followedByBlankLine": undefined,
                         "sequence": "Speak thine mind",
                         "subject": undefined,
                       },
                       GotoSentence {
                         "exclaimed": true,
+                        "followedByBlankLine": undefined,
                         "numeral": Numeral {
                           "sequence": "II",
                         },
@@ -794,6 +813,7 @@ Program {
                           "sequence": "amazing",
                         },
                         "exclaimed": true,
+                        "followedByBlankLine": undefined,
                         "subject": undefined,
                         "value": ArithmeticOperationValue {
                           "article": undefined,
@@ -894,6 +914,7 @@ Program {
                       },
                       CharOutputSentence {
                         "exclaimed": false,
+                        "followedByBlankLine": undefined,
                         "sequence": "Speak your mind",
                         "subject": undefined,
                       },
@@ -905,6 +926,7 @@ Program {
                           "sequence": "prompt",
                         },
                         "exclaimed": false,
+                        "followedByBlankLine": undefined,
                         "subject": undefined,
                         "value": ArithmeticOperationValue {
                           "article": undefined,
@@ -1004,6 +1026,7 @@ Program {
                       },
                       CharOutputSentence {
                         "exclaimed": false,
+                        "followedByBlankLine": undefined,
                         "sequence": "Speak thy mind",
                         "subject": undefined,
                       },
@@ -1015,6 +1038,7 @@ Program {
                           "sequence": "beautiful",
                         },
                         "exclaimed": false,
+                        "followedByBlankLine": undefined,
                         "subject": undefined,
                         "value": ArithmeticOperationValue {
                           "article": undefined,
@@ -1145,6 +1169,7 @@ Program {
                       },
                       CharOutputSentence {
                         "exclaimed": true,
+                        "followedByBlankLine": undefined,
                         "sequence": "Speak your mind",
                         "subject": undefined,
                       },
@@ -1156,6 +1181,7 @@ Program {
                           "sequence": "loving",
                         },
                         "exclaimed": true,
+                        "followedByBlankLine": undefined,
                         "subject": undefined,
                         "value": ArithmeticOperationValue {
                           "article": undefined,
@@ -1286,6 +1312,7 @@ Program {
                       },
                       CharOutputSentence {
                         "exclaimed": true,
+                        "followedByBlankLine": undefined,
                         "sequence": "Speak thine mind",
                         "subject": undefined,
                       },
@@ -1297,6 +1324,7 @@ Program {
                           "sequence": "peaceful",
                         },
                         "exclaimed": false,
+                        "followedByBlankLine": undefined,
                         "subject": undefined,
                         "value": ArithmeticOperationValue {
                           "article": undefined,
@@ -1376,6 +1404,7 @@ Program {
                       },
                       CharOutputSentence {
                         "exclaimed": false,
+                        "followedByBlankLine": undefined,
                         "sequence": "Speak your mind",
                         "subject": undefined,
                       },
@@ -1387,6 +1416,7 @@ Program {
                           "sequence": "handsome",
                         },
                         "exclaimed": true,
+                        "followedByBlankLine": undefined,
                         "subject": undefined,
                         "value": ArithmeticOperationValue {
                           "article": undefined,
@@ -1510,6 +1540,7 @@ Program {
                       },
                       CharOutputSentence {
                         "exclaimed": false,
+                        "followedByBlankLine": undefined,
                         "sequence": "Speak thy mind",
                         "subject": undefined,
                       },
@@ -1521,6 +1552,7 @@ Program {
                           "sequence": "charming",
                         },
                         "exclaimed": true,
+                        "followedByBlankLine": undefined,
                         "subject": undefined,
                         "value": ArithmeticOperationValue {
                           "article": undefined,
@@ -1651,6 +1683,7 @@ Program {
                       },
                       CharOutputSentence {
                         "exclaimed": false,
+                        "followedByBlankLine": undefined,
                         "sequence": "Speak your mind",
                         "subject": undefined,
                       },
@@ -1662,6 +1695,7 @@ Program {
                           "sequence": "charming",
                         },
                         "exclaimed": false,
+                        "followedByBlankLine": undefined,
                         "subject": undefined,
                         "value": ArithmeticOperationValue {
                           "article": undefined,
@@ -1792,6 +1826,7 @@ Program {
                       },
                       CharOutputSentence {
                         "exclaimed": false,
+                        "followedByBlankLine": undefined,
                         "sequence": "Speak your mind",
                         "subject": undefined,
                       },
@@ -1803,6 +1838,7 @@ Program {
                           "sequence": "bold",
                         },
                         "exclaimed": true,
+                        "followedByBlankLine": undefined,
                         "subject": undefined,
                         "value": ArithmeticOperationValue {
                           "article": undefined,
@@ -1843,11 +1879,13 @@ Program {
                       },
                       CharOutputSentence {
                         "exclaimed": false,
+                        "followedByBlankLine": undefined,
                         "sequence": "Speak thy mind",
                         "subject": undefined,
                       },
                       GotoSentence {
                         "exclaimed": false,
+                        "followedByBlankLine": undefined,
                         "numeral": Numeral {
                           "sequence": "II",
                         },
@@ -1885,6 +1923,7 @@ Program {
                           "sequence": "clearest",
                         },
                         "exclaimed": false,
+                        "followedByBlankLine": undefined,
                         "subject": undefined,
                         "value": ArithmeticOperationValue {
                           "article": undefined,
@@ -1985,6 +2024,7 @@ Program {
                       },
                       CharOutputSentence {
                         "exclaimed": false,
+                        "followedByBlankLine": undefined,
                         "sequence": "Speak thy mind",
                         "subject": undefined,
                       },
@@ -1996,6 +2036,7 @@ Program {
                           "sequence": "proud",
                         },
                         "exclaimed": false,
+                        "followedByBlankLine": undefined,
                         "subject": undefined,
                         "value": ArithmeticOperationValue {
                           "article": undefined,
@@ -2095,6 +2136,7 @@ Program {
                       },
                       CharOutputSentence {
                         "exclaimed": false,
+                        "followedByBlankLine": undefined,
                         "sequence": "Speak your mind",
                         "subject": undefined,
                       },
@@ -2106,6 +2148,7 @@ Program {
                           "sequence": "clearest",
                         },
                         "exclaimed": false,
+                        "followedByBlankLine": undefined,
                         "subject": undefined,
                         "value": ArithmeticOperationValue {
                           "article": undefined,
@@ -2236,6 +2279,7 @@ Program {
                       },
                       CharOutputSentence {
                         "exclaimed": false,
+                        "followedByBlankLine": undefined,
                         "sequence": "Speak thy mind",
                         "subject": undefined,
                       },
@@ -2247,6 +2291,7 @@ Program {
                           "sequence": "trustworthy",
                         },
                         "exclaimed": false,
+                        "followedByBlankLine": undefined,
                         "subject": undefined,
                         "value": ArithmeticOperationValue {
                           "article": undefined,
@@ -2377,6 +2422,7 @@ Program {
                       },
                       CharOutputSentence {
                         "exclaimed": false,
+                        "followedByBlankLine": undefined,
                         "sequence": "Speak thine mind",
                         "subject": undefined,
                       },
@@ -2388,6 +2434,7 @@ Program {
                           "sequence": "delicious",
                         },
                         "exclaimed": false,
+                        "followedByBlankLine": undefined,
                         "subject": undefined,
                         "value": ArithmeticOperationValue {
                           "article": undefined,
@@ -2428,11 +2475,13 @@ Program {
                       },
                       CharOutputSentence {
                         "exclaimed": false,
+                        "followedByBlankLine": undefined,
                         "sequence": "Speak thine mind",
                         "subject": undefined,
                       },
                       GotoSentence {
                         "exclaimed": false,
+                        "followedByBlankLine": undefined,
                         "numeral": Numeral {
                           "sequence": "II",
                         },
@@ -2470,6 +2519,7 @@ Program {
                           "sequence": "reddest",
                         },
                         "exclaimed": false,
+                        "followedByBlankLine": undefined,
                         "subject": undefined,
                         "value": ArithmeticOperationValue {
                           "article": undefined,
@@ -2549,6 +2599,7 @@ Program {
                       },
                       CharOutputSentence {
                         "exclaimed": false,
+                        "followedByBlankLine": undefined,
                         "sequence": "Speak thine mind",
                         "subject": undefined,
                       },
@@ -2560,6 +2611,7 @@ Program {
                           "sequence": "rich",
                         },
                         "exclaimed": false,
+                        "followedByBlankLine": undefined,
                         "subject": undefined,
                         "value": ArithmeticOperationValue {
                           "article": undefined,
@@ -2683,6 +2735,7 @@ Program {
                       },
                       CharOutputSentence {
                         "exclaimed": false,
+                        "followedByBlankLine": undefined,
                         "sequence": "Speak thy mind",
                         "subject": undefined,
                       },
@@ -2694,6 +2747,7 @@ Program {
                           "sequence": "brave",
                         },
                         "exclaimed": false,
+                        "followedByBlankLine": undefined,
                         "subject": undefined,
                         "value": ArithmeticOperationValue {
                           "article": undefined,
@@ -2824,6 +2878,7 @@ Program {
                       },
                       CharOutputSentence {
                         "exclaimed": false,
+                        "followedByBlankLine": undefined,
                         "sequence": "Speak thy mind",
                         "subject": undefined,
                       },
@@ -2835,6 +2890,7 @@ Program {
                           "sequence": "loving",
                         },
                         "exclaimed": false,
+                        "followedByBlankLine": undefined,
                         "subject": undefined,
                         "value": ArithmeticOperationValue {
                           "article": undefined,
@@ -2965,6 +3021,7 @@ Program {
                       },
                       CharOutputSentence {
                         "exclaimed": false,
+                        "followedByBlankLine": undefined,
                         "sequence": "Speak thy mind",
                         "subject": undefined,
                       },
@@ -2976,6 +3033,7 @@ Program {
                           "sequence": "gentle",
                         },
                         "exclaimed": true,
+                        "followedByBlankLine": undefined,
                         "subject": undefined,
                         "value": ArithmeticOperationValue {
                           "article": undefined,
@@ -3016,11 +3074,13 @@ Program {
                       },
                       CharOutputSentence {
                         "exclaimed": false,
+                        "followedByBlankLine": undefined,
                         "sequence": "Speak thy mind",
                         "subject": undefined,
                       },
                       GotoSentence {
                         "exclaimed": false,
+                        "followedByBlankLine": undefined,
                         "numeral": Numeral {
                           "sequence": "II",
                         },
@@ -3121,6 +3181,7 @@ Program {
                           "sequence": "smooth",
                         },
                         "exclaimed": true,
+                        "followedByBlankLine": undefined,
                         "subject": undefined,
                         "value": ArithmeticOperationValue {
                           "article": undefined,
@@ -3176,6 +3237,7 @@ Program {
                       },
                       CharOutputSentence {
                         "exclaimed": false,
+                        "followedByBlankLine": undefined,
                         "sequence": "Speak thy mind",
                         "subject": undefined,
                       },
@@ -3198,6 +3260,7 @@ Program {
                           "sequence": "prompt",
                         },
                         "exclaimed": true,
+                        "followedByBlankLine": undefined,
                         "subject": undefined,
                         "value": ArithmeticOperationValue {
                           "article": undefined,
@@ -3221,6 +3284,7 @@ Program {
                       },
                       CharOutputSentence {
                         "exclaimed": false,
+                        "followedByBlankLine": undefined,
                         "sequence": "Speak thy mind",
                         "subject": undefined,
                       },
@@ -3243,6 +3307,7 @@ Program {
                           "sequence": "sweet",
                         },
                         "exclaimed": false,
+                        "followedByBlankLine": undefined,
                         "subject": undefined,
                         "value": ArithmeticOperationValue {
                           "article": undefined,
@@ -3283,6 +3348,7 @@ Program {
                       },
                       CharOutputSentence {
                         "exclaimed": false,
+                        "followedByBlankLine": undefined,
                         "sequence": "Speak thy mind",
                         "subject": undefined,
                       },
@@ -3368,6 +3434,7 @@ Program {
                           "sequence": "brave",
                         },
                         "exclaimed": false,
+                        "followedByBlankLine": undefined,
                         "subject": undefined,
                         "value": ZeroValue {
                           "sequence": "nothing",
@@ -3398,6 +3465,7 @@ Program {
                     "sentences": [
                       CharInputSentence {
                         "exclaimed": false,
+                        "followedByBlankLine": undefined,
                         "sequence": "Open your mind",
                         "subject": undefined,
                       },
@@ -3407,6 +3475,7 @@ Program {
                             "sequence": "bold",
                           },
                         },
+                        "followedByBlankLine": undefined,
                         "prefix": "Art thou",
                         "value1": BeComparative {
                           "sequence": "Art thou",
@@ -3416,9 +3485,11 @@ Program {
                         },
                       },
                       ResponseSentence {
+                        "followedByBlankLine": undefined,
                         "runIf": false,
                         "sentence": RememberSentence {
                           "exclaimed": false,
+                          "followedByBlankLine": undefined,
                           "pronoun": SecondPersonPronoun {
                             "sequence": "yourself",
                           },
@@ -3437,6 +3508,7 @@ Program {
                     },
                     "sentences": [
                       ResponseSentence {
+                        "followedByBlankLine": undefined,
                         "runIf": false,
                         "sentence": AssignmentSentence {
                           "be": Be {
@@ -3446,6 +3518,7 @@ Program {
                             "sequence": "pretty",
                           },
                           "exclaimed": false,
+                          "followedByBlankLine": undefined,
                           "subject": undefined,
                           "value": ArithmeticOperationValue {
                             "article": undefined,
@@ -3480,9 +3553,11 @@ Program {
                     },
                     "sentences": [
                       ResponseSentence {
+                        "followedByBlankLine": undefined,
                         "runIf": false,
                         "sentence": GotoSentence {
                           "exclaimed": false,
+                          "followedByBlankLine": undefined,
                           "numeral": Numeral {
                             "sequence": "II",
                           },
@@ -3518,10 +3593,12 @@ Program {
                           "sequence": "infected bottomless Heaven",
                         },
                         "exclaimed": false,
+                        "followedByBlankLine": undefined,
                         "subject": undefined,
                       },
                       CharOutputSentence {
                         "exclaimed": false,
+                        "followedByBlankLine": undefined,
                         "sequence": "Speak thy mind",
                         "subject": undefined,
                       },
@@ -3544,6 +3621,7 @@ Program {
                           "sequence": "good",
                         },
                         "exclaimed": false,
+                        "followedByBlankLine": undefined,
                         "subject": undefined,
                         "value": ArithmeticOperationValue {
                           "article": undefined,
@@ -3571,6 +3649,7 @@ Program {
                             "sequence": "nicer",
                           },
                         },
+                        "followedByBlankLine": undefined,
                         "prefix": "Is",
                         "value1": PronounValue {
                           "pronoun": SecondPersonPronoun {
@@ -3593,9 +3672,11 @@ Program {
                     },
                     "sentences": [
                       ResponseSentence {
+                        "followedByBlankLine": undefined,
                         "runIf": true,
                         "sentence": GotoSentence {
                           "exclaimed": false,
+                          "followedByBlankLine": undefined,
                           "numeral": Numeral {
                             "sequence": "III",
                           },

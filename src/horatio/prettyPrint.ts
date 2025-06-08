@@ -46,24 +46,32 @@ const indent = (text: string, spaces: number): string => {
 };
 
 const wrap = (text: string, maxLength: number): string => {
-  const words = text.split(" ");
-  let lines: string[] = [];
-  let line = "";
+  // Split by paragraph breaks first
+  const paragraphs = text.split("\n\n");
 
-  words.forEach((word) => {
-    if (line === "") {
-      line = word;
-    } else if (line.length + word.length + 1 < maxLength) {
-      line = line + " " + word;
-    } else {
-      lines.push(line);
-      line = word;
-    }
-  });
+  return paragraphs
+    .map((paragraph) => {
+      // Handle each paragraph separately
+      const words = paragraph.split(" ");
+      let lines: string[] = [];
+      let line = "";
 
-  if (line) {
-    lines.push(line);
-  }
+      words.forEach((word) => {
+        if (line === "") {
+          line = word;
+        } else if (line.length + word.length + 1 < maxLength) {
+          line = line + " " + word;
+        } else {
+          lines.push(line);
+          line = word;
+        }
+      });
 
-  return lines.join("\n");
+      if (line) {
+        lines.push(line);
+      }
+
+      return lines.join("\n");
+    })
+    .join("\n\n"); // Rejoin paragraphs with double newlines
 };

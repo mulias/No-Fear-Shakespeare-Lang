@@ -80,6 +80,7 @@ Program {
                         },
                         "comparative": undefined,
                         "exclaimed": true,
+                        "followedByBlankLine": false,
                         "subject": undefined,
                         "value": NegativeConstantValue {
                           "adjectives": [
@@ -117,6 +118,7 @@ Program {
                           "sequence": "stupid",
                         },
                         "exclaimed": true,
+                        "followedByBlankLine": false,
                         "subject": undefined,
                         "value": ArithmeticOperationValue {
                           "article": "the",
@@ -150,6 +152,7 @@ Program {
                       },
                       CharOutputSentence {
                         "exclaimed": true,
+                        "followedByBlankLine": true,
                         "sequence": "Speak your mind",
                         "subject": undefined,
                       },
@@ -160,7 +163,8 @@ Program {
                         "comparative": PositiveAdjective {
                           "sequence": "brave",
                         },
-                        "exclaimed": undefined,
+                        "exclaimed": false,
+                        "followedByBlankLine": false,
                         "subject": undefined,
                         "value": ArithmeticOperationValue {
                           "article": "the",
@@ -231,6 +235,7 @@ Program {
                           "sequence": "healthy",
                         },
                         "exclaimed": true,
+                        "followedByBlankLine": false,
                         "subject": undefined,
                         "value": ArithmeticOperationValue {
                           "article": "the",
@@ -275,6 +280,7 @@ Program {
                       },
                       CharOutputSentence {
                         "exclaimed": true,
+                        "followedByBlankLine": true,
                         "sequence": "Speak your mind",
                         "subject": undefined,
                       },
@@ -285,7 +291,8 @@ Program {
                         "comparative": NegativeAdjective {
                           "sequence": "cowardly",
                         },
-                        "exclaimed": undefined,
+                        "exclaimed": false,
+                        "followedByBlankLine": false,
                         "subject": undefined,
                         "value": ArithmeticOperationValue {
                           "article": "the",
@@ -332,12 +339,14 @@ Program {
                         },
                       },
                       CharOutputSentence {
-                        "exclaimed": undefined,
+                        "exclaimed": false,
+                        "followedByBlankLine": true,
                         "sequence": "Speak your mind",
                         "subject": undefined,
                       },
                       CharOutputSentence {
                         "exclaimed": true,
+                        "followedByBlankLine": true,
                         "sequence": "Speak your mind",
                         "subject": undefined,
                       },
@@ -384,6 +393,7 @@ Program {
                           "sequence": "sweet",
                         },
                         "exclaimed": true,
+                        "followedByBlankLine": false,
                         "subject": undefined,
                         "value": ArithmeticOperationValue {
                           "article": "the",
@@ -425,6 +435,7 @@ Program {
                       },
                       CharOutputSentence {
                         "exclaimed": true,
+                        "followedByBlankLine": true,
                         "sequence": "Speak thy mind",
                         "subject": undefined,
                       },
@@ -470,7 +481,8 @@ Program {
                         "comparative": PositiveAdjective {
                           "sequence": "beautiful",
                         },
-                        "exclaimed": undefined,
+                        "exclaimed": false,
+                        "followedByBlankLine": false,
                         "subject": undefined,
                         "value": ArithmeticOperationValue {
                           "article": "the",
@@ -510,6 +522,7 @@ Program {
                       },
                       CharOutputSentence {
                         "exclaimed": true,
+                        "followedByBlankLine": true,
                         "sequence": "Speak thy mind",
                         "subject": undefined,
                       },
@@ -520,7 +533,8 @@ Program {
                         "comparative": PositiveAdjective {
                           "sequence": "lovely",
                         },
-                        "exclaimed": undefined,
+                        "exclaimed": false,
+                        "followedByBlankLine": false,
                         "subject": undefined,
                         "value": ArithmeticOperationValue {
                           "article": "the",
@@ -564,6 +578,7 @@ Program {
                       },
                       CharOutputSentence {
                         "exclaimed": true,
+                        "followedByBlankLine": true,
                         "sequence": "Speak thy mind",
                         "subject": undefined,
                       },
@@ -574,7 +589,8 @@ Program {
                         "comparative": PositiveAdjective {
                           "sequence": "loving",
                         },
-                        "exclaimed": undefined,
+                        "exclaimed": false,
+                        "followedByBlankLine": false,
                         "subject": undefined,
                         "value": ArithmeticOperationValue {
                           "article": "the",
@@ -634,7 +650,8 @@ Program {
                         "comparative": PositiveAdjective {
                           "sequence": "beautiful",
                         },
-                        "exclaimed": undefined,
+                        "exclaimed": false,
+                        "followedByBlankLine": false,
                         "subject": undefined,
                         "value": ArithmeticOperationValue {
                           "article": "the",
@@ -655,6 +672,7 @@ Program {
                       },
                       CharOutputSentence {
                         "exclaimed": true,
+                        "followedByBlankLine": true,
                         "sequence": "Speak thy mind",
                         "subject": undefined,
                       },
@@ -712,7 +730,8 @@ Program {
                     },
                     "sentences": [
                       CharOutputSentence {
-                        "exclaimed": undefined,
+                        "exclaimed": false,
+                        "followedByBlankLine": false,
                         "sequence": "Speak your mind",
                         "subject": undefined,
                       },
@@ -723,7 +742,8 @@ Program {
                         "comparative": NegativeAdjective {
                           "sequence": "worried",
                         },
-                        "exclaimed": undefined,
+                        "exclaimed": false,
+                        "followedByBlankLine": false,
                         "subject": undefined,
                         "value": ArithmeticOperationValue {
                           "article": "the",
@@ -768,6 +788,7 @@ Program {
                       },
                       CharOutputSentence {
                         "exclaimed": true,
+                        "followedByBlankLine": true,
                         "sequence": "Speak your mind",
                         "subject": undefined,
                       },
@@ -780,6 +801,7 @@ Program {
                     "sentences": [
                       CharOutputSentence {
                         "exclaimed": true,
+                        "followedByBlankLine": false,
                         "sequence": "Speak YOUR mind",
                         "subject": undefined,
                       },
@@ -791,6 +813,7 @@ Program {
                           "sequence": "bad",
                         },
                         "exclaimed": true,
+                        "followedByBlankLine": false,
                         "subject": undefined,
                         "value": CharacterValue {
                           "character": Character {
@@ -805,7 +828,8 @@ Program {
                         "comparative": NeutralAdjective {
                           "sequence": "small",
                         },
-                        "exclaimed": undefined,
+                        "exclaimed": false,
+                        "followedByBlankLine": false,
                         "subject": undefined,
                         "value": ArithmeticOperationValue {
                           "article": "the",
@@ -876,6 +900,7 @@ Program {
                       },
                       CharOutputSentence {
                         "exclaimed": true,
+                        "followedByBlankLine": true,
                         "sequence": "Speak your mind",
                         "subject": undefined,
                       },
@@ -921,7 +946,8 @@ Program {
                         "comparative": PositiveAdjective {
                           "sequence": "good",
                         },
-                        "exclaimed": undefined,
+                        "exclaimed": false,
+                        "followedByBlankLine": false,
                         "subject": undefined,
                         "value": ArithmeticOperationValue {
                           "article": "the",
@@ -966,6 +992,7 @@ Program {
                       },
                       CharOutputSentence {
                         "exclaimed": true,
+                        "followedByBlankLine": true,
                         "sequence": "Speak your mind",
                         "subject": undefined,
                       },
@@ -984,6 +1011,7 @@ Program {
                           "sequence": "disgusting",
                         },
                         "exclaimed": true,
+                        "followedByBlankLine": false,
                         "subject": undefined,
                         "value": ArithmeticOperationValue {
                           "article": "the",
@@ -1034,6 +1062,7 @@ Program {
                       },
                       CharOutputSentence {
                         "exclaimed": true,
+                        "followedByBlankLine": true,
                         "sequence": "Speak your mind",
                         "subject": undefined,
                       },
@@ -1297,7 +1326,8 @@ Program {
                         "comparative": PositiveAdjective {
                           "sequence": "good",
                         },
-                        "exclaimed": undefined,
+                        "exclaimed": false,
+                        "followedByBlankLine": false,
                         "subject": undefined,
                         "value": ArithmeticOperationValue {
                           "article": "the",
@@ -1353,6 +1383,7 @@ Program {
                       },
                       CharOutputSentence {
                         "exclaimed": true,
+                        "followedByBlankLine": true,
                         "sequence": "Speak your mind",
                         "subject": undefined,
                       },
@@ -1370,7 +1401,8 @@ Program {
                         "comparative": PositiveAdjective {
                           "sequence": "good",
                         },
-                        "exclaimed": undefined,
+                        "exclaimed": false,
+                        "followedByBlankLine": false,
                         "subject": undefined,
                         "value": ArithmeticOperationValue {
                           "article": "the",
@@ -1394,6 +1426,7 @@ Program {
                       },
                       CharOutputSentence {
                         "exclaimed": true,
+                        "followedByBlankLine": true,
                         "sequence": "Speak your mind",
                         "subject": undefined,
                       },
@@ -1404,7 +1437,8 @@ Program {
                         "comparative": PositiveAdjective {
                           "sequence": "good",
                         },
-                        "exclaimed": undefined,
+                        "exclaimed": false,
+                        "followedByBlankLine": false,
                         "subject": undefined,
                         "value": ArithmeticOperationValue {
                           "article": "the",
@@ -1445,6 +1479,7 @@ Program {
                       },
                       CharOutputSentence {
                         "exclaimed": true,
+                        "followedByBlankLine": true,
                         "sequence": "Speak your mind",
                         "subject": undefined,
                       },
@@ -1544,6 +1579,7 @@ Program {
                         },
                         "comparative": undefined,
                         "exclaimed": true,
+                        "followedByBlankLine": false,
                         "subject": undefined,
                         "value": PositiveConstantValue {
                           "adjectives": [
@@ -1571,7 +1607,8 @@ Program {
                         "comparative": PositiveAdjective {
                           "sequence": "prompt",
                         },
-                        "exclaimed": undefined,
+                        "exclaimed": false,
+                        "followedByBlankLine": false,
                         "subject": undefined,
                         "value": ArithmeticOperationValue {
                           "article": "the",
@@ -1604,7 +1641,8 @@ Program {
                         },
                       },
                       CharOutputSentence {
-                        "exclaimed": undefined,
+                        "exclaimed": false,
+                        "followedByBlankLine": true,
                         "sequence": "Speak your mind",
                         "subject": undefined,
                       },
@@ -1617,6 +1655,7 @@ Program {
                     "sentences": [
                       IntegerInputSentence {
                         "exclaimed": true,
+                        "followedByBlankLine": true,
                         "sequence": "Listen to your heart",
                         "subject": undefined,
                       },
@@ -1651,6 +1690,7 @@ Program {
                           "sequence": "sweet",
                         },
                         "exclaimed": true,
+                        "followedByBlankLine": true,
                         "subject": undefined,
                         "value": PositiveConstantValue {
                           "adjectives": [
@@ -1704,6 +1744,7 @@ Program {
                             "sequence": "better",
                           },
                         },
+                        "followedByBlankLine": true,
                         "prefix": "Art thou",
                         "value1": BeComparative {
                           "sequence": "Art thou",
@@ -1722,9 +1763,11 @@ Program {
                     },
                     "sentences": [
                       ResponseSentence {
+                        "followedByBlankLine": undefined,
                         "runIf": true,
                         "sentence": GotoSentence {
-                          "exclaimed": undefined,
+                          "exclaimed": false,
+                          "followedByBlankLine": true,
                           "numeral": Numeral {
                             "sequence": "V",
                           },
@@ -1763,6 +1806,7 @@ Program {
                           "sequence": "villainous",
                         },
                         "exclaimed": true,
+                        "followedByBlankLine": true,
                         "subject": undefined,
                         "value": UnaryOperationValue {
                           "article": "the",
@@ -1790,7 +1834,8 @@ Program {
                         "comparative": PositiveAdjective {
                           "sequence": "lovely",
                         },
-                        "exclaimed": undefined,
+                        "exclaimed": false,
+                        "followedByBlankLine": true,
                         "subject": undefined,
                         "value": PositiveConstantValue {
                           "adjectives": [
@@ -1834,6 +1879,7 @@ Program {
                             "sequence": "better",
                           },
                         },
+                        "followedByBlankLine": true,
                         "prefix": "Am I",
                         "value1": BeComparative {
                           "sequence": "Am I",
@@ -1852,9 +1898,11 @@ Program {
                     },
                     "sentences": [
                       ResponseSentence {
+                        "followedByBlankLine": undefined,
                         "runIf": true,
                         "sentence": GotoSentence {
-                          "exclaimed": undefined,
+                          "exclaimed": false,
+                          "followedByBlankLine": true,
                           "numeral": Numeral {
                             "sequence": "III",
                           },
@@ -1875,6 +1923,7 @@ Program {
                             "sequence": "good",
                           },
                         },
+                        "followedByBlankLine": true,
                         "prefix": "Is",
                         "value1": ArithmeticOperationValue {
                           "article": "the",
@@ -1904,9 +1953,11 @@ Program {
                     },
                     "sentences": [
                       ResponseSentence {
+                        "followedByBlankLine": undefined,
                         "runIf": true,
                         "sentence": GotoSentence {
-                          "exclaimed": undefined,
+                          "exclaimed": false,
+                          "followedByBlankLine": false,
                           "numeral": Numeral {
                             "sequence": "IV",
                           },
@@ -1921,7 +1972,8 @@ Program {
                         "comparative": PositiveAdjective {
                           "sequence": "bold",
                         },
-                        "exclaimed": undefined,
+                        "exclaimed": false,
+                        "followedByBlankLine": true,
                         "subject": undefined,
                         "value": ArithmeticOperationValue {
                           "article": "the",
@@ -1951,7 +2003,8 @@ Program {
                     },
                     "sentences": [
                       GotoSentence {
-                        "exclaimed": undefined,
+                        "exclaimed": false,
+                        "followedByBlankLine": true,
                         "numeral": Numeral {
                           "sequence": "II",
                         },
@@ -1994,7 +2047,8 @@ Program {
                     },
                     "sentences": [
                       IntegerOutputSentence {
-                        "exclaimed": undefined,
+                        "exclaimed": false,
+                        "followedByBlankLine": true,
                         "sequence": "Open your heart",
                         "subject": undefined,
                       },
@@ -2029,6 +2083,7 @@ Program {
                           "sequence": "rotten",
                         },
                         "exclaimed": true,
+                        "followedByBlankLine": false,
                         "subject": undefined,
                         "value": ArithmeticOperationValue {
                           "article": "the",
@@ -2078,6 +2133,7 @@ Program {
                       },
                       CharOutputSentence {
                         "exclaimed": true,
+                        "followedByBlankLine": true,
                         "sequence": "Speak your mind",
                         "subject": undefined,
                       },
@@ -2136,6 +2192,7 @@ Program {
                           "sequence": "handsome",
                         },
                         "exclaimed": true,
+                        "followedByBlankLine": false,
                         "subject": undefined,
                         "value": ArithmeticOperationValue {
                           "article": "the",
@@ -2158,7 +2215,8 @@ Program {
                         },
                       },
                       GotoSentence {
-                        "exclaimed": undefined,
+                        "exclaimed": false,
+                        "followedByBlankLine": true,
                         "numeral": Numeral {
                           "sequence": "I",
                         },
@@ -2259,6 +2317,7 @@ Program {
                           "sequence": "good",
                         },
                         "exclaimed": true,
+                        "followedByBlankLine": true,
                         "subject": undefined,
                         "value": ZeroValue {
                           "sequence": "nothing",
@@ -2289,11 +2348,13 @@ Program {
                     "sentences": [
                       CharInputSentence {
                         "exclaimed": true,
+                        "followedByBlankLine": false,
                         "sequence": "Open your mind",
                         "subject": undefined,
                       },
                       RememberSentence {
-                        "exclaimed": undefined,
+                        "exclaimed": false,
+                        "followedByBlankLine": true,
                         "pronoun": SecondPersonPronoun {
                           "sequence": "yourself",
                         },
@@ -2313,7 +2374,8 @@ Program {
                         "comparative": NeutralAdjective {
                           "sequence": "hard",
                         },
-                        "exclaimed": undefined,
+                        "exclaimed": false,
+                        "followedByBlankLine": false,
                         "subject": undefined,
                         "value": ArithmeticOperationValue {
                           "article": "the",
@@ -2341,6 +2403,7 @@ Program {
                             "sequence": "horrid",
                           },
                         },
+                        "followedByBlankLine": true,
                         "prefix": "Am I",
                         "value1": BeComparative {
                           "sequence": "Am I",
@@ -2362,9 +2425,11 @@ Program {
                     },
                     "sentences": [
                       ResponseSentence {
+                        "followedByBlankLine": undefined,
                         "runIf": false,
                         "sentence": GotoSentence {
-                          "exclaimed": undefined,
+                          "exclaimed": false,
+                          "followedByBlankLine": false,
                           "numeral": Numeral {
                             "sequence": "II",
                           },
@@ -2377,6 +2442,7 @@ Program {
                           "sequence": "imminent death",
                         },
                         "exclaimed": true,
+                        "followedByBlankLine": true,
                         "subject": undefined,
                       },
                     ],
@@ -2394,6 +2460,7 @@ Program {
                           "sequence": "small",
                         },
                         "exclaimed": true,
+                        "followedByBlankLine": true,
                         "subject": undefined,
                         "value": ArithmeticOperationValue {
                           "article": "the",
@@ -2442,11 +2509,13 @@ Program {
                         "comment": Comment {
                           "sequence": "unhappy childhood",
                         },
-                        "exclaimed": undefined,
+                        "exclaimed": false,
+                        "followedByBlankLine": false,
                         "subject": undefined,
                       },
                       CharOutputSentence {
                         "exclaimed": true,
+                        "followedByBlankLine": true,
                         "sequence": "Speak your mind",
                         "subject": undefined,
                       },
@@ -2465,6 +2534,7 @@ Program {
                           "sequence": "vile",
                         },
                         "exclaimed": true,
+                        "followedByBlankLine": false,
                         "subject": undefined,
                         "value": ArithmeticOperationValue {
                           "article": "the",
@@ -2492,6 +2562,7 @@ Program {
                             "sequence": "better",
                           },
                         },
+                        "followedByBlankLine": true,
                         "prefix": "Are you",
                         "value1": BeComparative {
                           "sequence": "Are you",
@@ -2508,9 +2579,11 @@ Program {
                     },
                     "sentences": [
                       ResponseSentence {
+                        "followedByBlankLine": undefined,
                         "runIf": true,
                         "sentence": GotoSentence {
-                          "exclaimed": undefined,
+                          "exclaimed": false,
+                          "followedByBlankLine": true,
                           "numeral": Numeral {
                             "sequence": "III",
                           },
@@ -2628,6 +2701,7 @@ Program {
                           "sequence": "pretty",
                         },
                         "exclaimed": true,
+                        "followedByBlankLine": true,
                         "subject": undefined,
                         "value": PositiveConstantValue {
                           "adjectives": [
@@ -2679,6 +2753,7 @@ Program {
                     "sentences": [
                       IntegerOutputSentence {
                         "exclaimed": true,
+                        "followedByBlankLine": false,
                         "sequence": "Open your heart",
                         "subject": undefined,
                       },
@@ -2687,7 +2762,8 @@ Program {
                           "sequence": "You",
                         },
                         "comparative": undefined,
-                        "exclaimed": undefined,
+                        "exclaimed": false,
+                        "followedByBlankLine": true,
                         "subject": undefined,
                         "value": PositiveConstantValue {
                           "adjectives": [],
@@ -2723,6 +2799,7 @@ Program {
                     "sentences": [
                       CharOutputSentence {
                         "exclaimed": true,
+                        "followedByBlankLine": true,
                         "sequence": "Speak your mind",
                         "subject": undefined,
                       },
@@ -2769,6 +2846,7 @@ Program {
                           "sequence": "pretty",
                         },
                         "exclaimed": true,
+                        "followedByBlankLine": false,
                         "subject": undefined,
                         "value": ArithmeticOperationValue {
                           "article": "the",
@@ -2789,6 +2867,7 @@ Program {
                       },
                       IntegerOutputSentence {
                         "exclaimed": true,
+                        "followedByBlankLine": true,
                         "sequence": "Open your heart",
                         "subject": undefined,
                       },
@@ -2823,6 +2902,7 @@ Program {
                           "sequence": "brave",
                         },
                         "exclaimed": true,
+                        "followedByBlankLine": true,
                         "subject": undefined,
                         "value": ArithmeticOperationValue {
                           "article": "the",
@@ -2866,6 +2946,7 @@ Program {
                     "sentences": [
                       CharOutputSentence {
                         "exclaimed": true,
+                        "followedByBlankLine": true,
                         "sequence": "Speak your mind",
                         "subject": undefined,
                       },
@@ -2884,6 +2965,7 @@ Program {
                           "sequence": "pretty",
                         },
                         "exclaimed": true,
+                        "followedByBlankLine": true,
                         "subject": undefined,
                         "value": ArithmeticOperationValue {
                           "article": "the",
@@ -2920,6 +3002,7 @@ Program {
                             },
                           },
                         },
+                        "followedByBlankLine": true,
                         "prefix": "Am I",
                         "value1": BeComparative {
                           "sequence": "Am I",
@@ -2938,9 +3021,11 @@ Program {
                     },
                     "sentences": [
                       ResponseSentence {
+                        "followedByBlankLine": undefined,
                         "runIf": true,
                         "sentence": GotoSentence {
-                          "exclaimed": undefined,
+                          "exclaimed": false,
+                          "followedByBlankLine": true,
                           "numeral": Numeral {
                             "sequence": "II",
                           },

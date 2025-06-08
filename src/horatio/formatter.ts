@@ -116,21 +116,43 @@ export default class Formatter {
 
   visitLine(line: Ast.Line): Line {
     const name = line.character.visit(this) + ":";
-    const text = line.sentences
-      .map((sentence) => {
-        const sentenceText = sentence.visit(this);
-        // Determine punctuation based on sentence type and exclaimed field
-        let punctuation = ".";
-        if (sentence.constructor.name === "QuestionSentence") {
-          punctuation = "?";
-        } else if ("exclaimed" in sentence && sentence.exclaimed) {
-          punctuation = "!";
-        }
-        return sentenceText + punctuation;
-      })
-      .join(" ");
+    const sentenceParts = line.sentences.map((sentence, index) => {
+      const sentenceText = sentence.visit(this);
+      // Determine punctuation based on sentence type and exclaimed field
+      let punctuation = ".";
+      if (sentence.constructor.name === "QuestionSentence") {
+        punctuation = "?";
+      } else if ("exclaimed" in sentence && sentence.exclaimed) {
+        punctuation = "!";
+      }
 
-    return { name, text };
+      const fullSentence = sentenceText + punctuation;
+
+      // Add paragraph break if this sentence is followed by a blank line
+      if ("followedByBlankLine" in sentence && sentence.followedByBlankLine) {
+        return fullSentence + "\n\n";
+      }
+
+      return fullSentence;
+    });
+
+    // Join sentences, handling the paragraph breaks
+    let text = "";
+    for (let i = 0; i < sentenceParts.length; i++) {
+      const part = sentenceParts[i]!;
+      if (part.endsWith("\n\n")) {
+        // This sentence has a paragraph break
+        text += part;
+      } else {
+        // Regular sentence - add space before next sentence if not the last one
+        text += part;
+        if (i < sentenceParts.length - 1) {
+          text += " ";
+        }
+      }
+    }
+
+    return { name, text: text.trim() };
   }
 
   visitAssignmentSentence(assignment: Ast.AssignmentSentence) {

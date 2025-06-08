@@ -179,6 +179,10 @@ export default class Token {
     return 110;
   }
 
+  static get WHITESPACE() {
+    return 111;
+  }
+
   static isStatementPunctuation(token: Token): boolean {
     return (
       token.kind === Token.PERIOD || token.kind === Token.EXCLAMATION_POINT

@@ -7,14 +7,20 @@ import Token from "./token";
  * @param {string} input - An input SPL program
  */
 export default class Tokenizer {
+  input: string;
+  startPos: number;
+  currentPos: number;
   tokens: Token[];
   dictionary: { [key: string]: number };
 
   constructor(input: string) {
+    this.input = input;
+    this.startPos = 0;
+    this.currentPos = 0;
     this.tokens = [];
     this.dictionary = {};
     this.buildDictionary();
-    this.tokenize(input);
+    this.tokenize();
   }
 
   /**
@@ -29,98 +35,161 @@ export default class Tokenizer {
     }
   }
 
-  /**
-   * Scan and tokenize an input SPL program
-   * @param {string} input - The input SPL program
-   */
-  tokenize(input: string): void {
-    // strip all newlines/extra whitespace
-    input = input.trim().replace(/[\s\n]+/g, " ");
+  addToken(tokenType: number, literal?: string): void {
+    const lit = literal ?? this.input.slice(this.startPos, this.currentPos);
+    const t = new Token(tokenType, lit);
+    this.tokens.push(t);
+    this.commit();
+  }
 
-    // replace terminals
-    input = input.replace(/[:,.!?\[\]]/g, function (match: string): string {
-      switch (match) {
-        case ":":
-          return " COLON"; //break;
-        case ",":
-          return " COMMA"; //break;
-        case ".":
-          return " PERIOD"; //break;
-        case "!":
-          return " EXCLAMATION_POINT"; //break;
-        case "?":
-          return " QUESTION_MARK"; //break;
-        case "[":
-          return "LEFT_BRACKET "; //break;
-        case "]":
-          return " RIGHT_BRACKET"; //break;
-        default:
-          return match;
+  commit(): void {
+    this.startPos = this.currentPos;
+  }
+
+  nextChar(): string | undefined {
+    const char = this.input[this.currentPos];
+    if (char) {
+      this.currentPos += 1;
+    }
+
+    return char;
+  }
+
+  peekChar(): string | undefined {
+    return this.input[this.currentPos];
+  }
+
+  nextWord(): string | undefined {
+    // skip leading whitespace
+    while (true) {
+      const char = this.input[this.currentPos];
+      if (!char || !isWhitespace(char)) break;
+      this.currentPos += 1;
+    }
+
+    const start = this.currentPos;
+
+    // take chars until whitespace
+    while (true) {
+      const char = this.input[this.currentPos];
+      if (!char || char.match(/\s|[\[\]:,&.!?]/)) break;
+      this.currentPos += 1;
+    }
+
+    const word = this.input.slice(start, this.currentPos) || undefined;
+    return word;
+  }
+
+  tokenize(): void {
+    while (true) {
+      let char = this.peekChar();
+
+      if (!char) break;
+
+      let newlineCount = 0;
+      while (true) {
+        if (!char || !isWhitespace(char)) break;
+        if (char === "\n") newlineCount += 1;
+        this.nextChar();
+        char = this.peekChar();
       }
-    });
 
-    // Split into array by spaces
-    let input_array = input.split(" ");
+      if (newlineCount >= 2) {
+        this.addToken(Token.WHITESPACE);
+      }
 
-    // tokenize
-    while (input_array.length > 0) {
-      let current = input_array.shift()!!!;
-      let currentLower = current.toLowerCase();
+      this.commit();
 
-      if (current && this.dictionary[currentLower]) {
-        // Always try to find the longest possible match
-        let longestMatch = current;
-        let longestMatchLower = currentLower;
-        let longestMatchLength = 0; // number of additional words consumed
+      switch (char) {
+        case ":":
+          this.nextChar();
+          this.addToken(Token.COLON);
+          continue;
+        case ",":
+          this.nextChar();
+          this.addToken(Token.COMMA);
+          continue;
+        case "&":
+          this.nextChar();
+          this.addToken(Token.AMPERSAND);
+          continue;
+        case ".":
+          this.nextChar();
+          this.addToken(Token.PERIOD);
+          continue;
+        case "!":
+          this.nextChar();
+          this.addToken(Token.EXCLAMATION_POINT);
+          continue;
+        case "?":
+          this.nextChar();
+          this.addToken(Token.QUESTION_MARK);
+          continue;
+        case "[":
+          this.nextChar();
+          this.addToken(Token.LEFT_BRACKET);
+          continue;
+        case "]":
+          this.nextChar();
+          this.addToken(Token.RIGHT_BRACKET);
+          continue;
+      }
 
-        // Keep checking longer word chains until no match is found
-        for (let i = 0; i < input_array.length; i++) {
-          let testMatch = current;
-          for (let j = 0; j <= i; j++) {
-            testMatch += " " + input_array[j];
-          }
-          let testMatchLower = testMatch.toLowerCase();
+      // Single or multi word phrase tokens
+      const phraseStartPos = this.currentPos;
+      let longestMatch = "";
+      let longestMatchEndPos = this.currentPos;
+      let tokenType: number | undefined = undefined;
+      let words: string[] = [];
 
-          if (this.dictionary[testMatchLower]) {
-            longestMatch = testMatch;
-            longestMatchLower = testMatchLower;
-            longestMatchLength = i + 1;
-          }
+      while (true) {
+        const word = this.nextWord();
+
+        if (!word) break;
+
+        words.push(word);
+        const phrase = words.join(" ");
+        const phraseLower = phrase.toLowerCase();
+
+        if (this.dictionary[phraseLower]) {
+          longestMatch = phrase;
+          longestMatchEndPos = this.currentPos;
+          tokenType = this.dictionary[phraseLower]!;
         }
 
-        this.tokens.push(
-          new Token(this.dictionary[longestMatchLower]!!!, longestMatch),
-        );
-        // Remove the consumed words from input_array
-        input_array.splice(0, longestMatchLength);
+        if (!this.couldExtendToMatch(phraseLower)) {
+          break;
+        }
+      }
+
+      if (tokenType && longestMatch) {
+        this.currentPos = longestMatchEndPos;
+        this.addToken(tokenType, longestMatch);
+        continue;
+      }
+
+      // Failed to fine a phrase in the dictionary
+      this.currentPos = phraseStartPos;
+      const commentWord = this.nextWord();
+      if (commentWord) {
+        this.addToken(Token.COMMENT, commentWord);
+        continue;
       } else {
-        // check if further appends will find match
-        let br = 0;
-        let orig = current;
-        let currentLower = current.toLowerCase();
-        let foundMatch = false;
-
-        while (!this.dictionary[currentLower] && br < input_array.length) {
-          current = current + " " + input_array[br];
-          currentLower = current.toLowerCase();
-
-          if (this.dictionary[currentLower]) {
-            this.tokens.push(
-              new Token(this.dictionary[currentLower]!!!, current),
-            );
-            input_array.splice(0, br + 1);
-            foundMatch = true;
-            break;
-          }
-          br += 1;
-        }
-
-        // Only treat as comment if we couldn't build any valid token
-        if (!foundMatch && !this.dictionary[orig.toLowerCase()]) {
-          this.tokens.push(new Token(Token.COMMENT, orig));
-        }
+        break;
       }
     }
+  }
+
+  /**
+   * Check if a phrase could be extended to match a dictionary entry
+   */
+  couldExtendToMatch(phrase: string): boolean {
+    for (const key in this.dictionary) {
+      if (key.startsWith(phrase + " ")) {
+        return true;
+      }
+    }
+    return false;
   }
 
   /**
@@ -264,32 +333,29 @@ export default class Tokenizer {
       self.dictionary[w.toLowerCase()] = 82;
     });
 
-    wl.colon.forEach(function (w) {
-      self.dictionary[w.toLowerCase()] = 90;
-    });
-    wl.comma.forEach(function (w) {
-      self.dictionary[w.toLowerCase()] = 91;
-    });
-    wl.period.forEach(function (w) {
-      self.dictionary[w.toLowerCase()] = 92;
-    });
-    wl.exclamation_point.forEach(function (w) {
-      self.dictionary[w.toLowerCase()] = 93;
-    });
-    wl.question_mark.forEach(function (w) {
-      self.dictionary[w.toLowerCase()] = 94;
-    });
-    wl.ampersand.forEach(function (w) {
-      self.dictionary[w.toLowerCase()] = 95;
-    });
     wl.and.forEach(function (w) {
       self.dictionary[w.toLowerCase()] = 96;
     });
-    wl.left_bracket.forEach(function (w) {
-      self.dictionary[w.toLowerCase()] = 97;
-    });
-    wl.right_bracket.forEach(function (w) {
-      self.dictionary[w.toLowerCase()] = 98;
-    });
   }
+}
+
+function isWhitespace(c: string) {
+  return (
+    c === " " ||
+    c === "\n" ||
+    c === "\t" ||
+    c === "\r" ||
+    c === "\f" ||
+    c === "\v" ||
+    c === "\u00a0" ||
+    c === "\u1680" ||
+    c === "\u2000" ||
+    c === "\u200a" ||
+    c === "\u2028" ||
+    c === "\u2029" ||
+    c === "\u202f" ||
+    c === "\u205f" ||
+    c === "\u3000" ||
+    c === "\ufeff"
+  );
 }

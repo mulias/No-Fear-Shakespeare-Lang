@@ -51,16 +51,6 @@ import {
   output_integer,
   output_char,
 } from "./wordlists/input_output";
-import {
-  colon,
-  comma,
-  period,
-  exclamation_point,
-  question_mark,
-  ampersand,
-  left_bracket,
-  right_bracket,
-} from "./wordlists/terminals";
 
 /**
  * Horatio Wordlists
@@ -118,14 +108,6 @@ export default {
   second_person_reflexive: second_person_reflexive,
   remember: remember,
   recall: recall,
-  colon: colon,
-  comma: comma,
-  period: period,
-  exclamation_point: exclamation_point,
-  question_mark: question_mark,
-  ampersand: ampersand,
-  left_bracket: left_bracket,
-  right_bracket: right_bracket,
   third_person_possessive: third_person_possessive,
   unary_operators: unary_operators,
   you: you,
