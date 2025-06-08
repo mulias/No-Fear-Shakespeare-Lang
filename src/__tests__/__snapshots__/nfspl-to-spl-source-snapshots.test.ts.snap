@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Comprehensive Example File Snapshots NFSPL to SPL Transpilation Snapshots should transpile enter-multiple.nfspl to SPL: enter-multiple.nfspl-to-spl 1`] = `
+exports[`Example File Snapshots NFSPL to SPL Transpilation Snapshots should transpile enter-multiple.nfspl to SPL: enter-multiple.nfspl-to-spl 1`] = `
 "The Test of Multiple Enter.
 
 The Archbishop of Canterbury, a young man.
@@ -35,7 +35,7 @@ Lady Montague, another friend.
 [Exeunt]"
 `;
 
-exports[`Comprehensive Example File Snapshots NFSPL to SPL Transpilation Snapshots should transpile fizzbuzz.nfspl to SPL: fizzbuzz.nfspl-to-spl 1`] = `
+exports[`Example File Snapshots NFSPL to SPL Transpilation Snapshots should transpile fizzbuzz.nfspl to SPL: fizzbuzz.nfspl-to-spl 1`] = `
 "To Fizz, Perchance To Buzz.
 
 Claudio, a counter of loops.
@@ -165,7 +165,7 @@ Claudio:
 [Exeunt]"
 `;
 
-exports[`Comprehensive Example File Snapshots NFSPL to SPL Transpilation Snapshots should transpile hi.nfspl to SPL: hi.nfspl-to-spl 1`] = `
+exports[`Example File Snapshots NFSPL to SPL Transpilation Snapshots should transpile hi.nfspl to SPL: hi.nfspl-to-spl 1`] = `
 "A Simple Greeting.
 
 Pompeius, the a variable.
@@ -193,7 +193,7 @@ Friar John:
 [Exeunt]"
 `;
 
-exports[`Comprehensive Example File Snapshots NFSPL to SPL Transpilation Snapshots should transpile reverse.nfspl to SPL: reverse.nfspl-to-spl 1`] = `
+exports[`Example File Snapshots NFSPL to SPL Transpilation Snapshots should transpile reverse.nfspl to SPL: reverse.nfspl-to-spl 1`] = `
 "King Lear and The Duke of Venice Output The Input Reversedly.
 
 King Lear, a stacky gentleperson.

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Comprehensive Example File Snapshots NFSPL AST Snapshots should parse enter-multiple.nfspl to Horatio AST via transpilation: enter-multiple.nfspl-horatio-ast 1`] = `
+exports[`Example File Snapshots NFSPL AST Snapshots should parse enter-multiple.nfspl to Horatio AST via transpilation: enter-multiple.nfspl-horatio-ast 1`] = `
 Program {
   "comment": Comment {
     "sequence": "The Test of Multiple Enter",
@@ -179,7 +179,7 @@ Program {
 }
 `;
 
-exports[`Comprehensive Example File Snapshots NFSPL AST Snapshots should parse fizzbuzz.nfspl to Horatio AST via transpilation: fizzbuzz.nfspl-horatio-ast 1`] = `
+exports[`Example File Snapshots NFSPL AST Snapshots should parse fizzbuzz.nfspl to Horatio AST via transpilation: fizzbuzz.nfspl-horatio-ast 1`] = `
 Program {
   "comment": Comment {
     "sequence": "To Fizz, Perchance To Buzz",
@@ -3115,7 +3115,7 @@ Program {
 }
 `;
 
-exports[`Comprehensive Example File Snapshots NFSPL AST Snapshots should parse hi.nfspl to Horatio AST via transpilation: hi.nfspl-horatio-ast 1`] = `
+exports[`Example File Snapshots NFSPL AST Snapshots should parse hi.nfspl to Horatio AST via transpilation: hi.nfspl-horatio-ast 1`] = `
 Program {
   "comment": Comment {
     "sequence": "A Simple Greeting",
@@ -3368,7 +3368,7 @@ Program {
 }
 `;
 
-exports[`Comprehensive Example File Snapshots NFSPL AST Snapshots should parse reverse.nfspl to Horatio AST via transpilation: reverse.nfspl-horatio-ast 1`] = `
+exports[`Example File Snapshots NFSPL AST Snapshots should parse reverse.nfspl to Horatio AST via transpilation: reverse.nfspl-horatio-ast 1`] = `
 Program {
   "comment": Comment {
     "sequence": "King Lear and The Duke of Venice Output The Input Reversedly",

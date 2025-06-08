@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Comprehensive Example File Snapshots SPL to NFSPL Transpilation Snapshots should transpile do_not_adieu.spl to NFSPL: do_not_adieu.spl-to-nfspl 1`] = `
+exports[`Example File Snapshots SPL to NFSPL Transpilation Snapshots should transpile do_not_adieu.spl to NFSPL: do_not_adieu.spl-to-nfspl 1`] = `
 "## title: Do Not Adieu, a play in two acts
 ## var romeo: a young man with a remarkable patience
 ## var juliet: a likewise young woman of remarkable grace
@@ -99,7 +99,7 @@ Act2 {
 }"
 `;
 
-exports[`Comprehensive Example File Snapshots SPL to NFSPL Transpilation Snapshots should transpile enter-multiple.spl to NFSPL: enter-multiple.spl-to-nfspl 1`] = `
+exports[`Example File Snapshots SPL to NFSPL Transpilation Snapshots should transpile enter-multiple.spl to NFSPL: enter-multiple.spl-to-nfspl 1`] = `
 "## title: The Test of Multiple Enter
 ## var romeo: a young man
 ## var juliet: a lady
@@ -138,7 +138,7 @@ Act1 {
 }"
 `;
 
-exports[`Comprehensive Example File Snapshots SPL to NFSPL Transpilation Snapshots should transpile hi.spl to NFSPL: hi.spl-to-nfspl 1`] = `
+exports[`Example File Snapshots SPL to NFSPL Transpilation Snapshots should transpile hi.spl to NFSPL: hi.spl-to-nfspl 1`] = `
 "## title: A New Beginning
 ## var hamlet: a literary/storage device
 ## var juliet: an orator
@@ -166,7 +166,7 @@ Act1 {
 }"
 `;
 
-exports[`Comprehensive Example File Snapshots SPL to NFSPL Transpilation Snapshots should transpile primes.spl to NFSPL: primes.spl-to-nfspl 1`] = `
+exports[`Example File Snapshots SPL to NFSPL Transpilation Snapshots should transpile primes.spl to NFSPL: primes.spl-to-nfspl 1`] = `
 "## title: Prime Number Computation in Copenhagen
 ## var romeo: a young man of Verona
 ## var juliet: a young woman
@@ -291,7 +291,7 @@ Act2 {
 }"
 `;
 
-exports[`Comprehensive Example File Snapshots SPL to NFSPL Transpilation Snapshots should transpile reverse.spl to NFSPL: reverse.spl-to-nfspl 1`] = `
+exports[`Example File Snapshots SPL to NFSPL Transpilation Snapshots should transpile reverse.spl to NFSPL: reverse.spl-to-nfspl 1`] = `
 "## title: Outputting Input Reversedly
 ## var othello: a stacky man
 ## var lady_macbeth: who pushes him around till he pops
@@ -353,7 +353,7 @@ Act1 {
 }"
 `;
 
-exports[`Comprehensive Example File Snapshots SPL to NFSPL Transpilation Snapshots should transpile truth.spl to NFSPL: truth.spl-to-nfspl 1`] = `
+exports[`Example File Snapshots SPL to NFSPL Transpilation Snapshots should transpile truth.spl to NFSPL: truth.spl-to-nfspl 1`] = `
 "## title: The Fibonacci Calculations, a play in two acts that needs some improvement
 ## var romeo: one of the Fibonacci numbers and the previous one
 ## var juliet: the second Fibonacci number

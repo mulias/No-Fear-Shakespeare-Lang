@@ -1,0 +1,372 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Example File Snapshots SPL Formatting Snapshots should format do_not_adieu.splj: do_not_adieu.spl-formatted 1`] = `
+"Do Not Adieu, a play in two acts.
+
+Romeo, a young man with a remarkable patience.
+Juliet, a likewise young woman of remarkable grace.
+Ophelia, a remarkable woman much in dispute with Hamlet.
+Hamlet, the flatterer of Andersen Insulting A/S.
+
+                    Act I: Hamlet's insults and flattery.
+
+                    Scene I: The insulting of Romeo.
+
+[Enter Hamlet and Romeo]
+
+Hamlet:
+ You lying stupid fatherless big smelly half-witted coward! You are as
+ stupid as the difference between a handsome rich brave hero and
+ thyself! Speak your mind!
+ 
+ You are as brave as the sum of your fat little stuffed misused dusty
+ old rotten codpiece and a beautiful fair warm peaceful sunny summer's
+ day. You are as healthy as the difference between the sum of the
+ sweetest reddest rose and my father and yourself! Speak your mind!
+ 
+ You are as cowardly as the sum of yourself and the difference between
+ a big mighty proud kingdom and a horse. Speak your mind.
+ 
+ Speak your mind!
+
+[Exit Romeo]
+
+                    Scene II: The praising of Juliet.
+
+[Enter Juliet]
+
+Hamlet:
+ Thou art as sweet as the sum of the sum of Romeo and his horse and his
+ black cat! Speak thy mind!
+
+[Exit Juliet]
+
+                    Scene III: The praising of Ophelia.
+
+[Enter Ophelia]
+
+Hamlet:
+ Thou art as beautiful as the difference between Romeo and the square
+ of a huge green peaceful tree. Speak thy mind!
+ 
+ Thou art as lovely as the product of a large rural town and my amazing
+ bottomless embroidered purse. Speak thy mind!
+ 
+ Thou art as loving as the product of the bluest clearest sweetest sky
+ and the sum of a squirrel and a white horse. Thou art as beautiful as
+ the difference between Juliet and thyself. Speak thy mind!
+
+[Exeunt Ophelia and Hamlet]
+
+                    Act II: Behind Hamlet's back.
+
+                    Scene I: Romeo and Juliet's conversation.
+
+[Enter Romeo and Juliet]
+
+Romeo:
+ Speak your mind. You are as worried as the sum of yourself and the
+ difference between my small smooth hamster and my nose. Speak your
+ mind!
+
+Juliet:
+ Speak YOUR mind! You are as bad as Hamlet! You are as small as the
+ difference between the square of the difference between my little pony
+ and your big hairy hound and the cube of your sorry little codpiece.
+ Speak your mind!
+
+[Exit Romeo]
+
+                    Scene II: Juliet and Ophelia's conversation.
+
+[Enter Ophelia]
+
+Juliet:
+ Thou art as good as the quotient between Romeo and the sum of a small
+ furry animal and a leech. Speak your mind!
+
+Ophelia:
+ Thou art as disgusting as the quotient between Romeo and twice the
+ difference between a mistletoe and an oozing infected blister! Speak
+ your mind!
+
+[Exeunt]"
+`;
+
+exports[`Example File Snapshots SPL Formatting Snapshots should format enter-multiple.splj: enter-multiple.spl-formatted 1`] = `
+"The Test of Multiple Enter.
+
+Romeo, a young man.
+Juliet, a lady.
+Mercutio, a friend.
+Benvolio, another friend.
+
+                    Act I: Testing multiple enters.
+
+                    Scene I: Single enter.
+
+[Enter Romeo]
+
+[Exit Romeo]
+
+                    Scene II: Two characters enter.
+
+[Enter Romeo and Juliet]
+
+[Exeunt Romeo and Juliet]
+
+                    Scene III: Three characters enter.
+
+[Enter Romeo, Juliet and Mercutio]
+
+[Exeunt Romeo, Juliet and Mercutio]
+
+                    Scene IV: Four characters enter.
+
+[Enter Romeo, Juliet, Mercutio and Benvolio]
+
+[Exeunt]"
+`;
+
+exports[`Example File Snapshots SPL Formatting Snapshots should format hi.splj: hi.spl-formatted 1`] = `
+"A New Beginning.
+
+Hamlet, a literary/storage device.
+Juliet, an orator.
+
+                    Act I: The Only Act.
+
+                    Scene I: The Prince's Speech.
+
+[Enter Hamlet and Juliet]
+
+Juliet:
+ Thou art as good as the sum of an amazing healthy honest noble
+ peaceful fine Lord and a lovely sweet golden summer's day. Speak your
+ mind!
+
+Juliet:
+ Thou art as good as the sum of thyself and a King. Speak your mind!
+ 
+ Thou art as good as the sum of an amazing healthy honest hamster and a
+ golden nose. Speak your mind!
+
+[Exeunt]"
+`;
+
+exports[`Example File Snapshots SPL Formatting Snapshots should format primes.splj: primes.spl-formatted 1`] = `
+"Prime Number Computation in Copenhagen.
+
+Romeo, a young man of Verona.
+Juliet, a young woman.
+Hamlet, a temporary variable from Denmark.
+The Ghost, a limiting factor (and by a remarkable coincidence also Hamlet's father).
+
+                    Act I: Interview with the other side.
+
+                    Scene I: At the last hour before dawn.
+
+[Enter The Ghost and Juliet]
+
+The Ghost:
+ You pretty little warm thing! Thou art as prompt as the difference
+ between the square of thyself and your golden hair. Speak your mind.
+
+Juliet:
+ Listen to your heart!
+
+[Exit The Ghost]
+
+[Enter Romeo]
+
+Juliet:
+ Thou art as sweet as a sunny summer's day!
+
+                    Act II: Determining divisibility.
+
+                    Scene I: A private conversation.
+
+Juliet:
+ Art thou better than The Ghost?
+
+Romeo:
+ If so, let us proceed to Scene V.
+
+[Exit Romeo]
+
+[Enter Hamlet]
+
+Juliet:
+ You are as villainous as the square root of Romeo!
+
+Hamlet:
+ You are as lovely as a red rose.
+
+                    Scene II: Questions and the consequences thereof.
+
+Juliet:
+ Am I better than you?
+
+Hamlet:
+ If so, let us proceed to Scene III.
+
+Juliet:
+ Is the remainder of the quotient between Romeo and me as good as
+ nothing?
+
+Hamlet:
+ If so, let us proceed to Scene IV. Thou art as bold as the sum of
+ thyself and a roman.
+
+Juliet:
+ Let us return to Scene II.
+
+                    Scene III: Romeo must die.
+
+[Exit Hamlet]
+
+[Enter Romeo]
+
+Juliet:
+ Open your heart.
+
+[Exit Juliet]
+
+[Enter Hamlet]
+
+Romeo:
+ Thou art as rotten as the difference between nothing and the sum of a
+ snotty stinking half-witted hog and a small toad! Speak your mind!
+
+[Exit Romeo]
+
+[Enter Juliet]
+
+                    Scene IV: One small dog at a time.
+
+[Exit Hamlet]
+
+[Enter Romeo]
+
+Juliet:
+ Thou art as handsome as the sum of thyself and my chihuahua! Let us
+ return to Scene I.
+
+                    Scene V: Fin.
+
+[Exeunt]"
+`;
+
+exports[`Example File Snapshots SPL Formatting Snapshots should format reverse.splj: reverse.spl-formatted 1`] = `
+"Outputting Input Reversedly.
+
+Othello, a stacky man.
+Lady Macbeth, who pushes him around till he pops.
+
+                    Act I: The one and only.
+
+                    Scene I: In the beginning, there was nothing.
+
+[Enter Othello and Lady Macbeth]
+
+Othello:
+ You are as good as nothing!
+
+                    Scene II: Pushing to the very end.
+
+Lady Macbeth:
+ Open your mind! Remember yourself.
+
+Othello:
+ You are as hard as the sum of yourself and a stone wall. Am I as
+ horrid as a flirt-gill?
+
+Lady Macbeth:
+ If not, let us return to scene II. Recall your imminent death!
+
+Othello:
+ You are as small as the difference between yourself and a hair!
+
+                    Scene III: Once you pop, you can't stop.
+
+Lady Macbeth:
+ Recall your unhappy childhood. Speak your mind!
+
+Othello:
+ You are as vile as the sum of yourself and a toad! Are you better than
+ nothing?
+
+Lady Macbeth:
+ If so, let us return to scene III.
+
+                    Scene IV: The end.
+
+[Exeunt]"
+`;
+
+exports[`Example File Snapshots SPL Formatting Snapshots should format truth.splj: truth.spl-formatted 1`] = `
+"The Fibonacci Calculations, a play in two acts that needs some improvement.
+
+Romeo, one of the Fibonacci numbers and the previous one.
+Juliet, the second Fibonacci number.
+Ophelia, the loop and variable controller.
+Macbeth, the king utilized as a space and as the end of the loop.
+
+                    Act I: The Fibonacci Calculation.
+
+                    Scene I: The Initialization of a Helpful Variable.
+
+[Enter Ophelia and Macbeth]
+
+Ophelia:
+ Thou art as pretty as a beautiful fair peaceful sunny warm summer's
+ day!
+
+[Exit Macbeth]
+
+[Enter Romeo]
+
+Ophelia:
+ Open your heart! You animal.
+
+[Exit Romeo]
+
+[Enter Macbeth]
+
+Ophelia:
+ Speak your mind!
+
+                    Scene II: The Start of the Loop.
+
+[Exit Macbeth]
+
+[Enter Juliet]
+
+Ophelia:
+ Thou art as pretty as the sum of yourself and Romeo! Open your heart!
+
+[Exit Juliet]
+
+[Enter Romeo]
+
+Ophelia:
+ Thou art as brave as the difference between Juliet and thyself!
+
+[Exit Romeo]
+
+[Enter Macbeth]
+
+Ophelia:
+ Speak your mind!
+
+Macbeth:
+ Thou art as pretty as the sum of thyself and a horse!
+
+Ophelia:
+ Am I not better than yourself?
+
+Macbeth:
+ If so, let us proceed to scene II.
+
+[Exeunt]"
+`;

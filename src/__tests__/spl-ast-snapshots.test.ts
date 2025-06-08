@@ -3,7 +3,7 @@ import path from "path";
 import Horatio from "../horatio/compiler";
 import { IO } from "../horatio/types";
 
-describe("Comprehensive Example File Snapshots", () => {
+describe("Example File Snapshots", () => {
   // Mock IO interface for testing
   const mockIO: IO = {
     print: () => {},

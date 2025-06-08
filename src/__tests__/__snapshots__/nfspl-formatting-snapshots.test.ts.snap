@@ -1,0 +1,234 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Example File Snapshots NFSPL AST Snapshots should format enter-multiple.nfspl: enter-multiple.nfspl-formatted 1`] = `
+"## title: The Test of Multiple Enter
+## var romeo: a young man
+## var juliet: a lady
+## var mercutio: a friend
+## var benvolio: another friend
+
+## description: Testing multiple enters
+Act1 {
+  ## description: Single enter
+  Scene1 {
+    stage(romeo)
+
+    unstage(romeo)
+  }
+
+  ## description: Two characters enter
+  Scene2 {
+    stage(romeo, juliet)
+
+    unstage(romeo, juliet)
+  }
+
+  ## description: Three characters enter
+  Scene3 {
+    stage(romeo, juliet, mercutio)
+
+    unstage(romeo, juliet, mercutio)
+  }
+
+  ## description: Four characters enter
+  Scene4 {
+    stage(romeo, juliet, mercutio, benvolio)
+
+    unstage_all
+  }
+}"
+`;
+
+exports[`Example File Snapshots NFSPL AST Snapshots should format fizzbuzz.nfspl: fizzbuzz.nfspl-formatted 1`] = `
+"## title: To Fizz, Perchance To Buzz
+## var n: a counter of loops
+## var out: a poet and orator
+
+Main {
+  Start {
+    stage(n, out)
+
+    out {
+      @you.set(0)
+    }
+  }
+
+  Loop {
+    out {
+      @you.set(@you + 1)
+    }
+
+    out {
+      test_gt(@you, 100)
+      if_true(goto(End))
+    }
+
+    out {
+      test_eq(@you % 15, 0)
+      if_true(goto(Fizzbuzz))
+    }
+
+    out {
+      test_eq(@you % 3, 0)
+      if_true(goto(Fizz))
+    }
+
+    out {
+      test_eq(@you % 5, 0)
+      if_true(goto(Buzz))
+    }
+
+    n {
+      @you.set(n)
+      @you.print_int
+      @you.set(10)
+      @you.print_char
+      goto(Loop)
+    }
+  }
+
+  Fizzbuzz {
+    n {
+      @you.set('f')
+      @you.print_char
+      @you.set('i')
+      @you.print_char
+      @you.set('z')
+      @you.print_char
+      @you.set('z')
+      @you.print_char
+      @you.set('b')
+      @you.print_char
+      @you.set('u')
+      @you.print_char
+      @you.set('z')
+      @you.print_char
+      @you.set('z')
+      @you.print_char
+      @you.set(10)
+      @you.print_char
+      goto(Loop)
+    }
+  }
+
+  Fizz {
+    n {
+      @you.set('f')
+      @you.print_char
+      @you.set('i')
+      @you.print_char
+      @you.set('z')
+      @you.print_char
+      @you.set('z')
+      @you.print_char
+      @you.set(10)
+      @you.print_char
+      goto(Loop)
+    }
+  }
+
+  Buzz {
+    n {
+      @you.set('b')
+      @you.print_char
+      @you.set('u')
+      @you.print_char
+      @you.set('z')
+      @you.print_char
+      @you.set('z')
+      @you.print_char
+      @you.set(10)
+      @you.print_char
+      goto(Loop)
+    }
+  }
+
+  End {
+    unstage_all
+  }
+}"
+`;
+
+exports[`Example File Snapshots NFSPL AST Snapshots should format hi.nfspl: hi.nfspl-formatted 1`] = `
+"## title: A Simple Greeting
+
+Main {
+  PrintHi {
+    stage(a, b)
+
+    b {
+      @you.set(72)
+      @you.print_char
+    }
+
+    b {
+      @you.set(@you + 1)
+      @you.print_char
+    }
+
+    b {
+      @you.set(10)
+      @you.print_char
+    }
+
+    unstage_all
+  }
+}"
+`;
+
+exports[`Example File Snapshots NFSPL AST Snapshots should format reverse.nfspl: reverse.nfspl-formatted 1`] = `
+"## title: {stack} and {count} Output The Input Reversedly
+## var stack: a stacky gentleperson
+## var count: who counts the memories of {stack}
+
+## description: The one and only
+Main {
+  ## description: In the beginning, there was nothing
+  Init {
+    stage(stack, count)
+
+    stack {
+      @you.set(0)
+    }
+  }
+
+  ## description: Pushing to {stack}
+  GetInput {
+    count {
+      @you.read_char
+      test_eq(stack, 0)
+      if_false(@you.push_self)
+    }
+
+    stack {
+      if_false(@you.set(@you + 1))
+    }
+
+    count {
+      if_false(goto(GetInput))
+    }
+  }
+
+  ## description: Counting of {count}
+  PrintReversed {
+    count {
+      @you.pop
+      @you.print_char
+    }
+
+    stack {
+      @you.set(@you - 1)
+      test_gt(@you, 0)
+    }
+
+    count {
+      if_true(goto(PrintReversed))
+    }
+  }
+
+  ## description: The end
+  End {
+    unstage_all
+  }
+}"
+`;

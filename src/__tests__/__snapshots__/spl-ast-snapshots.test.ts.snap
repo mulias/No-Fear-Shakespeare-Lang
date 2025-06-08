@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Comprehensive Example File Snapshots SPL AST Snapshots should parse do_not_adieu.spl to Horatio AST: do_not_adieu.spl-horatio-ast 1`] = `
+exports[`Example File Snapshots SPL AST Snapshots should parse do_not_adieu.spl to Horatio AST: do_not_adieu.spl-horatio-ast 1`] = `
 Program {
   "comment": Comment {
     "sequence": "Do Not Adieu, a play in two acts",
@@ -1082,7 +1082,7 @@ Program {
 }
 `;
 
-exports[`Comprehensive Example File Snapshots SPL AST Snapshots should parse enter-multiple.spl to Horatio AST: enter-multiple.spl-horatio-ast 1`] = `
+exports[`Example File Snapshots SPL AST Snapshots should parse enter-multiple.spl to Horatio AST: enter-multiple.spl-horatio-ast 1`] = `
 Program {
   "comment": Comment {
     "sequence": "The Test of Multiple Enter",
@@ -1261,7 +1261,7 @@ Program {
 }
 `;
 
-exports[`Comprehensive Example File Snapshots SPL AST Snapshots should parse hi.spl to Horatio AST: hi.spl-horatio-ast 1`] = `
+exports[`Example File Snapshots SPL AST Snapshots should parse hi.spl to Horatio AST: hi.spl-horatio-ast 1`] = `
 Program {
   "comment": Comment {
     "sequence": "A New Beginning",
@@ -1499,7 +1499,7 @@ Program {
 }
 `;
 
-exports[`Comprehensive Example File Snapshots SPL AST Snapshots should parse primes.spl to Horatio AST: primes.spl-horatio-ast 1`] = `
+exports[`Example File Snapshots SPL AST Snapshots should parse primes.spl to Horatio AST: primes.spl-horatio-ast 1`] = `
 Program {
   "comment": Comment {
     "sequence": "Prime Number Computation in Copenhagen",
@@ -2251,7 +2251,7 @@ Program {
 }
 `;
 
-exports[`Comprehensive Example File Snapshots SPL AST Snapshots should parse reverse.spl to Horatio AST: reverse.spl-horatio-ast 1`] = `
+exports[`Example File Snapshots SPL AST Snapshots should parse reverse.spl to Horatio AST: reverse.spl-horatio-ast 1`] = `
 Program {
   "comment": Comment {
     "sequence": "Outputting Input Reversedly",
@@ -2619,7 +2619,7 @@ Program {
 }
 `;
 
-exports[`Comprehensive Example File Snapshots SPL AST Snapshots should parse truth.spl to Horatio AST: truth.spl-horatio-ast 1`] = `
+exports[`Example File Snapshots SPL AST Snapshots should parse truth.spl to Horatio AST: truth.spl-horatio-ast 1`] = `
 Program {
   "comment": Comment {
     "sequence": "The Fibonacci Calculations, a play in two acts that needs some improvement",

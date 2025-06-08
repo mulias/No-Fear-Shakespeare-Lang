@@ -1,8 +1,7 @@
 import fs from "fs";
 import path from "path";
 import { Possum } from "../possum";
-import { Ophelia } from "../ophelia";
-import { Yorick } from "../yorick";
+import { Ophelia, prettyPrint } from "../ophelia";
 
 describe("Example File Snapshots", () => {
   const examplesDir = path.join(__dirname, "examples");
@@ -23,7 +22,7 @@ describe("Example File Snapshots", () => {
     const nfsplFiles = getExampleFiles(nfsplDir, ".nfspl");
 
     nfsplFiles.forEach((filename) => {
-      it(`should parse ${filename} to Horatio AST via transpilation`, async () => {
+      it(`should format ${filename}`, async () => {
         const filePath = path.join(nfsplDir, filename);
         const source = fs.readFileSync(filePath, "utf-8");
 
@@ -33,10 +32,9 @@ describe("Example File Snapshots", () => {
         const ophelia = new Ophelia(possumAst);
         const opheliaAst = ophelia.run();
 
-        const yorick = new Yorick(opheliaAst);
-        const horatioAst = yorick.run();
+        const formatted = prettyPrint(opheliaAst);
 
-        expect(horatioAst).toMatchSnapshot(`${filename}-horatio-ast`);
+        expect(formatted).toMatchSnapshot(`${filename}-formatted`);
       });
     });
   });

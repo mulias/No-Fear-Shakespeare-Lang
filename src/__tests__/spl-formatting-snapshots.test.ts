@@ -3,6 +3,7 @@ import path from "path";
 import { Falstaff } from "../falstaff";
 import { prettyPrint as opheliaPrettyPrint } from "../ophelia";
 import Horatio from "../horatio/compiler";
+import { prettyPrint } from "../horatio/prettyPrint";
 import { IO } from "../horatio/types";
 
 describe("Example File Snapshots", () => {
@@ -40,17 +41,18 @@ describe("Example File Snapshots", () => {
       .sort();
   }
 
-  describe("SPL to NFSPL Transpilation Snapshots", () => {
+  describe("SPL Formatting Snapshots", () => {
     const splFiles = getExampleFiles(splDir, ".spl");
 
     splFiles.forEach((filename) => {
-      it(`should transpile ${filename} to NFSPL`, () => {
+      it(`should format ${filename}j`, () => {
         const filePath = path.join(splDir, filename);
         const source = fs.readFileSync(filePath, "utf-8");
 
-        const nfspl = transpilesplToNfspl(source);
+        const horatioAst = Horatio.fromSource(source, mockIO).ast;
+        const formatted = prettyPrint(horatioAst);
 
-        expect(nfspl).toMatchSnapshot(`${filename}-to-nfspl`);
+        expect(formatted).toMatchSnapshot(`${filename}-formatted`);
       });
     });
   });
