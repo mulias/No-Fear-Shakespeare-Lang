@@ -39,7 +39,10 @@ export type StatementOrComment = Statement | Comment;
 
 export type Presence = Stage | Unstage | UnstageAll;
 
-export type Comment = { type: "comment"; content: string };
+export type Comment = {
+  type: "comment";
+  content: string;
+};
 
 export type Statement =
   | Set
@@ -77,19 +80,23 @@ export type Int = { type: "int"; value: number };
 
 export type Char = { type: "char"; value: string };
 
-export type Set = { type: ".set"; value: Expression };
+export type Set = {
+  type: ".set";
+  value: Expression;
+  followedByBlankLine: boolean;
+};
 
 export type Print = PrintChar | PrintInt;
 
-export type PrintChar = { type: ".print_char" };
+export type PrintChar = { type: ".print_char"; followedByBlankLine: boolean };
 
-export type PrintInt = { type: ".print_int" };
+export type PrintInt = { type: ".print_int"; followedByBlankLine: boolean };
 
 export type Read = ReadChar | ReadInt;
 
-export type ReadChar = { type: ".read_char" };
+export type ReadChar = { type: ".read_char"; followedByBlankLine: boolean };
 
-export type ReadInt = { type: ".read_int" };
+export type ReadInt = { type: ".read_int"; followedByBlankLine: boolean };
 
 export type Test = {
   type:
@@ -101,21 +108,37 @@ export type Test = {
     | "test_not_lt";
   left: Expression;
   right: Expression;
+  followedByBlankLine: boolean;
 };
 
-export type If = { type: "if"; is: boolean; then: Statement };
+export type If = {
+  type: "if";
+  is: boolean;
+  then: Statement;
+  followedByBlankLine: boolean;
+};
 
-export type Goto = { type: "goto"; labelId: LabelId };
+export type Goto = {
+  type: "goto";
+  labelId: LabelId;
+  followedByBlankLine: boolean;
+};
 
-export type PushSelf = { type: ".push_self" };
+export type PushSelf = { type: ".push_self"; followedByBlankLine: boolean };
 
-export type PushMe = { type: ".push_me" };
+export type PushMe = { type: ".push_me"; followedByBlankLine: boolean };
 
-export type Pop = { type: ".pop" };
+export type Pop = { type: ".pop"; followedByBlankLine: boolean };
 
-export type Stage = { type: "stage"; varIds: VarId[] };
+export type Stage = {
+  type: "stage";
+  varIds: VarId[];
+};
 
-export type Unstage = { type: "unstage"; varIds: VarId[] };
+export type Unstage = {
+  type: "unstage";
+  varIds: VarId[];
+};
 
 export type UnstageAll = { type: "unstage_all" };
 

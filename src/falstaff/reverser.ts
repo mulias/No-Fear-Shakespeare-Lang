@@ -1,5 +1,6 @@
 import * as HoratioAst from "../horatio/ast";
 import * as OpheliaAst from "../ophelia/ast";
+import { AssertNeverError } from "../util";
 
 export class Reverser {
   private characterNameMap: Map<string, string> = new Map();
@@ -314,30 +315,45 @@ export class Reverser {
   private convertSentence(
     sentence: HoratioAst.Sentence,
     speaker: string,
-  ): OpheliaAst.Statement | null {
+  ): OpheliaAst.Statement {
     if (sentence instanceof HoratioAst.AssignmentSentence) {
       return this.convertAssignment(sentence, speaker);
     } else if (sentence instanceof HoratioAst.CharOutputSentence) {
-      return { type: ".print_char" };
+      return {
+        type: ".print_char",
+        followedByBlankLine: !!sentence.followedByBlankLine,
+      };
     } else if (sentence instanceof HoratioAst.IntegerOutputSentence) {
-      return { type: ".print_int" };
+      return {
+        type: ".print_int",
+        followedByBlankLine: !!sentence.followedByBlankLine,
+      };
     } else if (sentence instanceof HoratioAst.CharInputSentence) {
-      return { type: ".read_char" };
+      return {
+        type: ".read_char",
+        followedByBlankLine: !!sentence.followedByBlankLine,
+      };
     } else if (sentence instanceof HoratioAst.IntegerInputSentence) {
-      return { type: ".read_int" };
+      return {
+        type: ".read_int",
+        followedByBlankLine: !!sentence.followedByBlankLine,
+      };
     } else if (sentence instanceof HoratioAst.RememberSentence) {
       return this.convertRemember(sentence);
     } else if (sentence instanceof HoratioAst.RecallSentence) {
-      return { type: ".pop" };
+      return {
+        type: ".pop",
+        followedByBlankLine: !!sentence.followedByBlankLine,
+      };
     } else if (sentence instanceof HoratioAst.QuestionSentence) {
       return this.convertQuestion(sentence, speaker);
     } else if (sentence instanceof HoratioAst.ResponseSentence) {
       return this.convertResponse(sentence, speaker);
     } else if (sentence instanceof HoratioAst.GotoSentence) {
       return this.convertGoto(sentence);
+    } else {
+      throw new AssertNeverError(sentence);
     }
-
-    return null;
   }
 
   private convertAssignment(
@@ -349,6 +365,7 @@ export class Reverser {
     return {
       type: ".set",
       value,
+      followedByBlankLine: !!assignment.followedByBlankLine,
     };
   }
 
@@ -475,9 +492,15 @@ export class Reverser {
     remember: HoratioAst.RememberSentence,
   ): OpheliaAst.PushSelf | OpheliaAst.PushMe {
     if (remember.pronoun instanceof HoratioAst.FirstPersonPronoun) {
-      return { type: ".push_me" };
+      return {
+        type: ".push_me",
+        followedByBlankLine: !!remember.followedByBlankLine,
+      };
     } else {
-      return { type: ".push_self" };
+      return {
+        type: ".push_self",
+        followedByBlankLine: !!remember.followedByBlankLine,
+      };
     }
   }
 
@@ -517,6 +540,7 @@ export class Reverser {
       type: testType,
       left: leftValue,
       right: rightValue,
+      followedByBlankLine: !!question.followedByBlankLine,
     };
   }
 
@@ -550,14 +574,13 @@ export class Reverser {
     response: HoratioAst.ResponseSentence,
     speaker: string,
   ): OpheliaAst.If {
-    const thenStatement = this.convertSentence(response.sentence, speaker) || {
-      type: ".print_char" as const,
-    };
+    const thenStatement = this.convertSentence(response.sentence, speaker);
 
     return {
       type: "if",
       is: response.runIf,
       then: thenStatement,
+      followedByBlankLine: !!response.followedByBlankLine,
     };
   }
 
@@ -568,6 +591,7 @@ export class Reverser {
     return {
       type: "goto",
       labelId,
+      followedByBlankLine: !!goto.followedByBlankLine,
     };
   }
 }

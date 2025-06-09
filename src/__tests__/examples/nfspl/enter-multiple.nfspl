@@ -8,21 +8,18 @@ Act1 {
   ## description: Single enter
   Scene1 {
     stage(romeo)
-
     unstage(romeo)
   }
 
   ## description: Two characters enter
   Scene2 {
     stage(romeo, juliet)
-
     unstage(romeo, juliet)
   }
 
   ## description: Three characters enter
   Scene3 {
     stage(romeo, juliet, mercutio)
-
     unstage(romeo, juliet, mercutio)
   }
 

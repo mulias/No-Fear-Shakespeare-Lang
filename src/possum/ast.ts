@@ -19,6 +19,7 @@ export type Postfix = {
   type: "function_call" | "block";
   value: (Node | Malformed)[];
   postfixed: Node;
+  followedByBlankLine?: boolean;
 };
 
 export type Number = Integer | InvalidNumber;
@@ -29,7 +30,7 @@ export type InvalidNumber = { type: "invalid_number"; value: number };
 
 export type Character = { type: "char"; value: string };
 
-export type Var = { type: "var"; value: string };
+export type Var = { type: "var"; value: string; followedByBlankLine?: boolean };
 
 export type Comment = { type: "comment"; value: string };
 

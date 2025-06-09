@@ -37,8 +37,10 @@ Main {
     n {
       @you.set(n)
       @you.print_int
+
       @you.set(10)
       @you.print_char
+
       goto(Loop)
     }
   }

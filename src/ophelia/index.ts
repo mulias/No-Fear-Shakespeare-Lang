@@ -1,5 +1,6 @@
 import * as PossumAst from "../possum/ast";
 import * as Ast from "./ast";
+import { AssertNeverError } from "../util";
 
 type Problem = {
   node: PossumAst.Node | PossumAst.Malformed;
@@ -61,18 +62,18 @@ class PrettyPrinter {
         parts.push("");
       }
 
-      // Join acts with double newlines (extra spacing between acts)
-      let isFirstAct = true;
-      for (const programItem of program.items) {
-        if (programItem.type === "act") {
-          if (!isFirstAct) {
+      // Print each program item
+      for (let i = 0; i < program.items.length; i++) {
+        const programItem = program.items[i];
+        if (programItem) {
+          const printedItem = this.printProgramItem(programItem);
+          parts.push(printedItem);
+
+          // Add blank line after acts (except the last one)
+          if (programItem.type === "act" && i < program.items.length - 1) {
             parts.push("");
           }
-          isFirstAct = false;
         }
-
-        const printedItem = this.printProgramItem(programItem);
-        parts.push(printedItem);
       }
     }
 
@@ -86,8 +87,7 @@ class PrettyPrinter {
       case "comment":
         return this.printComment(item);
       default:
-        const _exhaustive: never = item;
-        throw new Error(`Unknown program item type: ${(item as any).type}`);
+        throw new AssertNeverError(item);
     }
   }
 
@@ -109,9 +109,20 @@ class PrettyPrinter {
       return parts.join("\n");
     }
 
-    const items = this.withIndent(() =>
-      act.items.map((item) => this.printActItem(item)).join("\n\n"),
-    );
+    const items = this.withIndent(() => {
+      const itemParts: string[] = [];
+      for (let i = 0; i < act.items.length; i++) {
+        const item = act.items[i];
+        if (item) {
+          itemParts.push(this.printActItem(item));
+
+          if (i < act.items.length - 1) {
+            itemParts.push("");
+          }
+        }
+      }
+      return itemParts.join("\n");
+    });
 
     parts.push(`${header}\n${items}\n${footer}`);
     return parts.join("\n");
@@ -124,8 +135,7 @@ class PrettyPrinter {
       case "comment":
         return this.printComment(item);
       default:
-        const _exhaustive: never = item;
-        throw new Error(`Unknown act item type: ${(item as any).type}`);
+        throw new AssertNeverError(item);
     }
   }
 
@@ -149,12 +159,42 @@ class PrettyPrinter {
       return parts.join("\n");
     }
 
-    const directions = this.withIndent(() =>
-      scene.directions.map((dir) => this.printDirection(dir)).join("\n\n"),
-    );
+    const directions = this.withIndent(() => {
+      const dirParts: string[] = [];
+      for (let i = 0; i < scene.directions.length; i++) {
+        const dir = scene.directions[i];
+        if (dir) {
+          dirParts.push(this.printDirection(dir));
+
+          // Apply spacing rules based on current and next direction types
+          if (i < scene.directions.length - 1) {
+            const nextDir = scene.directions[i + 1];
+            if (nextDir) {
+              const currentIsStage = this.isStageDirection(dir);
+              const nextIsStage = this.isStageDirection(nextDir);
+
+              // Add a blank line unless both items are stage directions, in
+              // which case they should be grouped
+              if (!currentIsStage || !nextIsStage) {
+                dirParts.push("");
+              }
+            }
+          }
+        }
+      }
+      return dirParts.join("\n");
+    });
 
     parts.push(`${header}\n${directions}\n${footer}`);
     return parts.join("\n");
+  }
+
+  private isStageDirection(direction: Ast.Direction): boolean {
+    return (
+      direction.type === "stage" ||
+      direction.type === "unstage" ||
+      direction.type === "unstage_all"
+    );
   }
 
   private printDirection(direction: Ast.Direction): string {
@@ -170,8 +210,7 @@ class PrettyPrinter {
       case "comment":
         return this.printComment(direction);
       default:
-        const _exhaustive: never = direction;
-        throw new Error(`Unknown direction type: ${(direction as any).type}`);
+        throw new AssertNeverError(direction);
     }
   }
 
@@ -187,11 +226,24 @@ class PrettyPrinter {
       return `${header}\n${footer}`;
     }
 
-    const lines = this.withIndent(() =>
-      dialogue.lines
-        .map((line) => this.printStatementOrComment(line))
-        .join("\n"),
-    );
+    const lines = this.withIndent(() => {
+      const lineParts: string[] = [];
+      for (let i = 0; i < dialogue.lines.length; i++) {
+        const line = dialogue.lines[i];
+        if (line) {
+          lineParts.push(this.printStatementOrComment(line));
+
+          // Add blank line after statement if it has followedByBlankLine flag
+          // and it's not the last statement in the dialogue
+          if (i < dialogue.lines.length - 1) {
+            if (line.type !== "comment" && line.followedByBlankLine) {
+              lineParts.push("");
+            }
+          }
+        }
+      }
+      return lineParts.join("\n");
+    });
 
     return `${header}\n${lines}\n${footer}`;
   }
@@ -251,8 +303,7 @@ class PrettyPrinter {
       case "goto":
         return `${this.indent()}goto(${statement.labelId})`;
       default:
-        const _exhaustive: never = statement;
-        throw new Error(`Unknown statement type: ${(statement as any).type}`);
+        throw new AssertNeverError(statement);
     }
   }
 
@@ -296,8 +347,7 @@ class PrettyPrinter {
           0,
         )})`;
       default:
-        const _exhaustive: never = expression;
-        throw new Error(`Unknown expression type: ${(expression as any).type}`);
+        throw new AssertNeverError(expression);
     }
   }
 
@@ -667,11 +717,9 @@ export class Ophelia {
     const directions: Ast.Direction[] = [];
 
     for (const node of nodes) {
-      const direction = this.buildDirection(node);
-      if (direction) {
-        if (Array.isArray(direction)) {
-          directions.push(...direction);
-        } else {
+      if (node) {
+        const direction = this.buildDirection(node);
+        if (direction) {
           directions.push(direction);
         }
       }
@@ -682,7 +730,7 @@ export class Ophelia {
 
   buildDirection(
     node: PossumAst.Node | PossumAst.Malformed,
-  ): Ast.Direction | Ast.Direction[] | undefined {
+  ): Ast.Direction | undefined {
     if (node.type === "malformed") {
       this.addProblem(node, `Malformed syntax: ${node.value}`);
       return undefined;
@@ -779,29 +827,6 @@ export class Ophelia {
       }
     }
 
-    // Handle goto statements
-    if (
-      node.type === "function_call" &&
-      node.postfixed.type === "var" &&
-      node.postfixed.value === "goto"
-    ) {
-      const labelExpr = node.value[0];
-      if (labelExpr && labelExpr.type === "var") {
-        // Create a default speaker dialogue
-        const defaultSpeaker = "_speaker";
-        return {
-          type: "dialogue",
-          speakerVarId: defaultSpeaker,
-          lines: [
-            {
-              type: "goto",
-              labelId: labelExpr.value,
-            },
-          ],
-        };
-      }
-    }
-
     this.addProblem(node, "Expected a stage direction or dialogue block");
     return undefined;
   }
@@ -862,8 +887,12 @@ export class Ophelia {
     const statements: Ast.StatementOrComment[] = [];
 
     for (const node of nodes) {
-      const statement = this.buildStatementOrComment(node);
-      if (statement) statements.push(statement);
+      if (node) {
+        const statement = this.buildStatementOrComment(node);
+        if (statement) {
+          statements.push(statement);
+        }
+      }
     }
 
     return statements;
@@ -912,30 +941,60 @@ export class Ophelia {
         }
       }
 
-      const varId = varValue;
       const method = node.right;
 
       if (method.type === "var") {
         // Simple method access like @you.print_char
+        let statement: Ast.Statement | undefined;
         switch (method.value) {
           case "print_char":
-            return { type: ".print_char" };
+            statement = {
+              type: ".print_char",
+              followedByBlankLine: !!method.followedByBlankLine,
+            };
+            break;
           case "print_int":
-            return { type: ".print_int" };
+            statement = {
+              type: ".print_int",
+              followedByBlankLine: !!method.followedByBlankLine,
+            };
+            break;
           case "read_char":
-            return { type: ".read_char" };
+            statement = {
+              type: ".read_char",
+              followedByBlankLine: !!method.followedByBlankLine,
+            };
+            break;
           case "read_int":
-            return { type: ".read_int" };
+            statement = {
+              type: ".read_int",
+              followedByBlankLine: !!method.followedByBlankLine,
+            };
+            break;
           case "push_self":
-            return { type: ".push_self" };
+            statement = {
+              type: ".push_self",
+              followedByBlankLine: !!method.followedByBlankLine,
+            };
+            break;
           case "push_me":
-            return { type: ".push_me" };
+            statement = {
+              type: ".push_me",
+              followedByBlankLine: !!method.followedByBlankLine,
+            };
+            break;
           case "pop":
-            return { type: ".pop" };
+            statement = {
+              type: ".pop",
+              followedByBlankLine: !!method.followedByBlankLine,
+            };
+            break;
           default:
             this.addProblem(node, `Unknown method: ${method.value}`);
             return undefined;
         }
+
+        return statement;
       } else if (
         method.type === "function_call" &&
         method.postfixed.type === "var"
@@ -948,7 +1007,11 @@ export class Ophelia {
           if (argExpr) {
             const valueExpr = this.buildExpression(argExpr);
             if (valueExpr) {
-              return { type: ".set", value: valueExpr };
+              return {
+                type: ".set",
+                value: valueExpr,
+                followedByBlankLine: !!method.followedByBlankLine,
+              };
             }
           }
         }
@@ -968,7 +1031,12 @@ export class Ophelia {
 
           if (left && right) {
             const testType = funcName as Ast.Test["type"];
-            return { type: testType, left, right };
+            return {
+              type: testType,
+              left,
+              right,
+              followedByBlankLine: !!node.followedByBlankLine,
+            };
           }
         }
       }
@@ -980,6 +1048,7 @@ export class Ophelia {
           return {
             type: "goto",
             labelId: labelExpr.value,
+            followedByBlankLine: !!node.followedByBlankLine,
           };
         }
       }
@@ -1001,6 +1070,7 @@ export class Ophelia {
               type: "if",
               is: funcName === "if_true",
               then: thenStatement,
+              followedByBlankLine: !!node.followedByBlankLine,
             };
           }
         }

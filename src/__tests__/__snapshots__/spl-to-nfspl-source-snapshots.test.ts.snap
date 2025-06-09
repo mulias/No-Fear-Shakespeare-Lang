@@ -17,11 +17,14 @@ Act1 {
       @you.set(-64)
       @you.set(8 - @you)
       @you.print_char
+
       @you.set(-128 + 32)
       @you.set(4 + 1 - @you)
       @you.print_char
+
       @you.set(@you + 8 - 1)
       @you.print_char
+
       @you.print_char
     }
 
@@ -47,8 +50,10 @@ Act1 {
     hamlet {
       @you.set(romeo - square(8))
       @you.print_char
+
       @you.set(4 * 8)
       @you.print_char
+
       @you.set(8 * (1 + 2))
       @you.set(juliet - @you)
       @you.print_char
@@ -111,28 +116,24 @@ Act1 {
   ## description: Single enter
   Scene1 {
     stage(romeo)
-
     unstage(romeo)
   }
 
   ## description: Two characters enter
   Scene2 {
     stage(romeo, juliet)
-
     unstage(romeo, juliet)
   }
 
   ## description: Three characters enter
   Scene3 {
     stage(romeo, juliet, mercutio)
-
     unstage(romeo, juliet, mercutio)
   }
 
   ## description: Four characters enter
   Scene4 {
     stage(romeo, juliet, mercutio, benvolio)
-
     unstage_all
   }
 }"
@@ -157,6 +158,7 @@ Act1 {
     juliet {
       @you.set(@you + 1)
       @you.print_char
+
       @you.set(8 + 2)
       @you.print_char
     }
@@ -190,7 +192,6 @@ Act1 {
     }
 
     unstage(the_ghost)
-
     stage(romeo)
 
     juliet {
@@ -212,7 +213,6 @@ Act2 {
     }
 
     unstage(romeo)
-
     stage(hamlet)
 
     juliet {
@@ -251,7 +251,6 @@ Act2 {
   ## description: {romeo} must die
   Scene3 {
     unstage(hamlet)
-
     stage(romeo)
 
     juliet {
@@ -259,7 +258,6 @@ Act2 {
     }
 
     unstage(juliet)
-
     stage(hamlet)
 
     romeo {
@@ -268,14 +266,12 @@ Act2 {
     }
 
     unstage(romeo)
-
     stage(juliet)
   }
 
   ## description: One small dog at a time
   Scene4 {
     unstage(hamlet)
-
     stage(romeo)
 
     juliet {
@@ -371,7 +367,6 @@ Act1 {
     }
 
     unstage(macbeth)
-
     stage(romeo)
 
     ophelia {
@@ -380,7 +375,6 @@ Act1 {
     }
 
     unstage(romeo)
-
     stage(macbeth)
 
     ophelia {
@@ -391,7 +385,6 @@ Act1 {
   ## description: The Start of the Loop
   Scene2 {
     unstage(macbeth)
-
     stage(juliet)
 
     ophelia {
@@ -400,7 +393,6 @@ Act1 {
     }
 
     unstage(juliet)
-
     stage(romeo)
 
     ophelia {
@@ -408,7 +400,6 @@ Act1 {
     }
 
     unstage(romeo)
-
     stage(macbeth)
 
     ophelia {

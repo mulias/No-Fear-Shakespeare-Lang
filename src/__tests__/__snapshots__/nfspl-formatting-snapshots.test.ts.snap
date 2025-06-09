@@ -12,28 +12,24 @@ Act1 {
   ## description: Single enter
   Scene1 {
     stage(romeo)
-
     unstage(romeo)
   }
 
   ## description: Two characters enter
   Scene2 {
     stage(romeo, juliet)
-
     unstage(romeo, juliet)
   }
 
   ## description: Three characters enter
   Scene3 {
     stage(romeo, juliet, mercutio)
-
     unstage(romeo, juliet, mercutio)
   }
 
   ## description: Four characters enter
   Scene4 {
     stage(romeo, juliet, mercutio, benvolio)
-
     unstage_all
   }
 }"
@@ -81,8 +77,10 @@ Main {
     n {
       @you.set(n)
       @you.print_int
+
       @you.set(10)
       @you.print_char
+
       goto(Loop)
     }
   }
@@ -105,8 +103,10 @@ Main {
       @you.print_char
       @you.set('z')
       @you.print_char
+
       @you.set(10)
       @you.print_char
+
       goto(Loop)
     }
   }
@@ -121,8 +121,10 @@ Main {
       @you.print_char
       @you.set('z')
       @you.print_char
+
       @you.set(10)
       @you.print_char
+
       goto(Loop)
     }
   }
@@ -137,8 +139,10 @@ Main {
       @you.print_char
       @you.set('z')
       @you.print_char
+
       @you.set(10)
       @you.print_char
+
       goto(Loop)
     }
   }

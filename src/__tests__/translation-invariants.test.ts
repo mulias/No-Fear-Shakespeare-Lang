@@ -2,11 +2,13 @@ import fs from "fs";
 import path from "path";
 import { Possum } from "../possum";
 import { Ophelia } from "../ophelia";
+import { Program as OpheliaAst } from "../ophelia/ast";
 import { Yorick } from "../yorick";
 import { Falstaff } from "../falstaff";
 import { prettyPrint } from "../horatio/prettyPrint";
 import { prettyPrint as opheliaPrettyPrint } from "../ophelia";
 import Horatio from "../horatio/compiler";
+import { Program as HoratioAst } from "../horatio/ast";
 import { IO } from "../horatio/types";
 
 describe("Translation Invariants", () => {
@@ -27,7 +29,7 @@ describe("Translation Invariants", () => {
   /**
    * Transpile NFSPL source to SPL
    */
-  async function transpileNfsplToSpl(source: string): Promise<string> {
+  async function transpileNfsplToSpl(source: string): Promise<HoratioAst> {
     const possum = new Possum(source);
     const possumAst = await possum.run();
 
@@ -35,19 +37,16 @@ describe("Translation Invariants", () => {
     const opheliaAst = ophelia.run();
 
     const yorick = new Yorick(opheliaAst);
-    const yorickAst = yorick.run();
-
-    return prettyPrint(yorickAst);
+    return yorick.run();
   }
 
   /**
    * Transpile SPL source to NFSPL
    */
-  function transpilesplToNfspl(source: string): string {
+  function transpilesplToNfspl(source: string): OpheliaAst {
     const horatio = Horatio.fromSource(source, mockIO);
     const falstaff = new Falstaff(horatio.ast);
-    const opheliaAst = falstaff.run();
-    return opheliaPrettyPrint(opheliaAst);
+    return falstaff.run();
   }
 
   /**
@@ -75,7 +74,8 @@ describe("Translation Invariants", () => {
     nfsplFiles.forEach(async (filename) => {
       const filePath = path.join(nfsplDir, filename);
       const originalSource = fs.readFileSync(filePath, "utf-8");
-      const splResult = await transpileNfsplToSpl(originalSource);
+      const horatioAst = await transpileNfsplToSpl(originalSource);
+      const splResult = prettyPrint(horatioAst);
 
       it(`should produce valid SPL from ${filename}`, () => {
         // The generated SPL should be parseable
@@ -104,9 +104,10 @@ describe("Translation Invariants", () => {
     splFiles.forEach((filename) => {
       const filePath = path.join(splDir, filename);
       const originalSource = fs.readFileSync(filePath, "utf-8");
-      const nfsplResult = transpilesplToNfspl(originalSource);
+      const opheliasAst = transpilesplToNfspl(originalSource);
+      const nfsplResult = opheliaPrettyPrint(opheliasAst);
 
-      it(`should produce valid NFSPL from ${filename}`, () => {
+      it(`should produce valid and formatted NFSPL from ${filename}`, () => {
         // The generated NFSPL should be parseable
         expect(async () => {
           const possum = new Possum(nfsplResult);
@@ -114,12 +115,15 @@ describe("Translation Invariants", () => {
           const ophelia = new Ophelia(possumAst);
           const opheliaAst = ophelia.run();
           expect(opheliaAst).toBeTruthy();
+
+          const nfsplFormatted = opheliaPrettyPrint(opheliaAst);
+          expect(nfsplResult).toBe(nfsplFormatted);
         }).not.toThrow();
       });
 
       it(`should produce consistent NFSPL output for ${filename}`, () => {
         // Perform transpilation multiple times
-        const nfspl2 = transpilesplToNfspl(originalSource);
+        const nfspl2 = opheliaPrettyPrint(transpilesplToNfspl(originalSource));
 
         // Results should be identical
         expect(nfsplResult).toBe(nfspl2);

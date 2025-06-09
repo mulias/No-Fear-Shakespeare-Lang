@@ -227,9 +227,7 @@ exports[`NFSPL Round-trip Snapshots edge cases should round-trip scenes with onl
 "Main {
   StageOnly {
     stage(a, b)
-
     unstage(a)
-
     unstage_all
   }
 }"
@@ -312,13 +310,9 @@ exports[`NFSPL Round-trip Snapshots formatting fixes should fix spacing in stage
 "Main {
   StageSpacing {
     stage(a, b)
-
     unstage(a, b)
-
     stage(c)
-
     unstage(c)
-
     unstage_all
   }
 }"
@@ -619,15 +613,10 @@ exports[`NFSPL Round-trip Snapshots language features should round-trip stage an
 "Main {
   StageTest {
     stage(a)
-
     unstage(a)
-
     stage(b, c)
-
     unstage(b, c)
-
     stage(d, e)
-
     unstage_all
   }
 }"

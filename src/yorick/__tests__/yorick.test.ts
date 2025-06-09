@@ -34,6 +34,7 @@ describe("Yorick Transpiler", () => {
                       {
                         type: ".set",
                         value: { type: "int", value: 42 },
+                        followedByBlankLine: false,
                       },
                     ],
                   },
@@ -591,6 +592,7 @@ describe("Yorick Transpiler", () => {
                       {
                         type: ".set",
                         value: { type: "int", value: 42 },
+                        followedByBlankLine: false,
                       },
                     ],
                   },
@@ -634,6 +636,7 @@ describe("Yorick Transpiler", () => {
                     lines: [
                       {
                         type: ".print_char",
+                        followedByBlankLine: false,
                       },
                     ],
                   },
@@ -677,6 +680,7 @@ describe("Yorick Transpiler", () => {
                       {
                         type: "goto",
                         labelId: "End",
+                        followedByBlankLine: false,
                       },
                     ],
                   },
@@ -726,6 +730,7 @@ describe("Yorick Transpiler", () => {
                         type: "test_eq",
                         left: { type: "var", id: "b" },
                         right: { type: "int", value: 0 },
+                        followedByBlankLine: false,
                       },
                     ],
                   },
@@ -772,7 +777,9 @@ describe("Yorick Transpiler", () => {
                         then: {
                           type: "goto",
                           labelId: "End",
+                          followedByBlankLine: false,
                         },
+                        followedByBlankLine: false,
                       },
                     ],
                   },
@@ -822,6 +829,7 @@ describe("Yorick Transpiler", () => {
                       {
                         type: ".set",
                         value: { type: "int", value: 5 }, // Binary: 101 = 2^2 + 2^0
+                        followedByBlankLine: false,
                       },
                     ],
                   },
@@ -868,6 +876,7 @@ describe("Yorick Transpiler", () => {
                       {
                         type: ".set",
                         value: { type: "int", value: 0 },
+                        followedByBlankLine: false,
                       },
                     ],
                   },
@@ -911,6 +920,7 @@ describe("Yorick Transpiler", () => {
                       {
                         type: ".set",
                         value: { type: "int", value: -3 },
+                        followedByBlankLine: false,
                       },
                     ],
                   },
@@ -955,6 +965,7 @@ describe("Yorick Transpiler", () => {
                       {
                         type: ".set",
                         value: { type: "char", value: "A" }, // ASCII 65
+                        followedByBlankLine: false,
                       },
                     ],
                   },
@@ -1003,6 +1014,7 @@ describe("Yorick Transpiler", () => {
                           left: { type: "var", id: "a" },
                           right: { type: "int", value: 1 },
                         },
+                        followedByBlankLine: false,
                       },
                     ],
                   },
@@ -1049,6 +1061,7 @@ describe("Yorick Transpiler", () => {
                     lines: [
                       {
                         type: ".push_self",
+                        followedByBlankLine: false,
                       },
                     ],
                   },
@@ -1090,6 +1103,7 @@ describe("Yorick Transpiler", () => {
                     lines: [
                       {
                         type: ".push_me",
+                        followedByBlankLine: false,
                       },
                     ],
                   },
@@ -1132,6 +1146,7 @@ describe("Yorick Transpiler", () => {
                     lines: [
                       {
                         type: ".pop",
+                        followedByBlankLine: false,
                       },
                     ],
                   },
@@ -1175,6 +1190,7 @@ describe("Yorick Transpiler", () => {
                     lines: [
                       {
                         type: ".read_char",
+                        followedByBlankLine: false,
                       },
                     ],
                   },
@@ -1216,6 +1232,7 @@ describe("Yorick Transpiler", () => {
                     lines: [
                       {
                         type: ".print_int",
+                        followedByBlankLine: false,
                       },
                     ],
                   },
@@ -1272,6 +1289,7 @@ describe("Yorick Transpiler", () => {
                           type: testType,
                           left: { type: "var", id: "b" },
                           right: { type: "int", value: 0 },
+                          followedByBlankLine: false,
                         },
                       ],
                     },
@@ -1316,6 +1334,7 @@ describe("Yorick Transpiler", () => {
                       {
                         type: ".set",
                         value: { type: "char", value: "" }, // Empty string
+                        followedByBlankLine: false,
                       },
                     ],
                   },
@@ -1426,6 +1445,7 @@ describe("Yorick Transpiler", () => {
                       {
                         type: ".set",
                         value: { type: "int", value: 42 },
+                        followedByBlankLine: false,
                       },
                     ],
                   },
@@ -1479,6 +1499,7 @@ describe("Yorick Transpiler", () => {
                       {
                         type: ".set",
                         value: { type: "int", value: 42 },
+                        followedByBlankLine: false,
                       },
                     ],
                   },
@@ -1530,6 +1551,7 @@ describe("Yorick Transpiler", () => {
                       {
                         type: ".set",
                         value: { type: "int", value: 42 },
+                        followedByBlankLine: false,
                       },
                     ],
                   },

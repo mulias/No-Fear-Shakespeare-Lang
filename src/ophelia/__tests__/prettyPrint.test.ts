@@ -161,7 +161,6 @@ describe("Ophelia Pretty Printer", () => {
       expect(result).toBe(`Main {
   Start {
     unstage(a, b)
-
     unstage_all
   }
 }`);
@@ -189,9 +188,11 @@ describe("Ophelia Pretty Printer", () => {
                       {
                         type: ".set",
                         value: { type: "int", value: 72 },
+                        followedByBlankLine: false,
                       },
                       {
                         type: ".print_char",
+                        followedByBlankLine: false,
                       },
                     ],
                   },
@@ -237,9 +238,11 @@ describe("Ophelia Pretty Printer", () => {
                       {
                         type: ".set",
                         value: { type: "char", value: "H" },
+                        followedByBlankLine: false,
                       },
                       {
                         type: ".print_char",
+                        followedByBlankLine: false,
                       },
                     ],
                   },
@@ -250,9 +253,11 @@ describe("Ophelia Pretty Printer", () => {
                       {
                         type: ".set",
                         value: { type: "char", value: "i" },
+                        followedByBlankLine: false,
                       },
                       {
                         type: ".print_char",
+                        followedByBlankLine: false,
                       },
                     ],
                   },
@@ -308,6 +313,7 @@ describe("Ophelia Pretty Printer", () => {
                           op: "+",
                           right: { type: "int", value: 1 },
                         },
+                        followedByBlankLine: false,
                       },
                     ],
                   },
@@ -358,6 +364,7 @@ describe("Ophelia Pretty Printer", () => {
                           op: "*",
                           right: { type: "var", id: "count" },
                         },
+                        followedByBlankLine: false,
                       },
                     ],
                   },
@@ -398,10 +405,12 @@ describe("Ophelia Pretty Printer", () => {
                       {
                         type: ".set",
                         value: { type: "var", id: "stack" },
+                        followedByBlankLine: false,
                       },
                       {
                         type: ".set",
                         value: { type: "you" },
+                        followedByBlankLine: false,
                       },
                     ],
                   },
@@ -442,10 +451,10 @@ describe("Ophelia Pretty Printer", () => {
                     type: "dialogue",
                     speakerVarId: "io",
                     lines: [
-                      { type: ".print_char" },
-                      { type: ".print_int" },
-                      { type: ".read_char" },
-                      { type: ".read_int" },
+                      { type: ".print_char", followedByBlankLine: false },
+                      { type: ".print_int", followedByBlankLine: false },
+                      { type: ".read_char", followedByBlankLine: false },
+                      { type: ".read_int", followedByBlankLine: false },
                     ],
                   },
                 ],
@@ -485,9 +494,9 @@ describe("Ophelia Pretty Printer", () => {
                     type: "dialogue",
                     speakerVarId: "stack",
                     lines: [
-                      { type: ".push_self" },
-                      { type: ".push_me" },
-                      { type: ".pop" },
+                      { type: ".push_self", followedByBlankLine: false },
+                      { type: ".push_me", followedByBlankLine: false },
+                      { type: ".pop", followedByBlankLine: false },
                     ],
                   },
                 ],
@@ -530,16 +539,19 @@ describe("Ophelia Pretty Printer", () => {
                         type: "test_eq",
                         left: { type: "you" },
                         right: { type: "int", value: 0 },
+                        followedByBlankLine: false,
                       },
                       {
                         type: "test_gt",
                         left: { type: "var", id: "a" },
                         right: { type: "int", value: 100 },
+                        followedByBlankLine: false,
                       },
                       {
                         type: "test_not_lt",
                         left: { type: "char", value: "x" },
                         right: { type: "you" },
+                        followedByBlankLine: false,
                       },
                     ],
                   },
@@ -585,14 +597,18 @@ describe("Ophelia Pretty Printer", () => {
                         then: {
                           type: "goto",
                           labelId: "End",
+                          followedByBlankLine: false,
                         },
+                        followedByBlankLine: false,
                       },
                       {
                         type: "if",
                         is: false,
                         then: {
                           type: ".print_char",
+                          followedByBlankLine: false,
                         },
+                        followedByBlankLine: false,
                       },
                     ],
                   },
@@ -634,10 +650,12 @@ describe("Ophelia Pretty Printer", () => {
                       {
                         type: "goto",
                         labelId: "Loop",
+                        followedByBlankLine: false,
                       },
                       {
                         type: "goto",
                         labelId: "End",
+                        followedByBlankLine: false,
                       },
                     ],
                   },
@@ -685,9 +703,11 @@ describe("Ophelia Pretty Printer", () => {
                       {
                         type: ".set",
                         value: { type: "int", value: 72 },
+                        followedByBlankLine: false,
                       },
                       {
                         type: ".print_char",
+                        followedByBlankLine: false,
                       },
                     ],
                   },
@@ -703,9 +723,11 @@ describe("Ophelia Pretty Printer", () => {
                           op: "+",
                           right: { type: "int", value: 1 },
                         },
+                        followedByBlankLine: false,
                       },
                       {
                         type: ".print_char",
+                        followedByBlankLine: false,
                       },
                     ],
                   },
@@ -763,6 +785,7 @@ describe("Ophelia Pretty Printer", () => {
                       {
                         type: ".set",
                         value: { type: "int", value: 0 },
+                        followedByBlankLine: false,
                       },
                     ],
                   },
@@ -784,11 +807,13 @@ describe("Ophelia Pretty Printer", () => {
                           op: "+",
                           right: { type: "int", value: 1 },
                         },
+                        followedByBlankLine: false,
                       },
                       {
                         type: "test_gt",
                         left: { type: "you" },
                         right: { type: "int", value: 100 },
+                        followedByBlankLine: false,
                       },
                       {
                         type: "if",
@@ -796,7 +821,9 @@ describe("Ophelia Pretty Printer", () => {
                         then: {
                           type: "goto",
                           labelId: "End",
+                          followedByBlankLine: false,
                         },
+                        followedByBlankLine: false,
                       },
                     ],
                   },
@@ -922,6 +949,7 @@ Main {
                       {
                         type: ".set",
                         value: { type: "int", value: 1 },
+                        followedByBlankLine: false,
                       },
                     ],
                   },
