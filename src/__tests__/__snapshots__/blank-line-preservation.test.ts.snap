@@ -1,0 +1,197 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Blank line preservation in NFSPL to SPL translation should handle mixed statements with and without blank lines 1`] = `
+"Agamemnon and the fatherless goat.
+
+Agamemnon, the actor variable.
+
+                    Act I: Single act.
+
+                    Scene I: Single scene.
+
+[Enter Agamemnon and Agamemnon]
+
+Agamemnon:
+ You joy. You rural nose.
+ 
+ Thou art as gentle as the sum of a purse and a fair kingdom!
+ 
+ You an amazing white joy. Open thy heart.
+ 
+ Speak your mind."
+`;
+
+exports[`Blank line preservation in NFSPL to SPL translation should preserve blank lines between statements in dialogue 1`] = `
+"Mariana and the pretty chihuahua.
+
+Mariana, the romeo variable.
+Lysander, the juliet variable.
+
+                    Act I: Act1.
+
+                    Scene I: Scene1.
+
+[Enter Mariana and Lysander]
+
+Mariana:
+ Thou art as smooth as the sum of the Lord and the sweetest sunny Lord.
+ 
+ Open your heart. Speak thine mind.
+ 
+ Is yourself as white as the sum of a pretty nose and a brave fair
+ happy hamster?
+ 
+ We must return to scene I."
+`;
+
+exports[`Blank line preservation in NFSPL to SPL translation should preserve blank lines for all statement types 1`] = `
+"Orsino and the sorry animal.
+
+Orsino, the speaker variable.
+King Lear, the listener variable.
+
+                    Act I: Main.
+
+                    Scene I: Test scene.
+
+[Enter Orsino and King Lear]
+
+Orsino:
+ Open thy mind.
+ 
+ Listen to your heart. Remember thyself.
+ 
+ Remember myself. Recall your oozing oozing uncle.
+ 
+ Is thou better than the sum of a summer's day and the fair handsome
+ King? If so, Speak thy mind.
+ 
+ Thou art as white as the sum of thee and a nose."
+`;
+
+exports[`Blank line preservation in SPL to NFSPL translation should handle mixed statements with and without blank lines 1`] = `
+"## title: Mixed Blank Lines
+## var macbeth: an actor on stage
+## var lady_macbeth: another character
+
+## description: Single Act
+Act1 {
+  ## description: Single Scene
+  Scene1 {
+    stage(macbeth, lady_macbeth)
+
+    macbeth {
+      @you.set(1)
+      @you.set(1 + 1)
+
+      @you.set(1 + 1 + 1)
+
+      @you.set(1 + 1 + 1 + 1)
+      @you.print_int
+
+      @you.print_char
+    }
+
+    unstage(macbeth)
+    unstage(lady_macbeth)
+  }
+}"
+`;
+
+exports[`Blank line preservation in SPL to NFSPL translation should preserve blank lines between statements in dialogue 1`] = `
+"## title: A Test Program
+## var romeo: a young man
+## var juliet: a fair maiden
+
+## description: The first act
+Act1 {
+  ## description: The first scene
+  Scene1 {
+    stage(romeo, juliet)
+
+    romeo {
+      @you.set(1)
+      @you.print_char
+
+      @you.set(1 + 1)
+
+      @you.print_int
+    }
+
+    unstage_all
+  }
+}"
+`;
+
+exports[`Blank line preservation in SPL to NFSPL translation should preserve blank lines for all statement types 1`] = `
+"## title: Test All Statement Types
+## var hamlet: one who speaks
+## var ophelia: one who listens
+
+## description: Testing
+Act1 {
+  ## description: Test Scene
+  Scene1 {
+    stage(hamlet, ophelia)
+
+    hamlet {
+      @you.read_char
+
+      @you.read_int
+      @you.push_self
+
+      @you.push_me
+      @you.pop
+
+      test_gt(@you, 1 + 1)
+      if_true(@you.print_char)
+      @you.set(@you + 1)
+    }
+
+    unstage_all
+  }
+}"
+`;
+
+exports[`Blank line preservation in SPL to NFSPL translation should preserve blank lines in complex dialogues 1`] = `
+"## title: Complex Dialogue
+## var hamlet: a brave person
+## var claudius: an evil person
+
+## description: The confrontation
+Act1 {
+  ## description: Meeting
+  Scene1 {
+    stage(hamlet, claudius)
+
+    hamlet {
+      @you.set(0)
+
+      test_gt(hamlet, @you)
+      if_true(@you.push_me)
+      if_false(goto(Scene2))
+    }
+
+    claudius {
+      @you.set(square(1 + 1))
+
+      @you.push_self
+
+      @you.pop
+    }
+
+    unstage_all
+  }
+
+  ## description: The Exit
+  Scene2 {
+    stage(hamlet)
+
+    hamlet {
+      @you.print_char
+    }
+
+    unstage(hamlet)
+  }
+}"
+`;

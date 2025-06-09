@@ -248,6 +248,7 @@ export class Yorick {
       // No subject means it acts on @you
       undefined,
       exclaimed,
+      pop.followedByBlankLine,
     );
   }
 
@@ -260,6 +261,7 @@ export class Yorick {
       // No subject means it acts on @you
       undefined,
       exclaimed,
+      printChar.followedByBlankLine,
     );
   }
 
@@ -272,6 +274,7 @@ export class Yorick {
       // No subject means it acts on @you
       undefined,
       exclaimed,
+      printInt.followedByBlankLine,
     );
   }
 
@@ -285,6 +288,7 @@ export class Yorick {
       reflexivePronoun,
       undefined, // No character needed
       exclaimed,
+      push.followedByBlankLine,
     );
   }
 
@@ -297,6 +301,7 @@ export class Yorick {
       this.buildFirstPersonPronoun(), // "me"
       this.buildCharacter(speakerVarId), // The speaker
       exclaimed,
+      push.followedByBlankLine,
     );
   }
 
@@ -332,6 +337,7 @@ export class Yorick {
         undefined, // no subject
         undefined, // no comparative - direct assignment
         exclaimed,
+        set.followedByBlankLine,
       );
     }
 
@@ -352,6 +358,7 @@ export class Yorick {
       undefined, // no subject - always acts on @you
       adjective, // comparative adjective for "as [adj] as" form
       exclaimed,
+      set.followedByBlankLine,
     );
   }
 
@@ -374,7 +381,13 @@ export class Yorick {
     const sourceText = `${imperative} ${returnWord} ${toWord} ${partWord} ${numeral.sequence}`;
 
     const exclaimed = this.gen.randomPercent() < 0.15;
-    return new Ast.GotoSentence(sourceText, part.type, numeral, exclaimed);
+    return new Ast.GotoSentence(
+      sourceText,
+      part.type,
+      numeral,
+      exclaimed,
+      goto.followedByBlankLine,
+    );
   }
 
   buildResponseSentence(
@@ -384,6 +397,7 @@ export class Yorick {
     return new Ast.ResponseSentence(
       this.buildSentence(ifStatement.then, speakerVarId),
       ifStatement.is,
+      ifStatement.followedByBlankLine,
     );
   }
 
@@ -413,7 +427,13 @@ export class Yorick {
       speakerVarId,
     );
     const comparison = this.buildComparison(test);
-    return new Ast.QuestionSentence(prefix, value1, comparison, value2);
+    return new Ast.QuestionSentence(
+      prefix,
+      value1,
+      comparison,
+      value2,
+      test.followedByBlankLine,
+    );
   }
 
   buildValue(
@@ -477,6 +497,7 @@ export class Yorick {
       this.gen.random("input_char"),
       undefined, // Always acts on @you
       exclaimed,
+      readChar.followedByBlankLine,
     );
   }
 
@@ -488,6 +509,7 @@ export class Yorick {
       this.gen.random("input_integer"),
       undefined, // Always acts on @you
       exclaimed,
+      readInt.followedByBlankLine,
     );
   }
 
