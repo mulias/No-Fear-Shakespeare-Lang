@@ -41,7 +41,7 @@ const indent = (text: string, spaces: number): string => {
 
   return text
     .split("\n")
-    .map((line) => indentation + line)
+    .map((line) => (line.length === 0 ? line : indentation + line))
     .join("\n");
 };
 

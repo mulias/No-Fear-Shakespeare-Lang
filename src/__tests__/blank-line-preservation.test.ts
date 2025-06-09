@@ -138,10 +138,10 @@ Scene I: The first scene.
 
 Romeo:
   You are as lovely as a cat. Speak your mind!
-  
+
   You are as lovely as the sum of a cat and a cat!
-  
-  
+
+
   Open your heart!
 
 [Exeunt]`;
@@ -165,15 +165,15 @@ Scene I: Test Scene.
 
 Hamlet:
   Open your mind!
-  
+
   Listen to your heart!
   Remember yourself.
-  
+
   Remember me.
   Recall your past.
-  
+
   Are you better than the sum of a cat and a cat? If so, speak your mind!
-  
+
   You are as good as the sum of yourself and a cat!
 
 [Exeunt]`;
@@ -198,13 +198,13 @@ Scene I: Single Scene.
 Macbeth:
   You are as good as a cat!
   You are as good as the sum of a cat and a cat!
-  
+
   You are as good as the sum of the sum of a cat and a cat and a cat!
-  
-  
+
+
   You are as good as the sum of the sum of a cat and a cat and the sum of a cat and a cat!
   Open your heart!
-  
+
   Speak your mind!
 
 [Exit Macbeth]
@@ -229,18 +229,18 @@ Scene I: Meeting.
 
 Hamlet:
   You are as bad as nothing!
-  
+
   Am I better than you?
   If so, remember me.
-  
+
   If not, let us proceed to scene II.
 
 Claudius:
   You are as good as the square of the sum of a cat and a cat!
-  
-  
+
+
   Remember yourself.
-  
+
   Recall your past.
 
 [Exeunt]
