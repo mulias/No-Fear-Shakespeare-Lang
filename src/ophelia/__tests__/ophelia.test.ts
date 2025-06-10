@@ -1,7 +1,8 @@
-import { Ophelia, prettyPrint } from "../index";
+import { Ophelia } from "../index";
+import { prettyPrint } from "../prettyPrint";
 import * as PossumAst from "../../possum/ast";
 import * as OpheliaAst from "../ast";
-import { templateString } from "../../test-helpers";
+import { templateString } from "../ast";
 
 describe("Ophelia Transformer", () => {
   describe("valid AST transformations", () => {

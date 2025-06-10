@@ -1,4 +1,4 @@
-import { prettyPrint } from "../ophelia";
+import { prettyPrint } from "../ophelia/prettyPrint";
 import { Ophelia } from "../ophelia";
 import { Possum } from "../possum";
 

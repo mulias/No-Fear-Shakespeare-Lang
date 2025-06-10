@@ -1,5 +1,6 @@
 import { Possum } from "../../possum";
-import { Ophelia, prettyPrint } from "../index";
+import { Ophelia } from "../index";
+import { prettyPrint } from "../prettyPrint";
 
 describe("NFSPL Round-trip Snapshots", () => {
   /**

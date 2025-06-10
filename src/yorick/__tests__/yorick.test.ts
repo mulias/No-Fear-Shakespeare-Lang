@@ -1,7 +1,7 @@
 import { Yorick } from "../index";
 import * as OpheliaAst from "../../ophelia/ast";
 import * as Ast from "../../horatio/ast";
-import { templateString } from "../../test-helpers";
+import { templateString } from "../../ophelia/ast";
 
 describe("Yorick Transpiler", () => {
   describe("comment handling", () => {

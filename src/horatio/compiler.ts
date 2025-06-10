@@ -61,6 +61,11 @@ export default class Compiler {
     return new Compiler(undefined, ast, io, program);
   }
 
+  static parse(source: string): Ast.Program {
+    let parser = new Parser(source);
+    return parser.parse();
+  }
+
   run(): void {
     this.program.run();
   }

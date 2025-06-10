@@ -1,6 +1,6 @@
-import { prettyPrint } from "../index";
+import { prettyPrint } from "../prettyPrint";
 import * as OpheliaAst from "../ast";
-import { templateString } from "../../test-helpers";
+import { templateString } from "../ast";
 
 describe("Ophelia Pretty Printer", () => {
   describe("basic program structure", () => {

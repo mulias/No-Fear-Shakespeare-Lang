@@ -1,6 +1,6 @@
 import { Falstaff } from "../index";
 import * as HoratioAst from "../../horatio/ast";
-import { prettyPrint } from "../../ophelia";
+import { prettyPrint } from "../../ophelia/prettyPrint";
 
 describe("Falstaff", () => {
   describe("Hello World conversion", () => {

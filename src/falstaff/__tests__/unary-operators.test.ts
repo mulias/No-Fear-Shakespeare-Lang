@@ -1,6 +1,6 @@
 import { Falstaff } from "../index";
 import * as HoratioAst from "../../horatio/ast";
-import { prettyPrint } from "../../ophelia";
+import { prettyPrint } from "../../ophelia/prettyPrint";
 
 describe("Falstaff Unary Operators", () => {
   describe("square operator", () => {

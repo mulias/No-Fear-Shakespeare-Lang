@@ -4,21 +4,22 @@ import fs from "fs";
 import prompt from "prompt-sync";
 import path from "path";
 import process from "process";
-import { Possum } from "./possum";
-import { Ophelia } from "./ophelia";
-import { Yorick } from "./yorick";
-import Horatio from "./horatio/horatio";
-import { prettyPrint } from "./horatio/prettyPrint";
-import { prettyPrint as opheliaPrettyPrint } from "./ophelia";
-import { Falstaff } from "./falstaff";
 import type { IO } from "./horatio/types";
+import {
+  executeSpl,
+  executeNfspl,
+  transpileSplToNfspl,
+  transpileNfsplToSpl,
+  formatSpl,
+  formatNfspl,
+} from "./index";
 
 const USAGE = `Usage: nfspl <command> [options] <file>
 
 Commands:
   perform, execute, exec           Execute an NFSPL or SPL file
   translate, transpile, trans      Convert between NFSPL and SPL syntax
-  compose, format, fmt             Format an NFSPL or SPL file
+  compose, format, fmt             Pretty Print an NFSPL or SPL file
 
 Options:
   -o, --output <file>   Output file (for transpile/format commands)
@@ -148,77 +149,6 @@ class TermIO implements IO {
   clear(): void {}
 }
 
-async function executeNfspl(filename: string): Promise<void> {
-  const io = new TermIO();
-  const source = await readFile(filename);
-
-  const possum = new Possum(source);
-  const possumAst = await possum.run();
-
-  const ophelia = new Ophelia(possumAst);
-  const opheliaAst = ophelia.run();
-
-  const yorick = new Yorick(opheliaAst);
-  const horatioAst = yorick.run();
-
-  const horatio = Horatio.fromAst(horatioAst, io);
-  horatio.run();
-  io.print("\n");
-}
-
-async function executeSpl(filename: string): Promise<void> {
-  const io = new TermIO();
-  const source = await readFile(filename);
-  const horatio = Horatio.fromSource(source, io);
-  horatio.run();
-  io.print("\n");
-}
-
-async function transpileNfsplToSpl(inputFile: string): Promise<string> {
-  const source = await readFile(inputFile);
-
-  const possum = new Possum(source);
-  const possumAst = await possum.run();
-
-  const ophelia = new Ophelia(possumAst);
-  const opheliaAst = ophelia.run();
-
-  const yorick = new Yorick(opheliaAst);
-  const horatioAst = yorick.run();
-
-  return prettyPrint(horatioAst);
-}
-
-async function formatSpl(inputFile: string): Promise<string> {
-  const io = new TermIO();
-  const source = await readFile(inputFile);
-  const horatio = Horatio.fromSource(source, io);
-  return prettyPrint(horatio.ast);
-}
-
-async function formatNfspl(inputFile: string): Promise<string> {
-  const source = await readFile(inputFile);
-
-  const possum = new Possum(source);
-  const possumAst = await possum.run();
-
-  const ophelia = new Ophelia(possumAst);
-  const opheliaAst = ophelia.run();
-
-  return opheliaPrettyPrint(opheliaAst);
-}
-
-async function transpileSplToNfspl(inputFile: string): Promise<string> {
-  const source = await readFile(inputFile);
-  const io = new TermIO();
-  const horatio = Horatio.fromSource(source, io);
-
-  const falstaff = new Falstaff(horatio.ast);
-  const opheliaAst = falstaff.run();
-
-  return opheliaPrettyPrint(opheliaAst);
-}
-
 async function main() {
   const args = process.argv.slice(2);
 
@@ -228,6 +158,8 @@ async function main() {
 
   const { command, inputFile, outputFile } = parseArgs(args);
   const fileType = detectFileType(inputFile);
+  const source = await readFile(inputFile);
+  const io = new TermIO();
 
   try {
     switch (command) {
@@ -235,10 +167,11 @@ async function main() {
       case "execute":
       case "exec": {
         if (fileType === "nfspl") {
-          await executeNfspl(inputFile);
+          await executeNfspl(source, io);
         } else {
-          await executeSpl(inputFile);
+          executeSpl(source, io);
         }
+        io.print("\n");
         break;
       }
 
@@ -247,17 +180,20 @@ async function main() {
       case "trans": {
         let result: string;
 
+        const source = await readFile(inputFile);
+
         if (fileType === "nfspl") {
-          result = await transpileNfsplToSpl(inputFile);
+          result = await transpileNfsplToSpl(source);
         } else {
-          result = await transpileSplToNfspl(inputFile);
+          result = transpileSplToNfspl(source);
         }
 
         if (outputFile) {
           await writeFile(outputFile, result);
-          console.log(`Transpiled to ${outputFile}`);
+          io.print(`Transpiled to ${outputFile}\n`);
         } else {
-          console.log(result);
+          io.print(result);
+          io.print("\n");
         }
         break;
       }
@@ -268,16 +204,17 @@ async function main() {
         let result: string;
 
         if (fileType === "nfspl") {
-          result = await formatNfspl(inputFile);
+          result = await formatNfspl(source);
         } else {
-          result = await formatSpl(inputFile);
+          result = formatSpl(source);
         }
 
         if (outputFile) {
           await writeFile(outputFile, result);
-          console.log(`Formatted output written to ${outputFile}`);
+          io.print(`Formatted output written to ${outputFile}\n`);
         } else {
-          console.log(result);
+          io.print(result);
+          io.print("\n");
         }
         break;
       }

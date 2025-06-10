@@ -1,49 +1,62 @@
-import * as fs from "fs";
-import prompt from "prompt-sync";
 import { Possum } from "./possum";
 import { Ophelia } from "./ophelia";
 import { Yorick } from "./yorick";
-import Horatio from "./horatio/compiler";
-import { IO } from "./horatio/types";
+import Horatio from "./horatio/horatio";
+import { prettyPrint as splPrettyPrint } from "./horatio/prettyPrint";
+import { prettyPrint as nfsplPrettyPrint } from "./ophelia/prettyPrint";
+import { Falstaff } from "./falstaff";
+import type { IO } from "./horatio/types";
 
-const reader = prompt({ sigint: true });
-
-const io: IO = {
-  print: (v) => process.stdout.write(`${v}`),
-  read_char: (callback) => {
-    const input = reader("> ");
-    callback(input);
-  },
-  read_int: (callback) => {
-    const input = reader("> ");
-    callback(input);
-  },
-  debug: false,
-  printDebug: (v) => console.log(v),
-  clear: () => console.clear(),
-};
-
-const source = fs.readFileSync(
-  process.argv[2] || "examples/no_fear_shakespeare/fizzbuzz.nfspl",
-  "utf8",
-);
-
-async function run() {
-  try {
-    const possum = new Possum(source);
-    const possumAst = await possum.run();
-
-    const ophelia = new Ophelia(possumAst);
-    const opheliaAst = ophelia.run();
-
-    const yorick = new Yorick(opheliaAst);
-    const yorickAst = yorick.run();
-
-    const horatio = Horatio.fromAst(yorickAst, io);
-    horatio.run();
-  } catch (e) {
-    io.print(`${e}`);
-  }
+export function executeSpl(source: string, io: IO): void {
+  const horatio = Horatio.fromSource(source, io);
+  horatio.run();
 }
 
-run();
+export async function executeNfspl(source: string, io: IO): Promise<void> {
+  const possum = new Possum(source);
+  const possumAst = await possum.run();
+
+  const ophelia = new Ophelia(possumAst);
+  const opheliaAst = ophelia.run();
+
+  const yorick = new Yorick(opheliaAst);
+  const horatioAst = yorick.run();
+
+  const horatio = Horatio.fromAst(horatioAst, io);
+  horatio.run();
+}
+
+export async function transpileNfsplToSpl(source: string): Promise<string> {
+  const possum = new Possum(source);
+  const possumAst = await possum.run();
+
+  const ophelia = new Ophelia(possumAst);
+  const opheliaAst = ophelia.run();
+
+  const yorick = new Yorick(opheliaAst);
+  const horatioAst = yorick.run();
+
+  return splPrettyPrint(horatioAst);
+}
+
+export function transpileSplToNfspl(source: string): string {
+  const horatioAst = Horatio.parse(source);
+  const falstaff = new Falstaff(horatioAst);
+  const opheliaAst = falstaff.run();
+
+  return nfsplPrettyPrint(opheliaAst);
+}
+
+export function formatSpl(source: string): string {
+  return splPrettyPrint(Horatio.parse(source));
+}
+
+export async function formatNfspl(source: string): Promise<string> {
+  const possum = new Possum(source);
+  const possumAst = await possum.run();
+
+  const ophelia = new Ophelia(possumAst);
+  const opheliaAst = ophelia.run();
+
+  return nfsplPrettyPrint(opheliaAst);
+}

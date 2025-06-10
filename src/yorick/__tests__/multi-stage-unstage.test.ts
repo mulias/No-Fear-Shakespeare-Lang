@@ -1,7 +1,7 @@
 import { Yorick } from "../index";
 import * as OpheliaAst from "../../ophelia/ast";
+import { templateString } from "../../ophelia/ast";
 import * as HoratioAst from "../../horatio/ast";
-import { templateString } from "../../test-helpers";
 
 describe("Yorick - Multi-variable stage/unstage", () => {
   const generate = (ast: OpheliaAst.Program) => {

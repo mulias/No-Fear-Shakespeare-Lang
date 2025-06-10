@@ -1,7 +1,7 @@
 import fs from "fs";
 import path from "path";
 import { Falstaff } from "../falstaff";
-import { prettyPrint as opheliaPrettyPrint } from "../ophelia";
+import { prettyPrint as opheliaPrettyPrint } from "../ophelia/prettyPrint";
 import Horatio from "../horatio/compiler";
 import { IO } from "../horatio/types";
 

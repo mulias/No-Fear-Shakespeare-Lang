@@ -1,4 +1,5 @@
-import { Ophelia, prettyPrint as prettyPrintNFSPL } from "../ophelia";
+import { Ophelia } from "../ophelia";
+import { prettyPrint as prettyPrintNFSPL } from "../ophelia/prettyPrint";
 import { Yorick } from "../yorick";
 import Horatio from "../horatio/horatio";
 import { Falstaff } from "../falstaff";

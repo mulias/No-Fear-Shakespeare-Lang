@@ -6,7 +6,7 @@ import { Program as OpheliaAst } from "../ophelia/ast";
 import { Yorick } from "../yorick";
 import { Falstaff } from "../falstaff";
 import { prettyPrint } from "../horatio/prettyPrint";
-import { prettyPrint as opheliaPrettyPrint } from "../ophelia";
+import { prettyPrint as opheliaPrettyPrint } from "../ophelia/prettyPrint";
 import Horatio from "../horatio/compiler";
 import { Program as HoratioAst } from "../horatio/ast";
 import { IO } from "../horatio/types";

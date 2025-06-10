@@ -1,5 +1,6 @@
 import { Possum } from "../possum";
-import { Ophelia, prettyPrint as opheliaPrettyPrint } from "../ophelia";
+import { Ophelia } from "../ophelia";
+import { prettyPrint as opheliaPrettyPrint } from "../ophelia/prettyPrint";
 import { Yorick } from "../yorick";
 import { prettyPrint } from "../horatio/prettyPrint";
 import { Falstaff } from "../falstaff";

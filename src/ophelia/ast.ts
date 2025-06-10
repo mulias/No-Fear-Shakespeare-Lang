@@ -1,7 +1,3 @@
-import * as PossumAst from "../possum/ast";
-
-export type TemplateString = PossumAst.TemplateString;
-
 export type Program = {
   type: "program";
   title?: TemplateString;
@@ -149,3 +145,33 @@ export type You = { type: "you" };
 export type VarId = string;
 
 export type LabelId = string;
+
+export type TemplateString = {
+  type: "template_string";
+  value: (TemplateVarSegment | TemplateStringSegment)[];
+};
+
+export type TemplateVarSegment = {
+  type: "template_var_segment";
+  value: string;
+};
+
+export type TemplateStringSegment = {
+  type: "template_string_segment";
+  value: string;
+};
+
+/**
+ * Helper function to create a simple template string from a plain string
+ */
+export function templateString(text: string): TemplateString {
+  return {
+    type: "template_string",
+    value: [
+      {
+        type: "template_string_segment",
+        value: text,
+      },
+    ],
+  };
+}

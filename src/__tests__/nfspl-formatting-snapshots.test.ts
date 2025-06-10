@@ -1,7 +1,8 @@
 import fs from "fs";
 import path from "path";
 import { Possum } from "../possum";
-import { Ophelia, prettyPrint } from "../ophelia";
+import { Ophelia } from "../ophelia";
+import { prettyPrint } from "../ophelia/prettyPrint";
 
 describe("Example File Snapshots", () => {
   const examplesDir = path.join(__dirname, "examples");

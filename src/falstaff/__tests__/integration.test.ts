@@ -1,6 +1,6 @@
 import Horatio from "../../horatio/horatio";
 import { Falstaff } from "../index";
-import { prettyPrint } from "../../ophelia";
+import { prettyPrint } from "../../ophelia/prettyPrint";
 import type { IO } from "../../horatio/types";
 
 // Mock IO for testing
